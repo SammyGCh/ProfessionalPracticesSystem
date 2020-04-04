@@ -1,0 +1,8 @@
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\bin\Debug\netstandard2.0\BusinessDomain.deps.json
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\bin\Debug\netstandard2.0\BusinessDomain.dll
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\bin\Debug\netstandard2.0\BusinessDomain.pdb
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\obj\Debug\netstandard2.0\BusinessDomain.csprojAssemblyReference.cache
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\obj\Debug\netstandard2.0\BusinessDomain.AssemblyInfoInputs.cache
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\obj\Debug\netstandard2.0\BusinessDomain.AssemblyInfo.cs
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\obj\Debug\netstandard2.0\BusinessDomain.dll
+D:\1- INFORMACIÓN\UV\CUARTO SEMESTRE\PRINCIPIOS DE CONSTRUCCIÓN\PROYECTO FINAL\ProfessionalPracticesSystem\BusinessDomain\BusinessDomain\obj\Debug\netstandard2.0\BusinessDomain.pdb
