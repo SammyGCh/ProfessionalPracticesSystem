@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccess.Interfaces
+namespace DataAccess.Implementation
 {
-    interface IProjectDao
+    class ProjectDaoImp
     {
     }
 }

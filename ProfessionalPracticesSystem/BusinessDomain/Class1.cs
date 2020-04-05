@@ -2,7 +2,7 @@
 
 namespace BusinessDomain
 {
-    public class Project
+    public class Class1
     {
     }
 }
