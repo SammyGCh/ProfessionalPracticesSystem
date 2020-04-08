@@ -12,5 +12,5 @@ namespace DataAccess.Interfaces
     {
         List <IndigenousLanguage> GetAllIndigenousLanguages();
         IndigenousLanguage GetIndigenousLanguage(int idIndigenousLanguage);
-}
+    }
 }
