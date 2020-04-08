@@ -9,11 +9,21 @@ namespace BusinessDomain
 {
     public class OrganizationSector
     {
+        private int idOrganizationSector;
         private String name;
+        private const int UNDEFINED = 0;
+        private const String UNKNOWN = "";
 
         public OrganizationSector()
         {
-            name = "";
+            idOrganizationSector = UNDEFINED;
+            name = UNKNOWN;
+        }
+
+        public int IdOrganizationSector
+        {
+            get;
+            set;
         }
 
         public String Name

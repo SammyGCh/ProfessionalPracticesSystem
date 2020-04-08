@@ -48,13 +48,12 @@ namespace DataAccess.Implementation
                 {
                     organizationSector = new OrganizationSector
                     {
+                        IdOrganizationSector = reader.GetInt32(0),
                         Name = reader.GetString(1)
                     };
 
                     organizationSectors.Add(organizationSector);
                 }
-
-                reader.Close();
             }
             catch (MySqlException ex)
             {
@@ -62,6 +61,7 @@ namespace DataAccess.Implementation
             }
             finally
             {
+                reader.Close();
                 connection.CloseConnection();
             }
 
@@ -92,11 +92,10 @@ namespace DataAccess.Implementation
                 {
                     organizationSector = new OrganizationSector
                     {
+                        IdOrganizationSector = reader.GetInt32(0),
                         Name = reader.GetString(1)
                     };
                 }
-
-                reader.Close();
             }
             catch(MySqlException ex)
             {
@@ -104,6 +103,7 @@ namespace DataAccess.Implementation
             }
             finally
             {
+                reader.Close();
                 connection.CloseConnection();
             }
 
