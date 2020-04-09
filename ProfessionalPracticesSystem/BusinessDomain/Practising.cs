@@ -8,81 +8,89 @@ namespace BusinessDomain
 {
     public class Practising
     {
+        private int idPractising;
         private String matricula;
         private String password;
         private float grade;
-        private bool speakIndigenousLanguage;
         private String gender;
         private String names;
         private String lastName;
-        private int idIndigenousLanguage;
-        private int idProject;
-        private int idAcademic;
-        private String personalNumber;
+        private IndigenousLanguage speaks;
+        private Project assigned;
+        private String status;
+        private Academic instructed;
+        private int UNDEFINED = 0;
+        private String STRUNDEFINED = "";
 
-        public String _matricula
+        public Practising()
+        {
+            idPractising = UNDEFINED;
+            matricula = STRUNDEFINED;
+            password = STRUNDEFINED;
+            grade = UNDEFINED;
+            gender = STRUNDEFINED;
+            names = STRUNDEFINED;
+            lastName = STRUNDEFINED;
+            status = STRUNDEFINED;
+            speaks = null;
+            assigned = null;
+            instructed = null;
+        }
+
+        public int IdPractising
+        {
+            get { return idPractising; }
+            set { idPractising = value; }
+        }
+        public String Matricula
         {
             get { return matricula; }
             set { matricula = value; }
         }
-
-        public String _password
+        public String Password
         {
             get { return password; }
             set { password = value; }
         }
-
-        public float _grade
+        public float Grade
         {
             get { return grade; }
             set { grade = value; }
         }
-
-        public bool _speakIndigenousLanguage
-        {
-            get { return speakIndigenousLanguage; }
-            set { speakIndigenousLanguage = value; }
-        }
-
-        public String _gender
+        public String Gender
         {
             get { return gender; }
             set { gender = value; }
         }
-        public String _names
+        public String Names
         {
             get { return names; }
             set { names = value; }
         }
-
-        public String _lastName
+        public String LastName
         {
             get { return lastName; }
             set { lastName = value; }
         }
-
-        public int _idIndigenousLanguage
+        public String Status
         {
-            get { return idIndigenousLanguage; }
-            set { idIndigenousLanguage = value; }
+            get { return status; }
+            set { status = value; }
         }
-
-        public int _idProject
+        public IndigenousLanguage Speaks
         {
-            get { return idProject; }
-            set { idProject = value; }
+            get { return speaks; }
+            set { speaks = value; }
         }
-
-        public int _idAcademic
+        public Project Assigned
         {
-            get { return idAcademic; }
-            set { idAcademic = value; }
+            get { return assigned; }
+            set { assigned = value; }
         }
-
-        public String _personalNumber
+        public Academic Instructed
         {
-            get { return personalNumber; }
-            set { personalNumber = value; }
+            get { return instructed; }
+            set { instructed = value; }
         }
     }
 }

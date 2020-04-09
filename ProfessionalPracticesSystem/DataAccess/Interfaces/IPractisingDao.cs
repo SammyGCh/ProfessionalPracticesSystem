@@ -4,16 +4,16 @@
  */
 using System.Collections.Generic;
 using BusinessDomain;
+using System;
 
 namespace DataAccess.Interfaces
 {
     public interface IPractisingDao
     {
-        List<Practising> getAllPractising();
-        List<Practising> getAllPractisingByAcademic(Academic academic);
-        List<Practising> getAllPractisingByindigenousLanguage(Academic academic);
-        Practising getPtactising(Practising practising);
-        bool deletePractising(Practising practising);
-        bool savePractising();
+        List<Practising> GetAllPractising();
+        List<Practising> GetAllPractisingByindigenousLanguage();
+        Practising GetPractising(int idPractising);
+        bool SavePractising(Practising practising);
+        bool DeletePractising(int idPractising);
     }
 }

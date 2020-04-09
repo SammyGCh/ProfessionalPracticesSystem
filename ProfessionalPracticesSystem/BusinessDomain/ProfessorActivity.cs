@@ -12,50 +12,54 @@ namespace BusinessDomain
         private String description;
         private String name;
         private int valueActivity;
-        private DateTime performanceDate;
-        private int idAcademic;
-        private String personalNumber;
+        private DateTime? performanceDate;
+        private Academic generatedBy;
+        private int UNDEFINED = 0;
+        private String STRUNDEFINED = "";
 
-        public int _idProfessorActivity
+        public ProfessorActivity()
+        {
+            idProfessorActivity = UNDEFINED;
+            description = STRUNDEFINED;
+            name = STRUNDEFINED;
+            valueActivity = UNDEFINED;
+            performanceDate = null;
+            generatedBy = null;
+        }
+        public int IdProfessorActivity
         {
             get { return idProfessorActivity; }
             set { idProfessorActivity = value; }
         }
 
-        public String _description
+        public String Description
         {
             get { return description; }
             set { description = value; }
         }
 
-        public String _name
+        public String Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        public int _valueActivity
+        public int ValueActivity
         {
             get { return valueActivity; }
             set { valueActivity = value; }
         }
 
-        public DateTime _performanceDate
+        public DateTime? PerformanceDate
         {
             get { return performanceDate; }
             set { performanceDate = value; }
         }
 
-        public int _idAcademic
+        public Academic GeneratedBy
         {
-            get { return idAcademic; }
-            set { idAcademic = value; }
-        }
-
-        public String _personalNumber
-        {
-            get { return personalNumber; }
-            set { personalNumber = value; }
+            get { return generatedBy; }
+            set { generatedBy = value; }
         }
     }
 }

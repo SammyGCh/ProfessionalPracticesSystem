@@ -15,61 +15,81 @@ namespace BusinessDomain
         private String lastName;
         private String gender;
         private String password;
-        private int idAcademicType;
+        private AcademicType belongTo;
         private String shift;
+        private String status;
+        private int UNDEFINED = 0;
+        private String STRUNDEFINED = "";
 
-        public int _idAcademic
+        public Academic()
+        {
+            idAcademic = UNDEFINED;
+            personalNumber = STRUNDEFINED;
+            names = STRUNDEFINED;
+            cubicle = STRUNDEFINED;
+            lastName = STRUNDEFINED;
+            gender = STRUNDEFINED;
+            password = STRUNDEFINED;
+            belongTo = null;
+            shift = STRUNDEFINED;
+            status = STRUNDEFINED;
+
+        }
+        public int IdAcademic
         {
             get { return idAcademic; }
             set { idAcademic = value; }
         }
 
-        public String _personalNumber
+        public String PersonalNumber
         {
             get { return personalNumber; }
             set { personalNumber = value; }
         }
 
-        public String _names
+        public String Names
         {
             get { return names; }
             set { names = value; }
         }
 
-        public String _cubicle
+        public String Cubicle
         {
             get { return cubicle; }
             set { cubicle = value; }
         }
 
-        public String _lastName
+        public String LastName
         {
             get { return lastName; }
             set { lastName = value; }
         }
 
-        public String _gender
+        public String Gender
         {
             get { return gender; }
             set { gender = value; }
         }
 
-        public String _password
+        public String Password
         {
             get { return password; }
             set { password = value; }
         }
-
-        public int _idAcademicType
+        public AcademicType BelongTo
         {
-            get { return idAcademicType; }
-            set { idAcademicType = value; }
+            get { return belongTo; }
+            set { belongTo = value; }
         }
-
-        public String _shift
+        public String Shift
         {
             get { return shift; }
             set { shift = value; }
+        }
+        public String Status
+        {
+            get { return status; }
+            set { status = value; }
         }
     }
 }

@@ -10,10 +10,9 @@ namespace DataAccess.Interfaces
 {
     public interface IAcademicDao
     {
-        List<Academic> getAllAcademic();
-        List<Academic> getAllAcademicByType();
-        Academic getAcademic(Academic academic);
-        bool saveAcademic(Academic academic);
-        bool deleteAcademic(Academic academic);
+        List<Academic> GetAllAcademic();
+        Academic GetAcademic(int idAcademic);
+        bool SaveAcademic(Academic academic);
+        bool DeleteAcademic(int idAcademic);
     }
 }

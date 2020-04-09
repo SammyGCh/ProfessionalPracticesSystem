@@ -10,14 +10,21 @@ namespace BusinessDomain
     {
         private int idDocumentType;
         private String name;
+        private int UNDEFINED = 0;
+        private String STRUNDEFINED = "";
 
-        public int _idDocumentType
+        public DocumentType()
+        {
+            idDocumentType = UNDEFINED;
+            name = STRUNDEFINED;
+        }
+        public int IdDocumentType
         {
             get { return idDocumentType; }
             set { idDocumentType = value; }
         }
 
-        public String _name
+        public String Name
         {
             get { return name; }
             set { name = value; }
