@@ -70,6 +70,7 @@ namespace DataAccess.Implementation
             }
             finally
             {
+                reader.Close();
                 connection.CloseConnection();
             }
 
