@@ -22,6 +22,8 @@ namespace DataAccess.Implementation
         private MySqlDataReader reader;
 		private ProjectDaoImp derivedFrom;
 		private PractisingDaoImp generatedBy;
+        private static readonly log4net.ILog log =
+        log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     	public MensualReportDAOImp()
     	{
@@ -194,7 +196,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //return ;
+                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
             }
             finally
             {
@@ -238,7 +240,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //return ;
+                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
             }
             finally
             {
@@ -285,7 +287,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //return ;
+               log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
             }
             finally
             {
@@ -332,7 +334,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //return ;
+               log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
             }
             finally
             {
