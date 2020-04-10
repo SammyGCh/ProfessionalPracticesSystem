@@ -34,50 +34,50 @@ namespace BusinessDomain
 
         public int IdLinkedOrganization
         {
-            get;
-            set;
+            get => idLinkedOrganization;
+            set => idLinkedOrganization = value;
         }
 
         public String City
         {
-            get;
-            set;
+            get => city;
+            set => city = value;
         }
 
         public String Email
         {
-            get;
-            set;
+            get => email;
+            set => email = value;
         }
 
         public String State
         {
-            get;
-            set;
+            get => state;
+            set => state = value;
         }
 
         public String Name
         {
-            get;
-            set;
+            get => name;
+            set => name = value;
         }
 
         public String TelephoneNumber
         {
-            get;
-            set;
+            get => telephoneNumber;
+            set => telephoneNumber = value;
         }
 
         public String Address
         {
-            get;
-            set;
+            get => address;
+            set => address = value;
         }
 
         public OrganizationSector BelongsTo
         {
-            get;
-            set;
+            get => belongsTo;
+            set => belongsTo = value;
         }
     }
 }

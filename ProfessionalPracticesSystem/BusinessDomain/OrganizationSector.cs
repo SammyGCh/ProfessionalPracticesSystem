@@ -22,14 +22,14 @@ namespace BusinessDomain
 
         public int IdOrganizationSector
         {
-            get;
-            set;
+            get => idOrganizationSector;
+            set => idOrganizationSector = value;
         }
 
         public String Name
         {
-            get;
-            set;
+            get => name;
+            set => name = value;
         }
     }
 }
