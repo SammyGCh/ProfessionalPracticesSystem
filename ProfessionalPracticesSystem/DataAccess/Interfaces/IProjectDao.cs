@@ -9,16 +9,16 @@ using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface IProjectDao
+    public interface IProjectDAO
     {
-        Boolean SaveProject(Project project);
-        Boolean SaveProjectActivity(ProjectActivity projectActivity, String projectName);
+        bool SaveProject(Project project);
+        bool SaveProjectActivity(ProjectActivity projectActivity, String projectName);
         List<Project> GetAllProjects();
         Project GetProject(int idProject);
         Project GetProject(String name);
         List<ProjectActivity> GetAllProjectActivities(int idProject);
-        Boolean UpdateProject(Project projectUpdated);
-        Boolean UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject);
-        Boolean DeleteProject(int idProject);
+        bool UpdateProject(Project projectUpdated);
+        bool UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject);
+        bool DeleteProject(int idProject);
     }
 }

@@ -11,14 +11,6 @@ namespace BusinessDomain
     {
         private int idOrganizationSector;
         private String name;
-        private const int UNDEFINED = 0;
-        private const String UNKNOWN = "";
-
-        public OrganizationSector()
-        {
-            idOrganizationSector = UNDEFINED;
-            name = UNKNOWN;
-        }
 
         public int IdOrganizationSector
         {

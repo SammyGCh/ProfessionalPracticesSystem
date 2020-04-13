@@ -8,7 +8,7 @@ using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface IDevelopmentStageDao
+    public interface IDevelopmentStageDAO
     {
         List<DevelopmentStage> GetAllDevelopmentStages();
         DevelopmentStage GetDevelopmentStage(int idDevelopmentStage);

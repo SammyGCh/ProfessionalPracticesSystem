@@ -9,13 +9,13 @@ using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface ILinkedOrganizationDao
+    public interface ILinkedOrganizationDAO
     {
-        Boolean SaveLinkedOrganization(LinkedOrganization linkedOrganization);
+        bool SaveLinkedOrganization(LinkedOrganization linkedOrganization);
         List<LinkedOrganization> GetAllLinkedOrganizations();
         LinkedOrganization GetLinkedOrganization(int idLinkedOrganization);
         LinkedOrganization GetLinkedOrganization(String name);
         List<LinkedOrganization> GetLinkedOrganizationBySector(OrganizationSector organizationSector);
-        Boolean UpdateLinkedOrganization(LinkedOrganization linkedOrganizationUpdated);
+        bool UpdateLinkedOrganization(LinkedOrganization linkedOrganizationUpdated);
     }
 }

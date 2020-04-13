@@ -10,7 +10,7 @@ using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface IOrganizationSectorDao
+    public interface IOrganizationSectorDAO
     {
         List<OrganizationSector> GetAllOrganizationSectors();
         OrganizationSector GetOrganizationSector(int idOrganizationSector);

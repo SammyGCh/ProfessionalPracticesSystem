@@ -12,11 +12,11 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class LinkedOrganizationDaoImp : ILinkedOrganizationDao
+    public class LinkedOrganizationDAO : ILinkedOrganizationDAO
     {
         private List<LinkedOrganization> linkedOrganizations;
         private LinkedOrganization linkedOrganization;
-        private OrganizationSectorDaoImp organizationSectorHandle;
+        private OrganizationSectorDAO organizationSectorHandle;
         private DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
@@ -24,20 +24,20 @@ namespace DataAccess.Implementation
         private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public LinkedOrganizationDaoImp()
+        public LinkedOrganizationDAO()
         {
             linkedOrganizations = null;
             linkedOrganization = null;
-            organizationSectorHandle = new OrganizationSectorDaoImp();
+            organizationSectorHandle = new OrganizationSectorDAO();
             connection = new DataBaseConnection();
             mysqlConnection = null;
             query = null;
             reader = null;
         }
 
-        public Boolean SaveLinkedOrganization(LinkedOrganization linkedOrganization)
+        public bool SaveLinkedOrganization(LinkedOrganization linkedOrganization)
         {
-            Boolean isSaved = false;
+            bool isSaved = false;
 
             try
             {
@@ -90,7 +90,8 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                return isSaved;
             }
             finally
             {
@@ -133,7 +134,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -180,7 +181,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -227,7 +228,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -278,7 +279,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -289,9 +290,9 @@ namespace DataAccess.Implementation
             return linkedOrganizations;
         }
 
-        public Boolean UpdateLinkedOrganization(LinkedOrganization linkedOrganizationUpdated)
+        public bool UpdateLinkedOrganization(LinkedOrganization linkedOrganizationUpdated)
         {
-            Boolean isUpdated = false;
+            bool isUpdated = false;
 
             try
             {
@@ -351,7 +352,8 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                return isUpdated;
             }
             finally
             {

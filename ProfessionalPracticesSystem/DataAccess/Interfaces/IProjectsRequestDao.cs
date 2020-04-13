@@ -3,16 +3,15 @@
     Author(s): Sammy Guadarrama Chavez
  */
 
-using System;
 using System.Collections.Generic;
 using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface IProjectsRequestDao
+    public interface IProjectsRequestDAO
     {
-        Boolean SaveProjectsRequest(ProjectsRequest projectsRequest);
+        bool SaveProjectsRequest(ProjectsRequest projectsRequest);
         List<ProjectsRequest> GetAllProjectsRequest();
-        Boolean UpdateProjectsRequest(int idProjectsRequest);
+        bool UpdateProjectsRequest(int idProjectsRequest);
     }
 }

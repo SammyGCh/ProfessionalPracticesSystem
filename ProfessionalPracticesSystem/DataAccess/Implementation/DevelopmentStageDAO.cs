@@ -11,53 +11,53 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class OrganizationSectorDaoImp : IOrganizationSectorDao
+    public class DevelopmentStageDAO : IDevelopmentStageDAO
     {
-        private List<OrganizationSector> organizationSectors;
-        private OrganizationSector organizationSector;
+        private List<DevelopmentStage> developmentStages;
+        private DevelopmentStage developmentStage;
         private DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log = 
+        private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public OrganizationSectorDaoImp()
+        public DevelopmentStageDAO()
         {
-            organizationSectors = null;
-            organizationSector = null;
+            developmentStages = null;
+            developmentStage = null;
             connection = new DataBaseConnection();
             mysqlConnection = null;
             query = null;
             reader = null;
         }
 
-        public List<OrganizationSector> GetAllOrganizationSectors()
+        public List<DevelopmentStage> GetAllDevelopmentStages()
         {
             try
             {
                 mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection) 
+                query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM OrganizationSector"
+                    CommandText = "SELECT * FROM DevelopmentStage"
                 };
 
                 reader = query.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    organizationSector = new OrganizationSector
+                    developmentStage = new DevelopmentStage
                     {
-                        IdOrganizationSector = reader.GetInt32(0),
+                        IdDevelopmentStage = reader.GetInt32(0),
                         Name = reader.GetString(1)
                     };
 
-                    organizationSectors.Add(organizationSector);
+                    developmentStages.Add(developmentStage);
                 }
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: ", ex);
             }
             finally
             {
@@ -65,41 +65,39 @@ namespace DataAccess.Implementation
                 connection.CloseConnection();
             }
 
-
-            return organizationSectors;
+            return developmentStages;
         }
 
-        public OrganizationSector GetOrganizationSector(int idOrganizationSector)
+        public DevelopmentStage GetDevelopmentStage(int idDevelopmentStage)
         {
             try
             {
                 mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection) 
+                query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM OrganizationSector WHERE idOrganizationSector = @idOrganizationSector"
+                    CommandText = "SELECT * FROM DevelopmentStage WHERE idDevelopmentStage = @idDevelopmentStage"
                 };
-                
-                MySqlParameter idOrgSector = new MySqlParameter("@idOrganizationSector", MySqlDbType.Int32, 32)
+                MySqlParameter idDevStage = new MySqlParameter("@idDevelopmentStage", MySqlDbType.Int32, 32)
                 {
-                    Value = idOrganizationSector
+                    Value = idDevelopmentStage
                 };
 
-                query.Parameters.Add(idOrgSector);
+                query.Parameters.Add(idDevStage);
 
                 reader = query.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    organizationSector = new OrganizationSector
+                    developmentStage = new DevelopmentStage
                     {
-                        IdOrganizationSector = reader.GetInt32(0),
+                        IdDevelopmentStage = reader.GetInt32(0),
                         Name = reader.GetString(1)
                     };
                 }
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: ", ex);
             }
             finally
             {
@@ -107,7 +105,7 @@ namespace DataAccess.Implementation
                 connection.CloseConnection();
             }
 
-            return organizationSector;
+            return developmentStage;
         }
     }
 }

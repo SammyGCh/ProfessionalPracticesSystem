@@ -32,34 +32,6 @@ namespace BusinessDomain
         private LinkedOrganization proposedBy;
         private List<ProjectActivity> projectActivities;
 
-        private const int UNDEFINED = 0;
-        private const String UNKNOWN = "";
-        private const String INITIAL_STATE = "ACTIVO";
-
-        public Project()
-        {
-            idProject = UNDEFINED;
-            name = UNKNOWN;
-            directUsersNumber = UNDEFINED;
-            indirectUsersNumber = UNDEFINED;
-            duration = UNDEFINED;
-            generalGoal = UNKNOWN;
-            responsabilities = UNKNOWN;
-            mediateGoals = UNKNOWN;
-            inmediateGoals = UNKNOWN;
-            metology = UNKNOWN;
-            status = INITIAL_STATE;
-            neededResources = UNKNOWN;
-            practisingNumber = UNDEFINED;
-            generalDescription = UNKNOWN;
-            responsableName = UNKNOWN;
-            responsableCharge = UNKNOWN;
-            responsableEmail = UNKNOWN;
-            responsableTelephone = UNKNOWN;
-            belongsTo = null;
-            proposedBy = null;
-        }
-
         public int IdProject
         {
             get => idProject;

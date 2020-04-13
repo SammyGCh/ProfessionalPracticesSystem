@@ -17,20 +17,6 @@ namespace BusinessDomain
         private String telephoneNumber;
         private String address;
         private OrganizationSector belongsTo;
-        private const int UNDEFINED = 0;
-        private const String UNKNOWN = "";
-
-        public LinkedOrganization()
-        {
-            idLinkedOrganization = UNDEFINED;
-            city = UNKNOWN;
-            email = UNKNOWN;
-            state = "Veracruz";
-            name = UNKNOWN;
-            telephoneNumber = UNKNOWN;
-            address = UNKNOWN;
-            belongsTo = null;
-        }
 
         public int IdLinkedOrganization
         {

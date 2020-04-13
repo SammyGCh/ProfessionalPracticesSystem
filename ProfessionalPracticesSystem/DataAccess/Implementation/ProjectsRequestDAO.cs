@@ -11,7 +11,7 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class ProjectsRequestDaoImp : IProjectsRequestDao
+    public class ProjectsRequestDAO : IProjectsRequestDAO
     {
         private List<ProjectsRequest> projectsRequests;
         private ProjectsRequest projectsRequest;
@@ -22,7 +22,7 @@ namespace DataAccess.Implementation
         private static readonly log4net.ILog log =
            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ProjectsRequestDaoImp()
+        public ProjectsRequestDAO()
         {
             projectsRequests = null;
             connection = new DataBaseConnection();
@@ -34,8 +34,8 @@ namespace DataAccess.Implementation
         public List<ProjectsRequest> GetAllProjectsRequest()
         {
             projectsRequests = new List<ProjectsRequest>();
-            ProjectDaoImp projectsHandler = new ProjectDaoImp();
-            PractisingDaoImp practisingHandler = new PractisingDaoImp();
+            ProjectDAO projectsHandler = new ProjectDAO();
+            PractitionerDAO practisingHandler = new PractitionerDAO();
 
             try
             {
@@ -66,7 +66,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
             }
             finally
             {
@@ -101,7 +101,8 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implemation/ProjectsRequestDAO: ", ex);
+                return isSaved;
             }
             finally
             {
@@ -131,7 +132,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
             }
             finally
             {

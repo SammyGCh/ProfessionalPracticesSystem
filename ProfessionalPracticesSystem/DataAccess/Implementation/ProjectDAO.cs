@@ -12,7 +12,7 @@ using BusinessDomain;
 
 namespace DataAccess.Implementation
 {
-    public class ProjectDaoImp : IProjectDao
+    public class ProjectDAO : IProjectDAO
     {
         private List<Project> projects;
         private Project project;
@@ -20,12 +20,12 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private DevelopmentStageDaoImp developmentStageHandler;
-        private LinkedOrganizationDaoImp linkedOrganizationHandler;
+        private DevelopmentStageDAO developmentStageHandler;
+        private LinkedOrganizationDAO linkedOrganizationHandler;
         private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ProjectDaoImp()
+        public ProjectDAO()
         {
             projects = null;
             project = null;
@@ -37,9 +37,9 @@ namespace DataAccess.Implementation
             linkedOrganizationHandler = null;
         }
 
-        public Boolean SaveProject(Project project)
+        public bool SaveProject(Project project)
         {
-            Boolean isSaved = false;
+            bool isSaved = false;
 
             try
             {
@@ -79,7 +79,8 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+                return isSaved;
             }
             finally
             {
@@ -89,9 +90,9 @@ namespace DataAccess.Implementation
             return isSaved;
         }
 
-        public Boolean SaveProjectActivity(ProjectActivity projectActivity, String projectName)
+        public bool SaveProjectActivity(ProjectActivity projectActivity, String projectName)
         {
-            Boolean isSaved = false;
+            bool isSaved = false;
 
             try
             {
@@ -113,7 +114,8 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+                return isSaved;
             }
             finally
             {
@@ -126,8 +128,8 @@ namespace DataAccess.Implementation
         public List<Project> GetAllProjects()
         {
             projects = new List<Project>();
-            developmentStageHandler = new DevelopmentStageDaoImp();
-            linkedOrganizationHandler = new LinkedOrganizationDaoImp();
+            developmentStageHandler = new DevelopmentStageDAO();
+            linkedOrganizationHandler = new LinkedOrganizationDAO();
 
             try
             {
@@ -171,7 +173,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
             }
             finally
             {
@@ -184,8 +186,8 @@ namespace DataAccess.Implementation
 
         public Project GetProject(int idProject)
         {
-            developmentStageHandler = new DevelopmentStageDaoImp();
-            linkedOrganizationHandler = new LinkedOrganizationDaoImp();
+            developmentStageHandler = new DevelopmentStageDAO();
+            linkedOrganizationHandler = new LinkedOrganizationDAO();
 
             try
             {
@@ -229,7 +231,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
             }
             finally
             {
@@ -242,8 +244,8 @@ namespace DataAccess.Implementation
 
         public Project GetProject(String name)
         {
-            developmentStageHandler = new DevelopmentStageDaoImp();
-            linkedOrganizationHandler = new LinkedOrganizationDaoImp();
+            developmentStageHandler = new DevelopmentStageDAO();
+            linkedOrganizationHandler = new LinkedOrganizationDAO();
 
             try
             {
@@ -287,7 +289,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
             }
             finally
             {
@@ -329,7 +331,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
             }
             finally
             {
@@ -340,9 +342,9 @@ namespace DataAccess.Implementation
             return projectActivities;
         }
 
-        public Boolean UpdateProject(Project projectUpdated)
+        public bool UpdateProject(Project projectUpdated)
         {
-            Boolean isUpdated = false;
+            bool isUpdated = false;
 
             try
             {
@@ -383,7 +385,8 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+                return isUpdated;
             }
             finally
             {
@@ -393,9 +396,9 @@ namespace DataAccess.Implementation
             return isUpdated;
         }
 
-        public Boolean UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject)
+        public bool UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject)
         {
-            Boolean isUpdated = false;
+            bool isUpdated = false;
 
             try
             {
@@ -416,7 +419,8 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+                return isUpdated;
             }
             finally
             {
@@ -426,9 +430,9 @@ namespace DataAccess.Implementation
             return isUpdated;
         }
 
-        public Boolean DeleteProject(int idProject)
+        public bool DeleteProject(int idProject)
         {
-            Boolean isDeleted = false;
+            bool isDeleted = false;
 
             try
             {
@@ -446,7 +450,8 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong!: ", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+                return isDeleted;
             }
             finally
             {

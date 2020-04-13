@@ -13,16 +13,6 @@ namespace BusinessDomain
         private String name;
         private String month;
 
-        private const int UNDEFINED = 0;
-        private const String UNKNOWN = "";
-
-        public ProjectActivity()
-        {
-            idProjectActivity = UNDEFINED;
-            name = UNKNOWN;
-            month = UNKNOWN;
-        }
-
         public int IdProjectActivity
         {
             get => idProjectActivity;
