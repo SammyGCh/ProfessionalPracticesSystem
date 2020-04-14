@@ -1,6 +1,6 @@
 /*
         Date: 08/04/2020                               
-        Author:Cesar Sergio Martinez Palacios
+        Author: Cesar Sergio Martinez Palacios
  */
  
 using BusinessDomain;
@@ -11,6 +11,6 @@ namespace DataAccess.Interfaces
     public interface IAcademicTypeDAO
     {
         List <AcademicType> GetAllAcademicTypes();
-        AcademicType GetAcademicType(int idAcademicType);
+        AcademicType GetTypeById(int idAcademicType);
     }
 }
