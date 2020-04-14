@@ -80,7 +80,6 @@ namespace DataAccess.Implementation
             catch(MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
-                return isSaved;
             }
             finally
             {
@@ -115,7 +114,6 @@ namespace DataAccess.Implementation
             catch(MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
-                return isSaved;
             }
             finally
             {
@@ -386,7 +384,6 @@ namespace DataAccess.Implementation
             catch(MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
-                return isUpdated;
             }
             finally
             {
@@ -420,7 +417,6 @@ namespace DataAccess.Implementation
             catch(MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
-                return isUpdated;
             }
             finally
             {
@@ -451,7 +447,6 @@ namespace DataAccess.Implementation
             catch(MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
-                return isDeleted;
             }
             finally
             {

@@ -91,7 +91,6 @@ namespace DataAccess.Implementation
             catch(MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
-                return isSaved;
             }
             finally
             {
@@ -126,7 +125,7 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(4),
                         TelephoneNumber = reader.GetString(5),
                         Address = reader.GetString(6),
-                        BelongsTo = organizationSectorHandle.GetOrganizationSector(reader.GetInt32(7))
+                        BelongsTo = organizationSectorHandle.GetOrganizationSectorById(reader.GetInt32(7))
                     };
 
                     linkedOrganizations.Add(linkedOrganization);
@@ -175,7 +174,7 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(4),
                         TelephoneNumber = reader.GetString(5),
                         Address = reader.GetString(6),
-                        BelongsTo = organizationSectorHandle.GetOrganizationSector(reader.GetInt32(7))
+                        BelongsTo = organizationSectorHandle.GetOrganizationSectorById(reader.GetInt32(7))
                     };
                 }
             }
@@ -222,7 +221,7 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(4),
                         TelephoneNumber = reader.GetString(5),
                         Address = reader.GetString(6),
-                        BelongsTo = organizationSectorHandle.GetOrganizationSector(reader.GetInt32(7))
+                        BelongsTo = organizationSectorHandle.GetOrganizationSectorById(reader.GetInt32(7))
                     };
                 }
             }
@@ -271,7 +270,7 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(4),
                         TelephoneNumber = reader.GetString(5),
                         Address = reader.GetString(6),
-                        BelongsTo = organizationSectorHandle.GetOrganizationSector(reader.GetInt32(7))
+                        BelongsTo = organizationSectorHandle.GetOrganizationSectorById(reader.GetInt32(7))
                     };
 
                     linkedOrganizations.Add(linkedOrganization);
@@ -353,7 +352,6 @@ namespace DataAccess.Implementation
             catch(MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
-                return isUpdated;
             }
             finally
             {

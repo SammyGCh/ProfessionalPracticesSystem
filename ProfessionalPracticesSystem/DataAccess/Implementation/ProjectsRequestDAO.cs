@@ -56,10 +56,10 @@ namespace DataAccess.Implementation
                         Date = reader.GetString(2)
                     };
 
-                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProject(reader.GetInt32(3)));
-                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProject(reader.GetInt32(4)));
-                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProject(reader.GetInt32(5)));
-                    projectsRequest.RequestedBy = practisingHandler.GetPractising(reader.GetInt32(6));
+                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(3)));
+                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(4)));
+                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(5)));
+                    projectsRequest.RequestedBy = practisingHandler.GetPractitionerById(reader.GetInt32(6));
 
                     projectsRequests.Add(projectsRequest);
                 }
@@ -102,7 +102,6 @@ namespace DataAccess.Implementation
             catch (MySqlException ex)
             {
                 log.Error("Something went wrong in DataAccess/Implemation/ProjectsRequestDAO: ", ex);
-                return isSaved;
             }
             finally
             {
