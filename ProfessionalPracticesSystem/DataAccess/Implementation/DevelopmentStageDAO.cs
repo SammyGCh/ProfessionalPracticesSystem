@@ -68,7 +68,7 @@ namespace DataAccess.Implementation
             return developmentStages;
         }
 
-        public DevelopmentStage GetDevelopmentStage(int idDevelopmentStage)
+        public DevelopmentStage GetDevelopmentStageById(int idDevelopmentStage)
         {
             try
             {

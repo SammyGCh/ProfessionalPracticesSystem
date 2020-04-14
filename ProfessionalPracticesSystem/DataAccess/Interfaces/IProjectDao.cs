@@ -14,8 +14,8 @@ namespace DataAccess.Interfaces
         bool SaveProject(Project project);
         bool SaveProjectActivity(ProjectActivity projectActivity, String projectName);
         List<Project> GetAllProjects();
-        Project GetProject(int idProject);
-        Project GetProject(String name);
+        Project GetProjectById(int idProject);
+        Project GetProjectByName(String name);
         List<ProjectActivity> GetAllProjectActivities(int idProject);
         bool UpdateProject(Project projectUpdated);
         bool UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject);

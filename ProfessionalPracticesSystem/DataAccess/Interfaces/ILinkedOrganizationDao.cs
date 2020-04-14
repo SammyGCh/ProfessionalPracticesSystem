@@ -13,8 +13,8 @@ namespace DataAccess.Interfaces
     {
         bool SaveLinkedOrganization(LinkedOrganization linkedOrganization);
         List<LinkedOrganization> GetAllLinkedOrganizations();
-        LinkedOrganization GetLinkedOrganization(int idLinkedOrganization);
-        LinkedOrganization GetLinkedOrganization(String name);
+        LinkedOrganization GetLinkedOrganizationById(int idLinkedOrganization);
+        LinkedOrganization GetLinkedOrganizationByName(String name);
         List<LinkedOrganization> GetLinkedOrganizationBySector(OrganizationSector organizationSector);
         bool UpdateLinkedOrganization(LinkedOrganization linkedOrganizationUpdated);
     }

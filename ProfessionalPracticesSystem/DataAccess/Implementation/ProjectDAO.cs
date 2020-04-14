@@ -97,7 +97,7 @@ namespace DataAccess.Implementation
             try
             {
                 int idProject;
-                idProject = GetProject(projectName).IdProject;
+                idProject = GetProjectByName(projectName).IdProject;
 
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
@@ -163,8 +163,8 @@ namespace DataAccess.Implementation
                         ResponsableCharge = reader.GetString(15),
                         ResponsableEmail = reader.GetString(16),
                         ResponsableTelephone = reader.GetString(17),
-                        BelongsTo = developmentStageHandler.GetDevelopmentStage(reader.GetInt32(18)),
-                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganization(reader.GetInt32(19)),
+                        BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(18)),
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(19)),
                         ProjectActivities = GetAllProjectActivities(reader.GetInt32(0))
                     };
 
@@ -184,7 +184,7 @@ namespace DataAccess.Implementation
             return projects;
         }
 
-        public Project GetProject(int idProject)
+        public Project GetProjectById(int idProject)
         {
             developmentStageHandler = new DevelopmentStageDAO();
             linkedOrganizationHandler = new LinkedOrganizationDAO();
@@ -223,8 +223,8 @@ namespace DataAccess.Implementation
                         ResponsableCharge = reader.GetString(15),
                         ResponsableEmail = reader.GetString(16),
                         ResponsableTelephone = reader.GetString(17),
-                        BelongsTo = developmentStageHandler.GetDevelopmentStage(reader.GetInt32(18)),
-                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganization(reader.GetInt32(19)),
+                        BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(18)),
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(19)),
                         ProjectActivities = GetAllProjectActivities(idProject)
                     };
                 }
@@ -242,7 +242,7 @@ namespace DataAccess.Implementation
             return project;
         }
 
-        public Project GetProject(String name)
+        public Project GetProjectByName(String name)
         {
             developmentStageHandler = new DevelopmentStageDAO();
             linkedOrganizationHandler = new LinkedOrganizationDAO();
@@ -281,8 +281,8 @@ namespace DataAccess.Implementation
                         ResponsableCharge = reader.GetString(15),
                         ResponsableEmail = reader.GetString(16),
                         ResponsableTelephone = reader.GetString(17),
-                        BelongsTo = developmentStageHandler.GetDevelopmentStage(reader.GetInt32(18)),
-                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganization(reader.GetInt32(19)),
+                        BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(18)),
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(19)),
                         ProjectActivities = GetAllProjectActivities(reader.GetInt32(0))
                     };
                 }

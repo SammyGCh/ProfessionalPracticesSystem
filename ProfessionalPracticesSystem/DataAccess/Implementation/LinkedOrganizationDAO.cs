@@ -145,7 +145,7 @@ namespace DataAccess.Implementation
             return linkedOrganizations;
         }
 
-        public LinkedOrganization GetLinkedOrganization(int idLinkedOrganization)
+        public LinkedOrganization GetLinkedOrganizationById(int idLinkedOrganization)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace DataAccess.Implementation
             return linkedOrganization;
         }
 
-        public LinkedOrganization GetLinkedOrganization(String name)
+        public LinkedOrganization GetLinkedOrganizationByName(String name)
         {
             try
             {

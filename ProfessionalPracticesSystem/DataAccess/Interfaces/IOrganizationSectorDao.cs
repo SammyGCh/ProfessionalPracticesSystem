@@ -13,6 +13,6 @@ namespace DataAccess.Interfaces
     public interface IOrganizationSectorDAO
     {
         List<OrganizationSector> GetAllOrganizationSectors();
-        OrganizationSector GetOrganizationSector(int idOrganizationSector);
+        OrganizationSector GetOrganizationSectorById(int idOrganizationSector);
     }
 }

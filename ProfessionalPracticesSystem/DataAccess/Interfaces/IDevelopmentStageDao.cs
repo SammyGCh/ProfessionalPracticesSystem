@@ -11,6 +11,6 @@ namespace DataAccess.Interfaces
     public interface IDevelopmentStageDAO
     {
         List<DevelopmentStage> GetAllDevelopmentStages();
-        DevelopmentStage GetDevelopmentStage(int idDevelopmentStage);
+        DevelopmentStage GetDevelopmentStageById(int idDevelopmentStage);
     }
 }

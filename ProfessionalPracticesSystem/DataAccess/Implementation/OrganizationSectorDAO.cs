@@ -69,7 +69,7 @@ namespace DataAccess.Implementation
             return organizationSectors;
         }
 
-        public OrganizationSector GetOrganizationSector(int idOrganizationSector)
+        public OrganizationSector GetOrganizationSectorById(int idOrganizationSector)
         {
             try
             {
