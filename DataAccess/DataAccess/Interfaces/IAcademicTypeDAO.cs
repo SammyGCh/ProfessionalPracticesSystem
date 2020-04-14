@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Interfaces
 {
-    public interface AcademicTypeDAO
+    public interface IAcademicTypeDAO
     {
         List <AcademicType> GetAllAcademicTypes();
         AcademicType GetAcademicType(int idAcademicType);

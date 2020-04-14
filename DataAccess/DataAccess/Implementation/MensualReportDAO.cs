@@ -12,7 +12,7 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-	public class MensualReportDAOImp : MensualReportDAO
+	public class MensualReportDAO : IMensualReportDAO
 	{
    	 	private List<MensualReport> mensualReports;
 		private MensualReport MensualReport;

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Interfaces
 {
-    public interface MensualReportDAO
+    public interface IMensualReportDAO
     {
         List<MensualReport> GetAllMensualReports();
         List<MensualReport> GetReportByPractising(int idPractising);
