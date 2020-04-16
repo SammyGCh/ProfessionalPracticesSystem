@@ -11,7 +11,7 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class AcademicTypeDAOImp : AcademicTypeDAO
+    public class AcademicTypeDAO : IAcademicTypeDAO
     {
         private List <AcademicType> academicTypes;
         private AcademicType academicType;

@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace DataAccess.Interfaces
 {
-    public interface IndigenousLanguageDAO
+    public interface IIndigenousLanguageDAO
     {
         List <IndigenousLanguage> GetAllIndigenousLanguages();
-        IndigenousLanguage GetIndigenousLanguage(int idIndigenousLanguage);
+        IndigenousLanguage GetLanguageById(int idIndigenousLanguage);
     }
 }

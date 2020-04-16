@@ -11,7 +11,7 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class IndigenousLanguageDAOImp : IndigenousLanguageDAO
+    public class IndigenousLanguageDAO : IIndigenousLanguageDAO
     {
         private List <IndigenousLanguage> indigenousLanguages;
         private IndigenousLanguage indigenousLanguage;
@@ -70,7 +70,7 @@ namespace DataAccess.Implementation
             return indigenousLanguages;
         }
 
-        public IndigenousLanguage GetIndigenousLanguage(int idIndigenousLanguage)
+        public IndigenousLanguage GetLanguageById(int idIndigenousLanguage)
         {
             try
             {
