@@ -60,7 +60,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
+                log.Error("Someting whent wrong in DataAccess\Implementation\IndigenousLanguage ", ex);
             }
             finally
             {
@@ -102,7 +102,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex );
+                log.Error("Someting whent wrong in DataAccess\Implementation\IndigenousLanguage", ex );
             }
             finally
             {

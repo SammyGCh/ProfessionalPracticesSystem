@@ -168,7 +168,6 @@ namespace DataAccess.Implementation
     	{
 			try
             {
-                reportsList = null;
                 mySqlConnection = connection.OpenConnection();
 
                 query = new MySqlCommand("", mySqlConnection)
@@ -190,13 +189,13 @@ namespace DataAccess.Implementation
                         derivedFrom = derivedFrom.GetProject(reader.GetInt32(5)),
                     };
 
-                    reportsList.Add(mensualReport);
+                    mensualReports.Add(mensualReport);
                 }
 
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
+                log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport", ex);
             }
             finally
             {
@@ -204,7 +203,7 @@ namespace DataAccess.Implementation
                 connection.CloseConnection();
             }
 
-            return reportsList;
+            return mensualReports;
 		}
 
 		public MensualReport GetMensualReport(int idMensualReport)
@@ -240,7 +239,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
+                log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport ", ex);
             }
             finally
             {
@@ -287,7 +286,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-               log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
+               log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport ", ex);
             }
             finally
             {
@@ -334,7 +333,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-               log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
+               log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport", ex);
             }
             finally
             {

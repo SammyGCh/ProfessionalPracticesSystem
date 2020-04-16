@@ -52,7 +52,7 @@ namespace DataAccess.Implementation
                         AcademicTypeName = reader.GetString(1)
                     };
 
-                    AcademicTypes.Add(academicType);
+                    academicTypes.Add(academicType);
                 }
 
                 reader.Close();
@@ -60,14 +60,14 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
+                log.Error("Someting whent wrong in DataAccess\Implementation\AcademicType", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
 
-            return AcademicTypes;
+            return academicTypes;
         }
 
         public AcademicType GetAcademicType(int idAcademicType)
@@ -102,7 +102,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex );
+                log.Error("Someting whent wrong in DataAccess\Implementation\AcademicType", ex );
             }
             finally
             {
