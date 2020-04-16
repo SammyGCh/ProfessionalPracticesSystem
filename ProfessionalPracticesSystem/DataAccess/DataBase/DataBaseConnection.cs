@@ -10,7 +10,7 @@ using System.Configuration;
 
 namespace DataAccess.DataBase
 {
-    class DataBaseConnection
+    public class DataBaseConnection
     {
         private String infoConnection;
         private MySqlConnection connection;

@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    
+    <PackageReference Include="log4net" Version="2.0.8" />
     <ProjectReference Include="..\BusinessDomain\BusinessDomain.csproj" />
+    
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +19,12 @@
     <Reference Include="System.Configuration">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Configuration.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
