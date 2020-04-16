@@ -20,14 +20,14 @@ namespace BusinessDomain
 
     	public int IdAcademicType
     	{
-        	get;
-			set;
+        	get => idAcademicType;
+			set => IdAcademicType = value;
 		}
 
-    	public String academicTypeName
+    	public String AcademicTypeName
 		{
-			get;
-			set;
+			get => academicTypeName;
+			set => academicTypeName = value;
 		}
 	}	
 }
