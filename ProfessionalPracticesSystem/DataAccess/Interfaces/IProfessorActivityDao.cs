@@ -7,7 +7,7 @@ using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface IProfessorActivityDao
+    public interface IProfessorActivityDAO
     {
         List<ProfessorActivity> GetAllActivity(int idAcademic);
         bool SaveProfessorActivity(ProfessorActivity professorActivity);

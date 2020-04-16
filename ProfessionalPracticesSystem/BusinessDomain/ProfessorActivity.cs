@@ -12,54 +12,44 @@ namespace BusinessDomain
         private String description;
         private String name;
         private int valueActivity;
-        private DateTime? performanceDate;
+        private String performanceDate;
         private Academic generatedBy;
-        private int UNDEFINED = 0;
-        private String STRUNDEFINED = "";
 
-        public ProfessorActivity()
-        {
-            idProfessorActivity = UNDEFINED;
-            description = STRUNDEFINED;
-            name = STRUNDEFINED;
-            valueActivity = UNDEFINED;
-            performanceDate = null;
-            generatedBy = null;
-        }
+        public ProfessorActivity(){}
         public int IdProfessorActivity
         {
-            get { return idProfessorActivity; }
-            set { idProfessorActivity = value; }
+            get => idProfessorActivity;
+            set => idProfessorActivity = value;
         }
 
         public String Description
         {
-            get { return description; }
-            set { description = value; }
+            get => description; 
+            set => description = value;
         }
 
         public String Name
         {
-            get { return name; }
-            set { name = value; }
+            get => name;
+            set => name = value;
         }
 
         public int ValueActivity
         {
-            get { return valueActivity; }
-            set { valueActivity = value; }
+            get => valueActivity;
+            set => valueActivity = value;
         }
 
-        public DateTime? PerformanceDate
+        public String PerformanceDate
         {
-            get { return performanceDate; }
-            set { performanceDate = value; }
+            get => performanceDate;
+            set => performanceDate = value;
         }
 
         public Academic GeneratedBy
         {
-            get { return generatedBy; }
-            set { generatedBy = value; }
+            get => generatedBy;
+            set => generatedBy = value;
         }
     }
 }

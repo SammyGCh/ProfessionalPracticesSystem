@@ -10,28 +10,24 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class AcademicDaoImp : IAcademicDao
+    public class AcademicDAO : IAcademicDAO
     {
         private List<Academic> academicList;
         private Academic academic;
         private DataBaseConnection connection;
-        private AcademicTypeDaoImp belongto;
+        private AcademicTypeDAO belongsto;
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
+        private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public AcademicDaoImp()
+        public AcademicDAO()
         {
-            academicList = null;
-            academic = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
-            belongto = null;
         }
         public bool DeleteAcademic(int idAcademic)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -47,18 +43,19 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idacademic);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
 
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/DeleteAcademic:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+
+            return isSaved;
         }
 
         public Academic GetAcademic(int idAcademic)
@@ -89,15 +86,15 @@ namespace DataAccess.Implementation
                         LastName = reader.GetString(4),
                         Gender = reader.GetString(5),
                         Password = reader.GetString(6),
-                        BelongTo = belongto.getAcademicType(reader.GetInt32(7)),
+                        BelongTo = belongsto.GetAcademicType(reader.GetInt32(7)),
                         Shift = reader.GetString(8),
-                        Status = reader.GetString(9)
+                        Status = reader.GetInt32(9)
                     };
                 }
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/GetAcademic:", ex);
             }
             finally
             {
@@ -112,7 +109,7 @@ namespace DataAccess.Implementation
         {
             try
             {
-                academicList = null;
+                academicList = new List<Academic>();
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
@@ -132,9 +129,9 @@ namespace DataAccess.Implementation
                         LastName = reader.GetString(4),
                         Gender = reader.GetString(5),
                         Password = reader.GetString(6),
-                        BelongTo = belongto.getAcademicType(reader.GetInt32(7)),
+                        BelongTo = belongsto.GetAcademicType(reader.GetInt32(7)),
                         Shift = reader.GetString(8),
-                        Status = reader.GetString(9)
+                        Status = reader.GetInt32(9)
                     };
 
                     academicList.Add(academic);
@@ -143,7 +140,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/GetAllAcademic:", ex);
             }
             finally
             {
@@ -156,6 +153,7 @@ namespace DataAccess.Implementation
 
         public bool SaveAcademic(Academic academic)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -222,17 +220,17 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(status);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/SaveAcademic:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+            return isSaved;
         }
     }
 }

@@ -8,7 +8,7 @@ using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface IAcademicDao
+    public interface IAcademicDAO
     {
         List<Academic> GetAllAcademic();
         Academic GetAcademic(int idAcademic);

@@ -11,7 +11,7 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class DocumentTypeDaoImp : IDocumentTypeDao
+    public class DocumentTypeDAO : IDocumentTypeDAO
     {
         private List<DocumentType> documentTypeList;
         private DocumentType documentType;
@@ -19,19 +19,15 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        //private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public DocumentTypeDaoImp()
+        public DocumentTypeDAO()
         {
-            documentTypeList = null;
-            documentType = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
         }
         public bool DeleteDocumentType(int idDocumentType)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -47,25 +43,26 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(iddocumentType);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
 
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/DeleteDocumentType:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+
+            return isSaved;
         }
 
         public List<DocumentType> GetAllDocumentType()
         {
             try
             {
-                documentTypeList = null;
+                documentTypeList = new List<DocumentType>();
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
@@ -87,7 +84,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/GetAllDocumentType:", ex);
             }
             finally
             {
@@ -129,7 +126,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/GetDocumenntType:", ex);
             }
             finally
             {
@@ -142,6 +139,7 @@ namespace DataAccess.Implementation
 
         public bool SaveDocumentType(DocumentType documentType)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -158,17 +156,17 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(name);
       
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/SaveDocumentType:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+            return isSaved;
         }
     }
 }

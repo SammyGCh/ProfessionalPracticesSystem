@@ -10,29 +10,25 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class DocumentDaoImp : IDocumentDao
+    public class DocumentDAO : IDocumentDAO
     {
         private List<Document> documentList;
         private Document document;
-        private PractisingDaoImp addBy;
-        private DocumentTypeDaoImp typeOf;
+        private PractitionerDAO addBy;
+        private DocumentTypeDAO typeOf;
         private DataBaseConnection connection;
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        //private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public DocumentDaoImp()
+        public DocumentDAO()
         {
-            documentList = null;
-            document = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
         }
         public bool DeleteDocument(int idDocument)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -48,25 +44,26 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(_idDocument);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
 
             }
             catch(MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/DeleteDocument:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+
+            return isSaved;
         }
 
         public List<Document> GetAllDocument()
         {
             try
             {
-                documentList = null;
+                documentList = new List<Document>();
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
@@ -83,7 +80,7 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractising(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
                     };
 
                     documentList.Add(document);
@@ -92,7 +89,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetAllDocument:", ex);
             }
             finally
             {
@@ -129,14 +126,14 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractising(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
                     };
                 }
 
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocument:", ex);
             }
             finally
             {
@@ -151,7 +148,7 @@ namespace DataAccess.Implementation
         {
             try
             {
-                documentList = null;
+                documentList = new List<Document>();
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
@@ -174,7 +171,7 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractising(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
                     };
 
                     documentList.Add(document);
@@ -183,7 +180,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByPractising:", ex);
             }
             finally
             {
@@ -198,7 +195,7 @@ namespace DataAccess.Implementation
         {
             try
             {
-                documentList = null;
+                documentList = new List<Document>();
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
@@ -221,7 +218,7 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractising(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
                     };
 
                     documentList.Add(document);
@@ -230,7 +227,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByType:", ex);
             }
             finally
             {
@@ -243,6 +240,7 @@ namespace DataAccess.Implementation
 
         public bool SaveDocument(Document document)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -269,7 +267,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter idpractising = new MySqlParameter("@idPractising", MySqlDbType.Int32, 1)
                 {
-                    Value = document.AddBy.IdPractising
+                    Value = document.AddBy.IdPractitioner
                 };
 
                 query.Parameters.Add(name);
@@ -278,17 +276,17 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idpractising);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/SaveDocument:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+            return isSaved;
         }
     }
 }

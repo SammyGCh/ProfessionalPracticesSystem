@@ -2,7 +2,6 @@
     Date: 09/04/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */
-using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using BusinessDomain;
@@ -11,28 +10,24 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class ProfessorActivityDaoImp : IProfessorActivityDao
+    public class ProfessorActivityDAO : IProfessorActivityDAO
     {
         private List<ProfessorActivity> professorActivityList;
-        private ProfessorActivity ProfessorActivity;
+        private ProfessorActivity professorActivity;
         private DataBaseConnection connection;
-        private AcademicDaoImp belongto;
+        private AcademicDAO belongsto;
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
+        private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ProfessorActivityDaoImp()
+        public ProfessorActivityDAO()
         {
-            professorActivityList = null;
-            ProfessorActivity = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
-            belongto = null;
         }
         public bool DeleteProfessorActivity(int idProfessorActivity)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -48,25 +43,26 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idActivity);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
 
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/ProfessorActivityDAO/DeleteProfessorActivity:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+
+            return isSaved;
         }
 
         public List<ProfessorActivity> GetAllActivity(int idAcademic)
         {
             try
             {
-                professorActivityList = null;
+                professorActivityList = new List<ProfessorActivity>();
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
@@ -84,23 +80,23 @@ namespace DataAccess.Implementation
 
                 while (reader.Read())
                 {
-                    ProfessorActivity = new ProfessorActivity
+                    professorActivity = new ProfessorActivity
                     {
                         IdProfessorActivity = reader.GetInt32(0),
                         Description = reader.GetString(1),
                         Name = reader.GetString(2),
                         ValueActivity = reader.GetInt32(3),
-                        PerformanceDate = reader.GetMySqlDateTime(4),
-                        GeneratedBy = belongto.GetAcademic(reader.GetInt32(5))
+                        PerformanceDate = reader.GetString(4),
+                        GeneratedBy = belongsto.GetAcademic(reader.GetInt32(5))
                     };
 
-                    professorActivityList.Add(ProfessorActivity);
+                    professorActivityList.Add(professorActivity);
                 }
 
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/ProfessorActivityDAO/GetAllActivity:", ex);
             }
             finally
             {
@@ -113,6 +109,7 @@ namespace DataAccess.Implementation
 
         public bool SaveProfessorActivity(ProfessorActivity professorActivity)
         {
+            bool isSaved = false;
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -155,17 +152,18 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idAcademic);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
             }
             catch (MySqlException ex)
             {
-                //log.Error("Ocurrio un error:", ex);
-                return false;
+                log.Error("Someting whent wrong in  DataAccess/Implementation/ProfessorActivityDAO/SaveProfessorActivity:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
+
+            return isSaved;
         }
     }
 }

@@ -8,7 +8,7 @@ using BusinessDomain;
 
 namespace DataAccess.Interfaces
 {
-    public interface IDocumentDao
+    public interface IDocumentDAO
     {
         List<Document> GetAllDocument();
         List<Document> GetDocumentByPractising(int idPractising);

@@ -12,46 +12,37 @@ namespace BusinessDomain
         private String name;
         private String path;
         private DocumentType typeOf;
-        private Practising addBy;
-        private int UNDEFINED = 0;
-        private String STRUNDEFINED = "";
+        private Practitioner addBy;
 
-        public Document()
-        {
-            idDocument = UNDEFINED;
-            name = STRUNDEFINED;
-            path = STRUNDEFINED;
-            addBy = null;
-            typeOf = null;
-        }
+        public Document(){}
         public int IdDocument
         {
-            get { return idDocument; }
-            set { idDocument = value; }
+            get => idDocument;
+            set => idDocument = value;
         }
 
         public String Name
         {
-            get { return name; }
-            set { name = value; }
+            get => name;
+            set => name = value;
         }
 
         public String Path
         {
-            get { return path; }
-            set { path = value; }
+            get => path;
+            set => path = value;
         }
 
-        public Practising AddBy
+        public Practitioner AddBy
         {
-            get { return addBy; }
-            set { addBy = value; }
+            get => addBy;
+            set => addBy = value;
         }
 
         public DocumentType TypeOf
         {
-            get { return typeOf; }
-            set { typeOf = value; }
+            get => typeOf;
+            set => typeOf = value;
         }
     }
 }
