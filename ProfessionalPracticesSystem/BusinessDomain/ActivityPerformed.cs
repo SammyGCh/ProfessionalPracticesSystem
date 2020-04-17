@@ -45,5 +45,10 @@ namespace BusinessDomain
             get => activityReply;
             set => activityReply = value;
         }
+
+        public static implicit operator ActivityPerformed(ActivityPerformed v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

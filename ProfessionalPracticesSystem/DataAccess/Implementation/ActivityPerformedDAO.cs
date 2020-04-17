@@ -59,7 +59,7 @@ namespace DataAccess.Implementation
                         IdActivityPerformed = reader.GetInt32(0),
                         GeneratedBy = reader.GetInt32(1),
                         DidBy = reader.GetInt32(2),
-                        PerformedDate = reader.GetString(3),
+                        PerformedDate = reader.GetDateTime(3),
                         ActivityReply = reader.GetString(4),
                     };
 
@@ -104,7 +104,7 @@ namespace DataAccess.Implementation
                         IdActivityPerformed = reader.GetInt32(0),
                         GeneratedBy = reader.GetInt32(1),
                         DidBy = reader.GetInt32(2),
-                        PerformedDate = reader.GetString(3),
+                        PerformedDate = reader.GetDateTime(3),
                         ActivityReply = reader.GetString(4),
                     };
 
@@ -148,7 +148,7 @@ namespace DataAccess.Implementation
                         IdActivityPerformed = reader.GetInt32(0),
                         GeneratedBy = reader.GetInt32(1),
                         DidBy = reader.GetInt32(2),
-                        PerformedDate = reader.GetString(3),
+                        PerformedDate = reader.GetDateTime(3),
                         ActivityReply = reader.GetString(4),
                     };
                 }
@@ -172,8 +172,9 @@ namespace DataAccess.Implementation
 
             try
             {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
+                
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
                 {
                     CommandText = "INSERT INTO ActivityPerformed (performedDate, activityReply, idProfessorActivity, idPractitioner)" +
                     " VALUES (@performedDate, @activityReply, @idProfessorActivity, @idPractitioner)"
@@ -225,8 +226,8 @@ namespace DataAccess.Implementation
 
             try
             {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
                 {
                     CommandText = "UPDDATE ActivityPerformed SET performedDate = @performedDate, activityReply = @activityReply)" +
                     "WHERE idActivityPerformed = @idActivityPerformed"
