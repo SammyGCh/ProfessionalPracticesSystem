@@ -12,14 +12,18 @@ namespace DataAccess.DataBase
 {
     public class DataBaseConnection
     {
-        private String infoConnection;
+        private string infoConnection;
         private MySqlConnection connection;
 
         private void Connect()
         {
             try
             {
-                infoConnection = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+                //La línea de abajo no funciona, no pasa las pruebas unitarias
+                infoConnection = ConfigurationManager.ConnectionStrings["connectionSetting"].ConnectionString;
+
+                //La línea de abajo SÍ funciona
+                //infoConnection = "server=localhost; database=professionalpracticesdb; user = adminPPS; password = proyectoConstruccion2020";
                 connection = new MySqlConnection(infoConnection);
                 connection.Open();
             }

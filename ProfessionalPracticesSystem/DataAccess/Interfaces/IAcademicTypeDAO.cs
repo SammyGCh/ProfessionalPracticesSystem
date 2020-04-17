@@ -11,6 +11,6 @@ namespace DataAccess.Interfaces
     public interface IAcademicTypeDAO
     {
         List <AcademicType> GetAllAcademicTypes();
-        AcademicType GetTypeById(int idAcademicType);
+        AcademicType GetAcademicTypeById(int idAcademicType);
     }
 }

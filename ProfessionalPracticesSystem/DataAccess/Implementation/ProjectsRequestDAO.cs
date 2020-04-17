@@ -59,7 +59,7 @@ namespace DataAccess.Implementation
                     projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(3)));
                     projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(4)));
                     projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(5)));
-                    projectsRequest.RequestedBy = practisingHandler.GetPractitionerById(reader.GetInt32(6));
+                    projectsRequest.RequestedBy = practisingHandler.GetPractitioner(reader.GetInt32(6));
 
                     projectsRequests.Add(projectsRequest);
                 }
@@ -94,7 +94,7 @@ namespace DataAccess.Implementation
                 query.Parameters.Add("@idProjectRequested1", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[0].IdProject;
                 query.Parameters.Add("@idProjectRequested2", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[1].IdProject;
                 query.Parameters.Add("@idProjectRequested3", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[2].IdProject;
-                query.Parameters.Add("@idPractising", MySqlDbType.Int32, 2).Value = projectsRequest.RequestedBy.IdPractising;
+                query.Parameters.Add("@idPractising", MySqlDbType.Int32, 2).Value = projectsRequest.RequestedBy.IdPractitioner;
 
                 query.ExecuteNonQuery();
                 isSaved = true;
