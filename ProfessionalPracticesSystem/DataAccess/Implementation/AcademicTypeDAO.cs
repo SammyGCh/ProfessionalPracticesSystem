@@ -11,10 +11,10 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-    public class IndigenousLanguageDAOImp : IndigenousLanguageDAO
+    public class AcademicTypeDAO : IAcademicTypeDAO
     {
-        private List <IndigenousLanguage> indigenousLanguages;
-        private IndigenousLanguage indigenousLanguage;
+        private List <AcademicType> academicTypes;
+        private AcademicType academicType;
         private DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
@@ -22,37 +22,37 @@ namespace DataAccess.Implementation
         private static readonly log4net.ILog log =
         log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public IndigenousLanguageDAOImp()
+        public AcademicTypeDAOImp()
         {
-            this.indigenousLanguages = null;
-            this.indigenousLanguage = null;
+            this.academicTypes = null;
+            this.academicType = null;
             connection = new DataBaseConnection();
             mysqlConnection = null;
             query = null;
             reader = null;
         }
 
-        public List<IndigenousLanguage> GetAllIndigenousLanguages()
+        public List<AcademicType> GetAllAcademicTypes()
         {
-            try
+             try
             {
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText ="SELECT * FROM IndigenousLanguge"
+                    CommandText ="SELECT * FROM AcademicType"
                 };
                 
                 reader = query.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    indigenousLanguage = new IndigenousLanguage
+                    academicType = new AcademicType
                     {
-                        IdIndigenousLanguage = reader.GetInt32(0),
-                        indigenousLanguageName = reader.GetString(1)
+                        IdAcademicType = reader.GetInt32(0),
+                        AcademicTypeName = reader.GetString(1)
                     };
 
-                    indigenousLanguages.Add(indigenousLanguage);
+                    academicTypes.Add(academicType);
                 }
 
                 reader.Close();
@@ -60,41 +60,41 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex);
+                log.Error("Someting whent wrong in DataAccess\Implementation\AcademicType", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
 
-            return indigenousLanguages;
+            return academicTypes;
         }
 
-        public IndigenousLanguage GetIndigenousLanguage(int idIndigenousLanguage)
+        public AcademicType GetAcademicType(int idAcademicType)
         {
             try
             {
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM IndigenousLanguge WHERE idIndigenousLanguage = @idIndigenousLanguage"
+                    CommandText = "SELECT * FROM AcademicType WHERE idAcademicType = @idAcademicType"
                 };
 
-                MySqlParameter idIndiLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 32)
+                MySqlParameter idAcadType = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 32)
                 {
-                    Value = idIndigenousLanguage
+                    Value = idAcademicType
                 };
 
-                query.Parameters.Add(idIndiLanguage);
+                query.Parameters.Add(idAcadType);
 
                 reader = query.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    indigenousLanguage = new IndigenousLanguage
+                    academicType = new AcademicType
                     {
-                        IdIndigenousLanguage = reader.GetInt32(0),
-                        IndigenousLanguageName = reader.GetString(1)
+                        IdAcademicType = reader.GetInt32(0),
+                        AcademicTypeName = reader.GetString(1)
                     };
                 }
 
@@ -102,14 +102,15 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Ocurrio un error al intertar conectar a la base de datos: ", ex );
+                log.Error("Someting whent wrong in DataAccess\Implementation\AcademicType", ex );
             }
             finally
             {
                 connection.CloseConnection();
             }
 
-            return indigenousLanguage;
+            return academicType;
         }
-    }
+   
+    }   
 }
