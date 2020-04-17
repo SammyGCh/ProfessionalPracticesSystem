@@ -22,7 +22,7 @@ namespace DataAccess.Implementation
         private static readonly log4net.ILog log =
         log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public AcademicTypeDAOImp()
+        public AcademicTypeDAO()
         {
             this.academicTypes = null;
             this.academicType = null;
@@ -60,7 +60,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess\Implementation\AcademicType", ex);
+                log.Error("Someting whent wrong in DataAccess/Implementation/AcademicType", ex);
             }
             finally
             {
@@ -70,7 +70,7 @@ namespace DataAccess.Implementation
             return academicTypes;
         }
 
-        public AcademicType GetAcademicType(int idAcademicType)
+        public AcademicType GetAcademicTypeById(int idAcademicType)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess\Implementation\AcademicType", ex );
+                log.Error("Someting whent wrong in DataAccess/Implementation/AcademicType", ex );
             }
             finally
             {

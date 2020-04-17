@@ -18,11 +18,11 @@ namespace DataAccess.Implementation
         private IndigenousLanguageDAO speaks;
         private AcademicDAO academic;
         private ProjectDAO assigned;
-        private ScholarPeriod belogsTo;
+        private ScholarPeriodDAO belogsTo;
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public PractitionerDAO()
         {
@@ -64,6 +64,8 @@ namespace DataAccess.Implementation
 
         public List<Practitioner> GetAllPractitioner()
         {
+            belogsTo = new ScholarPeriodDAO();
+
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -86,11 +88,11 @@ namespace DataAccess.Implementation
                         Gender = reader.GetString(4),
                         Names = reader.GetString(5),
                         LastName = reader.GetString(6),
-                        Speaks = speaks.GetIndigenousLanguage(reader.GetInt32(7)),
-                        Assigned = assigned.GetProject(reader.GetInt32(8)),
+                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
+                        Assigned = assigned.GetProjectById(reader.GetInt32(8)),
                         Status = reader.GetInt32(9),
                         Instructed = academic.GetAcademic(reader.GetInt32(10)),
-                        ScholarPeriod = belogsTo.getScholarPeriod(reader.GetInt32(11))
+                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
                     };
 
                     practitionerList.Add(practitioner);
@@ -111,6 +113,8 @@ namespace DataAccess.Implementation
         
         public List<Practitioner> GetAllPractitionerByindigenousLanguage()
         {
+            belogsTo = new ScholarPeriodDAO();
+
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -133,11 +137,11 @@ namespace DataAccess.Implementation
                         Gender = reader.GetString(4),
                         Names = reader.GetString(5),
                         LastName = reader.GetString(6),
-                        Speaks = speaks.GetIndigenousLanguage(reader.GetInt32(7)),
-                        Assigned = assigned.GetProject(reader.GetInt32(8)),
+                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
+                        Assigned = assigned.GetProjectById(reader.GetInt32(8)),
                         Status = reader.GetInt32(9),
                         Instructed = academic.GetAcademic(reader.GetInt32(10)),
-                        ScholarPeriod = belogsTo.getScholarPeriod(reader.GetInt32(11))
+                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
                     };
 
                     practitionerList.Add(practitioner);
@@ -158,6 +162,8 @@ namespace DataAccess.Implementation
 
         public Practitioner GetPractitioner(int idPractitioner)
         {
+            belogsTo = new ScholarPeriodDAO();
+
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -184,11 +190,11 @@ namespace DataAccess.Implementation
                         Gender = reader.GetString(4),
                         Names = reader.GetString(5),
                         LastName = reader.GetString(6),
-                        Speaks = speaks.GetIndigenousLanguage(reader.GetInt32(7)),
-                        Assigned = assigned.GetProject(reader.GetInt32(8)),
+                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
+                        Assigned = assigned.GetProjectById(reader.GetInt32(8)),
                         Status = reader.GetInt32(9),
                         Instructed = academic.GetAcademic(reader.GetInt32(10)),
-                        ScholarPeriod = belogsTo.getScholarPeriod(reader.GetInt32(11))
+                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
                     };
                 }
             }

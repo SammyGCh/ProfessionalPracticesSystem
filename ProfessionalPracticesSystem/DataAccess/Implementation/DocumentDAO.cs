@@ -20,7 +20,7 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public DocumentDAO()
         {

@@ -10,24 +10,18 @@ namespace BusinessDomain
 	public class IndigenousLanguage
 	{
     	private int idIndigenousLanguage;
-  		private String indigenousLanguageName;
-
-    	public IndigenousLanguage()
-    	{
-        	idIndigenousLanguage= 0;
-       	 	indigenousLanguageName = "";
-    	}
+  		private String name;
 
     	public int IdIndigenousLanguage
     	{
-        	get;
-			set;
+        	get => idIndigenousLanguage;
+			set => idIndigenousLanguage = value;
 		}
 
-    	public String indigenousLanguageName
+    	public String Name
 		{
-        	get;
-			set;
+        	get => name;
+			set => name = value;
 		}
 	}
 }

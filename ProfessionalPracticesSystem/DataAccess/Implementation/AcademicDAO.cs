@@ -19,7 +19,7 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.Ilog log = log4net.logManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public AcademicDAO()
         {
@@ -86,7 +86,7 @@ namespace DataAccess.Implementation
                         LastName = reader.GetString(4),
                         Gender = reader.GetString(5),
                         Password = reader.GetString(6),
-                        BelongTo = belongsto.GetAcademicType(reader.GetInt32(7)),
+                        BelongTo = belongsto.GetAcademicTypeById(reader.GetInt32(7)),
                         Shift = reader.GetString(8),
                         Status = reader.GetInt32(9)
                     };
@@ -129,7 +129,7 @@ namespace DataAccess.Implementation
                         LastName = reader.GetString(4),
                         Gender = reader.GetString(5),
                         Password = reader.GetString(6),
-                        BelongTo = belongsto.GetAcademicType(reader.GetInt32(7)),
+                        BelongTo = belongsto.GetAcademicTypeById(reader.GetInt32(7)),
                         Shift = reader.GetString(8),
                         Status = reader.GetInt32(9)
                     };
@@ -195,7 +195,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter idAcademic = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 2)
                 {
-                    Value = academic.BelongTo.idAcademicType
+                    Value = academic.BelongTo.IdAcademicType
                 };
 
                 MySqlParameter shift = new MySqlParameter("@shift", MySqlDbType.VarChar, 10)

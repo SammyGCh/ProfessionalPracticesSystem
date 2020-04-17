@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "DataAccess": {
+      "commandName": "Project",
+      "sqlDebugging": false,
+      "nativeDebugging": false
+    }
+  }
+}

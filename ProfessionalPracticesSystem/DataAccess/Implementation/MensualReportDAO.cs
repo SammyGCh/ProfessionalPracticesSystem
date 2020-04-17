@@ -12,32 +12,34 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Implementation
 {
-	public class MensualReportDAO : IMensualReportDAO
-	{
-   	 	private List<MensualReport> mensualReports;
-		private MensualReport MensualReport;
-	  	private DataBaseConnection connection;
+    public class MensualReportDAO : IMensualReportDAO
+    {
+        private List<MensualReport> mensualReports;
+        private MensualReport mensualReport;
+        private DataBaseConnection connection;
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-		private ProjectDaoImp derivedFrom;
-		private PractisingDaoImp generatedBy;
+        private ProjectDAO derivedFrom;
+        private PractitionerDAO generatedBy;
         private static readonly log4net.ILog log =
         log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-    	public MensualReportDAOImp()
-    	{
-        	MensualReports = null ;
-	    	MensualReport = null;
-			connection = new DataBaseConnection();
+        public MensualReportDAO()
+        {
+            mensualReports = null;
+            mensualReport = null;
+            connection = new DataBaseConnection();
             mySqlConnection = null;
             query = null;
             reader = null;
-    	}
+        }
 
-    	public bool InsertMensualReport(MensualReport newMensualReport)
-    	{
-			try
+        public bool InsertMensualReport(MensualReport newMensualReport)
+        {
+            bool isSaved = false;
+
+            try
             {
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
@@ -48,125 +50,138 @@ namespace DataAccess.Implementation
 
                 MySqlParameter mensualReportName = new MySqlParameter("@mensualReportName", MySqlDbType.VarChar, 60)
                 {
-                    Value = mensualReport.mensualReportName
+                    Value = mensualReport.Name
                 };
 
-                MySqlParameter description = new MySqlParameter("@description", MySqlDbType.LONGTEXT)
+                MySqlParameter description = new MySqlParameter("@description", MySqlDbType.LongText)
                 {
                     Value = mensualReport.Description
                 };
 
-				MySqlParameter monthReportedDate = new MySqlParameter("@monthReportedDate", MySqlDbType.VarChar, 20)
+                MySqlParameter monthReportedDate = new MySqlParameter("@monthReportedDate", MySqlDbType.VarChar, 20)
                 {
-                    Value = mensualReport.monthReportedDate
+                    Value = mensualReport.MonthReportedDate
                 };
 
                 MySqlParameter idproject = new MySqlParameter("@idProject", MySqlDbType.Int32, 20)
                 {
-                    Value = mensualReport.DerivedFrom.Idproject
+                    Value = mensualReport.DerivedFrom.IdProject
                 };
 
                 MySqlParameter idpractising = new MySqlParameter("@idPractising", MySqlDbType.Int32, 10)
                 {
-                    Value = MensualReport.generatedBy.IdPractising
+                    Value = mensualReport.GeneratedBy.IdPractitioner
                 };
 
                 query.Parameters.Add(mensualReportName);
                 query.Parameters.Add(description);
-				query.Parameters.Add(monthReportedDate);
+                query.Parameters.Add(monthReportedDate);
                 query.Parameters.Add(idproject);
                 query.Parameters.Add(idpractising);
 
                 query.ExecuteNonQuery();
-                return true;
+                isSaved = true;
             }
             catch (MySqlException ex)
             {
-                return false;
+                log.Error("Something went wrong in DataAccess/Implementation/MensualReportDAO", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
-		}
 
-    	public bool DeleteMensualReport(MensualReport MensualReport)
-    	{
-			try
+            return isSaved;
+        }
+
+        public bool DeleteMensualReport(int idMensualReport)
+        {
+            bool isDeleted = false;
+
+            try
             {
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "DELETE FROM MensualReport WHERE MensualReport.idMensualReport = @idMensualReport"
                 };
-                MySqlParameter idMensualReport = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
+                MySqlParameter id = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
                 {
                     Value = idMensualReport
                 };
 
-                query.Parameters.Add(_idMensualReport);
+                query.Parameters.Add(id);
 
                 query.ExecuteNonQuery();
-                return true;
+                isDeleted = true;
 
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
-                return false;
+                log.Error("Something went wrong in DataAccess/Implementation/MensualReportDAO", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
-		}
 
-		public bool UpdateMensualReport(MensualReport MensualReport)
-    	{
-			try
-			{
-				mySqlConnection = connection.OpenConnection();
+            return isDeleted;
+        }
+
+        public bool UpdateMensualReport(MensualReport mensualReport)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE MensualReport SET name = @mensualReportName, description = @description,"+
-					"monthReportedDate = @monthReportedDate WHERE MensualReport.idMensualReport = @idMensualReport"
+                    CommandText = "UPDATE MensualReport SET name = @mensualReportName, description = @description," +
+                    "monthReportedDate = @monthReportedDate WHERE MensualReport.idMensualReport = @idMensualReport"
                 };
-				MySqlParameter mensualReportName = new MySqlParameter("@mensualReportName", MySqlDbType.VarChar, 60)
+                MySqlParameter mensualReportName = new MySqlParameter("@mensualReportName", MySqlDbType.VarChar, 60)
                 {
-                    Value = mensualReport.mensualReportName
+                    Value = mensualReport.Name
                 };
-                MySqlParameter description = new MySqlParameter("@description", MySqlDbType.LONGTEXT)
+                MySqlParameter description = new MySqlParameter("@description", MySqlDbType.LongText)
                 {
                     Value = mensualReport.Description
                 };
-				MySqlParameter monthReportedDate = new MySqlParameter("@monthReportedDate", MySqlDbType.VarChar, 20)
+                MySqlParameter monthReportedDate = new MySqlParameter("@monthReportedDate", MySqlDbType.VarChar, 20)
                 {
-                    Value = mensualReport.monthReportedDate
+                    Value = mensualReport.MonthReportedDate
                 };
-				MySqlParameter idMensualReport = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
+                MySqlParameter idMensualReport = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
                 {
-                    Value = idMensualReport
+                    Value = mensualReport.IdMensualReport
                 };
 
-				query.Parameters.Add(mensualReportName);
+                query.Parameters.Add(mensualReportName);
                 query.Parameters.Add(description);
-				query.Parameters.Add(monthReportedDate);
-				query.ExecuteNonQuery();
+                query.Parameters.Add(monthReportedDate);
+                query.ExecuteNonQuery();
 
-                return true;
-			}
-			catch (MySqlException ex)
+                isUpdated = true;
+            }
+            catch (MySqlException ex)
             {
-                return false;
+                log.Error("Something went wrong in DataAccess/Implementation/MensualReportDAO", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
-		}
 
-		public List<MensualReport> GetAllMensualReports()
-    	{
-			try
+            return isUpdated;
+        }
+
+        public List<MensualReport> GetAllMensualReports()
+        {
+            generatedBy = new PractitionerDAO();
+            derivedFrom = new ProjectDAO();
+
+            try
             {
                 mySqlConnection = connection.OpenConnection();
 
@@ -181,12 +196,12 @@ namespace DataAccess.Implementation
                 {
                     mensualReport = new MensualReport
                     {
-                        idMensualReport = reader.GetInt32(0),
-						description = reader.GetString(1),
-                        monthReportedDate = reader.GetString(2),
-						mensualReportName = reader.GetString(3),
-						generatedBy = generatedBy.GetPractising(reader.GetInt32(4))
-                        derivedFrom = derivedFrom.GetProject(reader.GetInt32(5)),
+                        IdMensualReport = reader.GetInt32(0),
+                        Description = reader.GetString(1),
+                        MonthReportedDate = reader.GetString(2),
+                        Name = reader.GetString(3),
+                        GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(5))
                     };
 
                     mensualReports.Add(mensualReport);
@@ -195,7 +210,99 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport", ex);
+                log.Error("Something went wrong in DataAccess/Implementation/MensualReportDAO", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return mensualReports;
+        }
+
+        public MensualReport GetMensualReportById(int idMensualReport)
+    	{
+			try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM MensualReport WHERE MensualReport.idMensualReport = @idMensualReport"
+                };
+				MySqlParameter id = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
+                {
+                    Value = idMensualReport
+                };
+
+				query.Parameters.Add(id);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    mensualReport = new MensualReport
+                    {
+                        IdMensualReport = reader.GetInt32(0),
+						Description = reader.GetString(1),
+                        MonthReportedDate = reader.GetString(2),
+						Name = reader.GetString(3),
+						GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(3))
+                    };
+                }
+            }
+            catch (MySqlException ex)
+            {
+                log.Error("Someting whent wrong in DataAccess/Implementation/MensualReport ", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return mensualReport;
+		}
+		public List<MensualReport> GetReportByPractitioner(int idPractitioner)
+		{
+            mensualReports = new List<MensualReport>();
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM MensualReport WHERE MensualReport.idPractising = @idPractising"
+                };
+
+				MySqlParameter id = new MySqlParameter("@idPractising", MySqlDbType.Int32, 2)
+                {
+                    Value = idPractitioner
+                };
+
+				query.Parameters.Add(id);
+                reader = query.ExecuteReader();
+                while (reader.Read())
+                {
+                    mensualReport = new MensualReport
+                    {
+                        IdMensualReport = reader.GetInt32(0),
+						Description = reader.GetString(1),
+                        MonthReportedDate = reader.GetString(2),
+						Name = reader.GetString(3),
+						GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(5))
+                    };
+
+                    mensualReports.Add(mensualReport);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+               log.Error("Someting whent wrong in DataAccess/Implementation/MensualReport ", ex);
             }
             finally
             {
@@ -205,102 +312,12 @@ namespace DataAccess.Implementation
 
             return mensualReports;
 		}
-
-		public MensualReport GetMensualReport(int idMensualReport)
-    	{
-			try
-            {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "SELECT * FROM MensualReport WHERE MensualReport.idMensualReport = @idMensualReport"
-                };
-				MySqlParameter idMensualReport = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
-                {
-                    Value = idMensualReport
-                };
-
-				query.Parameters.Add(idMensualReport);
-
-                reader = query.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    mensualReport = new mensualReport
-                    {
-                        idMensualReport = reader.GetInt32(0),
-						description = reader.GetString(1),
-                        monthReportedDate = reader.GetString(2),
-						mensualReportName = reader.GetString(3),
-						generatedBy = generatedBy.GetPractising(reader.GetInt32(4))
-                        derivedFrom = derivedFrom.GetProject(reader.GetInt32(3)),
-                    };
-                }
-            }
-            catch (MySqlException ex)
-            {
-                log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport ", ex);
-            }
-            finally
-            {
-                reader.Close();
-                connection.CloseConnection();
-            }
-
-            return  document;
-		}
-		public List<MensualReport> GetReportByPractising(int idPractising)
+        public List<MensualReport> GetReportByProject(int idProject)
 		{
-			try
+            mensualReports = new List<MensualReport>();
+
+            try
             {
-                reportsList = null;
-                mySqlConnection = connection.OpenConnection();
-
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "SELECT * FROM MensualReport WHERE MensualReport.idPractising = @idPractising"
-                };
-
-				MySqlParameter idPractising = new MySqlParameter("@idPractising", MySqlDbType.Int32, 2)
-                {
-                    Value = idPractising
-                };
-
-				query.Parameters.Add(idPractising);
-                reader = query.ExecuteReader();
-                while (reader.Read())
-                {
-                    mensualReport = new MensualReport
-                    {
-                        idMensualReport = reader.GetInt32(0),
-						description = reader.GetString(1),
-                        monthReportedDate = reader.GetString(2),
-						mensualReportName = reader.GetString(3),
-						generatedBy = generatedBy.GetPractising(reader.GetInt32(4))
-                        derivedFrom = derivedFrom.GetProject(reader.GetInt32(5)),
-                    };
-
-                    reportsList.Add(mensualReport);
-                }
-
-            }
-            catch (MySqlException ex)
-            {
-               log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport ", ex);
-            }
-            finally
-            {
-                reader.Close();
-                connection.CloseConnection();
-            }
-
-            return reportsList;
-		}
-        List<Document> GetReportByProject(int idProject)
-		{
-			try
-            {
-                reportsList = null;
                 mySqlConnection = connection.OpenConnection();
 
                 query = new MySqlCommand("", mySqlConnection)
@@ -308,32 +325,32 @@ namespace DataAccess.Implementation
                     CommandText = "SELECT * FROM MensualReport WHERE MensualReport.idProject = @idProject"
                 };
 
-				MySqlParameter idProject = new MySqlParameter("@idProject", MySqlDbType.Int32, 2)
+				MySqlParameter id = new MySqlParameter("@idProject", MySqlDbType.Int32, 2)
                 {
                     Value = idProject
                 };
 
-				query.Parameters.Add(idProject);
+				query.Parameters.Add(id);
                 reader = query.ExecuteReader();
                 while (reader.Read())
                 {
                     mensualReport = new MensualReport
                     {
-                        idMensualReport = reader.GetInt32(0),
-						description = reader.GetString(1),
-                        monthReportedDate = reader.GetString(2),
-						mensualReportName = reader.GetString(3),
-						generatedBy = generatedBy.GetPractising(reader.GetInt32(4))
-                        derivedFrom = derivedFrom.GetProject(reader.GetInt32(5)),
+                        IdMensualReport = reader.GetInt32(0),
+						Description = reader.GetString(1),
+                        MonthReportedDate = reader.GetString(2),
+						Name = reader.GetString(3),
+						GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(5))
                     };
 
-                    reportsList.Add(mensualReport);
+                    mensualReports.Add(mensualReport);
                 }
 
             }
             catch (MySqlException ex)
             {
-               log.Error("Someting whent wrong in DataAccess\Implementation\MensualReport", ex);
+               log.Error("Someting whent wrong in DataAccess/Implementation/MensualReport", ex);
             }
             finally
             {
@@ -341,7 +358,7 @@ namespace DataAccess.Implementation
                 connection.CloseConnection();
             }
 
-            return reportsList;
+            return mensualReports;
 		}
 	}
 }

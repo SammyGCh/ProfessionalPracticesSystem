@@ -19,8 +19,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log = 
-            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public OrganizationSectorDAO()
         {
@@ -34,6 +32,8 @@ namespace DataAccess.Implementation
 
         public List<OrganizationSector> GetAllOrganizationSectors()
         {
+            organizationSectors = new List<OrganizationSector>();
+
             try
             {
                 mysqlConnection = connection.OpenConnection();
@@ -57,7 +57,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: ", ex);
             }
             finally
             {
@@ -99,7 +99,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: ", ex);
             }
             finally
             {
