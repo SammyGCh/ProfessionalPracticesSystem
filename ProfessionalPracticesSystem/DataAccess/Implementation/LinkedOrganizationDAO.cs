@@ -21,8 +21,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log =
-            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public LinkedOrganizationDAO()
         {
@@ -60,7 +58,7 @@ namespace DataAccess.Implementation
                 {
                     Value = linkedOrganization.State
                 };
-                MySqlParameter name = new MySqlParameter("@state", MySqlDbType.VarChar, 100)
+                MySqlParameter name = new MySqlParameter("@name", MySqlDbType.VarChar, 100)
                 {
                     Value = linkedOrganization.Name
                 };
@@ -90,7 +88,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -102,8 +100,6 @@ namespace DataAccess.Implementation
 
         public List<LinkedOrganization> GetAllLinkedOrganizations()
         {
-            linkedOrganizations = new List<LinkedOrganization>();
-
             try
             {
                 mysqlConnection = connection.OpenConnection();
@@ -113,6 +109,7 @@ namespace DataAccess.Implementation
                 };
 
                 reader = query.ExecuteReader();
+                linkedOrganizations = new List<LinkedOrganization>();
 
                 while (reader.Read())
                 {
@@ -133,7 +130,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -180,7 +177,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -227,7 +224,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -240,8 +237,6 @@ namespace DataAccess.Implementation
 
         public List<LinkedOrganization> GetLinkedOrganizationBySector(OrganizationSector organizationSector)
         {
-            linkedOrganizations = new List<LinkedOrganization>();
-
             try
             {
                 mysqlConnection = connection.OpenConnection();
@@ -258,6 +253,7 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idOrganizationSector);
 
                 reader = query.ExecuteReader();
+                linkedOrganizations = new List<LinkedOrganization>();
 
                 while (reader.Read())
                 {
@@ -278,7 +274,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {
@@ -300,7 +296,7 @@ namespace DataAccess.Implementation
                 {
                     CommandText = "UPDATE LinkedOrganization SET " +
                     "city = @city, email = @email, state = @state, name = @name, telephoneNumber = @telephoneNumber, address = @address, " +
-                    "idOrganizationSector = @idOrganizationSector" +
+                    "idOrganizationSector = @idOrganizationSector " +
                     "WHERE idLinkedOrganization = @idLinkedOrganization"
                 };
 
@@ -316,7 +312,7 @@ namespace DataAccess.Implementation
                 {
                     Value = linkedOrganizationUpdated.State
                 };
-                MySqlParameter name = new MySqlParameter("@state", MySqlDbType.VarChar, 100)
+                MySqlParameter name = new MySqlParameter("@name", MySqlDbType.VarChar, 100)
                 {
                     Value = linkedOrganizationUpdated.Name
                 };
@@ -351,7 +347,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: ", ex);
             }
             finally
             {

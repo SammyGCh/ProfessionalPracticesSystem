@@ -3,7 +3,6 @@
     Author(s): Sammy Guadarrama Chávez
  */
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.DataBase;
 using MySql.Data.MySqlClient;
@@ -25,12 +24,29 @@ namespace DataAccessTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(MySqlException))]
+        public void UnsuccessConnectionTest()
+        {
+            connection = new DataBaseConnection();
+            connection.OpenConnection();
+        }
+
+        [TestMethod]
         public void SuccessDisconnectionTest()
         {
             connection = new DataBaseConnection();
             MySqlConnection newConnection = connection.OpenConnection();
             connection.CloseConnection();
             Assert.IsTrue(newConnection.State == ConnectionState.Closed);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MySqlException))]
+        public void UnsuccessDisconnectionTest()
+        {
+            connection = new DataBaseConnection();
+            connection.OpenConnection();
+            connection.CloseConnection();
         }
     }
 }

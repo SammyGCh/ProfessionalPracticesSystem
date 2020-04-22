@@ -19,8 +19,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log =
-            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public DevelopmentStageDAO()
         {
@@ -43,6 +41,7 @@ namespace DataAccess.Implementation
                 };
 
                 reader = query.ExecuteReader();
+                developmentStages = new List<DevelopmentStage>();
 
                 while (reader.Read())
                 {
@@ -57,7 +56,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: ", ex);
             }
             finally
             {
@@ -97,7 +96,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: ", ex);
             }
             finally
             {

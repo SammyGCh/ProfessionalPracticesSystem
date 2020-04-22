@@ -3,12 +3,10 @@
     Author(s) : Sammy Guadarrama Chávez
  */
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.Implementation;
 using BusinessDomain;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 
 namespace DataAccessTests
 {
@@ -39,7 +37,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllOrganizationSectorsUnSuccess()
+        public void GetAllOrganizationSectorsUnsuccess()
         {
             OrganizationSectorDAO organizationSectorDao;
             organizationSectorDao = new OrganizationSectorDAO();
@@ -50,7 +48,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetOrganizationSectorByIdUnSuccess()
+        public void GetOrganizationSectorByIdUnsuccess()
         {
             OrganizationSectorDAO organizationSectorDao;
             organizationSectorDao = new OrganizationSectorDAO();
