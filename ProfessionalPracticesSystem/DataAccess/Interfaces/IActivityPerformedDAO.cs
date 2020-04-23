@@ -13,8 +13,8 @@ namespace DataAccess.Interfaces
         List <ActivityPerformed> GetAllActivityPerformed();
         List <ActivityPerformed> GetActivityByPractitioner(int idPractitioner);
         ActivityPerformed GetActivityPerformed(int idActivityPerformed);
-        bool NewActivityPerformed (MensualReport MensualReport);
-        bool UpdateActivityPerformed(MensualReport MensualReport);
+        bool NewActivityPerformed (ActivityPerformed activityPerformed);
+        bool UpdateActivityPerformed(ActivityPerformed activityPerformed);
 
     }
 }
