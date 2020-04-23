@@ -12,8 +12,8 @@ namespace BusinessDomain
     {
         private int idActivityPerformed;
         private ProfessorActivity generatedBy;
-        private Practitioner didBy;
-        private DateTime performedDate;
+        private Practitioner performedBy;
+        private String performedDate;
         private String activityReply;
 
         public ActivityPerformed(){}
@@ -28,13 +28,13 @@ namespace BusinessDomain
             set => generatedBy = value;
         }
 
-        public Practitioner DidBy
+        public Practitioner PerformedBy
         {
-            get => didBy;
-            set => didBy = value;
+            get => performedBy;
+            set => performedBy = value;
         }
 
-        public DateTime PerformedDate
+        public String PerformedDate
         {
             get => performedDate;
             set => performedDate = value;
