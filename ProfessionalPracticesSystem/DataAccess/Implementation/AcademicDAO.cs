@@ -33,7 +33,7 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE Academic SET status='No activo' WHERE Academic.idAcademic = @idAcademic"
+                    CommandText = "UPDATE Academic SET status=0 WHERE Academic.idAcademic = @idAcademic"
                 };
                 MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
                 {
@@ -203,7 +203,7 @@ namespace DataAccess.Implementation
                     Value = academic.Shift
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.VarChar, 10)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
                 {
                     Value = academic.Status
                 };

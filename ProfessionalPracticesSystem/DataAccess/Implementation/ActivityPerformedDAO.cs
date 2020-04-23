@@ -16,7 +16,7 @@ namespace DataAccess.Implementation
         private List<ActivityPerformed> activitiesPerformed;
         private ActivityPerformed activityPerformed;
         private DataBaseConnection connection;
-        private MySqlConnection mysqlConnection;
+        private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
         private PractitionerDAO practitionerHandler;
@@ -29,7 +29,7 @@ namespace DataAccess.Implementation
             activitiesPerformed = null;
             activityPerformed = null;
             connection = new DataBaseConnection();
-            mysqlConnection = null;
+            mySqlConnection = null;
             query = null;
             reader = null;
             practitionerHandler = null;
@@ -44,8 +44,8 @@ namespace DataAccess.Implementation
 
             try
             {
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "SELECT * FROM ActivityPerformed"
                 };
@@ -57,9 +57,15 @@ namespace DataAccess.Implementation
                     activityPerformed = new ActivityPerformed
                     {
                         IdActivityPerformed = reader.GetInt32(0),
+<<<<<<< HEAD
                         GeneratedBy = reader.GetInt32(1),
                         DidBy = reader.GetInt32(2),
                         PerformedDate = reader.GetDateTime(3),
+=======
+                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
+                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
+                        PerformedDate = reader.GetString(3),
+>>>>>>> f2349167abd749a87eab439881c33368a056a666
                         ActivityReply = reader.GetString(4),
                     };
 
@@ -87,8 +93,8 @@ namespace DataAccess.Implementation
 
             try
             {
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "SELECT * FROM ActivityPerformed WHERE idPractitiober = @idPractitioner"
                 };
@@ -102,9 +108,15 @@ namespace DataAccess.Implementation
                     activityPerformed = new ActivityPerformed
                     {
                         IdActivityPerformed = reader.GetInt32(0),
+<<<<<<< HEAD
                         GeneratedBy = reader.GetInt32(1),
                         DidBy = reader.GetInt32(2),
                         PerformedDate = reader.GetDateTime(3),
+=======
+                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
+                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
+                        PerformedDate = reader.GetString(3),
+>>>>>>> f2349167abd749a87eab439881c33368a056a666
                         ActivityReply = reader.GetString(4),
                     };
 
@@ -131,8 +143,8 @@ namespace DataAccess.Implementation
 
             try
             {
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "SELECT * FROM ActivityPerformed WHERE idActivityPerformed = @idActivityPerformed"
                 };
@@ -146,9 +158,15 @@ namespace DataAccess.Implementation
                     activityPerformed = new ActivityPerformed
                     {
                         IdActivityPerformed = reader.GetInt32(0),
+<<<<<<< HEAD
                         GeneratedBy = reader.GetInt32(1),
                         DidBy = reader.GetInt32(2),
                         PerformedDate = reader.GetDateTime(3),
+=======
+                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
+                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
+                        PerformedDate = reader.GetString(3),
+>>>>>>> f2349167abd749a87eab439881c33368a056a666
                         ActivityReply = reader.GetString(4),
                     };
                 }
@@ -166,7 +184,7 @@ namespace DataAccess.Implementation
             return activityPerformed;
         }
 
-        public bool NewActivityPerformed(MensualReport MensualReport)
+        public bool NewActivityPerformed(ActivityPerformed activityPerformed)
         {
             bool isSaved = false;
 
@@ -179,7 +197,7 @@ namespace DataAccess.Implementation
                     " VALUES (@performedDate, @activityReply, @idProfessorActivity, @idPractitioner)"
                 };
 
-                MySqlParameter performedDate = new MySqlParameter("@performedDate", MySqlDbType.VarChar, 1000)
+                MySqlParameter performedDate = new MySqlParameter("@performedDate", MySqlDbType.DateTime, 10)
                 {
                     Value = activityPerformed.PerformedDate
                 };
@@ -194,9 +212,9 @@ namespace DataAccess.Implementation
                     Value = activityPerformed.GeneratedBy.IdProfessorActivity
                 };
 
-                MySqlParameter idPractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.DateTime, 10)
+                MySqlParameter idPractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
                 {
-                    Value = activityPerformed.DidBy.IdPractitioner
+                    Value = activityPerformed.PerformedBy.IdPractitioner
                 };
 
                 query.Parameters.Add(performedDate);
@@ -219,7 +237,7 @@ namespace DataAccess.Implementation
             return isSaved;
         }
 
-        public bool UpdateActivityPerformed(MensualReport MensualReport)
+        public bool UpdateActivityPerformed(ActivityPerformed activityPerformed)
         {
             bool isUpdated = false;
 
@@ -232,7 +250,7 @@ namespace DataAccess.Implementation
                     "WHERE idActivityPerformed = @idActivityPerformed"
                 };
 
-                MySqlParameter performedDate = new MySqlParameter("@performedDate", MySqlDbType.VarChar, 1000)
+                MySqlParameter performedDate = new MySqlParameter("@performedDate", MySqlDbType.DateTime, 10)
                 {
                     Value = activityPerformed.PerformedDate
                 };
@@ -242,9 +260,15 @@ namespace DataAccess.Implementation
                     Value = activityPerformed.ActivityReply
                 };
 
+                MySqlParameter idactivityperformed = new MySqlParameter("@idActivityPerformed", MySqlDbType.Int32, 2)
+                {
+                    Value = activityPerformed.IdActivityPerformed
+                };
+
 
                 query.Parameters.Add(performedDate);
                 query.Parameters.Add(activityReply);
+                query.Parameters.Add(idactivityperformed);
                 query.ExecuteNonQuery();
 
                 isUpdated = true;

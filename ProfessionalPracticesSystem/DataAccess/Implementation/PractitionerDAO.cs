@@ -37,7 +37,7 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE Practitioner SET Status='No activo' WHERE Practitioner.idPractitioner = @idPractitioner"
+                    CommandText = "UPDATE Practitioner SET Status=0 WHERE Practitioner.idPractitioner = @idPractitioner"
                 };
                 MySqlParameter idpractising = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
                 {
@@ -259,7 +259,7 @@ namespace DataAccess.Implementation
                     Value = practitioner.Speaks.IdIndigenousLanguage
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.VarChar, 10)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
                 {
                     Value = practitioner.Status
                 };

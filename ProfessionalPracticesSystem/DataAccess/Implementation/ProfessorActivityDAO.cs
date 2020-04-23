@@ -107,6 +107,51 @@ namespace DataAccess.Implementation
             return professorActivityList;
         }
 
+        public ProfessorActivity GetProfessorActivity(int idProfessorActivity)
+        {
+            try
+            {
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM ProfessorActivity WHERE ProfessorActivity.idProfessorActivity = @idProfessorActivity"
+                };
+
+                MySqlParameter idprofesoractivity = new MySqlParameter("@idProfessorActivity", MySqlDbType.Int32, 2)
+                {
+                    Value = idProfessorActivity
+                };
+
+                query.Parameters.Add(idprofesoractivity);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    professorActivity = new ProfessorActivity
+                    {
+                        IdProfessorActivity = reader.GetInt32(0),
+                        Description = reader.GetString(1),
+                        Name = reader.GetString(2),
+                        ValueActivity = reader.GetInt32(3),
+                        PerformanceDate = reader.GetString(4),
+                        GeneratedBy = belongsto.GetAcademic(reader.GetInt32(5))
+                    };
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                log.Error("Someting whent wrong in  DataAccess/Implementation/ProfessorActivityDAO/GetProfessorActivity:", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return professorActivity;
+        }
+
         public bool SaveProfessorActivity(ProfessorActivity professorActivity)
         {
             bool isSaved = false;
