@@ -57,18 +57,10 @@ namespace DataAccess.Implementation
                     activityPerformed = new ActivityPerformed
                     {
                         IdActivityPerformed = reader.GetInt32(0),
-<<<<<<< HEAD
-                        GeneratedBy = reader.GetInt32(1),
-                        DidBy = reader.GetInt32(2),
-                        PerformedDate = reader.GetDateTime(3),
-<<<<<<< HEAD
-=======
-=======
                         GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
                         PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
                         PerformedDate = reader.GetString(3),
->>>>>>> f2349167abd749a87eab439881c33368a056a666
->>>>>>> master
+
                         ActivityReply = reader.GetString(4),
                     };
 
@@ -111,18 +103,9 @@ namespace DataAccess.Implementation
                     activityPerformed = new ActivityPerformed
                     {
                         IdActivityPerformed = reader.GetInt32(0),
-<<<<<<< HEAD
-                        GeneratedBy = reader.GetInt32(1),
-                        DidBy = reader.GetInt32(2),
-                        PerformedDate = reader.GetDateTime(3),
-<<<<<<< HEAD
-=======
-=======
                         GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
                         PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
                         PerformedDate = reader.GetString(3),
->>>>>>> f2349167abd749a87eab439881c33368a056a666
->>>>>>> master
                         ActivityReply = reader.GetString(4),
                     };
 
@@ -164,18 +147,9 @@ namespace DataAccess.Implementation
                     activityPerformed = new ActivityPerformed
                     {
                         IdActivityPerformed = reader.GetInt32(0),
-<<<<<<< HEAD
-                        GeneratedBy = reader.GetInt32(1),
-                        DidBy = reader.GetInt32(2),
-                        PerformedDate = reader.GetDateTime(3),
-<<<<<<< HEAD
-=======
-=======
                         GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
                         PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
                         PerformedDate = reader.GetString(3),
->>>>>>> f2349167abd749a87eab439881c33368a056a666
->>>>>>> master
                         ActivityReply = reader.GetString(4),
                     };
                 }
@@ -199,12 +173,8 @@ namespace DataAccess.Implementation
 
             try
             {
-<<<<<<< HEAD
-                
-=======
->>>>>>> master
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "INSERT INTO ActivityPerformed (performedDate, activityReply, idProfessorActivity, idPractitioner)" +
                     " VALUES (@performedDate, @activityReply, @idProfessorActivity, @idPractitioner)"
@@ -256,8 +226,8 @@ namespace DataAccess.Implementation
 
             try
             {
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "UPDDATE ActivityPerformed SET performedDate = @performedDate, activityReply = @activityReply)" +
                     "WHERE idActivityPerformed = @idActivityPerformed"
