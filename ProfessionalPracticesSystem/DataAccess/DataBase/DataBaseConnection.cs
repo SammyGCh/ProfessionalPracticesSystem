@@ -12,14 +12,14 @@ namespace DataAccess.DataBase
 {
     public class DataBaseConnection
     {
-        private String infoConnection;
+        private string infoConnection;
         private MySqlConnection connection;
 
         private void Connect()
         {
             try
             {
-                infoConnection = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+                infoConnection = ConfigurationManager.ConnectionStrings["connectionSetting"].ConnectionString;
                 connection = new MySqlConnection(infoConnection);
                 connection.Open();
             }

@@ -22,7 +22,7 @@ namespace DataAccess.Implementation
         private static readonly log4net.ILog log =
         log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public IndigenousLanguageDAOImp()
+        public IndigenousLanguageDAO()
         {
             this.indigenousLanguages = null;
             this.indigenousLanguage = null;
@@ -49,7 +49,7 @@ namespace DataAccess.Implementation
                     indigenousLanguage = new IndigenousLanguage
                     {
                         IdIndigenousLanguage = reader.GetInt32(0),
-                        indigenousLanguageName = reader.GetString(1)
+                        Name = reader.GetString(1)
                     };
 
                     indigenousLanguages.Add(indigenousLanguage);
@@ -60,7 +60,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess\Implementation\IndigenousLanguage ", ex);
+                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguage ", ex);
             }
             finally
             {
@@ -70,7 +70,7 @@ namespace DataAccess.Implementation
             return indigenousLanguages;
         }
 
-        public IndigenousLanguage GetLanguageById(int idIndigenousLanguage)
+        public IndigenousLanguage GetIndigenousLanguageById(int idIndigenousLanguage)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace DataAccess.Implementation
                     indigenousLanguage = new IndigenousLanguage
                     {
                         IdIndigenousLanguage = reader.GetInt32(0),
-                        IndigenousLanguageName = reader.GetString(1)
+                        Name = reader.GetString(1)
                     };
                 }
 
@@ -102,7 +102,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess\Implementation\IndigenousLanguage", ex );
+                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguage", ex );
             }
             finally
             {

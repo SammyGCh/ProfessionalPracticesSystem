@@ -11,6 +11,6 @@ namespace DataAccess.Interfaces
     public interface IIndigenousLanguageDAO
     {
         List <IndigenousLanguage> GetAllIndigenousLanguages();
-        IndigenousLanguage GetLanguageById(int idIndigenousLanguage);
+        IndigenousLanguage GetIndigenousLanguageById(int idIndigenousLanguage);
     }
 }
