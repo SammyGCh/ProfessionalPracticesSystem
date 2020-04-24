@@ -4,7 +4,6 @@
  */
 
 using BusinessDomain;
-using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using DataAccess.DataBase;
@@ -20,8 +19,8 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private ProjectDAO derivedFrom;
-        private PractitionerDAO generatedBy;
+        private ProjectDAO projectHandler;
+        private PractitionerDAO practitionerHandler;
         private static readonly log4net.ILog log =
         log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -33,7 +32,9 @@ namespace DataAccess.Implementation
             mySqlConnection = null;
             query = null;
             reader = null;
-        }
+            projectHandler = null;
+            practitionerHandler = null;
+    }
 
         public bool InsertMensualReport(MensualReport newMensualReport)
         {
@@ -178,8 +179,9 @@ namespace DataAccess.Implementation
 
         public List<MensualReport> GetAllMensualReports()
         {
-            generatedBy = new PractitionerDAO();
-            derivedFrom = new ProjectDAO();
+            mensualReports = new List<MensualReport>();
+            practitionerHandler = new PractitionerDAO();
+            projectHandler = new ProjectDAO();
 
             try
             {
@@ -200,8 +202,8 @@ namespace DataAccess.Implementation
                         Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
                         Name = reader.GetString(3),
-                        GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
-                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(5))
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(5))
                     };
 
                     mensualReports.Add(mensualReport);
@@ -247,8 +249,8 @@ namespace DataAccess.Implementation
 						Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
 						Name = reader.GetString(3),
-						GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
-                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(3))
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(5))
                     };
                 }
             }
@@ -264,10 +266,11 @@ namespace DataAccess.Implementation
 
             return mensualReport;
 		}
-		public List<MensualReport> GetReportByPractitioner(int idPractitioner)
+		public List<MensualReport> GetAllReportsByPractitioner(int idPractitioner)
 		{
             mensualReports = new List<MensualReport>();
-
+            practitionerHandler = new PractitionerDAO();
+            projectHandler = new ProjectDAO();
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -292,8 +295,8 @@ namespace DataAccess.Implementation
 						Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
 						Name = reader.GetString(3),
-						GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
-                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(5))
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(5))
                     };
 
                     mensualReports.Add(mensualReport);
@@ -312,10 +315,11 @@ namespace DataAccess.Implementation
 
             return mensualReports;
 		}
-        public List<MensualReport> GetReportByProject(int idProject)
+        public List<MensualReport> GetAllReportsByProject(int idProject)
 		{
             mensualReports = new List<MensualReport>();
-
+            practitionerHandler = new PractitionerDAO();
+            projectHandler = new ProjectDAO();
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -337,13 +341,12 @@ namespace DataAccess.Implementation
                     mensualReport = new MensualReport
                     {
                         IdMensualReport = reader.GetInt32(0),
-						Description = reader.GetString(1),
+                        Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
-						Name = reader.GetString(3),
-						GeneratedBy = generatedBy.GetPractitioner(reader.GetInt32(4)),
-                        DerivedFrom = derivedFrom.GetProjectById(reader.GetInt32(5))
+                        Name = reader.GetString(3),
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(4)),
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(5))
                     };
-
                     mensualReports.Add(mensualReport);
                 }
 

@@ -60,7 +60,6 @@ namespace DataAccess.Implementation
                         GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
                         PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
                         PerformedDate = reader.GetString(3),
-
                         ActivityReply = reader.GetString(4),
                     };
 
