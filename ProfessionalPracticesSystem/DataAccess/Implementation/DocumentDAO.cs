@@ -144,7 +144,7 @@ namespace DataAccess.Implementation
             return document;
         }
 
-        public List<Document> GetDocumentByPractising(int idPractising)
+        public List<Document> GetDocumentByPractitioner(int idPractitioner)
         {
             try
             {
@@ -152,14 +152,14 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Document WHERE Document.idPractising = @idPractising"
+                    CommandText = "SELECT * FROM Document WHERE Document.idPractitioner = @idPractitioner"
                 };
-                MySqlParameter idpractising = new MySqlParameter("@idPractising", MySqlDbType.Int32, 2)
+                MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
                 {
-                    Value = idPractising
+                    Value = idPractitioner
                 };
 
-                query.Parameters.Add(idpractising);
+                query.Parameters.Add(idpractitioner);
 
                 reader = query.ExecuteReader();
 
@@ -180,7 +180,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByPractising:", ex);
+                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByPractitioner:", ex);
             }
             finally
             {
@@ -246,8 +246,8 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO Document(name, path, idDocumentType, idPractising)" +
-                    "VALUES (@name, @path, @idDocumentType, @idPractising)"
+                    CommandText = "INSERT INTO Document(name, path, idDocumentType, idPractitioner)" +
+                    "VALUES (@name, @path, @idDocumentType, @idPractitioner)"
                 };
 
                 MySqlParameter name = new MySqlParameter("@name", MySqlDbType.VarChar, 60)
@@ -265,7 +265,7 @@ namespace DataAccess.Implementation
                     Value = document.TypeOf.IdDocumentType
                 };
 
-                MySqlParameter idpractising = new MySqlParameter("@idPractising", MySqlDbType.Int32, 1)
+                MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
                 {
                     Value = document.AddBy.IdPractitioner
                 };
@@ -273,7 +273,7 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(name);
                 query.Parameters.Add(path);
                 query.Parameters.Add(iddocumentType);
-                query.Parameters.Add(idpractising);
+                query.Parameters.Add(idpractitioner);
 
                 query.ExecuteNonQuery();
                 isSaved = true;

@@ -9,8 +9,9 @@ namespace DataAccess.Interfaces
 {
     public interface IProfessorActivityDAO
     {
-        List<ProfessorActivity> GetAllActivity(int idAcademic);
+        List<ProfessorActivity> GetAllProfessorActivityByAcademic(int idAcademic);
         bool SaveProfessorActivity(ProfessorActivity professorActivity);
+        ProfessorActivity GetProfessorActivity(int idProfessorActivity);
         bool DeleteProfessorActivity(int idProfessorActivity);
     }
 }
