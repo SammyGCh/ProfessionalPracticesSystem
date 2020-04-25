@@ -27,6 +27,10 @@ namespace DataAccess.Implementation
         public PractitionerDAO()
         {
             connection = new DataBaseConnection();
+            belogsTo = new ScholarPeriodDAO();
+            speaks = new IndigenousLanguageDAO();
+            academic = new AcademicDAO();
+            assigned = new ProjectDAO();
         }
 
         public bool DeletePractitioner(int idPractitioner)
@@ -64,8 +68,6 @@ namespace DataAccess.Implementation
 
         public List<Practitioner> GetAllPractitioner()
         {
-            belogsTo = new ScholarPeriodDAO();
-
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -113,8 +115,6 @@ namespace DataAccess.Implementation
         
         public List<Practitioner> GetAllPractitionerByindigenousLanguage()
         {
-            belogsTo = new ScholarPeriodDAO();
-
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -162,8 +162,6 @@ namespace DataAccess.Implementation
 
         public Practitioner GetPractitioner(int idPractitioner)
         {
-            belogsTo = new ScholarPeriodDAO();
-
             try
             {
                 mySqlConnection = connection.OpenConnection();

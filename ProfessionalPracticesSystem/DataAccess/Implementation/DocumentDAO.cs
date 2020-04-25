@@ -25,6 +25,8 @@ namespace DataAccess.Implementation
         public DocumentDAO()
         {
             connection = new DataBaseConnection();
+            addBy = new PractitionerDAO();
+            typeOf = new DocumentTypeDAO();
         }
         public bool DeleteDocument(int idDocument)
         {

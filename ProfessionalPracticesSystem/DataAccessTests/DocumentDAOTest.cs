@@ -43,7 +43,7 @@ namespace DataAccessTests
         [TestMethod]
         public void DeleteDocumentSuccess()
         {
-            int idDocument = 1;
+            int idDocument = 4;
 
             bool result = documentDAO.DeleteDocument(idDocument);
 

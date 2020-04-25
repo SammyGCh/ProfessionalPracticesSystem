@@ -24,6 +24,7 @@ namespace DataAccess.Implementation
         public AcademicDAO()
         {
             connection = new DataBaseConnection();
+            belongsto = new AcademicTypeDAO();
         }
         public bool DeleteAcademic(int idAcademic)
         {

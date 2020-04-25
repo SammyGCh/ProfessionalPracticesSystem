@@ -25,6 +25,7 @@ namespace DataAccess.Implementation
         public ProfessorActivityDAO()
         {
             connection = new DataBaseConnection();
+            belongsto = new AcademicDAO();
         }
         public bool DeleteProfessorActivity(int idProfessorActivity)
         {
