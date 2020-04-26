@@ -27,6 +27,10 @@ namespace DataAccess.Implementation
         public PractitionerDAO()
         {
             connection = new DataBaseConnection();
+            belogsTo = new ScholarPeriodDAO();
+            speaks = new IndigenousLanguageDAO();
+            academic = new AcademicDAO();
+            assigned = new ProjectDAO();
         }
 
         public bool DeletePractitioner(int idPractitioner)
@@ -37,7 +41,7 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE Practitioner SET Status='No activo' WHERE Practitioner.idPractitioner = @idPractitioner"
+                    CommandText = "UPDATE Practitioner SET Status=0 WHERE Practitioner.idPractitioner = @idPractitioner"
                 };
                 MySqlParameter idpractising = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
                 {
@@ -64,8 +68,6 @@ namespace DataAccess.Implementation
 
         public List<Practitioner> GetAllPractitioner()
         {
-            belogsTo = new ScholarPeriodDAO();
-
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -113,8 +115,6 @@ namespace DataAccess.Implementation
         
         public List<Practitioner> GetAllPractitionerByindigenousLanguage()
         {
-            belogsTo = new ScholarPeriodDAO();
-
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -162,8 +162,6 @@ namespace DataAccess.Implementation
 
         public Practitioner GetPractitioner(int idPractitioner)
         {
-            belogsTo = new ScholarPeriodDAO();
-
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -171,11 +169,12 @@ namespace DataAccess.Implementation
                 {
                     CommandText = "SELECT * FROM Practitioner WHERE Practitioner.idPractitioner = @idPractitioner"
                 };
-                MySqlParameter idpractising = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
+                MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
                 {
                     Value = idPractitioner
                 };
-                query.Parameters.Add(idpractising);
+
+                query.Parameters.Add(idpractitioner);
 
                 reader = query.ExecuteReader();
 
@@ -220,8 +219,8 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "INSERT INTO Practitioner(matricula, password, grade, gender, names," +
-                    "lastName, idIndigenousLanguage, status, idAcademic, scholarPeriod) VALUES (@matricula, @password, @grade," +
-                    " @gender, @names, @lastName, @idIndigenousLanguage, @status, @idAcademic, @scholarPeriod)"
+                    "lastName, idIndigenousLanguage, status, idAcademic, idScholarPeriod) VALUES (@matricula, @password, @grade," +
+                    " @gender, @names, @lastName, @idIndigenousLanguage, @status, @idAcademic, @idScholarPeriod)"
                 };
 
                 MySqlParameter matricula = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
@@ -259,7 +258,7 @@ namespace DataAccess.Implementation
                     Value = practitioner.Speaks.IdIndigenousLanguage
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.VarChar, 10)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
                 {
                     Value = practitioner.Status
                 };
@@ -269,9 +268,9 @@ namespace DataAccess.Implementation
                     Value = practitioner.Instructed.IdAcademic
                 };
 
-                MySqlParameter scholarPeriod = new MySqlParameter("@scholarPeriod", MySqlDbType.VarChar, 20)
+                MySqlParameter scholarPeriod = new MySqlParameter("@idScholarPeriod", MySqlDbType.Int32, 2)
                 {
-                    Value = practitioner.ScholarPeriod
+                    Value = practitioner.ScholarPeriod.IdScholarPeriod
                 };
 
 
