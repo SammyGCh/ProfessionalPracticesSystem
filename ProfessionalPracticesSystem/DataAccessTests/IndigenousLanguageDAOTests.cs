@@ -15,26 +15,42 @@ namespace DataAccessTests
     [TestClass]
     public class IndigenousLanguageDAOTests
     {
+        IndigenousLanguageDAO indigenousLanguageDao = new IndigenousLanguageDAO();
 
         [TestMethod]
-        public void GetIndigenousLanguageById()
+        public void GetById_IndigenousLanguage_Succes()
         {
-            IndigenousLanguageDAO indigenousLanguageDao;
-            indigenousLanguageDao = new IndigenousLanguageDAO();
             int idLanguage = 1;
             IndigenousLanguage indigenousLanguage = indigenousLanguageDao.GetIndigenousLanguageById(idLanguage);
-
-            Assert.IsNull(indigenousLanguage);
+            Assert.IsNotNull(indigenousLanguage);
         }
         [TestMethod]
-        public void GetAllIndigenousLanguages()
+        public void GetAll_IndigenousLanguages_Succes()
         {
-            IndigenousLanguageDAO indigenousLanguageDao;
-            indigenousLanguageDao = new IndigenousLanguageDAO();
             List<IndigenousLanguage> indigenousLanguages = indigenousLanguageDao.GetAllIndigenousLanguages();
-            int expectedResult = 4;
+            int expectedResult = 3;
             int obtainedResult = indigenousLanguages.Count;
             Assert.AreEqual(expectedResult, obtainedResult);
+        }
+        [TestMethod]
+        public void CanRegister_IndigenousLanguage_ReturnTrue()
+        {
+            IndigenousLanguageDAO indigenousLanguageDao = new IndigenousLanguageDAO();
+            IndigenousLanguage language = new IndigenousLanguage
+            {
+                IndigenousLanguageName = "Maya"
+            };
+            bool isSaved = indigenousLanguageDao.InsertIndigenousLanguage(language);
+
+            Assert.IsTrue(isSaved);
+        }
+        [TestMethod]
+        public void CanDelete_IndigenousLanguage_ReturnTrue()
+        {
+            IndigenousLanguageDAO indigenousLanguageDao = new IndigenousLanguageDAO();
+            int idLanguage = 3;
+            bool isDeleted = indigenousLanguageDao.DeleteIndigenousLanguageById(idLanguage);
+            Assert.IsTrue(isDeleted);
         }
     }
 }

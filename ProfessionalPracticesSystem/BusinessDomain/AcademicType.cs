@@ -12,16 +12,10 @@ namespace BusinessDomain
     	private int idAcademicType;
    		private String academicTypeName;
 
-    	public AcademicType()
-    	{
-        	idAcademicType= 0;
-        	academicTypeName = "";
-    	}
-
     	public int IdAcademicType
     	{
         	get => idAcademicType;
-			set => IdAcademicType = value;
+			set => idAcademicType = value;
 		}
 
     	public String AcademicTypeName

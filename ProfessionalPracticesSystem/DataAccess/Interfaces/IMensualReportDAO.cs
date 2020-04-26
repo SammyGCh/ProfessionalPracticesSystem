@@ -14,7 +14,7 @@ namespace DataAccess.Interfaces
         List<MensualReport> GetAllMensualReports();
         List<MensualReport> GetAllReportsByPractitioner(int idPractitioner);
         List<MensualReport> GetAllReportsByProject(int idProject);
-        bool InsertMensualReport(MensualReport MensualReport);
+        bool InsertMensualReport(MensualReport mensualReport);
         bool DeleteMensualReport(int idMensualReport);
 	    bool UpdateMensualReport(MensualReport MensualReport);
 	    MensualReport GetMensualReportById(int idMensualReport);

@@ -12,5 +12,7 @@ namespace DataAccess.Interfaces
     {
         List <AcademicType> GetAllAcademicTypes();
         AcademicType GetAcademicTypeById(int idAcademicType);
+        bool InsertAcademicType(AcademicType academicType);
+        bool DeleteAcademicTypeById(int idAcademicType);
     }
 }
