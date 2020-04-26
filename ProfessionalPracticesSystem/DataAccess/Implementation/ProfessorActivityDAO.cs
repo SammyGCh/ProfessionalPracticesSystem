@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using BusinessDomain;
 using DataAccess.DataBase;
 using DataAccess.Interfaces;
+using System;
 
 namespace DataAccess.Implementation
 {
@@ -24,6 +25,7 @@ namespace DataAccess.Implementation
         public ProfessorActivityDAO()
         {
             connection = new DataBaseConnection();
+            belongsto = new AcademicDAO();
         }
         public bool DeleteProfessorActivity(int idProfessorActivity)
         {
@@ -33,9 +35,9 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "DELETE FROM ProfessorActivity WHERE ProfessorActivity.idProfessorActivity = @idProfessorActivity"
+                    CommandText = "DELETE FROM professoractivity WHERE professoractivity.idProfessorActivity = @idProfessorActivity"
                 };
-                MySqlParameter idActivity = new MySqlParameter("@idProfessorActivity", MySqlDbType.Int32, 2)
+                MySqlParameter idActivity = new MySqlParameter("@idProfessorActivity", MySqlDbType.Int32, 11)
                 {
                     Value = idProfessorActivity
                 };
@@ -58,7 +60,7 @@ namespace DataAccess.Implementation
             return isSaved;
         }
 
-        public List<ProfessorActivity> GetAllActivity(int idAcademic)
+        public List<ProfessorActivity> GetAllProfessorActivityByAcademic(int idAcademic)
         {
             try
             {
@@ -111,6 +113,7 @@ namespace DataAccess.Implementation
         {
             try
             {
+                mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "SELECT * FROM ProfessorActivity WHERE ProfessorActivity.idProfessorActivity = @idProfessorActivity"
@@ -160,7 +163,7 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO Academic(description, name, value, performanceDate, idAcademic)" +
+                    CommandText = "INSERT INTO professorActivity(description, name, value, performanceDate, idAcademic)" +
                     " VALUES (@description, @name, @value, @performanceDate, @idAcademic)"
                 };
 
@@ -174,17 +177,17 @@ namespace DataAccess.Implementation
                     Value = professorActivity.Name
                 };
 
-                MySqlParameter value = new MySqlParameter("@value", MySqlDbType.Int32, 2)
+                MySqlParameter value = new MySqlParameter("@value", MySqlDbType.Int32, 11)
                 {
                     Value = professorActivity.ValueActivity
                 };
 
-                MySqlParameter performanceDate = new MySqlParameter("@performanceDate", MySqlDbType.DateTime, 10)
+                MySqlParameter performanceDate = new MySqlParameter("@performanceDate", MySqlDbType.DateTime, 50)
                 {
-                    Value = professorActivity.PerformanceDate
+                    Value = DateTime.Parse(professorActivity.PerformanceDate)
                 };
 
-                MySqlParameter idAcademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
+                MySqlParameter idAcademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
                 {
                     Value = professorActivity.GeneratedBy.IdAcademic
                 };
