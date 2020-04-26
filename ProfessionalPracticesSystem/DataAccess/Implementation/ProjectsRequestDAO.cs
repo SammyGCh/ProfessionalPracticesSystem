@@ -19,8 +19,7 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log =
-           log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private const int ACTIVE = 1;
 
         public ProjectsRequestDAO()
         {
@@ -66,7 +65,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
             }
             finally
             {
@@ -90,7 +89,7 @@ namespace DataAccess.Implementation
                     "idPractising) VALUES (@status, @idProjectRequested1, @idProjectRequested2, @idProjectRequested3, @idPractising)"
                 };
 
-                query.Parameters.Add("@status", MySqlDbType.VarChar, 10).Value = projectsRequest.Status;
+                query.Parameters.Add("@status", MySqlDbType.VarChar, 10).Value = ACTIVE;
                 query.Parameters.Add("@idProjectRequested1", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[0].IdProject;
                 query.Parameters.Add("@idProjectRequested2", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[1].IdProject;
                 query.Parameters.Add("@idProjectRequested3", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[2].IdProject;
@@ -101,7 +100,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implemation/ProjectsRequestDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implemation/ProjectsRequestDAO: ", ex);
             }
             finally
             {
@@ -131,7 +130,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
             }
             finally
             {

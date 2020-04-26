@@ -1,0 +1,85 @@
+2020-04-22 00:12:00,969 [12] ERROR DataAccess.Implementation.ProjectDAO - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'practisingNumber' in 'field list'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en DataAccess.Implementation.ProjectDAO.SaveProject(Project project) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 78
+2020-04-22 00:17:02,494 [12] ERROR DataAccess.Implementation.ProjectDAO - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Fatal error encountered during command execution. ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Parameter '@practitionerNumber' must be defined.
+   en MySql.Data.MySqlClient.Statement.SerializeParameter(MySqlParameterCollection parameters, MySqlPacket packet, String parmName, Int32 parameterIndex)
+   en MySql.Data.MySqlClient.Statement.InternalBindParameters(String sql, MySqlParameterCollection parameters, MySqlPacket packet)
+   en MySql.Data.MySqlClient.Statement.BindParameters()
+   en MySql.Data.MySqlClient.PreparableStatement.Execute()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en DataAccess.Implementation.ProjectDAO.SaveProject(Project project) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 78
+2020-04-22 01:21:19,836 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectByName(String name) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 265
+2020-04-22 01:22:02,735 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectByName(String name) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 265
+2020-04-22 20:05:36,196 [13] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetAllProjects() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 145
+2020-04-22 20:07:28,414 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 206
+2020-04-22 20:18:26,817 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 206
+2020-04-22 20:18:26,917 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'responsableEmail = 'luisale@gmail.com', responsableTelephone = '2281001213', pra' at line 1
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en DataAccess.Implementation.ProjectDAO.UpdateProject(Project projectUpdated) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 443
+2020-04-22 20:21:22,697 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 206
+2020-04-22 20:21:22,746 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'responsableEmail = 'luisale@gmail.com', responsableTelephone = '2281001213', pra' at line 1
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en DataAccess.Implementation.ProjectDAO.UpdateProject(Project projectUpdated) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 443
+2020-04-22 20:22:27,974 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 206
+2020-04-22 20:34:50,275 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 206
+2020-04-22 21:08:06,068 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
