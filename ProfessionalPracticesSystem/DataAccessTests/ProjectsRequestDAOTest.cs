@@ -24,19 +24,19 @@ namespace DataAccessTests
 
             projects.Add(new Project {
                 IdProject = 1,
-                Name = "PROYECTO DE PRUEBA 1"
+                Name = "DESARROLLO DE UN SISTEMA DE NUTRICIÓN"
             });
 
             projects.Add(new Project
             {
                 IdProject = 2,
-                Name = "PROYECTO DE PRUEBA 2"
+                Name = "DESARROLLO DE UN SISTEMA ADMINISTRATIVO DEL H. AYUNTAMIENTO"
             });
 
             projects.Add(new Project
             {
                 IdProject = 3,
-                Name = "PROYECTO DE PRUEBA 3"
+                Name = "PRUEBAS PARA EL SISTEMA DE CALIFICACIONES DE ESTUDIANTES DE LA UNIVERSIDAD VERACRUZANA"
             });
 
             projectsRequest.ProjectsRequested = projects;
@@ -45,6 +45,27 @@ namespace DataAccessTests
             bool isSaved = projectsRequestDao.SaveProjectsRequest(projectsRequest);
 
             Assert.IsTrue(isSaved);
+        }
+
+        [TestMethod]
+        public void GetAllProjectsRequestSuccess()
+        {
+            ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
+
+            List<ProjectsRequest> projectsRequests = projectsRequestDao.GetAllProjectsRequest();
+
+            Assert.IsTrue(projectsRequests.Count > 0);
+        }
+        
+        [TestMethod]
+        public void UpdateProjectsRequestSucces()
+        {
+            ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
+            int idProjectsRequest = 2;
+
+            bool isUpdated = projectsRequestDao.UpdateProjectsRequest(idProjectsRequest);
+
+            Assert.IsTrue(isUpdated);
         }
     }
 }

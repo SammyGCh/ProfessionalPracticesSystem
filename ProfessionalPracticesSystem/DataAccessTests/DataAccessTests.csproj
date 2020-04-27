@@ -62,16 +62,15 @@
     <Compile Include="LinkedOrganizationDAOTest.cs" />
     <Compile Include="OrganizationSectorDAOTest.cs" />
     <Compile Include="DevelopmentStageDAOTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectDAOTest.cs" />
     <Compile Include="ScholarPeriodDAOTest.cs" />
     <Compile Include="ProjectsRequestDAOTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DocumentTypeDAOTest.cs" />
     <Compile Include="DocumentDAOTest.cs" />
     <Compile Include="ProfessorActivityDAOTest.cs" />
     <Compile Include="PractitionerDAOTest.cs" />
     <Compile Include="AcademicDAOTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

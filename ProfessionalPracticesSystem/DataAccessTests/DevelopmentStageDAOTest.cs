@@ -41,7 +41,7 @@ namespace DataAccessTests
             developmentStageDao = new DevelopmentStageDAO();
             List<DevelopmentStage> developmentStages = developmentStageDao.GetAllDevelopmentStages();
 
-            int expectedResult = 1;
+            int expectedResult = 0;
             int obtainedResult = developmentStages.Count;
             Assert.AreNotEqual(expectedResult, obtainedResult);
         }
