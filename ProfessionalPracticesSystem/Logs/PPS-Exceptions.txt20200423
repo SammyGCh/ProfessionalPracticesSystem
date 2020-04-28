@@ -1,0 +1,5 @@
+2020-04-23 22:38:58,491 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
+   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
+   en MySql.Data.MySqlClient.MySqlDataReader.Read()
+   en DataAccess.Implementation.ProjectDAO.GetProjectByName(String name) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 264

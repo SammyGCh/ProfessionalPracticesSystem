@@ -20,14 +20,15 @@ namespace BusinessDomain
         private String mediateGoals;
         private String inmediateGoals;
         private String metology;
-        private String status;
+        private int status;
         private String neededResources;
-        private int practisingNumber;
+        private int practitionerNumber;
         private String generalDescription;
         private String responsableName;
         private String responsableCharge;
         private String responsableEmail;
         private String responsableTelephone;
+        private int practitionersAssigned;
         private DevelopmentStage belongsTo;
         private LinkedOrganization proposedBy;
         private List<ProjectActivity> projectActivities;
@@ -92,7 +93,7 @@ namespace BusinessDomain
             set => metology = value;
         }
 
-        public String Status
+        public int Status
         {
             get => status;
             set => status = value;
@@ -104,10 +105,10 @@ namespace BusinessDomain
             set => neededResources = value;
         }
 
-        public int PractisingNumber
+        public int PractitionerNumber
         {
-            get => practisingNumber;
-            set => practisingNumber = value;
+            get => practitionerNumber;
+            set => practitionerNumber = value;
         }
 
         public String GeneralDescription
@@ -138,6 +139,12 @@ namespace BusinessDomain
         {
             get => responsableTelephone;
             set => responsableTelephone = value;
+        }
+
+        public int PractitionersAssigned
+        {
+            get => practitionersAssigned;
+            set => practitionersAssigned = value;
         }
 
         public DevelopmentStage BelongsTo

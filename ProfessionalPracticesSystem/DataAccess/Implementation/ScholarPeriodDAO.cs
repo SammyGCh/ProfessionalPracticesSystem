@@ -20,8 +20,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log =
-           log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ScholarPeriodDAO()
         {
@@ -52,7 +50,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/ScholarPeriodDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ScholarPeriodDAO: ", ex);
             }
             finally
             {
@@ -89,7 +87,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/ScholarPeriodDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ScholarPeriodDAO: ", ex);
             }
             finally
             {
@@ -125,7 +123,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/ScholarPeriodDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ScholarPeriodDAO: ", ex);
             }
             finally
             {
