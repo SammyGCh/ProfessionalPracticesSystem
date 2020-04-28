@@ -32,7 +32,7 @@ namespace DataAccess.Implementation
 
         public List<OrganizationSector> GetAllOrganizationSectors()
         {
-            organizationSectors = new List<OrganizationSector>();
+            organizationSectors = null;
 
             try
             {
@@ -43,6 +43,7 @@ namespace DataAccess.Implementation
                 };
 
                 reader = query.ExecuteReader();
+                organizationSectors = new List<OrganizationSector>();
 
                 while (reader.Read())
                 {

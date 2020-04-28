@@ -11,7 +11,7 @@ namespace BusinessDomain
     public class ProjectsRequest
     {
         private int idProjectsRequest;
-        private String status;
+        private int status;
         private String date;
         private List<Project> projectsRequested;
         private Practitioner requestedBy;
@@ -23,7 +23,7 @@ namespace BusinessDomain
             set => idProjectsRequest = value;
         }
 
-        public String Status
+        public int Status
         {
             get => status;
             set => status = value;

@@ -11,7 +11,7 @@ namespace DataAccess.Interfaces
     public interface IDocumentDAO
     {
         List<Document> GetAllDocument();
-        List<Document> GetDocumentByPractising(int idPractising);
+        List<Document> GetDocumentByPractitioner(int idPractitioner);
         List<Document> GetDocumentByType(int idDocumentType);
         Document GetDocument(int idDocument);
         bool SaveDocument(Document document);

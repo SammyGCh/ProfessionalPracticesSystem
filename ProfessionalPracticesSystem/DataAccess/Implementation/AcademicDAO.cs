@@ -24,6 +24,7 @@ namespace DataAccess.Implementation
         public AcademicDAO()
         {
             connection = new DataBaseConnection();
+            belongsto = new AcademicTypeDAO();
         }
         public bool DeleteAcademic(int idAcademic)
         {
@@ -67,7 +68,7 @@ namespace DataAccess.Implementation
                 {
                     CommandText = "SELECT * FROM Academic WHERE Academic.idAcademic = @idAcademic"
                 };
-                MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
+                MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
                 {
                     Value = idAcademic
                 };
@@ -159,7 +160,7 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO Academic(personalNumber, names, cubicle, lastName, gender, password, idAcademicType" +
+                    CommandText = "INSERT INTO Academic(personalNumber, names, cubicle, lastName, gender, password, idAcademicType," +
                     "shift, status) VALUES (@personalNumber, @names, @cubicle, @lastName, @gender, @password, @idAcademicType, @shift, @status)"
                 };
 
@@ -193,7 +194,7 @@ namespace DataAccess.Implementation
                     Value = academic.Password
                 };
 
-                MySqlParameter idAcademic = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 2)
+                MySqlParameter idAcademic = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 11)
                 {
                     Value = academic.BelongTo.IdAcademicType
                 };
@@ -203,7 +204,7 @@ namespace DataAccess.Implementation
                     Value = academic.Shift
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
                     Value = academic.Status
                 };

@@ -2,7 +2,6 @@
     Date: 07/04/2020
     Author(s) : Angel de Jesus Juarez Garcia
 */
-using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using BusinessDomain;
@@ -105,7 +104,7 @@ namespace DataAccess.Implementation
                     CommandText = "SELECT * FROM DocumentType WHERE DocumentType.idDocumentType = @idDocumentType"
                 };
 
-                MySqlParameter iddocumentType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 2)
+                MySqlParameter iddocumentType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
                 {
                     Value = idDocumentType
                 };
