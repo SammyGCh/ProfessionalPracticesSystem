@@ -30,7 +30,7 @@ namespace DataAccessTests
         {
             
             List<AcademicType> academicTypes = academicTypeDao.GetAllAcademicTypes();
-            int expectedResult = 1;
+            int expectedResult = 3;
             int obtainedResult = academicTypes.Count;
             Assert.AreEqual(expectedResult, obtainedResult);
         }

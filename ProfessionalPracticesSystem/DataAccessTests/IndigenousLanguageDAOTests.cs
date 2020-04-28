@@ -28,7 +28,7 @@ namespace DataAccessTests
         public void GetAll_IndigenousLanguages_Succes()
         {
             List<IndigenousLanguage> indigenousLanguages = indigenousLanguageDao.GetAllIndigenousLanguages();
-            int expectedResult = 3;
+            int expectedResult = 5;
             int obtainedResult = indigenousLanguages.Count;
             Assert.AreEqual(expectedResult, obtainedResult);
         }

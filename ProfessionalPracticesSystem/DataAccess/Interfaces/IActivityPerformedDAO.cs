@@ -10,11 +10,12 @@ namespace DataAccess.Interfaces
 {
     public interface IActivityPerformedDAO
     {
-        List <ActivityPerformed> GetAllActivityPerformed();
-        List <ActivityPerformed> GetActivityByPractitioner(int idPractitioner);
-        ActivityPerformed GetActivityPerformed(int idActivityPerformed);
+        List <ActivityPerformed> GetAllActivityPerformedByProfessorActivity(int idProfessorActivity);
+        List <ActivityPerformed> GetAllActivitiesyPerformedByPractitioner(int idPractitioner);
+        ActivityPerformed GetActivityPerformed(int idProfessorActivity, int idPractitioner);
         bool NewActivityPerformed (ActivityPerformed activityPerformed);
         bool UpdateActivityPerformed(ActivityPerformed activityPerformed);
+        bool AddObservationsActivityPerformed(ActivityPerformed activityPerformed);
 
     }
 }
