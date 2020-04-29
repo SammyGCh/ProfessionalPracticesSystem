@@ -19,8 +19,8 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log =
-           log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private const int ACTIVE = 1;
+        private const int NO_ACTIVE = 0;
 
         public ProjectsRequestDAO()
         {
@@ -52,10 +52,11 @@ namespace DataAccess.Implementation
                     projectsRequest = new ProjectsRequest
                     {
                         IdProjectsRequest = reader.GetInt32(0),
-                        Status = reader.GetString(1),
+                        Status = reader.GetInt32(1),
                         Date = reader.GetString(2)
                     };
 
+                    projectsRequest.ProjectsRequested = new List<Project>();
                     projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(3)));
                     projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(4)));
                     projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(5)));
@@ -66,7 +67,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
             }
             finally
             {
@@ -86,22 +87,22 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "INSERT INTO ProjectsRequest (status, idProjectRequested1, idProjectRequested2, idProjectRequest3, " +
-                    "idPractising) VALUES (@status, @idProjectRequested1, @idProjectRequested2, @idProjectRequested3, @idPractising)"
+                    CommandText = "INSERT INTO ProjectsRequest (status, ProjectRequested1, ProjectRequested2, ProjectRequest3, " +
+                    "idPractitioner) VALUES (@status, @idProjectRequested1, @idProjectRequested2, @idProjectRequested3, @idPractitioner)"
                 };
 
-                query.Parameters.Add("@status", MySqlDbType.VarChar, 10).Value = projectsRequest.Status;
+                query.Parameters.Add("@status", MySqlDbType.VarChar, 10).Value = ACTIVE;
                 query.Parameters.Add("@idProjectRequested1", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[0].IdProject;
                 query.Parameters.Add("@idProjectRequested2", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[1].IdProject;
                 query.Parameters.Add("@idProjectRequested3", MySqlDbType.Int32, 2).Value = projectsRequest.ProjectsRequested[2].IdProject;
-                query.Parameters.Add("@idPractising", MySqlDbType.Int32, 2).Value = projectsRequest.RequestedBy.IdPractitioner;
+                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = projectsRequest.RequestedBy.IdPractitioner;
 
                 query.ExecuteNonQuery();
                 isSaved = true;
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implemation/ProjectsRequestDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implemation/ProjectsRequestDAO: ", ex);
             }
             finally
             {
@@ -123,7 +124,7 @@ namespace DataAccess.Implementation
                     CommandText = "UPDATE ProjectsRequest SET status = @status WHERE idProjectsRequest = @idProjectsRequest"
                 };
 
-                query.Parameters.Add("@status", MySqlDbType.VarChar, 10).Value = "NO ACTIVO";
+                query.Parameters.Add("@status", MySqlDbType.Int32, 2).Value = NO_ACTIVE;
                 query.Parameters.Add("@idProjectsRequest", MySqlDbType.Int32, 2).Value = idProjectsRequest;
 
                 query.ExecuteNonQuery();
@@ -131,7 +132,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
             }
             finally
             {

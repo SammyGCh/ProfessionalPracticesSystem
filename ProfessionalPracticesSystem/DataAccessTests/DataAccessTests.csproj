@@ -61,6 +61,17 @@
     <Compile Include="AcademicTypeDAOTest.cs" />
     <Compile Include="ActivityPerformedDAOTest.cs" />
     <Compile Include="DataBaseConnectionTest.cs" />
+    <Compile Include="LinkedOrganizationDAOTest.cs" />
+    <Compile Include="OrganizationSectorDAOTest.cs" />
+    <Compile Include="DevelopmentStageDAOTest.cs" />
+    <Compile Include="ProjectDAOTest.cs" />
+    <Compile Include="ScholarPeriodDAOTest.cs" />
+    <Compile Include="ProjectsRequestDAOTest.cs" />
+    <Compile Include="DocumentTypeDAOTest.cs" />
+    <Compile Include="DocumentDAOTest.cs" />
+    <Compile Include="ProfessorActivityDAOTest.cs" />
+    <Compile Include="PractitionerDAOTest.cs" />
+    <Compile Include="AcademicDAOTest.cs" />
     <Compile Include="IndigenousLanguageDAOTests.cs" />
     <Compile Include="MensualReporDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
