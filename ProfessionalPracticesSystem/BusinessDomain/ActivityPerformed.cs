@@ -10,18 +10,13 @@ namespace BusinessDomain
 
     public class ActivityPerformed
     {
-        private int idActivityPerformed;
         private ProfessorActivity generatedBy;
         private Practitioner performedBy;
         private String performedDate;
         private String activityReply;
+        private String observations;
 
         public ActivityPerformed(){}
-        public int IdActivityPerformed
-        {
-            get => idActivityPerformed;
-            set => idActivityPerformed = value;
-        }
         public ProfessorActivity GeneratedBy
         {
             get => generatedBy;
@@ -44,6 +39,12 @@ namespace BusinessDomain
         {
             get => activityReply;
             set => activityReply = value;
+        }
+
+        public String Observations
+        {
+            get => observations;
+            set => observations = value;
         }
     }
 }

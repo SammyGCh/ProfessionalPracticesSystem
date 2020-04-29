@@ -12,8 +12,6 @@ namespace BusinessDomain
     	private int idAcademicType;
    		private String academicTypeName;
 
-    	public AcademicType(){}
-
     	public int IdAcademicType
     	{
         	get => idAcademicType;

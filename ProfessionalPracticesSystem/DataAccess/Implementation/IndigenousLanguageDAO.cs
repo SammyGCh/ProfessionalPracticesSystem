@@ -36,6 +36,7 @@ namespace DataAccess.Implementation
         {
             try
             {
+                indigenousLanguages = new List<IndigenousLanguage>();
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
@@ -49,7 +50,7 @@ namespace DataAccess.Implementation
                     indigenousLanguage = new IndigenousLanguage
                     {
                         IdIndigenousLanguage = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        IndigenousLanguageName = reader.GetString(1)
                     };
 
                     indigenousLanguages.Add(indigenousLanguage);
@@ -60,7 +61,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguage ", ex);
+                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO ", ex);
             }
             finally
             {
@@ -94,7 +95,7 @@ namespace DataAccess.Implementation
                     indigenousLanguage = new IndigenousLanguage
                     {
                         IdIndigenousLanguage = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        IndigenousLanguageName = reader.GetString(1)
                     };
                 }
 
@@ -102,7 +103,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguage", ex );
+                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex );
             }
             finally
             {
@@ -110,6 +111,67 @@ namespace DataAccess.Implementation
             }
 
             return indigenousLanguage;
+        }
+
+        public bool InsertIndigenousLanguage(IndigenousLanguage indigenousLanguage)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "INSERT INTO IndigenousLanguge(name) VALUES (@indigenousLanguageName)"
+                };
+
+                query.Parameters.Add("@indigenousLanguageName", MySqlDbType.VarChar, 255).Value = indigenousLanguage.IndigenousLanguageName;
+                query.ExecuteNonQuery();
+
+                isSaved = true;
+            }
+            catch (MySqlException ex)
+            {
+                log.Error("Something went wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isSaved;
+        }
+
+        public bool DeleteIndigenousLanguageById(int idIndigenousLanguage)
+        {
+            bool isDeleted = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "DELETE FROM IndigenousLanguge WHERE IndigenousLanguge.idIndigenousLanguage = @idIndigenousLanguage"
+                };
+                MySqlParameter id = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 2)
+                {
+                    Value = idIndigenousLanguage
+                };
+                query.Parameters.Add(id);
+                query.ExecuteNonQuery();
+
+                isDeleted = true;
+            }
+            catch (MySqlException ex)
+            {
+                log.Error("Something went wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isDeleted;
         }
     }
 }

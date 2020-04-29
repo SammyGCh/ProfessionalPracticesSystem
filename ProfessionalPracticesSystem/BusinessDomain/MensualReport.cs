@@ -12,7 +12,7 @@ namespace BusinessDomain
         private int idMensualReport;
         private String description;
         private String monthReportedDate;
-        private String name;
+        private String mensualReportName;
         private Practitioner generatedBy;
         private Project derivedFrom;
 
@@ -34,10 +34,10 @@ namespace BusinessDomain
             set => monthReportedDate = value;
         }
 
-        public String Name
+        public String MensualReportName
         {
-            get => name;
-            set => name = value;
+            get => mensualReportName;
+            set => mensualReportName = value;
         }
 
         public Practitioner GeneratedBy

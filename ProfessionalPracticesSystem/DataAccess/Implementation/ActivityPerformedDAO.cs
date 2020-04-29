@@ -8,6 +8,7 @@ using DataAccess.DataBase;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using DataAccess.Interfaces;
+using System;
 
 namespace DataAccess.Implementation
 {
@@ -36,7 +37,7 @@ namespace DataAccess.Implementation
             professorActivityHandler = null;
     }
 
-        public List<ActivityPerformed> GetAllActivityPerformed()
+        public List<ActivityPerformed> GetAllActivityPerformedByProfessorActivity(int idProfessorActivity)
         {
             activitiesPerformed = new List<ActivityPerformed>();
             practitionerHandler = new PractitionerDAO();
@@ -47,8 +48,10 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM ActivityPerformed"
+                    CommandText = "SELECT * FROM ActivityPerformed WHERE idProfessorActivity = @idProfessorActivity"
                 };
+
+                query.Parameters.Add("@idProfessorActivity", MySqlDbType.Int32, 2).Value = idProfessorActivity;
 
                 reader = query.ExecuteReader();
 
@@ -56,11 +59,11 @@ namespace DataAccess.Implementation
                 {
                     activityPerformed = new ActivityPerformed
                     {
-                        IdActivityPerformed = reader.GetInt32(0),
-                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
-                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
-                        PerformedDate = reader.GetString(3),
-                        ActivityReply = reader.GetString(4),
+                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(0)),
+                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(1)),
+                        PerformedDate = reader.GetString(2),
+                        ActivityReply = reader.GetString(3),
+                        Observations = reader.GetString(4)
                     };
 
                 activitiesPerformed.Add(activityPerformed);
@@ -79,7 +82,7 @@ namespace DataAccess.Implementation
             return activitiesPerformed;
         }
 
-        public List<ActivityPerformed> GetActivityByPractitioner(int idPractitioner)
+        public List<ActivityPerformed> GetAllActivitiesyPerformedByPractitioner(int idPractitioner)
         {
             activitiesPerformed = new List<ActivityPerformed>();
             practitionerHandler = new PractitionerDAO();
@@ -90,7 +93,7 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM ActivityPerformed WHERE idPractitiober = @idPractitioner"
+                    CommandText = "SELECT * FROM ActivityPerformed WHERE idPractitioner = @idPractitioner"
                 };
 
                 query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = idPractitioner;
@@ -101,14 +104,14 @@ namespace DataAccess.Implementation
                 {
                     activityPerformed = new ActivityPerformed
                     {
-                        IdActivityPerformed = reader.GetInt32(0),
-                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
-                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
-                        PerformedDate = reader.GetString(3),
-                        ActivityReply = reader.GetString(4),
+                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(0)),
+                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(1)),
+                        PerformedDate = reader.GetString(2),
+                        ActivityReply = reader.GetString(3),
+                        Observations = reader.GetString(4)
                     };
-
-                    activitiesPerformed.Add(activityPerformed);
+                
+                activitiesPerformed.Add(activityPerformed);
                 }
             }
             catch (MySqlException ex)
@@ -124,7 +127,7 @@ namespace DataAccess.Implementation
             return activitiesPerformed;
         }
 
-        public ActivityPerformed GetActivityPerformed(int idActivityPerformed)
+        public ActivityPerformed GetActivityPerformed(int idProfessorActivity, int idPractitioner)
         {
             practitionerHandler = new PractitionerDAO();
             professorActivityHandler = new ProfessorActivityDAO();
@@ -134,10 +137,21 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM ActivityPerformed WHERE idActivityPerformed = @idActivityPerformed"
+                    CommandText = "SELECT * FROM ActivityPerformed WHERE idProfessorActivity = @idProfessorActivity " +
+                    "AND idPractitioner = @idPractitioner"
                 };
 
-                query.Parameters.Add("@idActivityPerformed", MySqlDbType.Int32, 2).Value = idActivityPerformed;
+                MySqlParameter idProfesorA = new MySqlParameter("@idProfessorActivity", MySqlDbType.Int32, 2)
+                {
+                    Value = idProfessorActivity
+                };
+                MySqlParameter idPractitionerA = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
+                {
+                    Value = idPractitioner
+                };
+
+                query.Parameters.Add(idProfesorA);
+                query.Parameters.Add(idPractitionerA);
 
                 reader = query.ExecuteReader();
 
@@ -145,11 +159,11 @@ namespace DataAccess.Implementation
                 {
                     activityPerformed = new ActivityPerformed
                     {
-                        IdActivityPerformed = reader.GetInt32(0),
-                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(1)),
-                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(2)),
-                        PerformedDate = reader.GetString(3),
-                        ActivityReply = reader.GetString(4),
+                        GeneratedBy = professorActivityHandler.GetProfessorActivity(reader.GetInt32(0)),
+                        PerformedBy = practitionerHandler.GetPractitioner(reader.GetInt32(1)),
+                        PerformedDate = reader.GetString(2),
+                        ActivityReply = reader.GetString(3),
+                        Observations = reader.GetString(4)
                     };
                 }
             }
@@ -175,34 +189,16 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO ActivityPerformed (performedDate, activityReply, idProfessorActivity, idPractitioner)" +
-                    " VALUES (@performedDate, @activityReply, @idProfessorActivity, @idPractitioner)"
+                    CommandText = " INSERT INTO ActivityPerformed (idProfessorActivity, idPractitioner,performedDate, activityReply)"+
+                            "VALUES(@idProfessorActivity, @idPractitioner,@performedDate, @activityReply)"
                 };
 
-                MySqlParameter performedDate = new MySqlParameter("@performedDate", MySqlDbType.DateTime, 10)
-                {
-                    Value = activityPerformed.PerformedDate
-                };
+                query.Parameters.Add("@idProfessorActivity", MySqlDbType.Int32, 2).Value = activityPerformed.GeneratedBy.IdProfessorActivity;
+                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = activityPerformed.PerformedBy.IdPractitioner;
+                query.Parameters.Add("@performedDate", MySqlDbType.DateTime, 20).Value = DateTime.Parse(activityPerformed.PerformedDate);
+                query.Parameters.Add("@activityReply", MySqlDbType.VarChar, 255).Value = activityPerformed.ActivityReply;
 
-                MySqlParameter activityReply = new MySqlParameter("@activityReply", MySqlDbType.VarChar, 60)
-                {
-                    Value = activityPerformed.ActivityReply
-                };
 
-                MySqlParameter idProfessorActivity = new MySqlParameter("@idProfessorActivity", MySqlDbType.Int32, 2)
-                {
-                    Value = activityPerformed.GeneratedBy.IdProfessorActivity
-                };
-
-                MySqlParameter idPractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
-                {
-                    Value = activityPerformed.PerformedBy.IdPractitioner
-                };
-
-                query.Parameters.Add(performedDate);
-                query.Parameters.Add(activityReply);
-                query.Parameters.Add(idProfessorActivity);
-                query.Parameters.Add(idPractitioner);
                 query.ExecuteNonQuery();
 
                 isSaved = true;
@@ -228,29 +224,15 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDDATE ActivityPerformed SET performedDate = @performedDate, activityReply = @activityReply)" +
-                    "WHERE idActivityPerformed = @idActivityPerformed"
+                    CommandText = "UPDATE ActivityPerformed SET performedDate = @performedDate, activityReply = @activityReply" +
+                    " WHERE idProfessorActivity = @idProfessorActivity AND idPractitioner = @idPractitioner"
                 };
 
-                MySqlParameter performedDate = new MySqlParameter("@performedDate", MySqlDbType.DateTime, 10)
-                {
-                    Value = activityPerformed.PerformedDate
-                };
+                query.Parameters.Add("@idProfessorActivity", MySqlDbType.Int32, 2).Value = activityPerformed.GeneratedBy.IdProfessorActivity;
+                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = activityPerformed.PerformedBy.IdPractitioner;
+                query.Parameters.Add("@performedDate", MySqlDbType.DateTime, 20).Value = DateTime.Parse(activityPerformed.PerformedDate);
+                query.Parameters.Add("@activityReply", MySqlDbType.VarChar, 255).Value = activityPerformed.ActivityReply;
 
-                MySqlParameter activityReply = new MySqlParameter("@activityReply", MySqlDbType.VarChar, 60)
-                {
-                    Value = activityPerformed.ActivityReply
-                };
-
-                MySqlParameter idactivityperformed = new MySqlParameter("@idActivityPerformed", MySqlDbType.Int32, 2)
-                {
-                    Value = activityPerformed.IdActivityPerformed
-                };
-
-
-                query.Parameters.Add(performedDate);
-                query.Parameters.Add(activityReply);
-                query.Parameters.Add(idactivityperformed);
                 query.ExecuteNonQuery();
 
                 isUpdated = true;
@@ -266,5 +248,39 @@ namespace DataAccess.Implementation
 
             return isUpdated;
         }
+
+        public bool AddObservationsActivityPerformed(ActivityPerformed activityPerformed)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "UPDATE ActivityPerformed SET observations = @observations" +
+                    " WHERE idProfessorActivity = @idProfessorActivity AND idPractitioner = @idPractitioner"
+                };
+
+                query.Parameters.Add("@idProfessorActivity", MySqlDbType.Int32, 2).Value = activityPerformed.GeneratedBy.IdProfessorActivity;
+                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = activityPerformed.PerformedBy.IdPractitioner;
+                query.Parameters.Add("@observations", MySqlDbType.VarChar, 255).Value = activityPerformed.Observations;
+
+                query.ExecuteNonQuery();
+
+                isUpdated = true;
+            }
+            catch (MySqlException ex)
+            {
+                log.Error("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed:", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
+
     }
 }

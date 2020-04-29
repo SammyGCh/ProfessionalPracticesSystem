@@ -12,9 +12,9 @@ namespace DataAccess.Interfaces
     public interface IMensualReportDAO
     {
         List<MensualReport> GetAllMensualReports();
-        List<MensualReport> GetReportByPractitioner(int idPractitioner);
-        List<MensualReport> GetReportByProject(int idProject);
-        bool InsertMensualReport(MensualReport MensualReport);
+        List<MensualReport> GetAllReportsByPractitioner(int idPractitioner);
+        List<MensualReport> GetAllReportsByProject(int idProject);
+        bool InsertMensualReport(MensualReport mensualReport);
         bool DeleteMensualReport(int idMensualReport);
 	    bool UpdateMensualReport(MensualReport MensualReport);
 	    MensualReport GetMensualReportById(int idMensualReport);

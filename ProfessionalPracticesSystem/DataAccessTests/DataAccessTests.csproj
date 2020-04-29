@@ -51,13 +51,15 @@
     </Reference>
     <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 8.0.19\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 8.0.19\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcademicTypeDAOTest.cs" />
+    <Compile Include="ActivityPerformedDAOTest.cs" />
     <Compile Include="DataBaseConnectionTest.cs" />
     <Compile Include="LinkedOrganizationDAOTest.cs" />
     <Compile Include="OrganizationSectorDAOTest.cs" />
@@ -70,6 +72,8 @@
     <Compile Include="ProfessorActivityDAOTest.cs" />
     <Compile Include="PractitionerDAOTest.cs" />
     <Compile Include="AcademicDAOTest.cs" />
+    <Compile Include="IndigenousLanguageDAOTests.cs" />
+    <Compile Include="MensualReporDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +86,17 @@
       <Project>{7de59583-6e69-4359-8498-d3a082fb205e}</Project>
       <Name>BusinessDomain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{46ca3a3c-305a-48a8-a942-2f49e473137f}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{21081d24-af1a-4d19-babe-fd37acca7187}</Project>
       <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GUI\GUI.csproj">
+      <Project>{e5a59d97-abc8-49f3-b494-0ded13b18113}</Project>
+      <Name>GUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
