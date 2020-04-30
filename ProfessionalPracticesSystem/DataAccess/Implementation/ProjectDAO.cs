@@ -56,9 +56,9 @@ namespace DataAccess.Implementation
                 };
 
                 query.Parameters.Add("@name", MySqlDbType.VarChar, 255).Value = project.Name;
-                query.Parameters.Add("@directUsersNumber", MySqlDbType.Int32, 2).Value = project.DirectUsersNumber;
-                query.Parameters.Add("@indirectUsersNumber", MySqlDbType.Int32, 2).Value = project.IndirectUsersNumber;
-                query.Parameters.Add("@duration", MySqlDbType.Int32, 2).Value = project.Duration;
+                query.Parameters.Add("@directUsersNumber", MySqlDbType.VarChar, 3).Value = project.DirectUsersNumber;
+                query.Parameters.Add("@indirectUsersNumber", MySqlDbType.VarChar, 3).Value = project.IndirectUsersNumber;
+                query.Parameters.Add("@duration", MySqlDbType.VarChar, 5).Value = project.Duration;
                 query.Parameters.Add("@generalGoal", MySqlDbType.VarChar, 300).Value = project.GeneralGoal;
                 query.Parameters.Add("@responsabilities", MySqlDbType.VarChar, 300).Value = project.Responsabilities;
                 query.Parameters.Add("@mediateGoals", MySqlDbType.VarChar, 300).Value = project.MediateGoals;
@@ -98,7 +98,7 @@ namespace DataAccess.Implementation
             try
             {
                 int idProject;
-                idProject = GetProjectByNameWithoutActivities(projectName).IdProject;
+                idProject = GetIdProjectByName(projectName);
 
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
@@ -147,9 +147,9 @@ namespace DataAccess.Implementation
                     {
                         IdProject = reader.GetInt32(0),
                         Name = reader.GetString(1),
-                        DirectUsersNumber = reader.GetInt32(2),
-                        IndirectUsersNumber = reader.GetInt32(3),
-                        Duration = reader.GetInt32(4),
+                        DirectUsersNumber = reader.GetString(2),
+                        IndirectUsersNumber = reader.GetString(3),
+                        Duration = reader.GetString(4),
                         GeneralGoal = reader.GetString(5),
                         Responsabilities = reader.GetString(6),
                         MediateGoals = reader.GetString(7),
@@ -208,9 +208,9 @@ namespace DataAccess.Implementation
                     {
                         IdProject = idProject,
                         Name = reader.GetString(1),
-                        DirectUsersNumber = reader.GetInt32(2),
-                        IndirectUsersNumber = reader.GetInt32(3),
-                        Duration = reader.GetInt32(4),
+                        DirectUsersNumber = reader.GetString(2),
+                        IndirectUsersNumber = reader.GetString(3),
+                        Duration = reader.GetString(4),
                         GeneralGoal = reader.GetString(5),
                         Responsabilities = reader.GetString(6),
                         MediateGoals = reader.GetString(7),
@@ -267,9 +267,9 @@ namespace DataAccess.Implementation
                     {
                         IdProject = reader.GetInt32(0),
                         Name = name,
-                        DirectUsersNumber = reader.GetInt32(2),
-                        IndirectUsersNumber = reader.GetInt32(3),
-                        Duration = reader.GetInt32(4),
+                        DirectUsersNumber = reader.GetString(2),
+                        IndirectUsersNumber = reader.GetString(3),
+                        Duration = reader.GetString(4),
                         GeneralGoal = reader.GetString(5),
                         Responsabilities = reader.GetString(6),
                         MediateGoals = reader.GetString(7),
@@ -303,17 +303,16 @@ namespace DataAccess.Implementation
             return project;
         }
 
-        public Project GetProjectByNameWithoutActivities(String name)
+        public int GetIdProjectByName(String name)
         {
-            developmentStageHandler = new DevelopmentStageDAO();
-            linkedOrganizationHandler = new LinkedOrganizationDAO();
+            int idProject = 0;
 
             try
             {
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM Project WHERE name = @name"
+                    CommandText = "SELECT idProject FROM Project WHERE name = @name"
                 };
 
                 query.Parameters.Add("@name", MySqlDbType.VarChar, 255).Value = name;
@@ -322,27 +321,7 @@ namespace DataAccess.Implementation
 
                 while (reader.Read())
                 {
-                    project = new Project
-                    {
-                        IdProject = reader.GetInt32(0),
-                        Name = name,
-                        DirectUsersNumber = reader.GetInt32(2),
-                        IndirectUsersNumber = reader.GetInt32(3),
-                        Duration = reader.GetInt32(4),
-                        GeneralGoal = reader.GetString(5),
-                        Responsabilities = reader.GetString(6),
-                        MediateGoals = reader.GetString(7),
-                        InmediateGoals = reader.GetString(8),
-                        Metology = reader.GetString(9),
-                        Status = reader.GetInt32(10),
-                        NeededResources = reader.GetString(11),
-                        PractitionerNumber = reader.GetInt32(12),
-                        GeneralDescription = reader.GetString(13),
-                        ResponsableName = reader.GetString(14),
-                        ResponsableCharge = reader.GetString(15),
-                        ResponsableEmail = reader.GetString(16),
-                        ResponsableTelephone = reader.GetString(17)
-                    };
+                    idProject = reader.GetInt32(0);
                 }
             }
             catch (MySqlException ex)
@@ -355,7 +334,7 @@ namespace DataAccess.Implementation
                 connection.CloseConnection();
             }
 
-            return project;
+            return idProject;
         }
 
         public List<ProjectActivity> GetAllProjectActivities(int idProject)
@@ -419,9 +398,9 @@ namespace DataAccess.Implementation
                 };
 
                 query.Parameters.Add("@name", MySqlDbType.VarChar, 255).Value = projectUpdated.Name;
-                query.Parameters.Add("@directUsersNumber", MySqlDbType.Int32, 2).Value = projectUpdated.DirectUsersNumber;
-                query.Parameters.Add("@indirectUsersNumber", MySqlDbType.Int32, 2).Value = projectUpdated.IndirectUsersNumber;
-                query.Parameters.Add("@duration", MySqlDbType.Int32, 2).Value = projectUpdated.Duration;
+                query.Parameters.Add("@directUsersNumber", MySqlDbType.VarChar, 3).Value = project.DirectUsersNumber;
+                query.Parameters.Add("@indirectUsersNumber", MySqlDbType.VarChar, 3).Value = project.IndirectUsersNumber;
+                query.Parameters.Add("@duration", MySqlDbType.VarChar, 5).Value = project.Duration;
                 query.Parameters.Add("@generalGoal", MySqlDbType.VarChar, 300).Value = projectUpdated.GeneralGoal;
                 query.Parameters.Add("@responsabilities", MySqlDbType.VarChar, 300).Value = projectUpdated.Responsabilities;
                 query.Parameters.Add("@mediateGoals", MySqlDbType.VarChar, 300).Value = projectUpdated.MediateGoals;
