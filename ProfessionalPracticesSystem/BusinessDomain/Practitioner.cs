@@ -11,7 +11,7 @@ namespace BusinessDomain
         private int idPractitioner;
         private String matricula;
         private String password;
-        private float grade;
+        private String grade;
         private String gender;
         private String names;
         private String lastName;
@@ -38,7 +38,7 @@ namespace BusinessDomain
             get => password;
             set => password = value;
         }
-        public float Grade
+        public String Grade
         {
             get => grade;
             set => grade = value;
