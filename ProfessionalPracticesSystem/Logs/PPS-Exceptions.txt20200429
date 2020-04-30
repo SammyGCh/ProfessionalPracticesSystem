@@ -1,0 +1,50 @@
+2020-04-29 23:12:49,572 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'adminPPS' using method 'caching_sha2_password' failed with message: Access denied for user 'adminPPS'@'%' to database 'professionalpracticesd' ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'adminPPS'@'%' to database 'professionalpracticesd'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   en MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   en MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   en MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ContinueAuthentication(Byte[] data)
+   en MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   en MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   en MySql.Data.MySqlClient.NativeDriver.Open()
+   en MySql.Data.MySqlClient.Driver.Open()
+   en MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   en MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   en MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   en MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   en MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   en MySql.Data.MySqlClient.MySqlConnection.Open()
+   en DataAccess.DataBase.DataBaseConnection.Connect() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\DataBase\DataBaseConnection.cs:línea 27
+   en DataAccess.DataBase.DataBaseConnection.OpenConnection() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\DataBase\DataBaseConnection.cs:línea 39
+   en DataAccess.Implementation.OrganizationSectorDAO.GetAllOrganizationSectors() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\OrganizationSectorDAO.cs:línea 39
+2020-04-29 23:13:57,249 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'professionalpracticesdb.organizationsector1' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.OrganizationSectorDAO.GetAllOrganizationSectors() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\OrganizationSectorDAO.cs:línea 45
+2020-04-29 23:16:45,624 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'professionalpracticesdb.organizationsector1' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.OrganizationSectorDAO.GetAllOrganizationSectors() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\OrganizationSectorDAO.cs:línea 45
+2020-04-29 23:18:21,839 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'professionalpracticesdb.organizationsector1' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.OrganizationSectorDAO.GetAllOrganizationSectors() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\OrganizationSectorDAO.cs:línea 45

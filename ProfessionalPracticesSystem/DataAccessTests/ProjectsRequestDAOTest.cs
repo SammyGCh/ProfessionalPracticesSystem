@@ -14,7 +14,7 @@ namespace DataAccessTests
     public class ProjectsRequestDAOTest
     {
         [TestMethod]
-        public void SaveProjectsRequestSuccess()
+        public void SaveProjectsRequest_NewProjectsRequest_SuccessInserting()
         {
             ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
             PractitionerDAO practitionerDao = new PractitionerDAO();
@@ -48,7 +48,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllProjectsRequestSuccess()
+        public void GetAllProjectsRequest_AvailableProjectsRequest_ListWithElements()
         {
             ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
 
@@ -58,7 +58,7 @@ namespace DataAccessTests
         }
         
         [TestMethod]
-        public void UpdateProjectsRequestSucces()
+        public void UpdateProjectsRequest_ProjectsRequestUpdated_SuccesUpdating()
         {
             ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
             int idProjectsRequest = 2;
