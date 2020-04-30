@@ -14,22 +14,22 @@ namespace DataAccessTests
     public class ProjectDAOTest
     {
         [TestMethod]
-        public void SaveProjectSuccess()
+        public void SaveProject_NewProject_SuccessInserting()
         {
             ProjectDAO projectDao = new ProjectDAO();
             DevelopmentStageDAO developmentStageDao = new DevelopmentStageDAO();
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
 
             int idDevelopmentStage = 1;
-            string linkedOrganizationName = "PROMOR";
+            string linkedOrganizationName = "CASA AHUED";
 
             Project project = new Project
             {
-                Name = "PRUEBAS PARA EL SISTEMA DE ADMINISTRACIÓN DE REFACCIONES",
-                DirectUsersNumber = 10,
-                IndirectUsersNumber = 2,
-                Duration = 200,
-                GeneralGoal = "COMPROBAR QUE EL SISTEMA FUNCIONE DE MANERA CORRECTA",
+                Name = "MANTENIMIENTO AL SISTEMA DE CAJA DE COBRO",
+                DirectUsersNumber = "10",
+                IndirectUsersNumber = "2",
+                Duration = "200",
+                GeneralGoal = "BRINDAR UN MANTENIMIENTO EFICIENTE PARA AGILIZAR EL COBRO DE LAS COMPRAS",
                 Responsabilities = "EL PRACTICANTE DEBE CUMPLIR CON EL HORARIO ACORDADO DE LAS ACTIVIDADES",
                 MediateGoals = "GENERAR UNA DOCUMENTACIÓN SOLIDA DE LAS PRUEBAS REALIZADAS",
                 InmediateGoals = "GENERAR PRUEBAS UNITARIAS",
@@ -51,14 +51,14 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void SaveProjectActivitySuccess()
+        public void SaveProjectActivity_NewProjectActivity_SuccessInserting()
         {
             ProjectDAO projectDao = new ProjectDAO();
             string projectName = "PRUEBAS PARA EL SISTEMA DE ADMINISTRACIÓN DE REFACCIONES";
 
             ProjectActivity projectActivity = new ProjectActivity
             {
-                Name = "REALIZAR LA PRUEBA UNITARIA PARA EL MODULO DE BAJAS",
+                Name = "REALIZAR LA PRUEBA UNITARIA PARA EL MODULO DE CONSULTAS DE REFACCIONES",
                 Month = "AGOSTO"
             };
 
@@ -68,7 +68,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllProjectsSuccess()
+        public void GetAllProjects_AvailableProjects_ListWithElements()
         {
             ProjectDAO projectDao = new ProjectDAO();
             List<Project> projects = projectDao.GetAllProjects();
@@ -77,18 +77,18 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetProjectByIdSuccess()
+        public void GetProjectById_KnownIdProject_ProjectWithSameId()
         {
             ProjectDAO projectDao = new ProjectDAO();
             int idProject = 1;
 
             Project project = projectDao.GetProjectById(idProject);
 
-            Assert.IsNotNull(project);
+            Assert.AreEqual(idProject, project.IdProject);
         }
 
         [TestMethod]
-        public void NotGetProjectByUnknownId()
+        public void GetProjectById_UnkownIdProject_NullObject()
         {
             ProjectDAO projectDao = new ProjectDAO();
             int idProject = 0;
@@ -99,18 +99,18 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetProjectByNameSuccess()
+        public void GetProjectByName_KnownProjectName_ProjectWithSameName()
         {
             ProjectDAO projectDao = new ProjectDAO();
             string projectName = "PRUEBAS PARA EL SISTEMA DE ADMINISTRACIÓN DE REFACCIONES";
 
             Project project = projectDao.GetProjectByName(projectName);
 
-            Assert.IsNotNull(project);
+            Assert.AreEqual(projectName, project.Name);
         }
 
         [TestMethod]
-        public void NotGetProjectByUnknownName()
+        public void GetProjectByName_UnknownProjectName_NullObject()
         {
             ProjectDAO projectDao = new ProjectDAO();
             string projectName = "PRUEBAS";
@@ -121,18 +121,19 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetProjectByNameWithoutActivitiesSuccess()
+        public void GetIdProjectByName_KnownIdProject_ProjectWithSameName()
         {
             ProjectDAO projectDao = new ProjectDAO();
             string projectName = "PRUEBAS PARA EL SISTEMA DE ADMINISTRACIÓN DE REFACCIONES";
 
-            Project project = projectDao.GetProjectByNameWithoutActivities(projectName);
+            int idProjectExpected = 1;
+            int idProjectObtained = projectDao.GetIdProjectByName(projectName);
 
-            Assert.IsNotNull(project);
+            Assert.AreEqual(idProjectExpected, idProjectObtained);
         }
 
         [TestMethod]
-        public void GetAllProjectActivitiesSuccess()
+        public void GetAllProjectActivities_AvailableProjectActivities_ListWithElements()
         {
             ProjectDAO projectDao = new ProjectDAO();
             int idProject = 1;
@@ -143,24 +144,24 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void NotGetAllProjectActivitiesFromUnkownProject()
+        public void GetAllProjectActivities_UnkownProject_EmptyList()
         {
             ProjectDAO projectDao = new ProjectDAO();
             int idProject = 0;
 
             List<ProjectActivity> projectActivities = projectDao.GetAllProjectActivities(idProject);
 
-            Assert.IsTrue(projectActivities.Count == 0);
+            Assert.IsFalse(projectActivities.Count > 0);
         }
 
         [TestMethod]
-        public void UpdateProjectSuccess()
+        public void UpdateProject_ProjectUpdated_SuccessUpdating()
         {
             ProjectDAO projectDao = new ProjectDAO();
             int idProject = 1;
 
             Project project = projectDao.GetProjectById(idProject);
-            project.Duration = 600;
+            project.Duration = "500";
 
             bool isUpdated = projectDao.UpdateProject(project);
 
@@ -168,13 +169,13 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void UpdateProjectActivitySuccess()
+        public void UpdateProjectActivity_ProjectActivityUpdated_SuccessUpdating()
         {
             ProjectDAO projectDao = new ProjectDAO();
             int idProject = 1;
 
             Project project = projectDao.GetProjectById(idProject);
-            project.ProjectActivities[0].Month = "SEPTIEMBRE";
+            project.ProjectActivities[0].Month = "OCTUBRE";
 
             bool isUpdated = projectDao.UpdateProjectActivity(project.ProjectActivities[0], idProject);
 
@@ -182,7 +183,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void DeleteProjectSuccess()
+        public void DeleteProject_KnownProject_SuccessDeleting()
         {
             ProjectDAO projectDao = new ProjectDAO();
             int idProject = 1;

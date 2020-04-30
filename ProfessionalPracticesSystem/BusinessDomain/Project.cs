@@ -12,9 +12,9 @@ namespace BusinessDomain
     {
         private int idProject;
         private String name;
-        private int directUsersNumber;
-        private int indirectUsersNumber;
-        private int duration;
+        private String directUsersNumber;
+        private String indirectUsersNumber;
+        private String duration;
         private String generalGoal;
         private String responsabilities;
         private String mediateGoals;
@@ -45,19 +45,19 @@ namespace BusinessDomain
             set => name = value;
         }
 
-        public int DirectUsersNumber
+        public String DirectUsersNumber
         {
             get => directUsersNumber;
             set => directUsersNumber = value;
         }
 
-        public int IndirectUsersNumber
+        public String IndirectUsersNumber
         {
             get => indirectUsersNumber;
             set => indirectUsersNumber = value;
         }
 
-        public int Duration
+        public String Duration
         {
             get => duration;
             set => duration = value;

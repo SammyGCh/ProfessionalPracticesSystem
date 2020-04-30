@@ -16,7 +16,7 @@ namespace DataAccessTests
         private DataBaseConnection connection;
 
         [TestMethod]
-        public void SuccessConnectionTest()
+        public void OpenConnection_ServerAvailable_SuccessConnection()
         {
             connection = new DataBaseConnection();
             MySqlConnection newConnection = connection.OpenConnection();
@@ -25,28 +25,19 @@ namespace DataAccessTests
 
         [TestMethod]
         [ExpectedException(typeof(MySqlException))]
-        public void UnsuccessConnectionTest()
+        public void OpenConnection_ServerUnavailable_MySqlException()
         {
             connection = new DataBaseConnection();
             connection.OpenConnection();
         }
 
         [TestMethod]
-        public void SuccessDisconnectionTest()
+        public void CloseConnection_ConnectionOpened_SuccessDisconnection()
         {
             connection = new DataBaseConnection();
             MySqlConnection newConnection = connection.OpenConnection();
             connection.CloseConnection();
             Assert.IsTrue(newConnection.State == ConnectionState.Closed);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(MySqlException))]
-        public void UnsuccessDisconnectionTest()
-        {
-            connection = new DataBaseConnection();
-            connection.OpenConnection();
-            connection.CloseConnection();
         }
     }
 }

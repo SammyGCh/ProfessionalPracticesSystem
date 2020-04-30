@@ -14,18 +14,17 @@ namespace DataAccessTests
     public class OrganizationSectorDAOTest
     {
         [TestMethod]
-        public void GetAllOrganizationSectorsSuccess()
+        public void GetAllOrganizationSectors_AvailableOrganizationSectors_ListWithElements()
         {
             OrganizationSectorDAO organizationSectorDao;
             organizationSectorDao = new OrganizationSectorDAO();
             List<OrganizationSector> organizationSectors = organizationSectorDao.GetAllOrganizationSectors();
-            int expectedResult = 1;
-            int obtainedResult = organizationSectors.Count;
-            Assert.AreEqual(expectedResult, obtainedResult);
+
+            Assert.IsTrue(organizationSectors.Count > 0);
         }
 
         [TestMethod]
-        public void GetOrganizationSectorByIdSuccess()
+        public void GetOrganizationSectorById_KnownOrganizationSector_OrganizationSectorWithSameId()
         {
             OrganizationSectorDAO organizationSectorDao;
             organizationSectorDao = new OrganizationSectorDAO();
@@ -33,22 +32,11 @@ namespace DataAccessTests
             int idOrganizationSector = 1;
             OrganizationSector organizationSector = organizationSectorDao.GetOrganizationSectorById(idOrganizationSector);
 
-            Assert.IsNotNull(organizationSector);
+            Assert.AreEqual(idOrganizationSector, organizationSector.IdOrganizationSector);
         }
 
         [TestMethod]
-        public void GetAllOrganizationSectorsUnsuccess()
-        {
-            OrganizationSectorDAO organizationSectorDao;
-            organizationSectorDao = new OrganizationSectorDAO();
-            List<OrganizationSector> organizationSectors = organizationSectorDao.GetAllOrganizationSectors();
-            int expectedResult = 0;
-            int obtainedResult = organizationSectors.Count;
-            Assert.AreNotEqual(expectedResult, obtainedResult);
-        }
-
-        [TestMethod]
-        public void GetOrganizationSectorByIdUnsuccess()
+        public void GetOrganizationSectorById_UnknownOrganizationSector_NullObject()
         {
             OrganizationSectorDAO organizationSectorDao;
             organizationSectorDao = new OrganizationSectorDAO();
