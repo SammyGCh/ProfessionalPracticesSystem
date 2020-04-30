@@ -15,7 +15,7 @@ namespace DataAccessTests
         DocumentDAO documentDAO = new DocumentDAO();
 
         [TestMethod]
-        public void SaveDocumentSuccess()
+        public void SaveDocument_DocumentIsComplete_ReturnTrue()
         {
             Practitioner practitioner = new Practitioner()
             {
@@ -30,9 +30,11 @@ namespace DataAccessTests
             Document newDocument = new Document()
             {
                 Name = "Documento nuevo",
-                Path = "Ruta de guardado",
+                Path = "D:\\Escuela\\Principios de construccion\\Proyecto congreso\\Proyecto\\CRUD",
                 TypeOf = documentType,
-                AddBy = practitioner
+                AddBy = practitioner,
+                Observations = "El alumno respondio de manera adecuada a todas las preguntas del documento que se adjunto",
+                Grade = "8.5"
             };
 
             bool result = documentDAO.SaveDocument(newDocument);
@@ -41,9 +43,9 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void DeleteDocumentSuccess()
+        public void DeleteDocument_DocumentExist_ReturnTrue()
         {
-            int idDocument = 4;
+            int idDocument = 6;
 
             bool result = documentDAO.DeleteDocument(idDocument);
 
@@ -51,17 +53,17 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllDocumentSuccess()
+        public void GetAllDocument_WhatDocumentsExist_ReturnDocumentList()
         {
-            List<Document> documentListResult = documentDAO.GetAllDocument();
+            List<Document> result = documentDAO.GetAllDocument();
 
-            Assert.IsNotNull(documentListResult);
+            Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
-        public void GetDocumentSuccess()
+        public void GetDocument_DocumentExist_ReturnDocument()
         {
-            int idDocument = 4;
+            int idDocument = 5;
 
             Document result = documentDAO.GetDocument(idDocument);
 
@@ -69,23 +71,34 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetDocumentByPractitionerSuccess()
+        public void GetAllDocumentByPractitioner_HowManyDocumentsBelongsToPractitioner_ReturnDocumentList()
         {
             int idpractitioner = 1;
 
-            List<Document> result = documentDAO.GetDocumentByPractitioner(idpractitioner);
+            List<Document> result = documentDAO.GetAllDocumentByPractitioner(idpractitioner);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
-        public void GetDocumentByTypeSuccess()
+        public void GetAllDocumentByType_WhatDocumentsOfThatTypeExist_ReturnDocumentList()
         {
             int idDocumentType = 1;
 
-            List<Document> result = documentDAO.GetDocumentByType(idDocumentType);
+            List<Document> result = documentDAO.GetAllDocumentByType(idDocumentType);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void UpdateDocumentGrade_DocumentExist_ReturnTrue()
+        {
+            int idDocument = 7;
+            float grade = 10;
+
+            bool result = documentDAO.UpdateDocumentGrade(idDocument, grade);
+
+            Assert.IsTrue(result);
         }
     }
 }

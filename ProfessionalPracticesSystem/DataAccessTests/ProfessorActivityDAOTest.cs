@@ -15,7 +15,7 @@ namespace DataAccessTests
         ProfessorActivityDAO professorActivityDAO = new ProfessorActivityDAO();
 
         [TestMethod]
-        public void SaveProfessorActivitySuccess() 
+        public void SaveProfessorActivity_ProfessorActivityIsComplete_ReturnTrue() 
         {
             Academic academic = new Academic
             {
@@ -26,9 +26,10 @@ namespace DataAccessTests
             {
                 Description = "Descripcion de actividad",
                 Name = "Nombre de actividad",
-                ValueActivity = 7,
                 PerformanceDate = "2020-04-04 22:10:00",
-                GeneratedBy = academic
+                GeneratedBy = academic,
+                Observations = "La actividad fue realizada de una buena manera y la redaccion hecha esta adecuada al tipo de actividad",
+                Status = 1
             };
 
             bool result = professorActivityDAO.SaveProfessorActivity(activity);
@@ -37,9 +38,9 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void DeleteProfessorActivitySuccess()
+        public void DeleteProfessorActivity_ProfessorActivityExist_ReturnTrue()
         {
-            int idActivity = 3;
+            int idActivity = 1;
 
             bool result = professorActivityDAO.DeleteProfessorActivity(idActivity);
 
@@ -47,23 +48,47 @@ namespace DataAccessTests
         }
 
         [TestMethod]
+        public void GetAllProfessorActivity_ExistAtLeastOneProfessorActivity_ReturnProfessorActivityList()
+        {
+            List<ProfessorActivity> result = professorActivityDAO.GetAllProfessorActivity();
 
-        public void GetAllProfessorActivitySuccess()
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetAllProfessorActivityByAcademic_AcademicHasAtLeastOneActivity_ReturnProfessorActivityList()
         {
             int idAcademic = 1;
             List<ProfessorActivity> result = professorActivityDAO.GetAllProfessorActivityByAcademic(idAcademic);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
-        public void GetProfessorActivitySuccess()
+        public void GetProfessorActivity_ProfessorActivityExist_ReturnProfessorActivity()
         {
             int idActivity = 1;
 
             ProfessorActivity result = professorActivityDAO.GetProfessorActivity(idActivity);
 
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void UpdateProfessorActivity_ProfessorActivityIsComplete_ReturnTrue()
+        {
+            ProfessorActivity activity = new ProfessorActivity
+            {
+                IdProfessorActivity = 8,
+                Description = "Se cambio la descripcion de la actividad",
+                Name = "El nombre de la actividad fue cambiado",
+                PerformanceDate = "2025-05-05 22:10:00",
+                Observations = "La actividad fue realizada de una buena manera y la redaccion hecha esta adecuada al tipo de actividad"
+            };
+
+            bool result = professorActivityDAO.UpdateProfessorActivity(activity);
+
+            Assert.IsTrue(result);
         }
     }
 }

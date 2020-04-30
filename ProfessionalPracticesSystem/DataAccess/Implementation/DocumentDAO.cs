@@ -24,9 +24,12 @@ namespace DataAccess.Implementation
 
         public DocumentDAO()
         {
+            documentList = null;
+            document = null;
             connection = new DataBaseConnection();
-            addBy = new PractitionerDAO();
-            typeOf = new DocumentTypeDAO();
+            mySqlConnection = null;
+            query = null;
+            reader = null;
         }
         public bool DeleteDocument(int idDocument)
         {
@@ -51,7 +54,7 @@ namespace DataAccess.Implementation
             }
             catch(MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/DeleteDocument:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/DeleteDocument:", ex);
             }
             finally
             {
@@ -63,6 +66,8 @@ namespace DataAccess.Implementation
 
         public List<Document> GetAllDocument()
         {
+            addBy = new PractitionerDAO();
+            typeOf = new DocumentTypeDAO();
             try
             {
                 documentList = new List<Document>();
@@ -82,7 +87,10 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
+                        Grade = reader.GetString(5),
+                        Observations = reader.GetString(6)
+                        
                     };
 
                     documentList.Add(document);
@@ -91,7 +99,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetAllDocument:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllDocument:", ex);
             }
             finally
             {
@@ -104,6 +112,8 @@ namespace DataAccess.Implementation
 
         public Document GetDocument(int idDocument)
         {
+            addBy = new PractitionerDAO();
+            typeOf = new DocumentTypeDAO();
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -122,20 +132,22 @@ namespace DataAccess.Implementation
 
                 while (reader.Read())
                 {
-                    document = new Document
+                    document = new Document()
                     {
                         IdDocument = reader.GetInt32(0),
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
+                        Grade = reader.GetString(5),
+                        Observations = reader.GetString(6)
                     };
                 }
 
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocument:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetDocument:", ex);
             }
             finally
             {
@@ -146,8 +158,10 @@ namespace DataAccess.Implementation
             return document;
         }
 
-        public List<Document> GetDocumentByPractitioner(int idPractitioner)
+        public List<Document> GetAllDocumentByPractitioner(int idPractitioner)
         {
+            addBy = new PractitionerDAO();
+            typeOf = new DocumentTypeDAO();
             try
             {
                 documentList = new List<Document>();
@@ -173,7 +187,9 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
+                        Grade = reader.GetString(5),
+                        Observations = reader.GetString(6)
                     };
 
                     documentList.Add(document);
@@ -182,7 +198,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByPractitioner:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllDocumentByPractitioner:", ex);
             }
             finally
             {
@@ -193,8 +209,10 @@ namespace DataAccess.Implementation
             return documentList;
         }
 
-        public List<Document> GetDocumentByType(int idDocumentType)
+        public List<Document> GetAllDocumentByType(int idDocumentType)
         {
+            addBy = new PractitionerDAO();
+            typeOf = new DocumentTypeDAO();
             try
             {
                 documentList = new List<Document>();
@@ -220,7 +238,9 @@ namespace DataAccess.Implementation
                         Name = reader.GetString(1),
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
-                        AddBy = addBy.GetPractitioner(reader.GetInt32(4))
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
+                        Grade = reader.GetString(5),
+                        Observations = reader.GetString(6)
                     };
 
                     documentList.Add(document);
@@ -229,7 +249,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByType:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByType:", ex);
             }
             finally
             {
@@ -248,8 +268,8 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO Document(name, path, idDocumentType, idPractitioner)" +
-                    "VALUES (@name, @path, @idDocumentType, @idPractitioner)"
+                    CommandText = "INSERT INTO Document(name, path, idDocumentType, idPractitioner, grade, observations)" +
+                    "VALUES (@name, @path, @idDocumentType, @idPractitioner, @grade, @observations)"
                 };
 
                 MySqlParameter name = new MySqlParameter("@name", MySqlDbType.VarChar, 60)
@@ -272,23 +292,73 @@ namespace DataAccess.Implementation
                     Value = document.AddBy.IdPractitioner
                 };
 
+                MySqlParameter grade = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)
+                {
+                    Value = document.Grade
+                };
+
+                MySqlParameter observations = new MySqlParameter("@observations", MySqlDbType.VarChar, 200)
+                {
+                    Value = document.Observations
+                };
+
                 query.Parameters.Add(name);
                 query.Parameters.Add(path);
                 query.Parameters.Add(iddocumentType);
                 query.Parameters.Add(idpractitioner);
+                query.Parameters.Add(grade);
+                query.Parameters.Add(observations);
 
                 query.ExecuteNonQuery();
                 isSaved = true;
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentDAO/SaveDocument:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/SaveDocument:", ex);
             }
             finally
             {
                 connection.CloseConnection();
             }
             return isSaved;
+        }
+
+        public bool UpdateDocumentGrade(int idDocument, float grade)
+        {
+            bool isUpdated = false;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "UPDATE document SET grade = @grade WHERE document.idDocument = @idDocument"
+                };
+
+                MySqlParameter grad = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)
+                {
+                    Value = grade.ToString()
+                };
+
+                MySqlParameter iddocument = new MySqlParameter("@idDocument", MySqlDbType.Int32, 11)
+                {
+                    Value = idDocument
+                };
+
+                query.Parameters.Add(grad);
+                query.Parameters.Add(iddocument);
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/UpdateDocumentGrade:", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+            return isUpdated;
         }
     }
 }

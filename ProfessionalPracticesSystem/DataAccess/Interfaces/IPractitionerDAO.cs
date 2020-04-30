@@ -15,5 +15,9 @@ namespace DataAccess.Interfaces
         Practitioner GetPractitioner(int idPractitioner);
         bool SavePractitioner(Practitioner practitioner);
         bool DeletePractitioner(int idPractitioner);
+        List<Practitioner> GetAllPractitionerByAcademic(int idAcademic);
+        List<Practitioner> GetAllPractitionerByProject(int idProject);
+        List<Practitioner> GetAllPractitionerByLinkedOrganization(int idLinkedOrganization);
+        bool UpdatePractitionerGrade(int idPractitioner);
     }
 }

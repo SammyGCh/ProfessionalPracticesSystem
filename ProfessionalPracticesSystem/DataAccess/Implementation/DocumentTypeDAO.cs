@@ -22,7 +22,12 @@ namespace DataAccess.Implementation
 
         public DocumentTypeDAO()
         {
+            documentTypeList = null;
+            documentType = null;
             connection = new DataBaseConnection();
+            mySqlConnection = null;
+            query = null;
+            reader = null;
         }
         public bool DeleteDocumentType(int idDocumentType)
         {
@@ -47,7 +52,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/DeleteDocumentType:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentTypeDAO/DeleteDocumentType:", ex);
             }
             finally
             {
@@ -83,7 +88,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/GetAllDocumentType:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentTypeDAO/GetAllDocumentType:", ex);
             }
             finally
             {
@@ -125,7 +130,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/GetDocumenntType:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentTypeDAO/GetDocumenntType:", ex);
             }
             finally
             {
@@ -159,7 +164,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/DocumentTypeDAO/SaveDocumentType:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentTypeDAO/SaveDocumentType:", ex);
             }
             finally
             {
