@@ -19,7 +19,6 @@ namespace DataAccess.Implementation
         private IndigenousLanguageDAO speaks;
         private AcademicDAO academic;
         private ProjectDAO assigned;
-        private DocumentDAO documentDAO;
         private ScholarPeriodDAO belogsTo;
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
@@ -35,7 +34,6 @@ namespace DataAccess.Implementation
             speaks = null;
             academic = null;
             assigned = null;
-            documentDAO = null;
             belogsTo = null;
             mySqlConnection = null;
             query = null;
@@ -88,7 +86,6 @@ namespace DataAccess.Implementation
             speaks = new IndigenousLanguageDAO();
             academic = new AcademicDAO();
             assigned = new ProjectDAO();
-            documentDAO = new DocumentDAO();
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -144,7 +141,6 @@ namespace DataAccess.Implementation
             speaks = new IndigenousLanguageDAO();
             academic = new AcademicDAO();
             assigned = new ProjectDAO();
-            documentDAO = new DocumentDAO();
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -200,7 +196,6 @@ namespace DataAccess.Implementation
             speaks = new IndigenousLanguageDAO();
             academic = new AcademicDAO();
             assigned = new ProjectDAO();
-            documentDAO = new DocumentDAO();
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -389,7 +384,6 @@ namespace DataAccess.Implementation
             speaks = new IndigenousLanguageDAO();
             academic = new AcademicDAO();
             assigned = new ProjectDAO();
-            documentDAO = new DocumentDAO();
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -452,7 +446,6 @@ namespace DataAccess.Implementation
             speaks = new IndigenousLanguageDAO();
             academic = new AcademicDAO();
             assigned = new ProjectDAO();
-            documentDAO = new DocumentDAO();
             try
             {
                 practitionerList = new List<Practitioner>();
@@ -545,7 +538,6 @@ namespace DataAccess.Implementation
             speaks = new IndigenousLanguageDAO();
             academic = new AcademicDAO();
             assigned = new ProjectDAO();
-            documentDAO = new DocumentDAO();
             try
             {
                 practitionerList = new List<Practitioner>();
