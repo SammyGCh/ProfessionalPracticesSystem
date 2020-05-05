@@ -1,0 +1,49 @@
+﻿<Window x:Class="GUI_WPF.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_WPF"
+        mc:Ignorable="d"
+        Title="Inicio de sesión" Height="450" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF7DBEFF" Offset="0.993"/>
+                <GradientStop Color="#FFD4E4FF" Offset="0.628"/>
+                <GradientStop Color="#FFA8C5FF" Offset="0.878"/>
+                <GradientStop Color="#FFADC9FF" Offset="0.844"/>
+                <GradientStop Color="#FFA0CFFF" Offset="0.924"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+  
+        <Image HorizontalAlignment="Left" Height="121" Margin="336,10,0,0" VerticalAlignment="Top" Width="128" 
+               Source="uvlogo.png"/>
+
+        <Label Content="Sistema de Prácticas Profesionales" HorizontalAlignment="Left" Margin="269,164,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Bienvenido" HorizontalAlignment="Left" 
+               Margin="331,121,0,0" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
+
+        <Label Content="Usuario:" HorizontalAlignment="Left" Margin="264,238,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="userTextBox" HorizontalAlignment="Left" Height="26" Margin="321,237,0,0" TextWrapping="Wrap" 
+                 Text="" VerticalAlignment="Top" Width="214" MaxLength="9" CharacterCasing="Upper" TextChanged="ValidateUsername"/>
+        <Label Name="invalidUsernameLabel" Content="Usuario inválido. Por ejemplo: S12055185" HorizontalAlignment="Left" 
+               Margin="331,259,0,0" VerticalAlignment="Top" FontSize="10" Visibility="Hidden" FontStyle="Italic"/>
+
+        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="244,287,0,0" VerticalAlignment="Top"/>
+        <PasswordBox Name="password" HorizontalAlignment="Left" Margin="321,288,0,0" VerticalAlignment="Top" 
+                     Width="214" Height="26" PasswordChar="*" PasswordChanged="EnableLoginButton"/>
+
+        <Button 
+            Name="logInButton" Content="Iniciar sesión" HorizontalAlignment="Left" Margin="364,333,0,0" 
+            VerticalAlignment="Top" Width="81" Height="27" Click="LogIn" IsEnabled="False"
+        >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,191 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Coordinator.CoordinatorHome"
+      mc:Ignorable="d"
+      Title="Inicio" Width="Auto" Height="Auto" WindowTitle="Inicio" d:DesignWidth="1279.6" d:DesignHeight="1000">
+
+
+    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto">
+        <Grid Height="1192">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="89*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock HorizontalAlignment="Left" Margin="142,25,0,0" TextWrapping="Wrap" Text="Bienvenido" 
+                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="217"/>
+
+            <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA" 
+                    Margin="42,25.4,941.2,657" Height="400" Width="280">
+                <StackPanel>
+                    <TextBlock Text="Proyecto" FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center"/>
+
+                    <materialDesign:PackIcon Kind="FileCabinet" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="30"/>
+
+                    <Button Height="30" Width="119" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Consultar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="addProjectButton" Height="30" Width="119" Margin="10" Cursor="Hand" Click="AddProject">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="PlusBox" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Registrar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA"
+                    Width="280" Height="400" Margin="494,25.4,489.2,657">
+                <StackPanel Margin="2">
+                    <TextBlock Text="Practicante" FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center"/>
+
+                    <materialDesign:PackIcon Kind="People" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="30"/>
+
+                    <Button Height="30" Width="119" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="PersonSearch" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Consultar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Height="30" Width="119" Margin="10" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="PersonAdd" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Registrar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Height="30" Width="119" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="FileDocument" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Solicitudes" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA"
+                    Width="280" Height="400" Margin="936,25.4,47.2,657">
+                <StackPanel>
+                    <TextBlock FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center" TextAlignment="Center">
+                        <Run>Organizaciones</Run><LineBreak/>
+                        <Run>Vinculadas</Run>
+                    </TextBlock>
+
+                    <materialDesign:PackIcon Kind="Business" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="30"/>
+
+                    <Button Height="30" Width="119" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Consultar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Height="30" Width="119" Margin="10" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="PlusBox" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Registrar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA"
+                    Width="280" Height="400" Margin="283,554.4,700.2,128">
+                <StackPanel>
+                    <TextBlock Text="Indicadores" FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center"/>
+
+                    <materialDesign:PackIcon Kind="TrendingUp" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="30"/>
+
+                    <Button Height="30" Width="119" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Generar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA"
+                    Width="280" Height="400" Margin="721,554.4,262.2,128">
+                <StackPanel>
+                    <TextBlock Text="Avisos" FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center"/>
+
+                    <materialDesign:PackIcon Kind="Notifications" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="30"/>
+
+                    <Button Height="30" Width="119" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                            <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Consultar" Margin="3"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+            
+        </Grid>
+    </ScrollViewer>
+
+</Page>
