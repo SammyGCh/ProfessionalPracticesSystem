@@ -55,8 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="OrganizacionesVinculadas.xaml.cs">
-      <DependentUpon>OrganizacionesVinculadas.xaml</DependentUpon>
+    <Compile Include="VinculatedOrganization.xaml.cs">
+      <DependentUpon>VinculatedOrganization.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -70,7 +70,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="OrganizacionesVinculadas.xaml">
+    <Page Include="VinculatedOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
