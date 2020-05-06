@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.Implementation;
 using BusinessDomain;
+using System;
 
 namespace DataAccessTests
 {
@@ -94,7 +95,7 @@ namespace DataAccessTests
         public void UpdateDocumentGrade_DocumentExist_ReturnTrue()
         {
             int idDocument = 7;
-            float grade = 10;
+            String grade = "10";
 
             bool result = documentDAO.UpdateDocumentGrade(idDocument, grade);
 

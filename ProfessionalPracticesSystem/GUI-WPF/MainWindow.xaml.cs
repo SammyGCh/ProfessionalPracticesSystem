@@ -24,7 +24,7 @@ namespace GUI_WPF
         {
             InitializeComponent();
         }
-
+        
         private void LogIn(object sender, RoutedEventArgs e)
         {
             userTextBox.Text = "Apreté el botón";

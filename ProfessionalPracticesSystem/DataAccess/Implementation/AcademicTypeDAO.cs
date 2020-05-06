@@ -19,8 +19,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log =
-        log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public AcademicTypeDAO()
         {
@@ -61,7 +59,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
             }
             finally
             {
@@ -103,7 +101,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/AcademicTypeDAO", ex );
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/AcademicTypeDAO", ex );
             }
             finally
             {
@@ -131,7 +129,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
             }
             finally
             {
@@ -162,7 +160,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
             }
             finally
             {
