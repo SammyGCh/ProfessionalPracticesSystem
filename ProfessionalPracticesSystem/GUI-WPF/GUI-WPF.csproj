@@ -63,12 +63,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-<<<<<<< HEAD
-    <Compile Include="VinculatedOrganization.xaml.cs">
-      <DependentUpon>VinculatedOrganization.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-=======
     <Compile Include="Pages\Coordinator\AddProject.xaml.cs">
       <DependentUpon>AddProject.xaml</DependentUpon>
     </Compile>
@@ -78,8 +72,10 @@
     <Compile Include="Windows\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Coordinator\VinculatedOrganization.xaml.cs">
+      <DependentUpon>VinculatedOrganization.xaml</DependentUpon>
+    </Compile>
     <Page Include="Login.xaml">
->>>>>>> Sammy
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -91,11 +87,6 @@
       <DependentUpon>Login.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-<<<<<<< HEAD
-    <Page Include="VinculatedOrganization.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-=======
     <Page Include="Pages\Coordinator\AddProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,7 +98,10 @@
     <Page Include="Windows\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
->>>>>>> Sammy
+    </Page>
+    <Page Include="Pages\Coordinator\VinculatedOrganization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -61,7 +61,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO ", ex);
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO ", ex);
             }
             finally
             {
@@ -103,7 +103,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex );
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex );
             }
             finally
             {
@@ -132,7 +132,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
             }
             finally
             {
@@ -164,7 +164,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Something went wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
             }
             finally
             {

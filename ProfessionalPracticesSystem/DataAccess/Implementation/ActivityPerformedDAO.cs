@@ -71,7 +71,7 @@ namespace DataAccess.Implementation
         }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed ", ex);
+                LogManager.WriteLog("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed ", ex);
             }
             finally
             {
@@ -116,7 +116,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed ", ex);
+                LogManager.WriteLog("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed ", ex);
             }
             finally
             {
@@ -169,7 +169,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed ", ex);
+                LogManager.WriteLog("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed ", ex);
             }
             finally
             {
@@ -205,7 +205,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed:", ex);
+                LogManager.WriteLog("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed:", ex);
             }
             finally
             {
@@ -239,7 +239,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed:", ex);
+                LogManager.WriteLog("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed:", ex);
             }
             finally
             {
@@ -272,7 +272,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed:", ex);
+                LogManager.WriteLog("Someting whent wrong in  DataAcces/Implementation/ActivityPerformed:", ex);
             }
             finally
             {
