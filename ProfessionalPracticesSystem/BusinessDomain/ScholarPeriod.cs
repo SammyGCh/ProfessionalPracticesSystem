@@ -11,6 +11,7 @@ namespace BusinessDomain
     {
         private int idScholarPeriod;
         private String name;
+        private int status;
 
         public int IdScholarPeriod
         {
@@ -22,6 +23,12 @@ namespace BusinessDomain
         {
             get => name;
             set => name = value;
+        }
+
+        public int Status
+        {
+            get => status;
+            set => status = value;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace DataAccessTests
     public class LinkedOrganizationDAOTest
     {
         [TestMethod]
-        public void SaveLinkedOrganizationSuccess()
+        public void SaveLinkedOrganization_NewLinkedOrganization_SuccessInsert()
         {
             OrganizationSectorDAO organizationSectorDao = new OrganizationSectorDAO();
             int idOrganizationSector = 1;
@@ -25,9 +25,9 @@ namespace DataAccessTests
             LinkedOrganization linkedOrganization = new LinkedOrganization
             {
                 City = "XALAPA",
-                Email = "promor@empresa.org.mx",
+                Email = "casaahued@empresa.org.mx",
                 State = "VERACRUZ",
-                Name = "PROMOR",
+                Name = "CASA AHUED",
                 TelephoneNumber = "2288151157",
                 Address = "FRANCISCO JAVIER CLAVIJERO 287",
                 BelongsTo = organizationSectorDao.GetOrganizationSectorById(idOrganizationSector)
@@ -39,27 +39,27 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllLinkedOrganizationsSuccess()
+        public void GetAllLinkedOrganizations_AvailableLinkedOrganizations_ListWithElements()
         {
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
             List<LinkedOrganization> linkedOrganizations = linkedOrganizationDao.GetAllLinkedOrganizations();
 
-            Assert.IsNotNull(linkedOrganizations);
+            Assert.IsTrue(linkedOrganizations.Count > 0);
         }
 
         [TestMethod]
-        public void GetLinkedOrganizationByIdSuccess()
+        public void GetLinkedOrganizationById_KownLinkedOrganizationId_LinkedOrganizationWithSameId()
         {
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
 
             int idLinkedOrganization = 1;
             LinkedOrganization linkedOrganization = linkedOrganizationDao.GetLinkedOrganizationById(idLinkedOrganization);
 
-            Assert.IsNotNull(linkedOrganization);
+            Assert.AreEqual(idLinkedOrganization, linkedOrganization.IdLinkedOrganization);
         }
 
         [TestMethod]
-        public void GetUnexistentLinkedOrganizationById()
+        public void GetLinkedOrganizationById_UnknownLinkedOrganizationId_NullObject()
         {
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
 
@@ -70,18 +70,18 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetLinkedOrganizationByNameSuccess()
+        public void GetLinkedOrganizationByName_KnownLinkedOrganizationName_LinkedOrganizationWithSameName()
         {
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
 
             string linkedOrganizationName = "PROMOR";
             LinkedOrganization linkedOrganization = linkedOrganizationDao.GetLinkedOrganizationByName(linkedOrganizationName);
 
-            Assert.IsNotNull(linkedOrganization);
+            Assert.AreEqual(linkedOrganizationName, linkedOrganization.Name);
         }
 
         [TestMethod]
-        public void GetUnexistentLinkedOrganizationByName()
+        public void GetLinkedOrganizationByName_UnkownLinkedOrganizationName_NullObject()
         {
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
 
@@ -92,7 +92,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetLinkedOrganizationBySectorSuccess()
+        public void GetLinkedOrganizationBySector_KnownOrganizationSector_LinkedOrganizationsWithSameSector()
         {
             OrganizationSectorDAO organizationSectorDao = new OrganizationSectorDAO();
             int idOrganizationSector = 1;
@@ -101,11 +101,25 @@ namespace DataAccessTests
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
             List<LinkedOrganization> linkedOrganizations = linkedOrganizationDao.GetLinkedOrganizationBySector(organizationSector);
 
-            Assert.IsNotNull(linkedOrganizations);
+            Assert.AreEqual(organizationSector.Name, linkedOrganizations[0].BelongsTo.Name);
         }
 
         [TestMethod]
-        public void GetLinkedOrganizationByUnexistentSector()
+        public void GetLinkedOrganizationBySector_KnownOrganizationSector_ListWithElements()
+        {
+
+            OrganizationSectorDAO organizationSectorDao = new OrganizationSectorDAO();
+            int idOrganizationSector = 1;
+            OrganizationSector organizationSector = organizationSectorDao.GetOrganizationSectorById(idOrganizationSector);
+
+            LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
+            List<LinkedOrganization> linkedOrganizations = linkedOrganizationDao.GetLinkedOrganizationBySector(organizationSector);
+
+            Assert.IsTrue(linkedOrganizations.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetLinkedOrganizationBySector_UnkownOrganizationSector_ListWithoutElements()
         {
 
             OrganizationSector organizationSector = new OrganizationSector
@@ -116,20 +130,17 @@ namespace DataAccessTests
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
             List<LinkedOrganization> linkedOrganizations = linkedOrganizationDao.GetLinkedOrganizationBySector(organizationSector);
 
-            int expectedResult = 0;
-            int obtainedResult = linkedOrganizations.Count;
-
-            Assert.AreEqual(expectedResult, obtainedResult);
+            Assert.IsFalse(linkedOrganizations.Count > 0);
         }
 
         [TestMethod]
-        public void UpdateLinkedOrganizationSuccess()
+        public void UpdateLinkedOrganization_LinkedOrganizationUpdated_SuccessUpdated()
         {
             LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
             int idLinkedOrganization = 1;
 
             LinkedOrganization linkedOrganization = linkedOrganizationDao.GetLinkedOrganizationById(idLinkedOrganization);
-            linkedOrganization.Email = "promor123@empresa.org.mx";
+            linkedOrganization.Email = "promor123456@empresa.org.mx";
 
             bool isUpdated = linkedOrganizationDao.UpdateLinkedOrganization(linkedOrganization);
 

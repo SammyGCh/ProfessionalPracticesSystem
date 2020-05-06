@@ -1,0 +1,62 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Coordinator.AddProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddProject">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="188*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Registrar proyecto" 
+                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="361"/>
+
+            <StackPanel Grid.Row="1">
+
+                <StackPanel Orientation="Horizontal" Margin="30" Width="600">
+                    <TextBlock Text="Organización Vinculada (*): " Margin="3" FontSize="14"/>
+                    <ComboBox Width="250">
+                        <ComboBoxItem Content="Hola"/>
+                    </ComboBox>
+                    <Button Width="100" Margin="12,0,0,0" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Plus" Margin="2"/>
+                            <TextBlock Text="Registrar" Margin="2"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <TextBlock Text="Responsable del proyecto" FontSize="18" FontWeight="DemiBold" Margin="110,10,460,10"/>
+
+                <StackPanel Orientation="Horizontal" Height="25" Width="600">
+                    <TextBlock Text="Nombre (*): " Margin="2,2,3,4" FontSize="14" TextAlignment="Right"/>
+                    <TextBox Width="380"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Width="600" Margin="10">
+                    <TextBlock Text="Cargo (*): " Margin="16,0,3,0" FontSize="14" TextAlignment="Right"/>
+                    <TextBox Width="380" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Width="600" Margin="15,0,168.2,0">
+                    <TextBlock Text="Correo electrónico (*): " Margin="16,0,3,0" FontSize="14" TextAlignment="Right"/>
+                    <TextBox Width="380" />
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>
