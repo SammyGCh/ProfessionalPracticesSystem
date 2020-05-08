@@ -11,6 +11,7 @@ namespace BusinessDomain
     {
         private int idOrganizationSector;
         private String name;
+        private int status;
 
         public int IdOrganizationSector
         {
@@ -22,6 +23,12 @@ namespace BusinessDomain
         {
             get => name;
             set => name = value;
+        }
+
+        public int Status
+        {
+            get => status;
+            set => status = value;
         }
     }
 }

@@ -14,16 +14,16 @@ namespace DataAccessTests
     public class DevelopmentStageDAOTest
     {
         [TestMethod]
-        public void GetAllDevelopmentStagesSuccess()
+        public void GetAllDevelopmentStages_AvailableDevelopmentStages_ListWithElements()
         {
-            DevelopmentStageDAO developmentStageDao;
-            developmentStageDao = new DevelopmentStageDAO();
+            DevelopmentStageDAO developmentStageDao = new DevelopmentStageDAO();
             List<DevelopmentStage> developmentStages = developmentStageDao.GetAllDevelopmentStages();
-            Assert.IsNotNull(developmentStages);
+
+            Assert.IsTrue(developmentStages.Count > 0);
         }
 
         [TestMethod]
-        public void GetDevelopmentStageByIdSuccess()
+        public void GetDevelopmentStageById_KnownDevelopmentStage_DevelopmentStageWithSameId()
         {
             DevelopmentStageDAO developmentStageDao;
             developmentStageDao = new DevelopmentStageDAO();
@@ -31,23 +31,11 @@ namespace DataAccessTests
             int idDevelopmentStage = 1;
             DevelopmentStage developmentStage = developmentStageDao.GetDevelopmentStageById(idDevelopmentStage);
 
-            Assert.IsNotNull(developmentStage);
+            Assert.AreEqual(idDevelopmentStage, developmentStage.IdDevelopmentStage);
         }
 
         [TestMethod]
-        public void GetAllDevelopmentStagesUnsuccess()
-        {
-            DevelopmentStageDAO developmentStageDao;
-            developmentStageDao = new DevelopmentStageDAO();
-            List<DevelopmentStage> developmentStages = developmentStageDao.GetAllDevelopmentStages();
-
-            int expectedResult = 0;
-            int obtainedResult = developmentStages.Count;
-            Assert.AreNotEqual(expectedResult, obtainedResult);
-        }
-
-        [TestMethod]
-        public void GetOrganizationSectorByIdUnsuccess()
+        public void GetDevelopmentStageById_UnkownDevelopmentStage_NullObject()
         {
             DevelopmentStageDAO developmentStageDao;
             developmentStageDao = new DevelopmentStageDAO();

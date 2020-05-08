@@ -15,7 +15,7 @@ namespace DataAccessTests
         PractitionerDAO practitionerDAO = new PractitionerDAO();
 
         [TestMethod]
-        public void SavePractitionerSuccess()
+        public void SavePractitioner_PractitionerIsComplete_ReturnTrue()
         {
             IndigenousLanguage lengua = new IndigenousLanguage
             {
@@ -36,7 +36,7 @@ namespace DataAccessTests
             {
                 Matricula = "s18012168",
                 Password = "1235456",
-                Grade = 8.5f,
+                Grade = "8.5",
                 Gender = "Masculino",
                 Names = "Abizair",
                 LastName = "Suarez carrasco",
@@ -52,7 +52,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void DeletePractitionerSuccess()
+        public void DeletePractitioner_PractitionerExist_ReturnTrue()
         {
             int idPractitioner = 4;
 
@@ -63,7 +63,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void AssignPractitionerSuccess()
+        public void AssignPractitioner_ProjectAndPractitionerExist_ReturnTrue()
         {
             int idPractitioner = 4;
             int idProject = 1;
@@ -74,29 +74,67 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllPractitionerSuccess()
+        public void GetAllPractitioner_HowManyPractitionerExist_ReturnPractitionerList()
         {
             List<Practitioner> result = practitionerDAO.GetAllPractitioner();
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
-        public void GetAllPractitionerByindigenousLanguageSuccess()
+        public void GetAllPractitionerByindigenousLanguage_WhatPractitionerSpeaksAnotherLanguage_ReturnPractitionerList()
         {
             List<Practitioner> result = practitionerDAO.GetAllPractitionerByindigenousLanguage();
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
-        public void GetPractitionerSuccess()
+        public void GetPractitioner_PractitionerExist_ReturnPractitioner()
         {
             int idPractitioner = 1;
 
             Practitioner result = practitionerDAO.GetPractitioner(idPractitioner);
 
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetAllPractitionerByAcademic_AcademicHasStudents_ReturnPractitionerList()
+        {
+            int idAcademic = 1;
+
+            List<Practitioner> result = practitionerDAO.GetAllPractitionerByAcademic(idAcademic);
+
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetAllPractitionerByProject_ProjectHasPractitioner_ReturnPractitionerList()
+        {
+            int idProject = 1;
+
+            List<Practitioner> result = practitionerDAO.GetAllPractitionerByProject(idProject);
+
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void UpdatePractitionerGrade_PractitionerExist_ReturnTrue()
+        {
+            bool result = practitionerDAO.UpdatePractitionerGrade(4);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GetAllPractitionerByLinkedOrganization_OrganizationHasPractitioners_ReturnPractitionerList()
+        {
+            int idOrganization = 1;
+
+            List<Practitioner> result = practitionerDAO.GetAllPractitionerByLinkedOrganization(idOrganization);
+
+            Assert.IsTrue(result.Count > 0);
         }
     }
 }

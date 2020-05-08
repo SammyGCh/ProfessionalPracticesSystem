@@ -32,7 +32,7 @@ namespace DataAccess.Implementation
 
         public List<OrganizationSector> GetAllOrganizationSectors()
         {
-            organizationSectors = null;
+            organizationSectors = new List<OrganizationSector>();
 
             try
             {
@@ -43,14 +43,14 @@ namespace DataAccess.Implementation
                 };
 
                 reader = query.ExecuteReader();
-                organizationSectors = new List<OrganizationSector>();
 
                 while (reader.Read())
                 {
                     organizationSector = new OrganizationSector
                     {
                         IdOrganizationSector = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
 
                     organizationSectors.Add(organizationSector);
@@ -65,7 +65,6 @@ namespace DataAccess.Implementation
                 reader.Close();
                 connection.CloseConnection();
             }
-
 
             return organizationSectors;
         }
@@ -94,7 +93,8 @@ namespace DataAccess.Implementation
                     organizationSector = new OrganizationSector
                     {
                         IdOrganizationSector = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
                 }
             }

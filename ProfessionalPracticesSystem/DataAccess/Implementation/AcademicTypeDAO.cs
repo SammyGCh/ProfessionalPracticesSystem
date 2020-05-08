@@ -19,8 +19,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log =
-        log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public AcademicTypeDAO()
         {
@@ -36,6 +34,7 @@ namespace DataAccess.Implementation
         {
              try
             {
+                academicTypes = new List<AcademicType>();
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
@@ -60,7 +59,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/AcademicType", ex);
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
             }
             finally
             {
@@ -80,12 +79,12 @@ namespace DataAccess.Implementation
                     CommandText = "SELECT * FROM AcademicType WHERE idAcademicType = @idAcademicType"
                 };
 
-                MySqlParameter idAcadType = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 32)
+                MySqlParameter idType = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 32)
                 {
                     Value = idAcademicType
                 };
 
-                query.Parameters.Add(idAcadType);
+                query.Parameters.Add(idType);
 
                 reader = query.ExecuteReader();
 
@@ -102,7 +101,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in DataAccess/Implementation/AcademicType", ex );
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/AcademicTypeDAO", ex );
             }
             finally
             {
@@ -111,6 +110,65 @@ namespace DataAccess.Implementation
 
             return academicType;
         }
-   
+        public bool InsertAcademicType(AcademicType academicType)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "INSERT INTO AcademicType(name) VALUES (@academicTypeName)"
+                };
+
+                query.Parameters.Add("@academicTypeName", MySqlDbType.VarChar, 255).Value = academicType.AcademicTypeName;
+                query.ExecuteNonQuery();
+
+                isSaved = true;
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isSaved;
+        }
+        public bool DeleteAcademicTypeById(int idAcademicType)
+        {
+            bool isDeleted = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "DELETE FROM AcademicType WHERE AcademicType.idAcademicType = @idAcademicType"
+                };
+                MySqlParameter id = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 2)
+                {
+                    Value = idAcademicType
+                };
+                query.Parameters.Add(id);
+                query.ExecuteNonQuery();
+
+                isDeleted = true;
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isDeleted;
+        }
+
     }   
 }

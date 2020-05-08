@@ -11,9 +11,10 @@ namespace BusinessDomain
         private int idProfessorActivity;
         private String description;
         private String name;
-        private int valueActivity;
         private String performanceDate;
         private Academic generatedBy;
+        private String observations;
+        private int status;
 
         public ProfessorActivity(){}
         public int IdProfessorActivity
@@ -34,12 +35,6 @@ namespace BusinessDomain
             set => name = value;
         }
 
-        public int ValueActivity
-        {
-            get => valueActivity;
-            set => valueActivity = value;
-        }
-
         public String PerformanceDate
         {
             get => performanceDate;
@@ -50,6 +45,18 @@ namespace BusinessDomain
         {
             get => generatedBy;
             set => generatedBy = value;
+        }
+
+        public String Observations
+        {
+            get => observations;
+            set => observations = value;
+        }
+
+        public int Status
+        {
+            get => status;
+            set => status = value;
         }
     }
 }

@@ -237,6 +237,8 @@ namespace DataAccess.Implementation
 
         public List<LinkedOrganization> GetLinkedOrganizationBySector(OrganizationSector organizationSector)
         {
+            linkedOrganizations = new List<LinkedOrganization>();
+
             try
             {
                 mysqlConnection = connection.OpenConnection();
@@ -253,7 +255,6 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idOrganizationSector);
 
                 reader = query.ExecuteReader();
-                linkedOrganizations = new List<LinkedOrganization>();
 
                 while (reader.Read())
                 {

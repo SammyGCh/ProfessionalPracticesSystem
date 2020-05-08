@@ -11,11 +11,12 @@ namespace DataAccess.Interfaces
     public interface IDocumentDAO
     {
         List<Document> GetAllDocument();
-        List<Document> GetDocumentByPractitioner(int idPractitioner);
-        List<Document> GetDocumentByType(int idDocumentType);
+        List<Document> GetAllDocumentByPractitioner(int idPractitioner);
+        List<Document> GetAllDocumentByType(int idDocumentType);
         Document GetDocument(int idDocument);
         bool SaveDocument(Document document);
         bool DeleteDocument(int idDocument);
+        bool UpdateDocumentGrade(int idDocument, String grade);
 
     }
 }

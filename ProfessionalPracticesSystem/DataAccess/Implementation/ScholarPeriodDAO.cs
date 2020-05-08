@@ -20,6 +20,7 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
+        private const int ACTIVE = 1;
 
         public ScholarPeriodDAO()
         {
@@ -40,10 +41,11 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO ScholarPeriod (name) VALUES (@name)"
+                    CommandText = "INSERT INTO ScholarPeriod (name, status) VALUES (@name, @status)"
                 };
 
                 query.Parameters.Add("@name", MySqlDbType.VarChar, 45).Value = scholarPeriod.Name;
+                query.Parameters.Add("@status", MySqlDbType.Int32, 2).Value = ACTIVE;
 
                 query.ExecuteReader();
                 isSaved = true;
@@ -79,7 +81,8 @@ namespace DataAccess.Implementation
                     scholarPeriod = new ScholarPeriod
                     {
                         IdScholarPeriod = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
 
                     scholarPeriods.Add(scholarPeriod);
@@ -114,10 +117,11 @@ namespace DataAccess.Implementation
 
                 while(reader.Read())
                 {
-                    scholarPeriod = new ScholarPeriod
+                    scholarPeriod = new ScholarPeriod()
                     {
                         IdScholarPeriod = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
                 }
             }

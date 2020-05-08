@@ -15,7 +15,7 @@ namespace DataAccessTests
         private DocumentTypeDAO documentTypeDAO = new DocumentTypeDAO();
 
         [TestMethod]
-        public void SaveDocumentTypeSuccess()
+        public void SaveDocumentType_DocumentTypeIsComplete_ReturnTrue()
         {
             DocumentType NewDocumentType = new DocumentType()
             {
@@ -31,9 +31,9 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void DeleteDocumentTypeSuccess()
+        public void DeleteDocumentType_DocumentTypeExist_ReturnTrue()
         {
-            int idDocumentType = 1;
+            int idDocumentType = 5;
 
 
             bool result = documentTypeDAO.DeleteDocumentType(idDocumentType);
@@ -44,7 +44,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetDocumentTypeSuccess()
+        public void GetDocumentType_DocumentTypeExist_DocumentType()
         {
             int idDocumentType = 1;
 
@@ -57,12 +57,12 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllDocumentTypeSuccess()
+        public void GetAllDocumentType_WhatDocumentTypesExist_ReturnDocumentTypeList()
         {
             List<DocumentType> result = documentTypeDAO.GetAllDocumentType();
 
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
 
         }
 

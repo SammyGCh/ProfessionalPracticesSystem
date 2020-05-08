@@ -19,12 +19,16 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private int NO_ACTIVE = 0;
 
         public AcademicDAO()
         {
+            academicList = null;
+            academic = null;
             connection = new DataBaseConnection();
-            belongsto = new AcademicTypeDAO();
+            mySqlConnection = null;
+            query = null;
+            reader = null;
         }
         public bool DeleteAcademic(int idAcademic)
         {
@@ -34,13 +38,20 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE Academic SET status=0 WHERE Academic.idAcademic = @idAcademic"
+                    CommandText = "UPDATE Academic SET status=@status WHERE Academic.idAcademic = @idAcademic"
                 };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                {
+                    Value = NO_ACTIVE
+                };
+
                 MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
                 {
                     Value = idAcademic
                 };
 
+                query.Parameters.Add(status);
                 query.Parameters.Add(idacademic);
 
                 query.ExecuteNonQuery();
@@ -49,7 +60,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/DeleteAcademic:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/DeleteAcademic:", ex);
             }
             finally
             {
@@ -61,6 +72,7 @@ namespace DataAccess.Implementation
 
         public Academic GetAcademic(int idAcademic)
         {
+            belongsto = new AcademicTypeDAO();
             try
             {
                 mySqlConnection = connection.OpenConnection();
@@ -95,7 +107,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/GetAcademic:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/GetAcademic:", ex);
             }
             finally
             {
@@ -108,6 +120,7 @@ namespace DataAccess.Implementation
 
         public List<Academic> GetAllAcademic()
         {
+            belongsto = new AcademicTypeDAO();
             try
             {
                 academicList = new List<Academic>();
@@ -141,7 +154,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/GetAllAcademic:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/GetAllAcademic:", ex);
             }
             finally
             {
@@ -225,7 +238,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                log.Error("Someting whent wrong in  DataAccess/Implementation/AcademicDAO/SaveAcademic:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/SaveAcademic:", ex);
             }
             finally
             {

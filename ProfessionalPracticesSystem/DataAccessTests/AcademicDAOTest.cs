@@ -15,7 +15,7 @@ namespace DataAccessTests
         AcademicDAO academicDAO = new AcademicDAO();
 
         [TestMethod]
-        public void SaveAcademicSuccess()
+        public void SaveAcademic_AcademicIsComplete_ReturnTrue()
         {
             AcademicType type = new AcademicType
             {
@@ -41,7 +41,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void DeleteAcademicSuccess()
+        public void DeleteAcademic_AcademicExist_ReturnTrue()
         {
             int idAcademic = 2;
 
@@ -51,7 +51,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAcademicSuccess()
+        public void GetAcademic_AcademicExist_ReturnAcademic()
         {
             int idAcademic = 1;
 
@@ -59,11 +59,11 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllAcademicSuccess()
+        public void GetAllAcademic_WhatAcademicExist_ReturnAcademicList()
         {
             List<Academic> result = academicDAO.GetAllAcademic();
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
         }
     }
 }

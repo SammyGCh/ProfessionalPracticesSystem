@@ -32,6 +32,8 @@ namespace DataAccess.Implementation
 
         public List<DevelopmentStage> GetAllDevelopmentStages()
         {
+            developmentStages = new List<DevelopmentStage>();
+
             try
             {
                 mysqlConnection = connection.OpenConnection();
@@ -41,14 +43,14 @@ namespace DataAccess.Implementation
                 };
 
                 reader = query.ExecuteReader();
-                developmentStages = new List<DevelopmentStage>();
 
                 while (reader.Read())
                 {
                     developmentStage = new DevelopmentStage
                     {
                         IdDevelopmentStage = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
 
                     developmentStages.Add(developmentStage);
@@ -90,7 +92,8 @@ namespace DataAccess.Implementation
                     developmentStage = new DevelopmentStage
                     {
                         IdDevelopmentStage = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
                 }
             }

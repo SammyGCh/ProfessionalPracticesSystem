@@ -14,12 +14,12 @@ namespace DataAccessTests
     public class ScholarPeriodDAOTest
     {
         [TestMethod]
-        public void SaveScholarPeriodSuccess()
+        public void SaveScholarPeriod_NewScholarPeriod_SuccessInsert()
         {
             ScholarPeriodDAO scholarPeriodDao = new ScholarPeriodDAO();
             ScholarPeriod scholarPeriod = new ScholarPeriod
             {
-                Name = "AGOST0 2020 - ENERO 2021"
+                Name = "AGOST0 2021 - ENERO 2022"
             };
 
             bool isSaved = scholarPeriodDao.SaveScholarPeriod(scholarPeriod);
@@ -28,7 +28,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAllScholarPeriodSuccess()
+        public void GetAllScholarPeriod_AvailableScholarPeriods_ListWithElements()
         {
             ScholarPeriodDAO scholarPeriodDao = new ScholarPeriodDAO();
             List<ScholarPeriod> scholarPeriods = scholarPeriodDao.GetAllScholarPeriods();
@@ -37,18 +37,18 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetScholarPeriodByIdSuccess()
+        public void GetScholarPeriodById_KnownScholarPeriod_ScholarPeriodWithSameId()
         {
             int idScholarPeriod = 1;
             ScholarPeriodDAO scholarPeriodDao = new ScholarPeriodDAO();
 
             ScholarPeriod scholarPeriod = scholarPeriodDao.GetScholarPeriodById(idScholarPeriod);
 
-            Assert.IsNotNull(scholarPeriod);
+            Assert.AreEqual(idScholarPeriod, scholarPeriod.IdScholarPeriod);
         }
 
         [TestMethod]
-        public void NotGetScholarPeriodByUnknownId()
+        public void GetScholarPeriodId_UnknownScholarPeriodId_NullObject()
         {
             int idScholarPeriod = 0;
             ScholarPeriodDAO scholarPeriodDao = new ScholarPeriodDAO();
