@@ -13,6 +13,8 @@ namespace BusinessDomain
         private String path;
         private DocumentType typeOf;
         private Practitioner addBy;
+        private String grade;
+        private String observations;
 
         public Document(){}
         public int IdDocument
@@ -43,6 +45,18 @@ namespace BusinessDomain
         {
             get => typeOf;
             set => typeOf = value;
+        }
+
+        public String Grade
+        {
+            get => grade;
+            set => grade = value;
+        }
+
+        public String Observations
+        {
+            get => observations;
+            set => observations = value;
         }
     }
 }

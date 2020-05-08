@@ -13,5 +13,7 @@ namespace DataAccess.Interfaces
         bool SaveProfessorActivity(ProfessorActivity professorActivity);
         ProfessorActivity GetProfessorActivity(int idProfessorActivity);
         bool DeleteProfessorActivity(int idProfessorActivity);
+        bool UpdateProfessorActivity(ProfessorActivity professorActivity);
+        List<ProfessorActivity> GetAllProfessorActivity();
     }
 }

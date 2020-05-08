@@ -32,9 +32,10 @@ namespace GUI_WPF
         public Login()
         {
             InitializeComponent();
+            this.Content = new AddDocument(1, 1);
         }
-
-        private void LogIn(object sender, RoutedEventArgs e)
+        
+        /*private void LogIn(object sender, RoutedEventArgs e)
         {
             CoordinatorHome coordinatorHome = new CoordinatorHome();
             Home homeWindow = new Home(coordinatorHome);

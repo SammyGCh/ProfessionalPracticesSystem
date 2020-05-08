@@ -19,7 +19,7 @@ namespace DataAccess.Implementation
         private DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
-        private MySqlDataReader reader;
+        private MySqlDataReader reader, activityReader;
         private DevelopmentStageDAO developmentStageHandler;
         private LinkedOrganizationDAO linkedOrganizationHandler;
         private const int ACTIVE = 1;
@@ -226,9 +226,11 @@ namespace DataAccess.Implementation
                         ResponsableTelephone = reader.GetString(17),
                         PractitionersAssigned = reader.GetInt32(18),
                         BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(19)),
-                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20)),
-                        ProjectActivities = GetAllProjectActivities(idProject)
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20))
+                        
                     };
+
+                    project.ProjectActivities = GetAllProjectActivities(idProject);
                 }
             }
             catch(MySqlException ex)
@@ -352,9 +354,9 @@ namespace DataAccess.Implementation
 
                 query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = idProject;
 
-                reader = query.ExecuteReader();
+                activityReader = query.ExecuteReader();
 
-                while (reader.Read())
+                while (activityReader.Read())
                 {
                     projectActivity = new ProjectActivity
                     {
@@ -372,7 +374,7 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                activityReader.Close();
                 connection.CloseConnection();
             }
 

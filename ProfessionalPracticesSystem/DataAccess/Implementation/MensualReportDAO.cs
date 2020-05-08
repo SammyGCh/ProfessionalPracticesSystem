@@ -22,8 +22,6 @@ namespace DataAccess.Implementation
         private MySqlDataReader reader;
         private ProjectDAO projectHandler;
         private PractitionerDAO practitionerHandler;
-        private static readonly log4net.ILog log =
-        log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public MensualReportDAO()
         {
