@@ -1,0 +1,118 @@
+﻿ <Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
+      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Coordinator.ProjectsConsult"
+      mc:Ignorable="d" 
+      Height="650" Width="1279.6"
+      Title="ProjectsConsult">
+     
+     <Grid>
+    <TextBlock HorizontalAlignment="Left" Margin="100,10,0,0" TextWrapping="Wrap" Text="Proyectos" 
+            Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="514"/>
+
+    <StackPanel Margin="0,74,17,0">
+
+        <StackPanel Orientation="Horizontal" Margin="30" Width="600"/>
+
+        <StackPanel Orientation="Horizontal" Width="600" Margin="10"/>
+        <StackPanel Orientation="Horizontal" Width="600" Margin="15,0,168,0"/>
+
+    </StackPanel>
+    <DataGrid x:Name="tableProjects" HorizontalAlignment="Left" Height="445" Margin="174,98,0,0" VerticalAlignment="Top" Width="942" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+                  CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="100">
+            <DataGrid.Columns>
+                
+                <DataGridTemplateColumn Header="Nombre" Width ="200" MinWidth="200" MaxWidth="200"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+          
+
+                <DataGridTemplateColumn Header="Metodología"  Width ="200" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Metology}" TextWrapping="WrapWithOverflow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Objetivo General" Width ="250"  CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding GeneralGoal}" TextWrapping="WrapWithOverflow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Name="details" Content="Detalles"  Width ="100" MinWidth="100" HorizontalAlignment="Left"/>
+
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+
+                <DataGridTemplateColumn.HeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FF5BA1DA"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="24"/>
+                    </Style>
+                </DataGridTemplateColumn.HeaderStyle>
+            </DataGridTemplateColumn  >
+
+            <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Name="update" Content="Actualizar" Width ="100" MinWidth="100" HorizontalAlignment="Left"/>
+
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+
+                <DataGridTemplateColumn.HeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FF5BA1DA"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="24"/>
+                    </Style>
+                </DataGridTemplateColumn.HeaderStyle>
+            </DataGridTemplateColumn  >
+        </DataGrid.Columns>
+    </DataGrid>
+    <Button x:Name="backButton" Content="Regresar" HorizontalAlignment="Left" Margin="580,568,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="backButtonClick"/>
+
+
+
+</Grid>
+</Page>
+

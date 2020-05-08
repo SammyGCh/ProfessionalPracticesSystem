@@ -68,6 +68,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Coordinator\DisplayLinkedOrganization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\ProjectsConsult.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\DocumentManagement\AddDocument.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +85,12 @@
     </Compile>
     <Compile Include="Pages\Coordinator\CoordinatorHome.xaml.cs">
       <DependentUpon>CoordinatorHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\DisplayLinkedOrganization.xaml.cs">
+      <DependentUpon>DisplayLinkedOrganization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\ProjectsConsult.xaml.cs">
+      <DependentUpon>ProjectsConsult.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\VinculatedOrganizations.xaml.cs">
       <DependentUpon>VinculatedOrganizations.xaml</DependentUpon>

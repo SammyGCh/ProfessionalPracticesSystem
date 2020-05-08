@@ -4,10 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
-      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" x:Class="GUI_WPF.Pages.Coordinator.VinculatedOrganizations"
+      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Coordinator.VinculatedOrganizations"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page1">
+      Height="650" Width="1279.6"
+      Title="VinculatedOrganizations">
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Organizaciones Vinculadas" 
@@ -21,18 +21,74 @@
             <StackPanel Orientation="Horizontal" Width="600" Margin="15,0,168,0"/>
 
         </StackPanel>
-        <DataGrid x:Name="tabla_Ov" HorizontalAlignment="Left" Height="346" Margin="52,74,0,0" VerticalAlignment="Top" Width="696" ItemsSource="{Binding Path = allLinkedOrganizations}" DisplayMemberPath="LinkedOrganizations">
+        <DataGrid x:Name="tableLinkedOrganizations" HorizontalAlignment="Left" Height="445" Margin="174,98,0,0" VerticalAlignment="Top" Width="942" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+                  CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nombre" Width="100" />
-                <DataGridTextColumn Header="Estado" Width="100" />
-                <DataGridTextColumn Header="Correo electrónico" Width="120"/>
-                <DataGridHyperlinkColumn Header="Opciones" Width="300"/>
+                <DataGridTextColumn Header="Nombre" Width ="200" MinWidth="200" MaxWidth="200" Binding="{Binding Name}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Estado"  Width ="150" MinWidth="150" MaxWidth="150" Binding="{Binding State}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Correo electrónico" Width ="300" MinWidth="300" MaxWidth="300" Binding="{Binding Email}" CanUserResize="False" CanUserReorder="False" IsReadOnly="True">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="details" Content="Detalles"  Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="clickDetailsOv"/>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                </DataGridTemplateColumn  >
+
+                <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="update" Content="Actualizar" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="clickUpdateOv"/>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF5BA1DA"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                </DataGridTemplateColumn  >
             </DataGrid.Columns>
-            <DataGrid.SelectedItems>
-                <BusinessDomain:LinkedOrganization/>
-            </DataGrid.SelectedItems>
         </DataGrid>
-        <Button x:Name="coton" Content="Button" HorizontalAlignment="Left" Margin="702,57,0,0" VerticalAlignment="Top" Width="70" Height="12"/>
+        <Button x:Name="backButton" Content="Regresar" HorizontalAlignment="Left" Margin="580,568,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="backButtonClick"/>
+
 
     </Grid>
 </Page>
