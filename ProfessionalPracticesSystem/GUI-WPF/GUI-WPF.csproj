@@ -68,7 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AddDocument.xaml">
+    <Page Include="Pages\DocumentManagement\AddDocument.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -85,7 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AddDocument.xaml.cs">
+    <Compile Include="Pages\DocumentManagement\AddDocument.xaml.cs">
       <DependentUpon>AddDocument.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
