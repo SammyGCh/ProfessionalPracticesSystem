@@ -23,9 +23,10 @@ namespace GUI_WPF
         public MainWindow()
         {
             InitializeComponent();
+            this.Content = new AddDocument(1, 1);
         }
         
-        private void LogIn(object sender, RoutedEventArgs e)
+        /*private void LogIn(object sender, RoutedEventArgs e)
         {
             userTextBox.Text = "Apreté el botón";
         }
@@ -40,6 +41,6 @@ namespace GUI_WPF
             {
                 logInButton.IsEnabled = true;
             }
-        }
+        }*/
     }
 }

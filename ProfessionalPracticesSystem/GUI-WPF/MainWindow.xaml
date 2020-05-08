@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Inicio de sesión" Height="450" Width="800">
     <Grid>
-        <Label Content="Bienvenido al Sistema de Prácticas Profesionales" HorizontalAlignment="Left" 
+        <!-- <Label Content="Bienvenido al Sistema de Prácticas Profesionales" HorizontalAlignment="Left" 
                Margin="143,77,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Image HorizontalAlignment="Left" Height="121" Margin="10,10,0,0" VerticalAlignment="Top" Width="128" 
                Source="uvlogo.png"/>
@@ -29,6 +29,7 @@
                     <Setter Property="CornerRadius" Value="3"/>
                 </Style>
             </Button.Resources>
-        </Button> 
+        </Button>
+        -->
     </Grid>
 </Window>

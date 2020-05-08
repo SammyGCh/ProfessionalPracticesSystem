@@ -39,7 +39,7 @@ namespace GUI_WPF
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("No se ha seleccionado un archivo", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Por favor, seleccione un documento", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -53,6 +53,16 @@ namespace GUI_WPF
             {
                 sourcePath = explorador.FileName;
                 pdfViewer.Navigate(sourcePath);
+            }
+        }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = System.Windows.MessageBox.Show("¿Seguro que deseas salir?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.GoBack();
             }
         }
     }

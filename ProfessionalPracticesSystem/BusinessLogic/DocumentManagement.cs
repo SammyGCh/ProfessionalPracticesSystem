@@ -44,9 +44,16 @@ namespace BusinessLogic
                     AddBy = practitionerDAO.GetPractitioner(idPractitioner)
                 };
 
-                thisPC.FileSystem.CopyFile(SourcePath, finalPath);
-                documentDAO.SaveDocument(newDocument);
-                result = "Archivo guardado exitosamente";
+                if (documentDAO.SaveDocument(newDocument))
+                {
+                    thisPC.FileSystem.CopyFile(SourcePath, finalPath);
+                    result = "Archivo guardado exitosamente";
+                }
+                else
+                {
+                    result = "Error, no se pudo cargar el documento, intente más tarde";
+                }
+
             }
             else
             {
