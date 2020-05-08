@@ -68,10 +68,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Administrator\AdministratorHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\DocumentManagement\AddDocument.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Pages\Administrator\AdministratorHome.xaml.cs">
+      <DependentUpon>AdministratorHome.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Coordinator\AddProject.xaml.cs">
       <DependentUpon>AddProject.xaml</DependentUpon>
     </Compile>
@@ -138,7 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="image\" />
-    <Folder Include="Pages\Administrator\" />
     <Folder Include="Pages\Practitioner\" />
     <Folder Include="Pages\Professor\" />
   </ItemGroup>
