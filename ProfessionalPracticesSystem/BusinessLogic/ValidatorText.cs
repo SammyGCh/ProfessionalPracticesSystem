@@ -20,5 +20,12 @@ namespace BusinessLogic
 
             return userNameRegularExpression.IsMatch(userName);
         }
+
+        public static bool IsTelephoneNumber(string telephoneNumber)
+        {
+            Regex telephoneNumberRegularExpression = new Regex(@"\d");
+
+            return telephoneNumberRegularExpression.IsMatch(telephoneNumber);
+        }
     }
 }
