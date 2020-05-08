@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
 
@@ -25,6 +26,9 @@ namespace GUI_WPF.Pages.Coordinator
         public VinculatedOrganizations()
         {
             InitializeComponent();
+            LinkedOrganizationDAO linkedOrganizationDao = new LinkedOrganizationDAO();
+            List<LinkedOrganization> allLinkedOrganizations = linkedOrganizationDao.GetAllLinkedOrganizations();
+            tabla_Ov.ItemsSource = allLinkedOrganizations;
 
         }
        

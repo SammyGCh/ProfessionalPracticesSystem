@@ -21,10 +21,10 @@
             <StackPanel Orientation="Horizontal" Width="600" Margin="15,0,168,0"/>
 
         </StackPanel>
-        <DataGrid x:Name="tabla_Ov" HorizontalAlignment="Left" Height="346" Margin="52,74,0,0" VerticalAlignment="Top" Width="696">
+        <DataGrid x:Name="tabla_Ov" HorizontalAlignment="Left" Height="346" Margin="52,74,0,0" VerticalAlignment="Top" Width="696" ItemsSource="{Binding Path = allLinkedOrganizations}" DisplayMemberPath="LinkedOrganizations">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nombre" Width="100"/>
-                <DataGridTextColumn Header="Estado" Width="100" HeaderStringFormat=""/>
+                <DataGridTextColumn Header="Nombre" Width="100" />
+                <DataGridTextColumn Header="Estado" Width="100" />
                 <DataGridTextColumn Header="Correo electrónico" Width="120"/>
                 <DataGridHyperlinkColumn Header="Opciones" Width="300"/>
             </DataGrid.Columns>
