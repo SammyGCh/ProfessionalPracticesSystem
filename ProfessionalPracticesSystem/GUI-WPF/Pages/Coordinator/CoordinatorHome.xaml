@@ -34,9 +34,9 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Consultar" Margin="3"/>
+                            <TextBlock Text="Consultar" Margin="1"/>
                         </StackPanel>
                     </Button>
 
@@ -46,9 +46,9 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="PlusBox" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Registrar" Margin="3"/>
+                            <TextBlock Text="Registrar" Margin="1"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -69,9 +69,9 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="PersonSearch" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Consultar" Margin="3"/>
+                            <TextBlock Text="Consultar" Margin="1"/>
                         </StackPanel>
                     </Button>
 
@@ -81,21 +81,21 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="PersonAdd" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Registrar" Margin="3"/>
+                            <TextBlock Text="Registrar" Margin="1"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Height="30" Width="119" Cursor="Hand">
+                    <Button Height="30" Width="119" Cursor="Hand" Padding="1">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
-                            <materialDesign:PackIcon Kind="FileDocument" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Solicitudes" Margin="3"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110" Margin="1">
+                            <materialDesign:PackIcon Kind="FileDocument" Margin="2,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Solicitudes" Margin="1"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -119,9 +119,9 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Consultar" Margin="3"/>
+                            <TextBlock Text="Consultar" Margin="1"/>
                         </StackPanel>
                     </Button>
 
@@ -131,9 +131,9 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="PlusBox" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Registrar" Margin="3"/>
+                            <TextBlock Text="Registrar" Margin="1"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -154,9 +154,9 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Generar" Margin="3"/>
+                            <TextBlock Text="Generar" Margin="4,1,1,1"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -177,9 +177,9 @@
                                 <Setter Property="CornerRadius" Value="3"/>
                             </Style>
                         </Button.Resources>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
                             <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Consultar" Margin="3"/>
+                            <TextBlock Text="Consultar" Margin="1"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>

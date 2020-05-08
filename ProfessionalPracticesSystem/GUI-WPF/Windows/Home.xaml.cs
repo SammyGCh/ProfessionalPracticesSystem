@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+    Date: 01/05/2020
+    Author(s): Sammy Guadarrama Chavez
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

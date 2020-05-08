@@ -31,12 +31,18 @@
             <Label Content="Licenciatura en Ingeniería de Software" HorizontalAlignment="Left" 
                    Foreground="White" Margin="99.4,47,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="14" Height="29" Width="245"/>
 
-            <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" Height="60" Margin="0,14,-0.4,14.8" Width="320">
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" 
+                        Height="60" Margin="0,14,-0.4,14.8" Width="320">
+                
                 <materialDesing:PackIcon Kind="User" Width="40" Height="60" Foreground="White"/>
-                <TextBlock Text="Angel Juan Sanchez Juarez" Foreground="White" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Left" FontWeight="Bold"/>
-                <materialDesing:PopupBox Foreground="White" Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                    <StackPanel Width="200" Background="#FF7DBEFF">
+                
+                <TextBlock Text="Angel Juan Sanchez Juarez" Foreground="White" VerticalAlignment="Center" 
+                           FontSize="18" HorizontalAlignment="Left" FontWeight="Bold"/>
 
+                <materialDesing:PopupBox Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+
+                    <StackPanel Width="200" Background="#FF5BA1DA">
+                        
                         <StackPanel.Effect>
                             <DropShadowEffect BlurRadius="20" RenderingBias="Quality" Color="#ccc" ShadowDepth="5" Direction="5" />
                         </StackPanel.Effect>
@@ -56,7 +62,9 @@
                         </Button>
 
                     </StackPanel>
+          
                 </materialDesing:PopupBox>
+                
             </StackPanel>
 
         </Grid>
