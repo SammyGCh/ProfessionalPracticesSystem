@@ -264,7 +264,7 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-               LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/MensualReport ", ex);
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/MensualReport ", ex);
             }
             finally
             {
