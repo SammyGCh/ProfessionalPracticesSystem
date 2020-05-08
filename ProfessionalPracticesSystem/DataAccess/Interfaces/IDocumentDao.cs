@@ -16,7 +16,7 @@ namespace DataAccess.Interfaces
         Document GetDocument(int idDocument);
         bool SaveDocument(Document document);
         bool DeleteDocument(int idDocument);
-        bool UpdateDocumentGrade(int idDocument, float grade);
+        bool UpdateDocumentGrade(int idDocument, String grade);
 
     }
 }

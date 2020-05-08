@@ -117,7 +117,7 @@ namespace DataAccess.Implementation
 
                 while(reader.Read())
                 {
-                    scholarPeriod = new ScholarPeriod
+                    scholarPeriod = new ScholarPeriod()
                     {
                         IdScholarPeriod = reader.GetInt32(0),
                         Name = reader.GetString(1),

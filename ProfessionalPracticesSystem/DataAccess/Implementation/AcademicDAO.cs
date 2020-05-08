@@ -19,7 +19,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private int NO_ACTIVE = 0;
 
         public AcademicDAO()

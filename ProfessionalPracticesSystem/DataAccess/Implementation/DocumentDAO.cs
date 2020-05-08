@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using BusinessDomain;
 using DataAccess.DataBase;
 using DataAccess.Interfaces;
+using System;
 
 namespace DataAccess.Implementation
 {
@@ -20,7 +21,6 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public DocumentDAO()
         {
@@ -277,7 +277,7 @@ namespace DataAccess.Implementation
                     Value = document.Name
                 };
 
-                MySqlParameter path = new MySqlParameter("@path", MySqlDbType.VarChar, 150)
+                MySqlParameter path = new MySqlParameter("@path", MySqlDbType.MediumText, 2000)
                 {
                     Value = document.Path
                 };
@@ -323,7 +323,7 @@ namespace DataAccess.Implementation
             return isSaved;
         }
 
-        public bool UpdateDocumentGrade(int idDocument, float grade)
+        public bool UpdateDocumentGrade(int idDocument, String grade)
         {
             bool isUpdated = false;
             try
@@ -336,7 +336,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter grad = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)
                 {
-                    Value = grade.ToString()
+                    Value = grade
                 };
 
                 MySqlParameter iddocument = new MySqlParameter("@idDocument", MySqlDbType.Int32, 11)

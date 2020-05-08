@@ -7,15 +7,15 @@
         mc:Ignorable="d"
         Title="Inicio de sesión" Height="450" Width="800">
     <Grid>
-        <Label Content="Bienvenido al Sistema de Prácticas Profesionales" HorizontalAlignment="Left" 
+        <!-- <Label Content="Bienvenido al Sistema de Prácticas Profesionales" HorizontalAlignment="Left" 
                Margin="143,77,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Image HorizontalAlignment="Left" Height="121" Margin="10,10,0,0" VerticalAlignment="Top" Width="128" 
                Source="uvlogo.png"/>
-        
+
         <Label Content="Usuario:" HorizontalAlignment="Left" Margin="240,147,0,0" VerticalAlignment="Top"/>
         <TextBox Name="userTextBox" HorizontalAlignment="Left" Height="26" Margin="304,150,0,0" TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" Width="214" MaxLength="9" CharacterCasing="Upper"/>
-        
+
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="227,192,0,0" VerticalAlignment="Top"/>
         <PasswordBox Name="password" HorizontalAlignment="Left" Margin="304,192,0,0" VerticalAlignment="Top" 
                      Width="214" Height="26" PasswordChar="*" PasswordChanged="EnableLoginButton"/>
@@ -30,5 +30,6 @@
                 </Style>
             </Button.Resources>
         </Button>
+        -->
     </Grid>
 </Window>
