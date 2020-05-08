@@ -69,11 +69,11 @@
     <Compile Include="Pages\Coordinator\CoordinatorHome.xaml.cs">
       <DependentUpon>CoordinatorHome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Coordinator\VinculatedOrganizations.xaml.cs">
+      <DependentUpon>VinculatedOrganizations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Coordinator\VinculatedOrganization.xaml.cs">
-      <DependentUpon>VinculatedOrganization.xaml</DependentUpon>
     </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -95,13 +95,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Home.xaml">
+    <Page Include="Pages\Coordinator\VinculatedOrganizations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Coordinator\VinculatedOrganization.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Windows\Home.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
