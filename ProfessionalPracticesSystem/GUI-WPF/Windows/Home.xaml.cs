@@ -29,7 +29,7 @@ namespace GUI_WPF.Windows
         public Home()
         {
             InitializeComponent();
-            homeFrame.Content = new CoordinatorHome();
+            homeFrame.Content = new AddDocument(1,1);
         }
 
         public Home(Page homePage)
