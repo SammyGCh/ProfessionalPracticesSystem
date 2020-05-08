@@ -1,70 +1,60 @@
-2020-04-30 00:53:31,441 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetAllProjects() en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 144
-2020-04-30 00:53:47,523 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 00:55:07,313 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectByName(String name) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 264
-2020-04-30 00:56:47,081 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 00:56:52,864 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,629 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,681 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,692 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,718 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,728 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,741 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,753 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,780 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
-2020-04-30 01:01:49,796 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/ProjectDAO: 
-MySql.Data.MySqlClient.MySqlException (0x80004005): Invalid attempt to Read when reader is closed.
-   en MySql.Data.MySqlClient.MySqlDataReader.Throw(Exception ex)
-   en MySql.Data.MySqlClient.MySqlDataReader.Read()
-   en DataAccess.Implementation.ProjectDAO.GetProjectById(Int32 idProject) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\ProjectDAO.cs:línea 205
+2020-05-02 15:10:17,621 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'kDrDZ0nK2a.DevelopmentStage' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.DevelopmentStageDAO.GetDevelopmentStageById(Int32 idDevelopmentStage) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\DevelopmentStageDAO.cs:línea 88
+2020-05-02 15:12:13,086 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'kDrDZ0nK2a.DevelopmentStage' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.DevelopmentStageDAO.GetDevelopmentStageById(Int32 idDevelopmentStage) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\DevelopmentStageDAO.cs:línea 88
+2020-05-02 15:12:48,339 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/DevelopmentStageDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'kDrDZ0nK2a.DevelopmentStage' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.DevelopmentStageDAO.GetDevelopmentStageById(Int32 idDevelopmentStage) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\DevelopmentStageDAO.cs:línea 88
+2020-05-02 15:13:39,762 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'kDrDZ0nK2a.LinkedOrganization' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.LinkedOrganizationDAO.GetLinkedOrganizationByName(String name) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\LinkedOrganizationDAO.cs:línea 208
+2020-05-02 15:15:20,371 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'kDrDZ0nK2a.OrganizationSector' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   en DataAccess.Implementation.OrganizationSectorDAO.GetOrganizationSectorById(Int32 idOrganizationSector) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\OrganizationSectorDAO.cs:línea 89
+2020-05-02 15:16:48,024 [12] ERROR DataAccess.LogManager - Something went wrong in DataAccess/Implementation/LinkedOrganizationDAO: 
+MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'kDrDZ0nK2a.LinkedOrganization' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en DataAccess.Implementation.LinkedOrganizationDAO.SaveLinkedOrganization(LinkedOrganization linkedOrganization) en D:\1- INFORMACIÓN\PROYECTO PCONS\ProfessionalPracticesSystem\ProfessionalPracticesSystem\DataAccess\Implementation\LinkedOrganizationDAO.cs:línea 86
