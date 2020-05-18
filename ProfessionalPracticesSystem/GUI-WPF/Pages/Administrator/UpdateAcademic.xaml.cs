@@ -24,11 +24,17 @@ namespace GUI_WPF.Pages.Administrator
     /// </summary>
     public partial class UpdateAcademic : Page
     {
+        ManageAcademic academicManager;
+        Academic selectedAcademic;
+        AcademicDAO academicDAO;
+        AcademicTypeDAO academicTypeDAO;
         public UpdateAcademic(Academic academic)
         {
             InitializeComponent();
-            AcademicDAO academicDao = new AcademicDAO();
-            AcademicTypeDAO academicTypeDAO = new AcademicTypeDAO();
+            this.academicManager = new ManageAcademic();
+            this.selectedAcademic = academic;
+            this.academicDAO = new AcademicDAO();
+            this.academicTypeDAO = new AcademicTypeDAO();
             List<AcademicType> allAcademicTypes = academicTypeDAO.GetAllAcademicTypes();
             academicTypes.ItemsSource = allAcademicTypes;
             AcademicDAO detailAcademicDAO = new AcademicDAO();
@@ -43,6 +49,34 @@ namespace GUI_WPF.Pages.Administrator
 
         private void ChangeAcademic(object sender, RoutedEventArgs e)
         {
+            bool isChanged;
+            Academic changeAcademic = new Academic()
+            {
+                IdAcademic = selectedAcademic.IdAcademic,
+                Names = academicNames.ToString(),
+                LastName = academicLastName.ToString(),
+                PersonalNumber = academicPersonalNumber.ToString(),
+                Password = academicPassword.ToString(),
+                Cubicle = academicCubicle.ToString(),
+                Gender = academicGender.ToString(),
+                Shift = academicShift.ToString(),
+                BelongTo = academicTypeDAO.GetAcademicTypeById(academicTypes.SelectedIndex)
+
+            };
+            isChanged = academicManager.updateAcademic(changeAcademic);
+
+            if (!isChanged)
+            {
+                MessageBoxResult userResponse = System.Windows.MessageBox.Show("No se pudo cambiar el academico.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (userResponse == MessageBoxResult.OK)
+                {
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Se guardo el cambio de datos para el Academico exitosamente.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
 
         }
 

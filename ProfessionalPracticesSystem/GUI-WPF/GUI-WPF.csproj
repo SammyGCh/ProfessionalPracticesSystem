@@ -68,9 +68,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Administrator\AddAcademic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Administrator\AdministratorHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Administrator\DeleteAcademic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Administrator\DetailAcademic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Administrator\UpdateAcademic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Coordinator\DisplayLinkedOrganization.xaml">
       <SubType>Designer</SubType>
@@ -84,8 +100,20 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Pages\Administrator\AddAcademic.xaml.cs">
+      <DependentUpon>AddAcademic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Administrator\AdministratorHome.xaml.cs">
       <DependentUpon>AdministratorHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Administrator\DeleteAcademic.xaml.cs">
+      <DependentUpon>DeleteAcademic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Administrator\DetailAcademic.xaml.cs">
+      <DependentUpon>DetailAcademic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Administrator\UpdateAcademic.xaml.cs">
+      <DependentUpon>UpdateAcademic.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\AddProject.xaml.cs">
       <DependentUpon>AddProject.xaml</DependentUpon>
