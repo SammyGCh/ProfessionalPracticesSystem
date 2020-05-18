@@ -3,6 +3,7 @@
     Author(s): Sammy Guadarrama Chavez
  */
 
+using System;
 using System.Collections.Generic;
 using BusinessDomain;
 using DataAccess.DataBase;
@@ -37,7 +38,7 @@ namespace DataAccess.Implementation
             try
             {
                 mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection) 
+                query = new MySqlCommand("", mysqlConnection)
                 {
                     CommandText = "SELECT * FROM OrganizationSector"
                 };
@@ -74,11 +75,11 @@ namespace DataAccess.Implementation
             try
             {
                 mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection) 
+                query = new MySqlCommand("", mysqlConnection)
                 {
                     CommandText = "SELECT * FROM OrganizationSector WHERE idOrganizationSector = @idOrganizationSector"
                 };
-                
+
                 MySqlParameter idOrgSector = new MySqlParameter("@idOrganizationSector", MySqlDbType.Int32, 32)
                 {
                     Value = idOrganizationSector
@@ -98,7 +99,49 @@ namespace DataAccess.Implementation
                     };
                 }
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: ", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return organizationSector;
+        }
+
+        public OrganizationSector GetOrganizationSectorByName(String sectorName)
+        {
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "SELECT * FROM OrganizationSector WHERE name = @sectorName"
+                };
+
+                MySqlParameter sectorsName = new MySqlParameter("@sectorName", MySqlDbType.VarChar, 25)
+                {
+                    Value = sectorName
+                };
+
+                query.Parameters.Add(sectorsName);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    organizationSector = new OrganizationSector
+                    {
+                        IdOrganizationSector = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
+                    };
+                }
+            }
+            catch (MySqlException ex)
             {
                 LogManager.WriteLog("Something went wrong in DataAccess/Implementation/OrganizationSectorDAO: ", ex);
             }

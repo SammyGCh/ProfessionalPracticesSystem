@@ -189,7 +189,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="20" Width="750">
-                    <Button x:Name="addButton" Width="115" Margin="240,0,0,0" Cursor="Hand" IsEnabled="false" 
+                    <Button x:Name="addButton" Width="115" Margin="240,0,0,0" Cursor="Hand" IsEnabled="True" 
                             Click="AddNewProject">
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
