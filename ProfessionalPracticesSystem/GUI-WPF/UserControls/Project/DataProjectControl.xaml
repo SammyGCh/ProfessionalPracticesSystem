@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="GUI_WPF.UserControls.Project.DataProjectControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI_WPF.UserControls.Project"
+             mc:Ignorable="d" d:DesignWidth="800" Height="1240">
+    <StackPanel x:Name="projectData">
+        <TextBlock Text="Datos del proyecto" FontSize="18" FontWeight="SemiBold" Margin="40,0,0,0"/>
+
+        <StackPanel Orientation="Horizontal" Height="25" Margin="10">
+            <TextBlock Text="Nombre (*): " Margin="110,0,10,0" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="projectName" Width="386"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Height="114" Margin="10,0,10.4,0">
+            <TextBlock  Margin="110,10,10,0" FontSize="14">
+               Descripción
+               <LineBreak/>
+               general (*):
+            </TextBlock>
+            <TextBox x:Name="projectDescription" Width="450" Height="100" TextWrapping="Wrap" Margin="0,8,0,5.6"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="120,10,16,0" FontSize="14">
+               Objetivo
+               <LineBreak/>
+               general (*):
+            </TextBlock>
+
+            <TextBox x:Name="projectGeneralGoals" Width="450" Height="100" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="100,10,16,0" FontSize="14">
+               Objetivos
+               <LineBreak/>
+               inmediatos (*):
+            </TextBlock>
+
+            <TextBox x:Name="inmediateGoals" Width="450" Height="100" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="110,10,16,0" FontSize="14">
+               Objetivos
+               <LineBreak/>
+               mediatos (*):
+            </TextBlock>
+
+            <TextBox x:Name="mediateGoals" Width="450" Height="100" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="90,10,16,0" FontSize="14">
+               Metodología (*):
+            </TextBlock>
+            <TextBox x:Name="metology" Width="450" Height="100" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="95,10,16,0" FontSize="14">
+                Recursos
+                <LineBreak/>
+                humanos,
+                <LineBreak/>
+                económicos
+                <LineBreak/>
+                y materiales (*):
+            </TextBlock>
+            <TextBox x:Name="neededResources" Width="450" Height="100" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="55,10,16,0" FontSize="14">
+                Responsabilidades (*):
+            </TextBlock>
+            <TextBox x:Name="responsabilities" Width="450" Height="100" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="110,2,16,0" FontSize="14">
+                Duración (*):
+            </TextBlock>
+            <TextBox x:Name="duration" Width="150" Height="25" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="110,2,16,0" FontSize="14">
+                Número
+                <LineBreak/>
+                de usuarios
+                <LineBreak/>
+                directos (*):
+            </TextBlock>
+            <TextBox x:Name="directUserNumber" Margin="0,30,0,0" Width="150" Height="25" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="110,2,16,0" FontSize="14">
+                Número
+                <LineBreak/>
+                de usuarios
+                <LineBreak/>
+                indirectos (*):
+            </TextBlock>
+            <TextBox x:Name="indirectUserNumber" Margin="0,30,0,0" Width="150" Height="25" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="110,0,10,0" FontSize="14">
+                Etapa de
+                <LineBreak/>
+                desarrollo (*):
+            </TextBlock>
+            <ComboBox x:Name="developmentStages" Width="250" Margin="0,10,0,0" 
+                      ItemsSource="{Binding allDevelopmentStages}" DisplayMemberPath="Name"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock  Margin="110,2,16,0" FontSize="14">
+                Número de
+                <LineBreak/>
+                practicantes
+                <LineBreak/>
+                aceptados (*):
+            </TextBlock>
+            <TextBox x:Name="practitionerNumber" Width="100" Height="25" TextWrapping="Wrap"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
