@@ -15,6 +15,7 @@ namespace BusinessDomain
         private String mensualReportName;
         private Practitioner generatedBy;
         private Project derivedFrom;
+        private String grade;
 
         public int IdMensualReport
         {
@@ -38,6 +39,12 @@ namespace BusinessDomain
         {
             get => mensualReportName;
             set => mensualReportName = value;
+        }
+
+        public String Grade
+        {
+            get => grade;
+            set => grade = value;
         }
 
         public Practitioner GeneratedBy
