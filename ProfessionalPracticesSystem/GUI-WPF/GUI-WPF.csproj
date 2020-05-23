@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Coordinator\DetailAcademic.xaml">
+    <Page Include="Pages\Coordinator\AddOrganization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,6 +104,10 @@
     <Page Include="Pages\Coordinator\ProjectsConsult.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Coordinator\UpdateOrganization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\DocumentManagement\AddDocument.xaml">
       <SubType>Designer</SubType>
@@ -125,6 +130,8 @@
     </Compile>
     <Compile Include="Pages\Coordinator\AddPractitioner.xaml.cs">
       <DependentUpon>AddPractitioner.xaml</DependentUpon>
+    <Compile Include="Pages\Coordinator\AddOrganization.xaml.cs">
+      <DependentUpon>AddOrganization.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\AddProject.xaml.cs">
       <DependentUpon>AddProject.xaml</DependentUpon>
@@ -140,6 +147,9 @@
     </Compile>
     <Compile Include="Pages\Coordinator\ProjectsConsult.xaml.cs">
       <DependentUpon>ProjectsConsult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\UpdateOrganization.xaml.cs">
+      <DependentUpon>UpdateOrganization.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\VinculatedOrganizations.xaml.cs">
       <DependentUpon>VinculatedOrganizations.xaml</DependentUpon>

@@ -14,5 +14,6 @@ namespace DataAccess.Interfaces
     {
         List<OrganizationSector> GetAllOrganizationSectors();
         OrganizationSector GetOrganizationSectorById(int idOrganizationSector);
+        OrganizationSector GetOrganizationSectorByName(String sectorName);
     }
 }
