@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="GUI_WPF.UserControls.Project.LinkedOrganizationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI_WPF.UserControls.Project"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Organización Vinculada (*): " Margin="70,10,10,0" FontSize="14"/>
+        <ComboBox x:Name="linkedOrganizations" Width="250" 
+                  ItemsSource="{Binding Path = allLinkedOrganizations}" 
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding LinkedOrganizationSelected}"
+                  />
+
+        <Button Width="119" Cursor="Hand" Margin="20,0,0,0">
+            <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
+                <TextBlock Text="Registrar"/>
+            </StackPanel>
+        </Button>
+    </StackPanel>
+</UserControl>

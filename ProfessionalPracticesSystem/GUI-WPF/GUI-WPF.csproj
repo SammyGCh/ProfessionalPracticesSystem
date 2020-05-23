@@ -144,6 +144,17 @@
     <Compile Include="Pages\Coordinator\CoordinatorHome.xaml.cs">
       <DependentUpon>CoordinatorHome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Project\DataProjectControl.xaml.cs">
+      <DependentUpon>DataProjectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\LinkedOrganizationControl.xaml.cs">
+      <DependentUpon>LinkedOrganizationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\ProjectActivityControl.xaml.cs">
+      <DependentUpon>ProjectActivityControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\ProjectResponsableControl.xaml.cs">
+      <DependentUpon>ProjectResponsableControl.xaml</DependentUpon>
     <Compile Include="Pages\Coordinator\DetailAcademic.xaml.cs">
       <DependentUpon>DetailAcademic.xaml</DependentUpon>
     </Compile>
@@ -188,6 +199,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Project\DataProjectControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\LinkedOrganizationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\ProjectActivityControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\ProjectResponsableControl.xaml">
     <Page Include="Pages\Coordinator\VinculatedOrganizations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -219,6 +243,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="log4net.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
