@@ -88,6 +88,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Coordinator\AddPractitioner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\DetailAcademic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Coordinator\DisplayLinkedOrganization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,11 +123,17 @@
     <Compile Include="Pages\Administrator\UpdateAcademic.xaml.cs">
       <DependentUpon>UpdateAcademic.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Coordinator\AddPractitioner.xaml.cs">
+      <DependentUpon>AddPractitioner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Coordinator\AddProject.xaml.cs">
       <DependentUpon>AddProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\CoordinatorHome.xaml.cs">
       <DependentUpon>CoordinatorHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\DetailAcademic.xaml.cs">
+      <DependentUpon>DetailAcademic.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\DisplayLinkedOrganization.xaml.cs">
       <DependentUpon>DisplayLinkedOrganization.xaml</DependentUpon>

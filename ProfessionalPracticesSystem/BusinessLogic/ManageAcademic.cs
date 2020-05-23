@@ -42,7 +42,6 @@ namespace BusinessLogic
 
         }
 
-        public bool updateAcademic(Academic academic)
         {
             Academic changeAcademic = academic;
             isActionPerformed = academicDAO.UpdateAcademic(changeAcademic);

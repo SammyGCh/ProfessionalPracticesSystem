@@ -69,7 +69,7 @@ namespace GUI_WPF.Pages.Administrator
                 BelongTo = academicTypeDAO.GetAcademicTypeById(academicTypes.SelectedIndex)
 
             };
-            isSaved = academicManager.addAcademic(newAcademic);
+            isSaved = academicManager.AddAcademic(newAcademic);
             
             if (!isSaved )
             {
