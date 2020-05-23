@@ -50,7 +50,8 @@ namespace GUI_WPF.Pages.Coordinator
             {
 
                 OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
-                String sectorName = sectorsList.SelectedItem.ToString();
+
+                String sectorName = sectorsList.Text;
                 OrganizationSector sectorOrg = sectorDao.GetOrganizationSectorByName(sectorName);
                 LinkedOrganization newOrganization = new LinkedOrganization();
 
