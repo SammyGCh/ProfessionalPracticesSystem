@@ -1,9 +1,4 @@
-﻿/*
-    Date: 01/05/2020
-    Author(s): Sammy Guadarrama Chavez
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,25 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GUI_WPF.Pages.Coordinator;
 
-namespace GUI_WPF.Windows
+namespace GUI_WPF.Pages.Coordinator
 {
     /// <summary>
-    /// Lógica de interacción para Home.xaml
+    /// Interaction logic for DetailAcademic.xaml
     /// </summary>
-    public partial class Home : Window
+    public partial class DetailAcademic : Page
     {
-        public Home()
+        public DetailAcademic()
         {
             InitializeComponent();
-            homeFrame.Content = new AddDocument(1,1);
-        }
-
-        public Home(Page homePage)
-        {
-            InitializeComponent();
-            homeFrame.Content = homePage;
         }
     }
 }
