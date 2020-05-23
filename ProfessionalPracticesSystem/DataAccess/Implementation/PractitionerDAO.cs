@@ -548,10 +548,9 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT DISTINCT practitioner.idPractitioner,practitioner.matricula,practitioner.password,practitioner.grade," +
-                    "practitioner.gender,practitioner.names,practitioner.lastName,practitioner.idIndigenousLanguage,practitioner.idProject," +
-                    "practitioner.status,practitioner.idAcademic,practitioner.idScholarPeriod FROM practitioner,project,linkedorganization " +
-                    "WHERE practitioner.idProject = project.idProject AND project.idLinkedOrganization = @idLinkedOrganization"
+                    CommandText = "SELECT DISTINCT Practitioner.idPractitioner,Practitioner.matricula,Practitioner.password,Practitioner.grade,Practitioner.gender," +
+                    "Practitioner.names,Practitioner.lastName,Practitioner.idIndigenousLanguage,Practitioner.idProject,Practitioner.status,Practitioner.idAcademic," +
+                    "Practitioner.idScholarPeriod FROM Practitioner,Project,LinkedOrganization WHERE Practitioner.idProject = Project.idProject AND Project.idLinkedOrganization = @idLinkedOrganization"
                 };
 
                 MySqlParameter idOrganization = new MySqlParameter("@idLinkedOrganization", MySqlDbType.Int32, 11)
