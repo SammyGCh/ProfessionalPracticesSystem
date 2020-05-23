@@ -63,7 +63,7 @@ namespace GUI_WPF.Pages.Administrator
                 BelongTo = academicTypeDAO.GetAcademicTypeById(academicTypes.SelectedIndex)
 
             };
-            isChanged = academicManager.updateAcademic(changeAcademic);
+            isChanged = academicManager.UpdateAcademic(changeAcademic);
 
             if (!isChanged)
             {

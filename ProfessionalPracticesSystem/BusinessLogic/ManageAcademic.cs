@@ -26,7 +26,7 @@ namespace BusinessLogic
             academicTypeDAO = new AcademicTypeDAO();
         }
 
-        public bool addAcademic(Academic academic)
+        public bool AddAcademic(Academic academic)
         {
             Academic newAcademic = academic;
             isActionPerformed = academicDAO.SaveAcademic(newAcademic);
@@ -34,7 +34,7 @@ namespace BusinessLogic
 
         }
 
-        public bool eliminateAcademic(int idAcademic)
+        public bool EliminateAcademic(int idAcademic)
         {
             int idOldAcademic = idAcademic;
             isActionPerformed = academicDAO.DeleteAcademic(idOldAcademic);
@@ -42,6 +42,7 @@ namespace BusinessLogic
 
         }
 
+        public bool UpdateAcademic(Academic academic)
         {
             Academic changeAcademic = academic;
             isActionPerformed = academicDAO.UpdateAcademic(changeAcademic);
