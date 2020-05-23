@@ -13,10 +13,10 @@ namespace GUI_WPF
     public partial class AddDocument : Page
     {
         OpenFileDialog explorador = new OpenFileDialog();
-        String sourcePath;
-        int idDocumentType;
-        int idPractitioner;
-        DocumentManagement documentManager;
+        private String sourcePath;
+        private int idDocumentType;
+        private int idPractitioner;
+        private DocumentManagement documentManager;
 
         public AddDocument(int documentType, int idPractitioner)
         {
@@ -46,13 +46,22 @@ namespace GUI_WPF
 
         private void Select(object sender, RoutedEventArgs e)
         {
-            explorador.Filter = "pdf files (*.pdf)|*.pdf";
-            var result = explorador.ShowDialog();
 
-            if (result == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                sourcePath = explorador.FileName;
-                pdfViewer.Navigate(sourcePath);
+                explorador.Filter = "pdf files (*.pdf)|*.pdf";
+                var result = explorador.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    sourcePath = explorador.FileName;
+                    pdfViewer.Navigate(sourcePath);
+                }
+            }
+            catch (Exception)
+            {
+
+                System.Windows.MessageBox.Show("Error no se pudo abrir el explorador de archivos", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

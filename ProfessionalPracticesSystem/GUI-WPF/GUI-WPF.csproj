@@ -68,6 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Practitioner\GenerateMensualReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Administrator\AdministratorHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +88,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Pages\Practitioner\GenerateMensualReport.xaml.cs">
+      <DependentUpon>GenerateMensualReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Administrator\AdministratorHome.xaml.cs">
       <DependentUpon>AdministratorHome.xaml</DependentUpon>
     </Compile>
@@ -101,6 +108,9 @@
     </Compile>
     <Compile Include="Pages\Coordinator\VinculatedOrganizations.xaml.cs">
       <DependentUpon>VinculatedOrganizations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Practitioner\GenerateSelfassessment.xaml.cs">
+      <DependentUpon>GenerateSelfassessment.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -129,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Coordinator\VinculatedOrganizations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Practitioner\GenerateSelfassessment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="image\" />
-    <Folder Include="Pages\Practitioner\" />
     <Folder Include="Pages\Professor\" />
   </ItemGroup>
   <ItemGroup>

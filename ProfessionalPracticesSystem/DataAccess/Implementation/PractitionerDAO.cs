@@ -505,7 +505,12 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE practitioner SET grade = (SELECT AVG(grade) FROM document WHERE idPractitioner = @idPractitioner) WHERE idPractitioner = @idPractitioner;"
+                    CommandText = "UPDATE practitioner SET grade = " +
+                    "(SELECT ((Select AVG(grade) from document where idPractitioner = @idPractitioner) + " +
+                    "(select AVG(grade) from mensualreport where idPractitioner = @idPractitioner)) / " +
+                    "((select count(grade) from mensualreport where idPractitioner = @idPractitioner) +  " +
+                    "(Select count(grade) from document where idPractitioner = @idPractitioner))) " +
+                    "WHERE idPractitioner = @idPractitioner;"
                 };
 
                 MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
