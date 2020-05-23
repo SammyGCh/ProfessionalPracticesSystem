@@ -69,9 +69,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Administrator\AddAcademic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Practitioner\GenerateMensualReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,8 +122,10 @@
     </Page>
     <Compile Include="Pages\Coordinator\AddOrganization.xaml.cs">
       <DependentUpon>AddOrganization.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Administrator\AddAcademic.xaml.cs">
       <DependentUpon>AddAcademic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Practitioner\GenerateMensualReport.xaml.cs">
       <DependentUpon>GenerateMensualReport.xaml</DependentUpon>
     </Compile>
@@ -155,6 +161,7 @@
     </Compile>
     <Compile Include="UserControls\Project\ProjectResponsableControl.xaml.cs">
       <DependentUpon>ProjectResponsableControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Coordinator\DetailAcademic.xaml.cs">
       <DependentUpon>DetailAcademic.xaml</DependentUpon>
     </Compile>
@@ -212,6 +219,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Project\ProjectResponsableControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Coordinator\VinculatedOrganizations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
