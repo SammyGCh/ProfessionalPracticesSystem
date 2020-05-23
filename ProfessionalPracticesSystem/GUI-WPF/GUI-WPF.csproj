@@ -100,10 +100,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Coordinator\DetailAcademic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Coordinator\DisplayLinkedOrganization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,9 +157,6 @@
     </Compile>
     <Compile Include="UserControls\Project\ProjectResponsableControl.xaml.cs">
       <DependentUpon>ProjectResponsableControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Coordinator\DetailAcademic.xaml.cs">
-      <DependentUpon>DetailAcademic.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\DisplayLinkedOrganization.xaml.cs">
       <DependentUpon>DisplayLinkedOrganization.xaml</DependentUpon>

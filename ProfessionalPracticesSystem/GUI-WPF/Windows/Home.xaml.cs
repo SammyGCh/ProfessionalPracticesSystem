@@ -30,7 +30,7 @@ namespace GUI_WPF.Windows
         public Home()
         {
             InitializeComponent();
-            homeFrame.Content = new GenerateSelfassessment();
+            homeFrame.Content = new CoordinatorHome();
         }
 
         public Home(Page homePage)

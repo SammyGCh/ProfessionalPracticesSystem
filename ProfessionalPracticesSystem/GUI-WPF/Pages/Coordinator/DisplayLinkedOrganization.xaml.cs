@@ -34,7 +34,7 @@ namespace GUI_WPF.Pages.Coordinator
             this.DataContext = linkedOrganization;
 
             List<Project> projects = projectDAO.GetProjectsByOrganization(linkedOrganization.IdLinkedOrganization);
-            List<Practitioner> practitioners = practitionerDAO.GetAllPractitionerByLinkedOrganization(linkedOrganization.IdLinkedOrganization);
+            List<BusinessDomain.Practitioner> practitioners = practitionerDAO.GetAllPractitionerByLinkedOrganization(linkedOrganization.IdLinkedOrganization);
             
             orgSector.Text = linkedOrganization.BelongsTo.Name;
             projectsList.ItemsSource = projects;
