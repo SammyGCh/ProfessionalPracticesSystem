@@ -29,37 +29,37 @@
                     <StackPanel>
                          <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="10,0,85,0">
                             <TextBlock Text="Nombres: " Margin="2,2,3,4" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="{Binding Names}" Width="380"/>
+                            <TextBox x:Name="academicNames" Width="380"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10,0,125,0" Height="25">
                             <TextBlock Text="Apellidos: " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="{Binding LastName}" Width="380" />
+                            <TextBox x:Name="academicLastName" Width="380" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="15,0,168.2,0" Height="25">
                             <TextBlock Text="No. Personal: " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="{Binding PersonalNumber}" Width="300" MaxLength="10" TextCompositionManager.PreviewTextInput="IsPersonalNumber" />
+                            <TextBox x:Name="academicPersonalNumber" Width="300" MaxLength="10" TextCompositionManager.PreviewTextInput="IsPersonalNumber" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10,0,110,0">
                             <TextBlock Text="Contraseña: " Margin="0,3,4,-0.2" FontSize="14" TextAlignment="Left" Width="88"/>
-                            <TextBox x:Name="{Binding Password}" Width="300" />
+                            <TextBox x:Name="academicPassword" Width="300" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10,0,85,0">
                             <TextBlock Text="Cubiculo: " Margin="0,3,4,0" FontSize="14" TextAlignment="Left" Width="80"/>
-                            <TextBox x:Name="{Binding Cubicle}" Width="300" />
+                            <TextBox x:Name="academicCubicle" Width="300" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10,0,65,0">
                             <TextBlock Text="Genero: " Margin="0,3,4,-0.2" FontSize="14" TextAlignment="Left" Width="70"/>
-                            <TextBox x:Name="{Binding Gender}" Width="300" />
+                            <TextBox x:Name="academicGender" Width="300" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10,0,60,0">
                             <TextBlock Text="Bloque: " Margin="0,3,4,-0.2" FontSize="14" TextAlignment="Left" Width="70"/>
-                            <TextBox x:Name="{Binding Shift}" Width="300" />
+                            <TextBox x:Name="academicShift" Width="300" />
                         </StackPanel>
                     </StackPanel>
 

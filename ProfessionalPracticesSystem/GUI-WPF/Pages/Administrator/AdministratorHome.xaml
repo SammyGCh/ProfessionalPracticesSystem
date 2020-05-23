@@ -13,7 +13,7 @@
     <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto">
         <Grid Background="White" Height="1192">
             <Grid.RowDefinitions>
-                <RowDefinition Height="9*"/>
+                <RowDefinition Height="100*"/>
                 <RowDefinition Height="89*"/>
             </Grid.RowDefinitions>
 
@@ -22,30 +22,31 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="303*"/>
-                    <ColumnDefinition Width="977*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="1">
-                
-                <Grid HorizontalAlignment="Left" Height="306" Margin="193,200,0,0" VerticalAlignment="Top" Width="932" Grid.ColumnSpan="2">
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="109" Text="Nombre:" FontSize="30" Foreground="Black" BorderBrush="{x:Null}"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="109" Text="Apellidos:" FontSize="30" Margin="0,48,0,0" BorderBrush="{x:Null}"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Text="Tipo Académico:" FontSize="30" Margin="0,96,0,0" SelectionBrush="{x:Null}" BorderBrush="{x:Null}"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Text="Status:" FontSize="30" Margin="0,144,0,0" BorderBrush="{x:Null}"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Text="Opciones:" FontSize="30" Margin="0,192,0,0" BorderBrush="{x:Null}"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" Text="{Binding Names}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="109,0,0,0"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="531" Text="{Binding LastNames}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="114,48,0,0"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" Text="{Binding BelongTo}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="151,96,0,0"/>
-                    <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="786" Text="{Binding Status}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="146,144,0,0"/>
-                    <Grid>
-                        <Button Content="Detalles" HorizontalAlignment="Left" Margin="255,381,0,0" VerticalAlignment="Top" Width="75" Click="detailButtonClick"/>
-                        <Button Content="Actualizar" HorizontalAlignment="Left" Margin="357,381,0,0" VerticalAlignment="Top" Width="75" Click="updateButtonClick" RenderTransformOrigin="0.5,0.5"/>
-                        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="449,381,0,0" VerticalAlignment="Top" Width="75" Click="deleteButtonClick"/>
+
+                    <Grid HorizontalAlignment="Left" Height="306" Margin="25,200,0,0" VerticalAlignment="Top" Width="932" Grid.ColumnSpan="2">
+                        <TextBox HorizontalAlignment="Left" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Text="Nombre:" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Grid.Row="0" Grid.Column="0" Margin="146,-5,0,0"/>
+                        <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Text="Apellidos:" FontSize="30" Margin="0,-5,0,0" BorderBrush="{x:Null}" Grid.Row="0"/>
+                        <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" Text="Tipo Académico:" FontSize="30" Margin="295,0,0,0" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" RenderTransformOrigin="2.691,-1.375"/>
+                        <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Text="Status:" FontSize="30" Margin="556,2,0,0" BorderBrush="{x:Null}" RenderTransformOrigin="2.9,-2.512"/>
+                        <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Text="Opciones:" FontSize="30" Margin="729,2,0,0" BorderBrush="{x:Null}" RenderTransformOrigin="1.326,0.554"/>
+                        <TextBox HorizontalAlignment="Left" Height="27" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Text="{Binding Names}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="0,69,0,0"/>
+                        <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="531" Text="{Binding LastNames}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="114,48,0,0"/>
+                        <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" Text="{Binding BelongTo}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="151,96,0,0"/>
+                        <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="786" Text="{Binding Status}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="146,144,0,0"/>
+                        <Grid Margin="0,0,-57,0">
+                            <Button Content="Detalles" HorizontalAlignment="Left" Margin="682,57,0,0" VerticalAlignment="Top" Width="75" Click="detailButtonClick"/>
+                            <Button Content="Actualizar" HorizontalAlignment="Left" Margin="882,57,0,0" VerticalAlignment="Top" Width="97" Click="updateButtonClick" RenderTransformOrigin="0.5,0.5" Height="30"/>
+                            <Button Content="Eliminar" HorizontalAlignment="Left" Margin="783,57,0,0" VerticalAlignment="Top" Width="83" Click="deleteButtonClick" RenderTransformOrigin="1.333,-2.638"/>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </StackPanel>
-                <Button x:Name="addButton" Content="Registrar" HorizontalAlignment="Left" Margin="277,568,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="addButtonClick" Grid.Column="1"/>
+                <Button x:Name="addButton" Content="Registrar" HorizontalAlignment="Left" Margin="345,649,0,-51.6" VerticalAlignment="Top" Width="96" Height="33" Click="addButtonClick"/>
             </Grid>
 
         </Grid>

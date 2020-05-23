@@ -14,27 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
-using BusinessDomain;
-using BusinessLogic;
 
-namespace GUI_WPF.Pages.Administrator
+namespace GUI_WPF.Pages.Coordinator
 {
     /// <summary>
-    /// Mostrar detalles para 
+    /// Interaction logic for AddPractitioner.xaml
     /// </summary>
-    public partial class DetailAcademic : Page
+    public partial class AddPractitioner : Page
     {
-        public DetailAcademic(Academic academic)
+        public AddPractitioner()
         {
             InitializeComponent();
-            AcademicDAO detailAcademicDAO = new AcademicDAO();
-            Academic detailAcademic = detailAcademicDAO.GetAcademic(academic.IdAcademic);
-            this.DataContext = detailAcademic;
-            
-        }
-        private void Return(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
         }
     }
 }

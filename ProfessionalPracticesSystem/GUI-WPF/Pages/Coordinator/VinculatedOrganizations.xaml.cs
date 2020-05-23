@@ -31,7 +31,7 @@ namespace GUI_WPF.Pages.Coordinator
         {
             InitializeComponent();
             LinkedOrganizationDAO linkedOrganizationDAO = new LinkedOrganizationDAO();
-            List<LinkedOrganization> allLinkedOrganizations = linkedOrganizationDAO.GetAllLinkedOrganizations();//
+            List<LinkedOrganization> allLinkedOrganizations = linkedOrganizationDAO.GetAllLinkedOrganizations();
             tableLinkedOrganizations.ItemsSource = allLinkedOrganizations;
         }
         private void backButtonClick(object sender, RoutedEventArgs e)
@@ -46,18 +46,18 @@ namespace GUI_WPF.Pages.Coordinator
             DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
             DataGridCell rowAndColumn = (DataGridCell)dataGrid.Columns[0].GetCellContent(row).Parent;
             string name = ((TextBlock)rowAndColumn.Content).Text;
-            LinkedOrganization organization = new LinkedOrganization()
-            {
-                Name=name
-            };
-            NavigationService.Navigate(new DisplayLinkedOrganization(organization));
+            NavigationService.Navigate(new DisplayLinkedOrganization(name));
 
         }
 
 
         private void clickUpdateOv(object sender, RoutedEventArgs e)
         {
-
+            DataGrid dataGrid = tableLinkedOrganizations;
+            DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
+            DataGridCell rowAndColumn = (DataGridCell)dataGrid.Columns[0].GetCellContent(row).Parent;
+            string name = ((TextBlock)rowAndColumn.Content).Text;
+            NavigationService.Navigate(new UpdateOrganization(name));
         }
     }
 

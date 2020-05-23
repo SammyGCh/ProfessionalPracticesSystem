@@ -1,0 +1,155 @@
+﻿<Page x:Class="GUI_WPF.Pages.Practitioner.GenerateSelfassessment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Practitioner" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="800"
+      Title="GenerateSelfassessment">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <Grid Background="White">
+            <materialDesign:Card Background="AliceBlue" Margin="25,10,25,9.6" Padding="10" BorderThickness="50" Width="750">
+                <StackPanel>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                        <TextBlock TextAlignment="Center" Text="Autoevaluacion" FontSize="24" FontWeight="SemiBold"/>
+                        <TextBlock TextAlignment="Center" Text="Responde a cada una de las afirmaciones presentadas, marcando con una 'X' la casilla correspondiente de acuerdo a los siguientes criterios:" TextWrapping="Wrap" FontSize="12" FontWeight="SemiBold" Height="40" Width="547"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,0" Orientation="Vertical" HorizontalAlignment="Center">
+                        <TextBlock FontSize="10" HorizontalAlignment="Center" Text="Totalmennte en desacuerdo   1" />
+                        <TextBlock FontSize="10" HorizontalAlignment="Center" Text="En desacuerdo   2" />
+                        <TextBlock FontSize="10" HorizontalAlignment="Center" Text="Indeciso    3" />
+                        <TextBlock FontSize="10" HorizontalAlignment="Center" Text="De acuerdo  4" />
+                        <TextBlock FontSize="10" HorizontalAlignment="Center" Text="Totalmente de acuerdo   5" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">Mi participación en la Organización Vinculada fue productiva.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">Logré la aplicación de los conocimientos teórico-prácticos adquiridos en la Licenciatura en Ingeniería de Software.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">Me sentí seguro al realizar las actividades encomendadas.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">Las actividades encomendadas despertaron mi interés.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">La Organización Vinculada me proporcionó la información y facilidades adecuados durante el desarrollo de las prácticas.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">La Organización Vinculada me dio a conocer las reglas internas que debía seguir al conducirme durante el desarrollo de las prácticas.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">El Responsable del Proyecto me orientó correctamente para el desarrollo de mis actividades.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">El Responsable del Proyecto realizó un seguimiento efectivo de mis actividades.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">El proyecto es congruente con la formación de mi carrera.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Height="19" Width="350">Considero que las prácticas son importantes para mi formación profesional.</TextBlock>
+                            <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+                    <StackPanel Margin="0,30,0,0" Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <Button Width="100" Margin="30,0,0,0" Click="Cancel">
+                            Cancelar
+                        </Button>
+
+                        <Button Width="190" Margin="30,0,0,0" Click="Generate">
+                            Generar
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+    </ScrollViewer>
+</Page>

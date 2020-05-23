@@ -8,10 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddDocument">
 
-    <Grid>
-        <WebBrowser x:Name="pdfViewer" HorizontalAlignment="Left" Height="357" VerticalAlignment="Top" Width="618" Margin="100,10,0,0"/>
-        <Button Content="Aceptar" HorizontalAlignment="Left" Margin="255,381,0,0" VerticalAlignment="Top" Width="75" Click="Accept"/>
-        <Button Content="Seleccionar" HorizontalAlignment="Left" Margin="357,381,0,0" VerticalAlignment="Top" Width="75" Click="Select" RenderTransformOrigin="0.5,0.5"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="449,381,0,0" VerticalAlignment="Top" Width="75" Click="Cancel"/>
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <StackPanel Height="450">
+            <WebBrowser x:Name="pdfViewer" HorizontalAlignment="Left" Height="357" VerticalAlignment="Top" Width="618" Margin="100,10,0,0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+                <Button Content="Aceptar" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="Accept"/>
+                <Button Content="Seleccionar" HorizontalAlignment="Left" Margin="15,0,15,0" VerticalAlignment="Top" Width="120" Click="Select" RenderTransformOrigin="0.5,0.5"/>
+                <Button Content="Cancelar" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="Cancel" Height="35"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

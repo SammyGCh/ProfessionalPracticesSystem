@@ -49,8 +49,8 @@ namespace DataAccess.Implementation
                 };
 
                 query.Parameters.Add("@description", MySqlDbType.LongText, 2000).Value = mensualReport.Description;
+                query.Parameters.Add("@monthReportedDate", MySqlDbType.DateTime, 50).Value = DateTime.Parse(mensualReport.MonthReportedDate);
                 query.Parameters.Add("@mensualReportName", MySqlDbType.VarChar, 60).Value = mensualReport.MensualReportName;
-                query.Parameters.Add("@monthReportedDate", MySqlDbType.VarChar, 20).Value = DateTime.Parse(mensualReport.MonthReportedDate);
                 query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = mensualReport.DerivedFrom.IdProject;
                 query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = mensualReport.GeneratedBy.IdPractitioner;
 
@@ -111,7 +111,7 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "UPDATE MensualReport SET description = @description, monthReportedDate = @monthReportedDate, " +  
-                    "name = @mensualReportName, idProject = @idProject, idPractitioner = @idPractitioner WHERE idMensualReport = @idMensualReport"
+                    "name = @mensualReportName, idProject = @idProject, idPractitioner = @idPractitioner, grade = @grade WHERE idMensualReport = @idMensualReport"
                 };
                 
                 query.Parameters.Add("@description", MySqlDbType.LongText, 2000).Value = mensualReportUpdate.Description;
@@ -119,6 +119,7 @@ namespace DataAccess.Implementation
                 query.Parameters.Add("@monthReportedDate", MySqlDbType.VarChar, 20).Value = DateTime.Parse(mensualReportUpdate.MonthReportedDate);
                 query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = mensualReportUpdate.DerivedFrom.IdProject;
                 query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = mensualReportUpdate.GeneratedBy.IdPractitioner;
+                query.Parameters.Add("@grade", MySqlDbType.VarChar, 5).Value = mensualReportUpdate.Grade;
                 query.Parameters.Add("@idMensualReport", MySqlDbType.Int32, 2).Value = mensualReportUpdate.IdMensualReport;
 
                 query.ExecuteNonQuery();
@@ -135,7 +136,6 @@ namespace DataAccess.Implementation
 
             return isUpdated;
         }
-
         public List<MensualReport> GetAllMensualReports()
         {
             mensualReports = new List<MensualReport>();
@@ -161,8 +161,9 @@ namespace DataAccess.Implementation
                         Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
                         MensualReportName = reader.GetString(3),
-                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(4)),
-                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(5))
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
+                        Grade = reader.GetString(6)
                     };
 
                     mensualReports.Add(mensualReport);
@@ -204,11 +205,12 @@ namespace DataAccess.Implementation
                     mensualReport = new MensualReport
                     {
                         IdMensualReport = reader.GetInt32(0),
-						Description = reader.GetString(1),
+                        Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
                         MensualReportName = reader.GetString(3),
                         DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
-                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5))
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
+                        Grade = reader.GetString(6)
                     };
                 }
             }
@@ -251,11 +253,12 @@ namespace DataAccess.Implementation
                     mensualReport = new MensualReport
                     {
                         IdMensualReport = reader.GetInt32(0),
-						Description = reader.GetString(1),
+                        Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
                         MensualReportName = reader.GetString(3),
-                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(4)),
-                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(5))
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
+                        Grade = reader.GetString(6)
                     };
 
                     mensualReports.Add(mensualReport);
@@ -303,8 +306,9 @@ namespace DataAccess.Implementation
                         Description = reader.GetString(1),
                         MonthReportedDate = reader.GetString(2),
                         MensualReportName = reader.GetString(3),
-                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(4)),
-                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(5))
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
+                        Grade = reader.GetString(6)
                     };
                     mensualReports.Add(mensualReport);
                 }

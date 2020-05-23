@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GUI_WPF.Pages.Coordinator;
+using GUI_WPF.Pages.Practitioner;
 
 namespace GUI_WPF.Windows
 {
@@ -29,7 +30,7 @@ namespace GUI_WPF.Windows
         public Home()
         {
             InitializeComponent();
-            homeFrame.Content = new CoordinatorHome();
+            homeFrame.Content = new GenerateSelfassessment();
         }
 
         public Home(Page homePage)
