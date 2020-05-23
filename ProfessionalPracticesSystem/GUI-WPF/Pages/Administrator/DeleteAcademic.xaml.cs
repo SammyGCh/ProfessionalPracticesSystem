@@ -24,16 +24,34 @@ namespace GUI_WPF.Pages.Administrator
     /// </summary>
     public partial class DeleteAcademic : Page
     {
-        private Academic selected;
+        int idSelectedAcademic;
+        Academic selectedAcademic;
+        ManageAcademic academicManager;
+        bool isActionPerformed;
+
         public DeleteAcademic(Academic academic)
             
         {
+            academicManager = new ManageAcademic();
+            selectedAcademic = academic;
             InitializeComponent();
         }
 
         private void RemoveAcademic(object sender, RoutedEventArgs e)
         {
-           
+            isActionPerformed = academicManager.eliminateAcademic(selectedAcademic.IdAcademic);
+            if (!isActionPerformed)
+            {
+                MessageBoxResult userResponse = System.Windows.MessageBox.Show("No se pudo eliminar el academico.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (userResponse == MessageBoxResult.OK)
+                {
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Se elimino el Academico exitosamente.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
 
         private void CancelAction(object sender, RoutedEventArgs e)

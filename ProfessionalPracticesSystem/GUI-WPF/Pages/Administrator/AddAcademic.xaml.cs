@@ -27,13 +27,23 @@ namespace GUI_WPF.Pages.Administrator
     /// </summary>
     public partial class AddAcademic : Page
     {
+        Academic academic;
+        String academicType;
+        AcademicDAO academicDAO;
+        AcademicTypeDAO academicTypeDAO;
+        ManageAcademic academicManager;
+        int idAcademicType;
+        
+
         public AddAcademic()        
         {
-            InitializeComponent();
-            AcademicDAO academicDao = new AcademicDAO();
-            AcademicTypeDAO academicTypeDAO = new AcademicTypeDAO();
+            this.academic = new Academic();
+            this.academicDAO = new AcademicDAO();
+            this.academicTypeDAO = new AcademicTypeDAO();
+            academicManager = new ManageAcademic();
             List<AcademicType> allAcademicTypes = academicTypeDAO.GetAllAcademicTypes();
             academicTypes.ItemsSource = allAcademicTypes;
+            InitializeComponent();
         }
 
         private void CancelAction(object sender, RoutedEventArgs e)
@@ -43,7 +53,38 @@ namespace GUI_WPF.Pages.Administrator
 
         private void AddNewAcademic(object sender, RoutedEventArgs e)
         {
+            List<Academic> allAcademics = academicDAO.GetAllAcademic();
+            bool isSaved = false;
+
+            Academic newAcademic = new Academic()
+            {
+                IdAcademic = allAcademics.Count(),
+                Names = academicNames.ToString(),
+                LastName = academicLastName.ToString(),
+                PersonalNumber = academicPersonalNumber.ToString(),
+                Password = academicPassword.ToString(),
+                Cubicle = academicCubicle.ToString(),
+                Gender = academicGender.ToString(),
+                Shift = academicShift.ToString(),
+                BelongTo = academicTypeDAO.GetAcademicTypeById(academicTypes.SelectedIndex)
+
+            };
+            isSaved = academicManager.AddAcademic(newAcademic);
             
+            if (!isSaved )
+            {
+                MessageBoxResult userResponse = System.Windows.MessageBox.Show("No se pudo salvar el academico.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (userResponse == MessageBoxResult.OK)
+                {
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Se guardo el Academico exitosamente.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+
         }
 
         private void IsPersonalNumber(object sender, TextCompositionEventArgs e)
