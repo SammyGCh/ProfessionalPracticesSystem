@@ -497,5 +497,72 @@ namespace DataAccess.Implementation
 
             return isDeleted;
         }
+        public List<Project> GetProjectsByOrganization(int idOrganization)
+        {
+            projects = new List<Project>();
+            developmentStageHandler = new DevelopmentStageDAO();
+            linkedOrganizationHandler = new LinkedOrganizationDAO();
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "SELECT * FROM Project WHERE idLinkedOrganization = @idOrganization"
+                };
+
+                MySqlParameter idOrg = new MySqlParameter("@idOrganization", MySqlDbType.Int32, 32)
+                {
+                    Value = idOrganization
+                };
+
+                query.Parameters.Add(idOrg);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    project = new Project
+                    {
+                        IdProject = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        DirectUsersNumber = reader.GetString(2),
+                        IndirectUsersNumber = reader.GetString(3),
+                        Duration = reader.GetString(4),
+                        GeneralGoal = reader.GetString(5),
+                        Responsabilities = reader.GetString(6),
+                        MediateGoals = reader.GetString(7),
+                        InmediateGoals = reader.GetString(8),
+                        Metology = reader.GetString(9),
+                        Status = reader.GetInt32(10),
+                        NeededResources = reader.GetString(11),
+                        PractitionerNumber = reader.GetInt32(12),
+                        GeneralDescription = reader.GetString(13),
+                        ResponsableName = reader.GetString(14),
+                        ResponsableCharge = reader.GetString(15),
+                        ResponsableEmail = reader.GetString(16),
+                        ResponsableTelephone = reader.GetString(17),
+                        PractitionersAssigned = reader.GetInt32(18),
+                        BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(19)),
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20)),
+                        ProjectActivities = GetAllProjectActivities(reader.GetInt32(0))
+                    };
+
+                    projects.Add(project);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return projects;
+        }
+
     }
 }

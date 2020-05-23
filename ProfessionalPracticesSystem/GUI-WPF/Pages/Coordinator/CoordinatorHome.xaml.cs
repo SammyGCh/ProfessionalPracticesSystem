@@ -34,5 +34,20 @@ namespace GUI_WPF.Pages.Coordinator
         {
             NavigationService.Navigate(new AddProject());
         }
+
+        private void CheckOrg(object sender, RoutedEventArgs e)
+        { 
+            NavigationService.Navigate(new VinculatedOrganizations());
+        }
+
+        private void CheckProjects(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProjectsConsult());
+        }
+
+        private void RegisterOrganization(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddOrganization());
+        }
     }
 }

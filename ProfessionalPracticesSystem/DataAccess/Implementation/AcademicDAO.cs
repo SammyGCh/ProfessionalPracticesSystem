@@ -246,5 +246,89 @@ namespace DataAccess.Implementation
             }
             return isSaved;
         }
+
+        public bool UpdateAcademic(Academic updatedAcademic)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "UPDATE Academic SET " +
+                    "personalNumber = @personalNumber, names = @names, cubicle = @cubicle, lastName = @lastName," +
+                    "gender = @gender, password = @password,idAcademicType = @idAcademicType, shift = @shift,status = @status " +
+                    "WHERE idAcademic = @idAcademic"
+                };
+
+                MySqlParameter personalNumber = new MySqlParameter("@personalNumber", MySqlDbType.VarChar, 9)
+                {
+                    Value = updatedAcademic.PersonalNumber
+                };
+                MySqlParameter names = new MySqlParameter("@names", MySqlDbType.VarChar, 60)
+                {
+                    Value = updatedAcademic.Names
+                };
+
+                MySqlParameter cubicle = new MySqlParameter("@cubicle", MySqlDbType.VarChar, 2)
+                {
+                    Value = updatedAcademic.Cubicle
+                };
+
+                MySqlParameter lastName = new MySqlParameter("@lastName", MySqlDbType.VarChar, 60)
+                {
+                    Value = updatedAcademic.LastName
+                };
+
+                MySqlParameter gender = new MySqlParameter("@gender", MySqlDbType.VarChar, 10)
+                {
+                    Value = updatedAcademic.Gender
+                };
+
+                MySqlParameter password = new MySqlParameter("@password", MySqlDbType.VarChar, 255)
+                {
+                    Value = updatedAcademic.Password
+                };
+
+                MySqlParameter idAcademic = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 11)
+                {
+                    Value = updatedAcademic.BelongTo.IdAcademicType
+                };
+
+                MySqlParameter shift = new MySqlParameter("@shift", MySqlDbType.VarChar, 10)
+                {
+                    Value = updatedAcademic.Shift
+                };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
+                {
+                    Value = updatedAcademic.Status
+                };
+
+                query.Parameters.Add(personalNumber);
+                query.Parameters.Add(names);
+                query.Parameters.Add(cubicle);
+                query.Parameters.Add(lastName);
+                query.Parameters.Add(gender);
+                query.Parameters.Add(password);
+                query.Parameters.Add(idAcademic);
+                query.Parameters.Add(shift);
+                query.Parameters.Add(status);
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicDAO: ", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
     }
 }

@@ -16,11 +16,15 @@ namespace BusinessLogic
         DocumentDAO documentDAO;
         DocumentTypeDAO documentTypeDAO;
         PractitionerDAO practitionerDAO;
+        ProjectDAO projectDAO;
+        MensualReportDAO mensualReportDAO;
 
         public DocumentManagement(){
             documentDAO = null;
             documentTypeDAO = null;
             practitionerDAO = null;
+            projectDAO = null;
+            mensualReportDAO = null;
         }
 
         public String AddDocument(String SourcePath, int idDocumentType, int idPractitioner)
@@ -61,6 +65,40 @@ namespace BusinessLogic
             }
 
             return result;
+        }
+
+        public String GenerateMensualReport(String name, String description, int idPractitioner, int idPractitionerProject)
+        {
+            mensualReportDAO = new MensualReportDAO();
+            projectDAO = new ProjectDAO();
+            practitionerDAO = new PractitionerDAO();
+            String result;
+
+            MensualReport newReport = new MensualReport
+            {
+                MensualReportName = name,
+                Description = description,
+                GeneratedBy = practitionerDAO.GetPractitioner(idPractitioner),
+                DerivedFrom = projectDAO.GetProjectById(idPractitionerProject),
+                MonthReportedDate = DateTime.Now.ToString()
+            };
+
+            if (mensualReportDAO.InsertMensualReport(newReport))
+            {
+                result = "Generaste tu reporte mensual exitosamente";
+            }
+            else
+            {
+                result = "Error, no se puede generar el reporte, Intentar más tarde.";
+            }
+
+
+            return result;
+        }
+
+        public String GenerateSelfAssessment()
+        {
+            return "chido";
         }
     }
 }

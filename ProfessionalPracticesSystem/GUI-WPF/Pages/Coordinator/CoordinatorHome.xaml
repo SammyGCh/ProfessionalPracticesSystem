@@ -28,7 +28,7 @@
                     <materialDesign:PackIcon Kind="FileCabinet" Width="150" Height="150" HorizontalAlignment="Center" 
                                         Foreground="White" VerticalAlignment="Center" Margin="30"/>
 
-                    <Button Height="30" Width="119" Cursor="Hand">
+                    <Button Height="30" Width="119" Cursor="Hand" Click="CheckProjects">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>
@@ -113,7 +113,7 @@
                     <materialDesign:PackIcon Kind="Business" Width="150" Height="150" HorizontalAlignment="Center" 
                                         Foreground="White" VerticalAlignment="Center" Margin="30"/>
 
-                    <Button Height="30" Width="119" Cursor="Hand">
+                    <Button x:Name="consultarOrgButton" Height="30" Width="119" Cursor="Hand"  Click="CheckOrg">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>
@@ -125,7 +125,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Height="30" Width="119" Margin="10" Cursor="Hand">
+                    <Button Height="30" Width="119" Margin="10" Cursor="Hand" Click="RegisterOrganization">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>

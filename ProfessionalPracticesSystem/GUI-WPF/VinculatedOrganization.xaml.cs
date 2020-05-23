@@ -1,8 +1,8 @@
 ﻿/*
-    Date: 01/05/2020
-    Author(s): Sammy Guadarrama Chavez
- */
+    Date: 30/04/2020
+    Author(s) : César Sergio Martinez Palacios
 
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,26 +17,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GUI_WPF.Pages.Coordinator;
-using GUI_WPF.Pages.Practitioner;
 
-namespace GUI_WPF.Windows
+namespace GUI_WPF
 {
-    /// <summary>
-    /// Lógica de interacción para Home.xaml
-    /// </summary>
-    public partial class Home : Window
+    public partial class Page1 : Page
     {
-        public Home()
+        public Page1()
         {
             InitializeComponent();
-            homeFrame.Content = new GenerateSelfassessment();
         }
 
-        public Home(Page homePage)
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InitializeComponent();
-            homeFrame.Content = homePage;
+           
+
+
         }
     }
 }
