@@ -4,24 +4,11 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
-using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
-using GUI_WPF.UserControls.Project;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -49,7 +36,7 @@ namespace GUI_WPF.Pages.Coordinator
             
         }
 
-        public LinkedOrganization GetLinkedOrganization()
+        private LinkedOrganization GetLinkedOrganization()
         {
             object linkedOrg = linkedOrganizationControl.FindName("linkedOrganizations");
             LinkedOrganization linkedOrganization = ((linkedOrg as ComboBox).SelectedItem as LinkedOrganization);
@@ -57,7 +44,7 @@ namespace GUI_WPF.Pages.Coordinator
             return linkedOrganization;
         }
 
-        public Project GetProject()
+        private Project GetProject()
         {
             object responsableName = projectResponsableControl.FindName("responsableName");
             object responsableCharge = projectResponsableControl.FindName("responsableCharge");
@@ -107,7 +94,7 @@ namespace GUI_WPF.Pages.Coordinator
             return project;
         }
 
-        public bool AreFieldsEmpty()
+        private bool AreFieldsEmpty()
         {
             bool areEmpty = false;
 
@@ -124,21 +111,40 @@ namespace GUI_WPF.Pages.Coordinator
             return areEmpty;
         }
 
+        private bool AreFieldsWrong()
+        {
+            bool areWrong = false;
+
+            if (projectResponsableControl.AreFieldsWrong() ||
+                dataProjectControl.AreFieldsWrong()    
+            )
+            {
+                areWrong = true;
+            }
+
+            return areWrong;
+        }
+
         private void AddNewProject(object sender, RoutedEventArgs e)
         {
 
             if (AreFieldsEmpty())
             {
                 MessageBox.Show("Uno o varios campos están vacíos. Por favor ingresa los datos necesarios.", 
-                    "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (AreFieldsWrong())
+            {
+                MessageBox.Show("La información en uno o varios campos es incorrecta. Por favor verifica la información.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                bool isAdded = SaveProject();
+                bool isSaved = SaveProject();
 
-                if (isAdded)
+                if (isSaved)
                 {
-                    MessageBox.Show("Proyecto fue registrado exitosamente.", "Registro exitoso", 
+                    MessageBox.Show("Proyecto fue registrado exitosamente.", "Éxito", 
                         MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     ClearFields();
                 }

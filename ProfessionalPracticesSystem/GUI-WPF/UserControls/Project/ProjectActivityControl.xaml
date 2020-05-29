@@ -34,7 +34,7 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBox x:Name="activityName" Width="220" Height="25" TextWrapping="Wrap"/>
+            <TextBox x:Name="activityName" Width="220" Height="25" TextWrapping="Wrap" TextChanged="ValidateText"/>
             <ComboBox x:Name="months" Width="140" ItemsSource="{Binding montList}" Margin="20,0,0,0"/>
         </StackPanel>
 
@@ -42,8 +42,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" Width="220"/>
-                        <TextBlock Text="{Binding Month}" Width="140"/>
+                        <TextBlock Text="{Binding Name}" Width="220" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Month}" Width="140" Margin="60,0,0,0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

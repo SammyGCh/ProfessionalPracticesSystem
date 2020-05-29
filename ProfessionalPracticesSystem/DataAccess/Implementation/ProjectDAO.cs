@@ -16,10 +16,10 @@ namespace DataAccess.Implementation
     {
         private List<Project> projects;
         private Project project;
-        private DataBaseConnection connection;
+        private readonly DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
-        private MySqlDataReader reader, activityReader;
+        private MySqlDataReader reader;
         private DevelopmentStageDAO developmentStageHandler;
         private LinkedOrganizationDAO linkedOrganizationHandler;
         private const int ACTIVE = 1;
@@ -136,7 +136,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM Project"
+                    CommandText = "SELECT * FROM Project ORDER BY name ASC"
                 };
 
                 reader = query.ExecuteReader();
@@ -226,11 +226,11 @@ namespace DataAccess.Implementation
                         ResponsableTelephone = reader.GetString(17),
                         PractitionersAssigned = reader.GetInt32(18),
                         BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(19)),
-                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20))
-                        
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20)),
+                        ProjectActivities = GetAllProjectActivities(idProject)
                     };
 
-                    project.ProjectActivities = GetAllProjectActivities(idProject);
+                    //project.ProjectActivities = GetAllProjectActivities(idProject);
                 }
             }
             catch(MySqlException ex)
@@ -298,7 +298,11 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if(reader != null)
+                {
+                    reader.Close();
+                }
+
                 connection.CloseConnection();
             }
 
@@ -343,6 +347,7 @@ namespace DataAccess.Implementation
         {
             List<ProjectActivity> projectActivities = new List<ProjectActivity>();
             ProjectActivity projectActivity;
+            MySqlDataReader activityReader = null;
 
             try
             {
@@ -360,9 +365,9 @@ namespace DataAccess.Implementation
                 {
                     projectActivity = new ProjectActivity
                     {
-                        IdProjectActivity = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        Month = reader.GetString(2)
+                        IdProjectActivity = activityReader.GetInt32(0),
+                        Name = activityReader.GetString(1),
+                        Month = activityReader.GetString(2)
                     };
 
                     projectActivities.Add(projectActivity);
@@ -497,6 +502,7 @@ namespace DataAccess.Implementation
 
             return isDeleted;
         }
+
         public List<Project> GetProjectsByOrganization(int idOrganization)
         {
             projects = new List<Project>();

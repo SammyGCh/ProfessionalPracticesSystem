@@ -6,19 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
 using DataAccess.Implementation;
+using BusinessLogic;
 
 namespace GUI_WPF.UserControls.Project
 {
@@ -30,7 +22,6 @@ namespace GUI_WPF.UserControls.Project
         public DataProjectControl()
         {
             InitializeComponent();
-            this.DataContext = this;
 
             DevelopmentStageDAO developmentStageDao = new DevelopmentStageDAO();
             List<DevelopmentStage> allDevelopmentStages = developmentStageDao.GetAllDevelopmentStages();
@@ -73,6 +64,49 @@ namespace GUI_WPF.UserControls.Project
             indirectUserNumber.Clear();
             practitionerNumber.Clear();
             developmentStages.SelectedItem = null;
+        }
+
+        private void ValidateText(object sender, TextChangedEventArgs e)
+        {
+            if (ValidatorText.IsRightExpression(((TextBox)sender).Text))
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void ValidateNumber(object sender, TextChangedEventArgs e)
+        {
+            string number = ((TextBox)sender).Text;
+
+            if (ValidatorText.IsANumber(number))
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Red;
+            }
+        }
+
+        public bool AreFieldsWrong()
+        {
+            bool areWrong = false;
+
+            if (projectData.Children.OfType<StackPanel>().Any(
+                    projectSections => projectSections.Children.OfType<TextBox>().Any(
+                        projectFields => !ValidatorText.IsRightExpression(projectFields.Text) || 
+                        !ValidatorText.IsANumber(projectFields.Text)
+                    )
+                ))
+            {
+                areWrong = true;
+            }
+
+            return areWrong;
         }
     }
 }

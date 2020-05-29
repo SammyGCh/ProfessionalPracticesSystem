@@ -12,11 +12,9 @@ namespace BusinessLogic
 {
     public class ValidatorText
     {
-        private static Regex userNameRegularExpression;
-
         public static bool IsUserName(string userName)
         {
-            userNameRegularExpression = new Regex(@"\b{1}S\d{8}");
+            Regex userNameRegularExpression = new Regex(@"\b{1}S\d{8}");
 
             return userNameRegularExpression.IsMatch(userName);
         }
@@ -38,9 +36,7 @@ namespace BusinessLogic
 
         public static bool IsRightExpression(string text)
         {
-            Regex rightRegularExpression = new Regex(@"[a-zA-ZñÑ\s]");
-
-            string hola = "";
+            Regex rightRegularExpression = new Regex(@"([a-zA-Z]{1,}\s{0,1}){10,}");
 
             return rightRegularExpression.IsMatch(text);
         }
@@ -50,6 +46,13 @@ namespace BusinessLogic
             Regex nameRegularExpression = new Regex(@"^[\p{L}\p{M}' \.\-]+$");
 
             return nameRegularExpression.IsMatch(name);
+        }
+
+        public static bool IsANumber(string number)
+        {
+            Regex numberRegularExpression = new Regex(@"(\d{1,4})$");
+
+            return numberRegularExpression.IsMatch(number);
         }
     }
 }
