@@ -68,10 +68,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+=======
+>>>>>>> master
     <Page Include="Pages\Administrator\AddAcademic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -108,6 +111,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
+=======
+    <Page Include="Pages\Coordinator\DetailAcademic.xaml">
+    <Page Include="Pages\Coordinator\AddOrganization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> master
     <Page Include="Pages\Coordinator\DisplayLinkedOrganization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,9 +135,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Compile Include="Pages\Coordinator\AddOrganization.xaml.cs">
       <DependentUpon>AddOrganization.xaml</DependentUpon>
     </Compile>
+=======
+>>>>>>> master
     <Compile Include="Pages\Administrator\AddAcademic.xaml.cs">
       <DependentUpon>AddAcademic.xaml</DependentUpon>
     </Compile>
@@ -153,6 +167,11 @@
     </Compile>
     <Compile Include="Pages\Coordinator\AddPractitioner.xaml.cs">
       <DependentUpon>AddPractitioner.xaml</DependentUpon>
+<<<<<<< HEAD
+=======
+    <Compile Include="Pages\Coordinator\AddOrganization.xaml.cs">
+      <DependentUpon>AddOrganization.xaml</DependentUpon>
+>>>>>>> master
     </Compile>
     <Compile Include="Pages\Coordinator\AddProject.xaml.cs">
       <DependentUpon>AddProject.xaml</DependentUpon>
