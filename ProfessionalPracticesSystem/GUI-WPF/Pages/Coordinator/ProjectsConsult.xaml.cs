@@ -37,5 +37,12 @@ namespace GUI_WPF.Pages.Coordinator
         {
             NavigationService.GoBack();
         }
+
+        private void GoProjectDetails(object sender, RoutedEventArgs e)
+        {
+            Project projectSelected = (Project)tableProjects.SelectedItem;
+
+            NavigationService.Navigate(new ProjectDetails(projectSelected));
+        }
     }
 }

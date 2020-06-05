@@ -30,8 +30,8 @@ namespace GUI_WPF.Pages.Administrator
             AcademicDAO detailAcademicDAO = new AcademicDAO();
             Academic detailAcademic = detailAcademicDAO.GetAcademic(academic.IdAcademic);
             this.DataContext = detailAcademic;
-            
         }
+
         private void Return(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();

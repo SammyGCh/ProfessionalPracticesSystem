@@ -69,12 +69,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
-	  <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Administrator\AddAcademic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Coordinator\LinkedOrganizationsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\ProjectDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Practitioner\GenerateMensualReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Administrator\AdministratorHome.xaml">
       <SubType>Designer</SubType>
@@ -96,10 +108,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Coordinator\DetailAcademic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Coordinator\DisplayLinkedOrganization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,9 +126,18 @@
     </Page>
     <Compile Include="Pages\Coordinator\AddOrganization.xaml.cs">
       <DependentUpon>AddOrganization.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="Pages\Administrator\AddAcademic.xaml.cs">
       <DependentUpon>AddAcademic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\LinkedOrganizationsList.xaml.cs">
+      <DependentUpon>LinkedOrganizationsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\ProjectDetails.xaml.cs">
+      <DependentUpon>ProjectDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Practitioner\GenerateMensualReport.xaml.cs">
+      <DependentUpon>GenerateMensualReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Administrator\AdministratorHome.xaml.cs">
       <DependentUpon>AdministratorHome.xaml</DependentUpon>
@@ -143,8 +160,20 @@
     <Compile Include="Pages\Coordinator\CoordinatorHome.xaml.cs">
       <DependentUpon>CoordinatorHome.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Coordinator\DetailAcademic.xaml.cs">
-      <DependentUpon>DetailAcademic.xaml</DependentUpon>
+    <Compile Include="UserControls\Project\DataProjectControl.xaml.cs">
+      <DependentUpon>DataProjectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\LinkedOrganizationControl.xaml.cs">
+      <DependentUpon>LinkedOrganizationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\ProjectActivityControl.xaml.cs">
+      <DependentUpon>ProjectActivityControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\ProjectActivityDetailsControl.xaml.cs">
+      <DependentUpon>ProjectActivityDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\ProjectResponsableControl.xaml.cs">
+      <DependentUpon>ProjectResponsableControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Coordinator\DisplayLinkedOrganization.xaml.cs">
       <DependentUpon>DisplayLinkedOrganization.xaml</DependentUpon>
@@ -155,8 +184,8 @@
     <Compile Include="Pages\Coordinator\UpdateOrganization.xaml.cs">
       <DependentUpon>UpdateOrganization.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Coordinator\VinculatedOrganizations.xaml.cs">
-      <DependentUpon>VinculatedOrganizations.xaml</DependentUpon>
+    <Compile Include="Pages\Practitioner\GenerateSelfassessment.xaml.cs">
+      <DependentUpon>GenerateSelfassessment.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -184,7 +213,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Coordinator\VinculatedOrganizations.xaml">
+    <Page Include="UserControls\Project\DataProjectControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\LinkedOrganizationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\ProjectActivityControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\ProjectActivityDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\ProjectResponsableControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Practitioner\GenerateSelfassessment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +260,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="log4net.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -222,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="image\" />
-    <Folder Include="Pages\Practitioner\" />
     <Folder Include="Pages\Professor\" />
   </ItemGroup>
   <ItemGroup>

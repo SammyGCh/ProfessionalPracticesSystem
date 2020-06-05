@@ -26,5 +26,15 @@ namespace GUI_WPF.Pages.Coordinator
         {
             InitializeComponent();
         }
+
+        private void RemoveAcademic(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelAction(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

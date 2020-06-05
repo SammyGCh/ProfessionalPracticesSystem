@@ -37,7 +37,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void CheckOrg(object sender, RoutedEventArgs e)
         { 
-            NavigationService.Navigate(new VinculatedOrganizations());
+            NavigationService.Navigate(new LinkedOrganizationsList());
         }
 
         private void CheckProjects(object sender, RoutedEventArgs e)

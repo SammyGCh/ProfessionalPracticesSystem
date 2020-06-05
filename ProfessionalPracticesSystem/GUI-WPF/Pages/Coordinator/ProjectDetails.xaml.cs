@@ -1,5 +1,5 @@
 ﻿/*
-    Date: 01/05/2020
+    Date: 24/05/2020
     Author(s): Sammy Guadarrama Chavez
  */
 
@@ -17,26 +17,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GUI_WPF.Pages.Coordinator;
-using GUI_WPF.Pages.Practitioner;
+using BusinessDomain;
+using DataAccess.Implementation;
 
-namespace GUI_WPF.Windows
+namespace GUI_WPF.Pages.Coordinator
 {
     /// <summary>
-    /// Lógica de interacción para Home.xaml
+    /// Lógica de interacción para ProjectDetails.xaml
     /// </summary>
-    public partial class Home : Window
+    public partial class ProjectDetails : Page
     {
-        public Home()
+        public ProjectDetails(Project project)
         {
             InitializeComponent();
-            homeFrame.Content = new CoordinatorHome();
+
+            this.DataContext = project;
+            projectActivityList.ItemsSource = project.ProjectActivities;
         }
 
-        public Home(Page homePage)
+        private void GoBack(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            homeFrame.Content = homePage;
+            NavigationService.GoBack();
         }
     }
 }

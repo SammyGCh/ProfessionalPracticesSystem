@@ -35,6 +35,7 @@ namespace GUI_WPF.Pages.Administrator
 
 
         }
+
         private void detailButtonClick(object sender, RoutedEventArgs e)
         {
 
@@ -53,7 +54,6 @@ namespace GUI_WPF.Pages.Administrator
         {
             NavigationService.Navigate(new AddAcademic());
         }
-
         
     }
 }

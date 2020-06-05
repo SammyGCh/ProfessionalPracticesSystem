@@ -39,7 +39,7 @@ namespace GUI_WPF.Pages.Administrator
 
         private void RemoveAcademic(object sender, RoutedEventArgs e)
         {
-            isActionPerformed = academicManager.eliminateAcademic(selectedAcademic.IdAcademic);
+            isActionPerformed = academicManager.EliminateAcademic(selectedAcademic.IdAcademic);
             if (!isActionPerformed)
             {
                 MessageBoxResult userResponse = System.Windows.MessageBox.Show("No se pudo eliminar el academico.", "", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -4,10 +4,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
-      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Coordinator.VinculatedOrganizations"
+      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      x:Class="GUI_WPF.Pages.Coordinator.LinkedOrganizationsList"
       mc:Ignorable="d" 
       Height="650" Width="1279.6"
-      Title="VinculatedOrganizations">
+      Title="LinkedOrganizationsList">
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Organizaciones Vinculadas" 
@@ -55,7 +57,7 @@
                 <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="details" Content="Detalles"  Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="clickDetailsOv"/>
+                            <Button Name="details" Content="Detalles"  Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="ClickDetailsOv"/>
 
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -72,7 +74,7 @@
                 <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="update" Content="Actualizar" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="clickUpdateOv"/>
+                            <Button Name="update" Content="Actualizar" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="ClickUpdateOv"/>
 
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -87,7 +89,7 @@
                 </DataGridTemplateColumn  >
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="backButton" Content="Regresar" HorizontalAlignment="Left" Margin="580,568,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="backButtonClick"/>
+        <Button x:Name="backButton" Content="Regresar" HorizontalAlignment="Left" Margin="580,568,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="BackButtonClick"/>
 
 
     </Grid>
