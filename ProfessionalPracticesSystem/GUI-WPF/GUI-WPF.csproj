@@ -69,6 +69,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Administrator\AddAcademic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -115,6 +118,7 @@
     </Page>
     <Compile Include="Pages\Coordinator\AddOrganization.xaml.cs">
       <DependentUpon>AddOrganization.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Pages\Administrator\AddAcademic.xaml.cs">
       <DependentUpon>AddAcademic.xaml</DependentUpon>
     </Compile>
