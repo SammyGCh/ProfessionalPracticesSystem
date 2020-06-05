@@ -169,9 +169,6 @@
     <Compile Include="UserControls\Project\ProjectActivityControl.xaml.cs">
       <DependentUpon>ProjectActivityControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Project\ProjectActivityDetailsControl.xaml.cs">
-      <DependentUpon>ProjectActivityDetailsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Project\ProjectResponsableControl.xaml.cs">
       <DependentUpon>ProjectResponsableControl.xaml</DependentUpon>
     </Compile>
@@ -222,10 +219,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Project\ProjectActivityControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Project\ProjectActivityDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
