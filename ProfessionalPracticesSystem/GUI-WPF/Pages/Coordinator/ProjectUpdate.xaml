@@ -1,0 +1,39 @@
+﻿<Page x:Class="GUI_WPF.Pages.Coordinator.ProjectUpdate"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProjectUpdate"
+      >
+
+    <ScrollViewer Background="White" HorizontalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="Actualización del proyecto" FontSize="30" FontWeight="Bold" Margin="20"/>
+            <TextBlock Text="Por favor ingrese la información que desee actualizar" FontSize="20" Margin="50,0,0,20"/>
+
+            <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
+                <StackPanel x:Name="projectSection"/>
+            </materialDesign:Card>
+
+            <StackPanel Orientation="Horizontal" Width="330" Margin="30">
+                <Button Width="115" Cursor="Hand" Click="UpdateProjectSection">
+                    <StackPanel Width="100" Orientation="Horizontal" Height="25">
+                        <materialDesign:PackIcon Kind="Update" Margin="0,3,4,0"/>
+                        <TextBlock Text="Actualizar" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="115" Cursor="Hand" Background="Red" BorderBrush="Red" Margin="100,0,0,0" Click="CancelUpdate">
+                    <StackPanel Width="100" Orientation="Horizontal" Height="25">
+                        <materialDesign:PackIcon Kind="Cancel" Margin="0,3,4,0"/>
+                        <TextBlock Text="Cancelar" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using BusinessDomain;
 using DataAccess.Implementation;
 using BusinessLogic;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.UserControls.Project
 {
@@ -27,6 +28,74 @@ namespace GUI_WPF.UserControls.Project
             List<DevelopmentStage> allDevelopmentStages = developmentStageDao.GetAllDevelopmentStages();
 
             developmentStages.ItemsSource = allDevelopmentStages;
+        }
+
+        public void UpdateProjectData()
+        {
+            if (AreFieldsEmpty())
+            {
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
+            }
+            else if (AreFieldsWrong())
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
+            }
+            else
+            {
+                bool isUpdated = UpdateData();
+                string messageWindow;
+
+                if (isUpdated)
+                {
+                    messageWindow = "El proyecto fue actualizado existosamente";
+
+                    DialogWindowManager.ShowSuccessWindow(messageWindow);
+                }
+                else
+                {
+                    messageWindow = "No se pudo actualizar la información del proyecto. Intente de nuevo.";
+
+                    DialogWindowManager.ShowErrorWindow(messageWindow);
+                }
+            }
+        }
+
+        private bool UpdateData()
+        {
+            bool isUpdated;
+            ManageProject manageProject = new ManageProject();
+            int idProjectToUpdated = (DataContext as BusinessDomain.Project).IdProject;
+
+            BusinessDomain.Project projectToUpdate = GetProjectData();
+            projectToUpdate.IdProject = idProjectToUpdated;
+
+            isUpdated = manageProject.UpdateProjectData(projectToUpdate);
+
+            return isUpdated;
+        }
+
+        public BusinessDomain.Project GetProjectData()
+        {
+            int practitionerNum = Int32.Parse(practitionerNumber.Text); 
+
+            BusinessDomain.Project project = new BusinessDomain.Project
+            {
+                Name = projectName.Text,
+                GeneralDescription = projectDescription.Text,
+                GeneralGoal = projectGeneralGoals.Text,
+                InmediateGoals = inmediateGoals.Text,
+                MediateGoals = mediateGoals.Text,
+                Metology = metology.Text,
+                NeededResources = neededResources.Text,
+                Responsabilities = responsabilities.Text,
+                Duration = duration.Text,
+                DirectUsersNumber = directUserNumber.Text,
+                IndirectUsersNumber = indirectUserNumber.Text,
+                PractitionerNumber = practitionerNum,
+                BelongsTo = (developmentStages.SelectedItem as DevelopmentStage)
+            };
+
+            return project;
         }
 
         public bool AreFieldsEmpty()
@@ -68,7 +137,9 @@ namespace GUI_WPF.UserControls.Project
 
         private void ValidateText(object sender, TextChangedEventArgs e)
         {
-            if (ValidatorText.IsRightExpression(((TextBox)sender).Text))
+            string textToValidate = ((TextBox)sender).Text;
+
+            if (ValidatorText.IsTextRight(textToValidate))
             {
                 ((TextBox)sender).BorderBrush = Brushes.Green;
             }
@@ -94,19 +165,51 @@ namespace GUI_WPF.UserControls.Project
 
         public bool AreFieldsWrong()
         {
-            bool areWrong = false;
+            bool areWrong = true;
 
-            if (projectData.Children.OfType<StackPanel>().Any(
-                    projectSections => projectSections.Children.OfType<TextBox>().Any(
-                        projectFields => !ValidatorText.IsRightExpression(projectFields.Text) || 
-                        !ValidatorText.IsANumber(projectFields.Text)
-                    )
-                ))
+            if(AreTextFieldsRight() && AreNumberFieldsRight())
             {
-                areWrong = true;
+                areWrong = false;
             }
 
             return areWrong;
+        }
+
+        private bool AreTextFieldsRight()
+        {
+            bool areRight = false;
+
+            if (
+                ValidatorText.IsTextRight(projectName.Text) &&
+                ValidatorText.IsTextRight(projectDescription.Text) &&
+                ValidatorText.IsTextRight(projectGeneralGoals.Text) &&
+                ValidatorText.IsTextRight(inmediateGoals.Text) &&
+                ValidatorText.IsTextRight(mediateGoals.Text) &&
+                ValidatorText.IsTextRight(metology.Text) &&
+                ValidatorText.IsTextRight(neededResources.Text) &&
+                ValidatorText.IsTextRight(responsabilities.Text)
+            )
+            {
+                areRight = true;
+            }
+           
+            return areRight;
+        }
+
+        private bool AreNumberFieldsRight()
+        {
+            bool areRight = false;
+
+            if (ValidatorText.IsANumber(duration.Text) &&
+                ValidatorText.IsANumber(directUserNumber.Text) &&
+                ValidatorText.IsANumber(indirectUserNumber.Text) &&
+                ValidatorText.IsANumber(practitionerNumber.Text)
+            )
+            {
+                areRight = true;
+            }
+
+            return areRight;
         }
     }
 }

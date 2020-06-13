@@ -10,8 +10,10 @@ using System.Text.RegularExpressions;
 
 namespace BusinessLogic
 {
-    public class ValidatorText
+    public static class ValidatorText
     {
+        private const int MINIMUM_LENGHT = 10;
+
         public static bool IsUserName(string userName)
         {
             Regex userNameRegularExpression = new Regex(@"\b{1}S\d{8}");
@@ -53,6 +55,18 @@ namespace BusinessLogic
             Regex numberRegularExpression = new Regex(@"(\d{1,4})$");
 
             return numberRegularExpression.IsMatch(number);
+        }
+
+        public static bool IsTextRight(string textToValidate)
+        {
+            bool isTextRight = false;
+
+            if (IsRightExpression(textToValidate) && textToValidate.Length > MINIMUM_LENGHT)
+            {
+                isTextRight = true;
+            }
+
+            return isTextRight;
         }
     }
 }

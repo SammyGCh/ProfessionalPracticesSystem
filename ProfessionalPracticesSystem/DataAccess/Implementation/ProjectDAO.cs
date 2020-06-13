@@ -136,7 +136,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM Project ORDER BY name ASC"
+                    CommandText = "SELECT * FROM Project ORDER BY idProject DESC"
                 };
 
                 reader = query.ExecuteReader();
@@ -173,6 +173,68 @@ namespace DataAccess.Implementation
                 }
             }
             catch(MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return projects;
+        }
+
+        public List<Project> GetActiveProjects()
+        {
+            projects = new List<Project>();
+            developmentStageHandler = new DevelopmentStageDAO();
+            linkedOrganizationHandler = new LinkedOrganizationDAO();
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "SELECT * FROM Project WHERE status = @status ORDER BY idProject DESC"
+                };
+
+                query.Parameters.Add("@status", MySqlDbType.Int32, 2).Value = ACTIVE;
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    project = new Project
+                    {
+                        IdProject = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        DirectUsersNumber = reader.GetString(2),
+                        IndirectUsersNumber = reader.GetString(3),
+                        Duration = reader.GetString(4),
+                        GeneralGoal = reader.GetString(5),
+                        Responsabilities = reader.GetString(6),
+                        MediateGoals = reader.GetString(7),
+                        InmediateGoals = reader.GetString(8),
+                        Metology = reader.GetString(9),
+                        Status = reader.GetInt32(10),
+                        NeededResources = reader.GetString(11),
+                        PractitionerNumber = reader.GetInt32(12),
+                        GeneralDescription = reader.GetString(13),
+                        ResponsableName = reader.GetString(14),
+                        ResponsableCharge = reader.GetString(15),
+                        ResponsableEmail = reader.GetString(16),
+                        ResponsableTelephone = reader.GetString(17),
+                        PractitionersAssigned = reader.GetInt32(18),
+                        BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(19)),
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20)),
+                        ProjectActivities = GetAllProjectActivities(reader.GetInt32(0))
+                    };
+
+                    projects.Add(project);
+                }
+            }
+            catch (MySqlException ex)
             {
                 LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
             }
@@ -229,8 +291,6 @@ namespace DataAccess.Implementation
                         ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20)),
                         ProjectActivities = GetAllProjectActivities(idProject)
                     };
-
-                    //project.ProjectActivities = GetAllProjectActivities(idProject);
                 }
             }
             catch(MySqlException ex)
@@ -440,6 +500,117 @@ namespace DataAccess.Implementation
             return isUpdated;
         }
 
+        public bool UpdateProjectData(Project projectDataUpdated)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "UPDATE Project SET name = @name, directUsersNumber = @directUsersNumber, " +
+                    "indirectUsersNumber = @IndirectUsersNumber, duration = @duration, generalGoal = @generalGoal, " +
+                    "responsabilities = @responsabilities, mediateGoals = @mediateGoals, inmediateGoals = @inmediateGoals, metology = @metology, " +
+                    "neededResources = @neededResources, practitionerNumber = @practitionerNumber, " +
+                    "generalDescription = @generalDescription, " +
+                    "idDevelopmentStage = @idDevelopmentStage WHERE idProject = @idProject"
+                };
+
+                query.Parameters.Add("@name", MySqlDbType.VarChar, 255).Value = projectDataUpdated.Name;
+                query.Parameters.Add("@directUsersNumber", MySqlDbType.VarChar, 3).Value = projectDataUpdated.DirectUsersNumber;
+                query.Parameters.Add("@indirectUsersNumber", MySqlDbType.VarChar, 3).Value = projectDataUpdated.IndirectUsersNumber;
+                query.Parameters.Add("@duration", MySqlDbType.VarChar, 5).Value = projectDataUpdated.Duration;
+                query.Parameters.Add("@generalGoal", MySqlDbType.VarChar, 300).Value = projectDataUpdated.GeneralGoal;
+                query.Parameters.Add("@responsabilities", MySqlDbType.VarChar, 300).Value = projectDataUpdated.Responsabilities;
+                query.Parameters.Add("@mediateGoals", MySqlDbType.VarChar, 300).Value = projectDataUpdated.MediateGoals;
+                query.Parameters.Add("@inmediateGoals", MySqlDbType.VarChar, 300).Value = projectDataUpdated.InmediateGoals;
+                query.Parameters.Add("@metology", MySqlDbType.VarChar, 100).Value = projectDataUpdated.Metology;
+                query.Parameters.Add("@neededResources", MySqlDbType.VarChar, 300).Value = projectDataUpdated.NeededResources;
+                query.Parameters.Add("@generalDescription", MySqlDbType.LongText).Value = projectDataUpdated.GeneralDescription;
+                query.Parameters.Add("@practitionerNumber", MySqlDbType.Int32, 2).Value = projectDataUpdated.PractitionerNumber;
+                query.Parameters.Add("@idDevelopmentStage", MySqlDbType.Int32, 2).Value = projectDataUpdated.BelongsTo.IdDevelopmentStage;
+                query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = projectDataUpdated.IdProject;
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
+
+        public bool UpdateProjectResponsableData(Project projectResponsableData)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "UPDATE Project SET responsableName = @responsableName, responsableCharge = @responsableCharge, " +
+                    "responsableEmail = @responsableEmail, responsableTelephone = @responsableTelephone WHERE idProject = @idProject"
+                };
+
+                query.Parameters.Add("@responsableName", MySqlDbType.VarChar, 60).Value = projectResponsableData.ResponsableName;
+                query.Parameters.Add("@responsableCharge", MySqlDbType.VarChar, 60).Value = projectResponsableData.ResponsableCharge;
+                query.Parameters.Add("@responsableEmail", MySqlDbType.VarChar, 60).Value = projectResponsableData.ResponsableEmail;
+                query.Parameters.Add("@responsableTelephone", MySqlDbType.VarChar, 10).Value = projectResponsableData.ResponsableTelephone;
+                query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = projectResponsableData.IdProject;
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
+
+        public bool UpdateLinkedOrganizationOfProject(int idProject, int idLinkedOrganization)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "UPDATE Project SET idLinkedOrganization = @idLinkedOrganization WHERE idProject = @idProject"
+                };
+
+                query.Parameters.Add("@idLinkedOrganization", MySqlDbType.Int32, 2).Value = idLinkedOrganization;
+                query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = idLinkedOrganization;
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
+
         public bool UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject)
         {
             bool isUpdated = false;
@@ -492,6 +663,35 @@ namespace DataAccess.Implementation
                 isDeleted = true;
             }
             catch(MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isDeleted;
+        }
+
+        public bool DeleteProjectActivity(int idProjectActivity)
+        {
+            bool isDeleted = false;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "DELETE FROM ProjectActivity WHERE idProjectActivity = @idProjectActivity"
+                };
+
+                query.Parameters.Add("@idProjectActivity", MySqlDbType.Int32, 2).Value = idProjectActivity;
+
+                query.ExecuteNonQuery();
+                isDeleted = true;
+            }
+            catch (MySqlException ex)
             {
                 LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
             }

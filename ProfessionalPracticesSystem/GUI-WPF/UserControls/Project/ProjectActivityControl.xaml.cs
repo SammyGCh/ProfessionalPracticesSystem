@@ -20,7 +20,7 @@ namespace GUI_WPF.UserControls.Project
     public partial class ProjectActivityControl : UserControl
     {
         private readonly List<string> monthsList;
-        private ObservableCollection<ProjectActivity> projectActivities;
+        private readonly ObservableCollection<ProjectActivity> projectActivities;
 
         public ProjectActivityControl()
         {
