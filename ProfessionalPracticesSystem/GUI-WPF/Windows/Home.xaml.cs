@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessDomain;
 using GUI_WPF.Pages.Coordinator;
 using GUI_WPF.Pages.Practitioner;
 
@@ -30,12 +31,12 @@ namespace GUI_WPF.Windows
         public Home()
         {
             InitializeComponent();
-            homeFrame.Content = new CoordinatorHome();
         }
 
-        public Home(Page homePage)
+        public Home(Page homePage, string userNameFullName)
         {
             InitializeComponent();
+            userName.Text = userNameFullName;
             homeFrame.Content = homePage;
         }
     }

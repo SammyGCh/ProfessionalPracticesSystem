@@ -20,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogic;
 using BusinessDomain;
+using System.Globalization;
 
 namespace GUI_WPF
 {
@@ -29,14 +30,11 @@ namespace GUI_WPF
     public partial class GenerateMensualReport : Page
     {
         private DocumentManagement documentManager;
-        private int idPractitioner;
-        private int idPractitionerProject;
+        private Practitioner practitioner;
 
-        public GenerateMensualReport(int idPractitioner, int idPractitionerProject)
+        public GenerateMensualReport(Practitioner practitioner)
         {
-            this.idPractitioner = idPractitioner;
-            this.idPractitionerProject = idPractitionerProject;
-            documentManager = new DocumentManagement();
+            this.practitioner = practitioner;
             InitializeComponent();
         }
 
@@ -52,27 +50,65 @@ namespace GUI_WPF
 
         private void GenerateReport(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Deseas finalizar tu reporte?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+
+            if (!AreFieldsEmpty())
             {
-                TextRange content = new TextRange(documentDescription.Document.ContentStart, documentDescription.Document.ContentEnd);
+                MessageBoxResult result = MessageBox.Show("¿Deseas finalizar tu reporte?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                String description = content.Text;
-                String reportName = documentName.Text;
-
-                if (!String.IsNullOrEmpty(reportName))
+                if (result == MessageBoxResult.Yes)
                 {
-                    String functionResult = documentManager.GenerateMensualReport(reportName, description, idPractitioner, idPractitionerProject);
+                    if (SaveMensualReport())
+                    {
+                        MessageBox.Show("Generaste tu reporte mensual exitosamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        NavigationService.GoBack();
 
-                    MessageBox.Show(functionResult, "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error, no se pudo cargar el reporte, intente más tarde", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
 
-                    NavigationService.GoBack();
-                }
-                else
-                {
-                    MessageBox.Show("Ingresa los campos que se piden", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
             }
+            else
+            {
+                MessageBox.Show("Uno o varios campos están vacíos. Por favor ingresa los datos necesarios", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private bool SaveMensualReport()
+        {
+            bool isSaved;
+            documentManager = new DocumentManagement();
+            MensualReport newMensualReport = GetReport();
+            isSaved = documentManager.GenerateMensualReport(newMensualReport);
+
+            return isSaved;
+        }
+
+        private bool AreFieldsEmpty()
+        {
+            return (String.IsNullOrEmpty(documentName.Text) || String.IsNullOrEmpty(documentDescription.Text));
+        }
+
+        private MensualReport GetReport()
+        {
+            Project auxiliarProject = new Project
+            {
+                IdProject = practitioner.Assigned.IdProject
+            };
+
+
+            MensualReport mensualReport = new MensualReport
+            {
+                MensualReportName = documentName.Text,
+                Description = documentDescription.Text,
+                GeneratedBy = practitioner,
+                DerivedFrom = auxiliarProject,
+                MonthReportedDate = DateTime.Now.ToString("MM/dd/yyyy")
+            };
+
+            return mensualReport;
         }
     }
 }

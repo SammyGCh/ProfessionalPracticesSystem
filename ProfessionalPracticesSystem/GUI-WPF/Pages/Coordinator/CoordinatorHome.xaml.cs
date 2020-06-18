@@ -6,6 +6,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
+using BusinessDomain;
+
 using GUI_WPF.Pages.Practitioner;
 
 
@@ -16,7 +19,7 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class CoordinatorHome : Page
     {
-        public CoordinatorHome()
+        public CoordinatorHome(Academic userCoordinator)
         {
             InitializeComponent();
         }

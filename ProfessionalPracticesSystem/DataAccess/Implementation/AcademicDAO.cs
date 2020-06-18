@@ -118,6 +118,55 @@ namespace DataAccess.Implementation
             return academic;
         }
 
+        public Academic GetAcademicByPersonalNumber(string personalNumber)
+        {
+            belongsto = new AcademicTypeDAO();
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM Academic WHERE Academic.personalNumber = @personalN"
+                };
+                MySqlParameter personalN = new MySqlParameter("@personalN", MySqlDbType.VarChar, 9)
+                {
+                    Value = personalNumber
+                };
+                query.Parameters.Add(personalN);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    academic = new Academic
+                    {
+                        IdAcademic = reader.GetInt32(0),
+                        PersonalNumber = reader.GetString(1),
+                        Names = reader.GetString(2),
+                        Cubicle = reader.GetString(3),
+                        LastName = reader.GetString(4),
+                        Gender = reader.GetString(5),
+                        Password = reader.GetString(6),
+                        BelongTo = belongsto.GetAcademicTypeById(reader.GetInt32(7)),
+                        Shift = reader.GetString(8),
+                        Status = reader.GetInt32(9)
+                    };
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/GetAcademic:", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return academic;
+        }
+
         public List<Academic> GetAllAcademic()
         {
             belongsto = new AcademicTypeDAO();
