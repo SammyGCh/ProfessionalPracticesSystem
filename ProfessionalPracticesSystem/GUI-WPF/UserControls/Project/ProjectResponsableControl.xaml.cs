@@ -5,19 +5,12 @@
 
 using BusinessLogic;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.UserControls.Project
 {
@@ -26,34 +19,11 @@ namespace GUI_WPF.UserControls.Project
     /// </summary>
     public partial class ProjectResponsableControl : UserControl
     {
-        public string ResponsableName
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableCharge
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableEmail
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableTelephone
-        {
-            get;
-            set;
-        }
+        private const int MINIMUM_LENGHT = 10;
 
         public ProjectResponsableControl()
         {
             InitializeComponent();
-            this.DataContext = this;
         }
 
         public bool AreFieldsEmpty()
@@ -72,6 +42,63 @@ namespace GUI_WPF.UserControls.Project
             }
 
             return areEmpty;
+        }
+
+        public void UpdateProjectResponsable()
+        {
+            if (AreFieldsEmpty())
+            {
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
+            }
+            else if (AreFieldsWrong())
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
+            }
+            else
+            {
+                bool isUpdated = UpdateProjectResponsableData();
+                string messageWindow;
+
+                if (isUpdated)
+                {
+                    messageWindow = "El proyecto fue actualizado existosamente";
+
+                    DialogWindowManager.ShowSuccessWindow(messageWindow);
+                }
+                else
+                {
+                    messageWindow = "No se pudo actualizar la información del proyecto. Intente de nuevo.";
+
+                    DialogWindowManager.ShowErrorWindow(messageWindow);
+                }
+            }
+        }
+
+        private bool UpdateProjectResponsableData()
+        {
+            bool isUpdated;
+            ManageProject manageProject = new ManageProject();
+            int idProjectToUpdate = (DataContext as BusinessDomain.Project).IdProject;
+
+            BusinessDomain.Project projectResponsableData = GetProjectResponsableData();
+            projectResponsableData.IdProject = idProjectToUpdate;
+
+            isUpdated = manageProject.UpdateProjectResponsableData(projectResponsableData);
+
+            return isUpdated;
+        }
+
+        public BusinessDomain.Project GetProjectResponsableData()
+        {
+            BusinessDomain.Project projectResponsableData = new BusinessDomain.Project
+            {
+                ResponsableName = responsableName.Text,
+                ResponsableCharge = responsableCharge.Text,
+                ResponsableEmail = responsableEmail.Text,
+                ResponsableTelephone = responsableTelephone.Text
+            };
+
+            return projectResponsableData;
         }
 
         public void ClearFields()
@@ -96,7 +123,7 @@ namespace GUI_WPF.UserControls.Project
 
         private void IsName(object sender, RoutedEventArgs e)
         {
-            if (ValidatorText.IsPersonName(responsableName.Text) && responsableName.Text.Length > 1)
+            if (IsResponsableNameRight())
             {
                 responsableName.BorderBrush = Brushes.Green;
             }
@@ -116,6 +143,57 @@ namespace GUI_WPF.UserControls.Project
             {
                 e.Handled = false;
             }
+        }
+
+        private void ValidateText(object sender, TextChangedEventArgs e)
+        {
+            string textToValidate = ((TextBox)sender).Text;
+
+            if (ValidatorText.IsTextRight(textToValidate))
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Red;
+            }
+        }
+
+        public bool AreFieldsWrong()
+        {
+            bool areWrong = true;
+
+            if (IsResponsableNameRight() && IsResponsableEmailRight() && IsResponsableChargeRight())
+            {
+                areWrong = false;
+            }
+
+            return areWrong;
+        }
+
+        private bool IsResponsableNameRight()
+        {
+            return ValidatorText.IsPersonName(responsableName.Text) && responsableName.Text.Length > MINIMUM_LENGHT;
+        }
+
+        private bool IsResponsableEmailRight()
+        {
+            bool isEmail;
+            string emailToValidate = responsableEmail.Text;
+
+            isEmail = ValidatorText.IsEmail(emailToValidate);
+
+            return isEmail; 
+        }
+
+        private bool IsResponsableChargeRight()
+        {
+            bool isRight;
+            string textToValidate = responsableCharge.Text;
+
+            isRight = ValidatorText.IsTextRight(textToValidate);
+
+            return isRight;
         }
     }
 }

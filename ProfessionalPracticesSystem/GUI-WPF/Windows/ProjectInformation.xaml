@@ -1,0 +1,35 @@
+﻿<Window x:Class="GUI_WPF.Windows.ProjectInformation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_WPF.Windows"
+        xmlns:uc="clr-namespace:GUI_WPF.UserControls.Project"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        d:DesignHeight="800"
+        Title="Información del proyecto" Width="1400">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Background="AliceBlue">
+        <StackPanel>
+            <StackPanel>
+                <uc:ProjectDetailsControl/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Width="750" Margin="20">
+                <Button Width="115" Cursor="Hand" Margin="240,0,0,0" Click="SelectProject">
+                    <StackPanel Orientation="Horizontal" Width="100">
+                        <materialDesign:PackIcon Kind="Add" Margin="0,2,0,0"/>
+                        <TextBlock Text="Seleccionar" FontSize="13"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red" Click="Cancel">
+                    <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
+                        <TextBlock Text="Cancelar"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

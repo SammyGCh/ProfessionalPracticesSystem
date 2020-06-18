@@ -68,6 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\PageMannagerNavigation.cs" />
+    <Compile Include="Windows\ProjectInformation.xaml.cs">
+      <DependentUpon>ProjectInformation.xaml</DependentUpon>
+    </Compile>
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,6 +81,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Coordinator\LinkedOrganizationsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\ProjectDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\ProjectSections.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\ProjectUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -129,6 +145,15 @@
     <Compile Include="Pages\Coordinator\LinkedOrganizationsList.xaml.cs">
       <DependentUpon>LinkedOrganizationsList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Coordinator\ProjectDetails.xaml.cs">
+      <DependentUpon>ProjectDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\ProjectSections.xaml.cs">
+      <DependentUpon>ProjectSections.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\ProjectUpdate.xaml.cs">
+      <DependentUpon>ProjectUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Practitioner\GenerateMensualReport.xaml.cs">
       <DependentUpon>GenerateMensualReport.xaml</DependentUpon>
     </Compile>
@@ -153,6 +178,9 @@
     <Compile Include="Pages\Coordinator\CoordinatorHome.xaml.cs">
       <DependentUpon>CoordinatorHome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Practitioner\RequestProject.xaml.cs">
+      <DependentUpon>RequestProject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Project\DataProjectControl.xaml.cs">
       <DependentUpon>DataProjectControl.xaml</DependentUpon>
     </Compile>
@@ -161,6 +189,12 @@
     </Compile>
     <Compile Include="UserControls\Project\ProjectActivityControl.xaml.cs">
       <DependentUpon>ProjectActivityControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\ProjectActivityUpdateControl.xaml.cs">
+      <DependentUpon>ProjectActivityUpdateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\ProjectDetailsControl.xaml.cs">
+      <DependentUpon>ProjectDetailsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Project\ProjectResponsableControl.xaml.cs">
       <DependentUpon>ProjectResponsableControl.xaml</DependentUpon>
@@ -177,6 +211,7 @@
     <Compile Include="Pages\Practitioner\GenerateSelfassessment.xaml.cs">
       <DependentUpon>GenerateSelfassessment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\DialogWindowManager.cs" />
     <Compile Include="Windows\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -203,6 +238,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Practitioner\RequestProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Project\DataProjectControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +254,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Project\ProjectActivityUpdateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\ProjectDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Project\ProjectResponsableControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProjectInformation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

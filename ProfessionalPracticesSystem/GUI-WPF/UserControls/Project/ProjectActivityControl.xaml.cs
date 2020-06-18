@@ -6,19 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
+using BusinessLogic;
 
 namespace GUI_WPF.UserControls.Project
 {
@@ -27,8 +19,8 @@ namespace GUI_WPF.UserControls.Project
     /// </summary>
     public partial class ProjectActivityControl : UserControl
     {
-        private List<string> monthsList;
-        private ObservableCollection<ProjectActivity> projectActivities;
+        private readonly List<string> monthsList;
+        private readonly ObservableCollection<ProjectActivity> projectActivities;
 
         public ProjectActivityControl()
         {
@@ -54,8 +46,6 @@ namespace GUI_WPF.UserControls.Project
 
             months.ItemsSource = monthsList;
             projectActivitiesListBox.ItemsSource = projectActivities;
-
-            this.DataContext = this;
         }
 
         private void AddNewActivity(object sender, RoutedEventArgs e)
@@ -63,11 +53,16 @@ namespace GUI_WPF.UserControls.Project
             if (AreFieldsEmpty())
             {
                 MessageBox.Show("Ingrese el nombre de la actividad y selecciona el mes correspondiente.", 
-                    "Agregar actividad", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else if (AlreadyExist())
             {
                 MessageBox.Show("La actividad ya existe. Por favor verifique la información ingresada.", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (!ValidatorText.IsRightExpression(activityName.Text))
+            {
+                MessageBox.Show("El nombre de la actividad es incorrecto. Por favor verifica la información.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
@@ -78,6 +73,7 @@ namespace GUI_WPF.UserControls.Project
 
         private void AddActivityToList()
         {
+            
             projectActivities.Add(new ProjectActivity()
             {
                 Name = activityName.Text,
@@ -163,13 +159,26 @@ namespace GUI_WPF.UserControls.Project
             }
             else
             {
-                MessageBox.Show("Seleccione la actividad que desee eliminar.");
+                MessageBox.Show("Seleccione la actividad que desee eliminar.", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         public void DeleteActivities()
         {
             projectActivities.Clear();
+        }
+
+        private void ValidateText(object sender, TextChangedEventArgs e)
+        {
+            if (ValidatorText.IsRightExpression(((TextBox)sender).Text))
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                ((TextBox)sender).BorderBrush = Brushes.Red;
+            }
         }
     }
 }
