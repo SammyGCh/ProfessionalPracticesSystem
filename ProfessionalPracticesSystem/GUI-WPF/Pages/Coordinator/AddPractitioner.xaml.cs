@@ -43,6 +43,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         }
 
+        /*
         private IndigenousLanguage asociatedIndigenousLanguage()
         {
             object asociatedLanguage = indigenousLanguageDataControl.FindName("IndigenousLanguage");
@@ -184,5 +185,6 @@ namespace GUI_WPF.Pages.Coordinator
             dataProjectControl.ClearFields();
             projectActivityControl.DeleteActivities();
         }
+        */
     }
 }

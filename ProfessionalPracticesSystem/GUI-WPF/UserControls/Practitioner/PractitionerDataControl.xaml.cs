@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GUI_WPF.UserControls.Project
+namespace GUI_WPF.UserControls.Practitioner
 {
     /// <summary>
     /// Interaction logic for PractitionerDataControl.xaml
     /// </summary>
-    public partial class PractitionerDataControl : Page
+    public partial class PractitionerDataControl : UserControl
     {
         public PractitionerDataControl()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

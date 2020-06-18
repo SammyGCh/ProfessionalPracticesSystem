@@ -22,10 +22,12 @@
 
             <StackPanel Grid.Row="1">
 
+                <!--
                 <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
                     <uc:IndigenousLanguageControl x:Name="indigenousLanguageControl"/>
                 </materialDesign:Card>
-
+-->
+                <!--
                 <materialDesign:Card Background="AliceBlue" Margin="30" Padding="10" BorderThickness="50" Width="750">
                     <uc:ProjectResponsableControl x:Name="projectResponsableControl"/>
                 </materialDesign:Card>
@@ -37,6 +39,7 @@
                 <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
                     <uc:ProjectActivityControl x:Name="projectActivityControl"/>
                 </materialDesign:Card>
+                -->
 
                 <StackPanel Margin="20" Width="750">
                     <TextBlock Text="* Campos obligatorios" FontSize="14" FontWeight="Light"/>
@@ -44,7 +47,7 @@
 
                 <StackPanel Orientation="Horizontal" Margin="20" Width="750">
                     <Button x:Name="addButton" Width="115" Margin="240,0,0,0" Cursor="Hand" 
-                            Click="AddNewProject">
+                            >
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
                             <TextBlock Text="Registrar"/>
