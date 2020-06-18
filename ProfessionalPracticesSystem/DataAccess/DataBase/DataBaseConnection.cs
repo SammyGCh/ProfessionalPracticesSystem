@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Configuration;
 
+
 namespace DataAccess.DataBase
 {
     public class DataBaseConnection
