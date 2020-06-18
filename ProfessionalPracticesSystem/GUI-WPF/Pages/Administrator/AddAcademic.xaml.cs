@@ -1,6 +1,7 @@
 ﻿/*
-  
- * */
+  Date: 04/15/2020
+    Author(s): Ricardo Moguel Sanchez
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
