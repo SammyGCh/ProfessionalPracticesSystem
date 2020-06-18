@@ -1,9 +1,10 @@
-﻿<Page x:Class="GUI_WPF.Pages.Coordinator.AddPractitioner"
+﻿    <Page x:Class="GUI_WPF.Pages.Coordinator.AddPractitioner"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:uc="clr-namespace:GUI_WPF.UserControls.Practitioner"
       xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -21,10 +22,12 @@
 
             <StackPanel Grid.Row="1">
 
+                <!--
                 <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
                     <uc:IndigenousLanguageControl x:Name="indigenousLanguageControl"/>
                 </materialDesign:Card>
-
+-->
+                <!--
                 <materialDesign:Card Background="AliceBlue" Margin="30" Padding="10" BorderThickness="50" Width="750">
                     <uc:ProjectResponsableControl x:Name="projectResponsableControl"/>
                 </materialDesign:Card>
@@ -36,6 +39,7 @@
                 <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
                     <uc:ProjectActivityControl x:Name="projectActivityControl"/>
                 </materialDesign:Card>
+                -->
 
                 <StackPanel Margin="20" Width="750">
                     <TextBlock Text="* Campos obligatorios" FontSize="14" FontWeight="Light"/>
@@ -43,7 +47,7 @@
 
                 <StackPanel Orientation="Horizontal" Margin="20" Width="750">
                     <Button x:Name="addButton" Width="115" Margin="240,0,0,0" Cursor="Hand" 
-                            Click="AddNewProject">
+                            >
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
                             <TextBlock Text="Registrar"/>

@@ -17,42 +17,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GUI_WPF.UserControls.Project
+namespace GUI_WPF.UserControls.Practitioner
 {
     /// <summary>
     /// Interaction logic for IndigenousLanguageDataControl.xaml
     /// </summary>
     public partial class IndigenousLanguageDataControl : UserControl
     {
-        public string Name
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableCharge
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableEmail
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableTelephone
-        {
-            get;
-            set;
-        }
-
-        public ProjectResponsableControl()
-        {
-            InitializeComponent();
-        }
-
+        /*
         public bool AreFieldsEmpty()
         {
             bool areEmpty = false;
@@ -146,5 +118,6 @@ namespace GUI_WPF.UserControls.Project
 
             return areWrong;
         }
+        */
     }
 }

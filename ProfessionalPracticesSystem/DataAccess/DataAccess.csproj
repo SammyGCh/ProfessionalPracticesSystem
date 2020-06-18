@@ -14,10 +14,10 @@
 
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 8.0.19\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration">
-      <HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Configuration.dll</HintPath>
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Configuration.dll</HintPath>
     </Reference>
   </ItemGroup>
 
