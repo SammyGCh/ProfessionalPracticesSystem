@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessDomain;
 using GUI_WPF.Pages.Coordinator;
 using GUI_WPF.Pages.Practitioner;
 
@@ -27,6 +28,10 @@ namespace GUI_WPF.Windows
     /// </summary>
     public partial class Home : Window
     {
+        public Home()
+        {
+            InitializeComponent();
+        }
 
         public Home(Page homePage, string userNameFullName)
         {

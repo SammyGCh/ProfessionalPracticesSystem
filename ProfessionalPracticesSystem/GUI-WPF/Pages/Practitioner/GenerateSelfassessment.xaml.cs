@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Date: 25/05/2020
+    Author(s) : Angel de Jesus Juarez Garcia
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogic;
+using Microsoft.Win32;
+using BusinessDomain;
+using DataAccess.Implementation;
 
 namespace GUI_WPF.Pages.Practitioner
 {
@@ -21,10 +28,11 @@ namespace GUI_WPF.Pages.Practitioner
     /// </summary>
     public partial class GenerateSelfassessment : Page
     {
-        private DocumentManagement documentManager;
-        public GenerateSelfassessment()
+        private BusinessDomain.Practitioner practitioner;
+
+        public GenerateSelfassessment(BusinessDomain.Practitioner practitioner)
         {
-            documentManager = new DocumentManagement();
+            this.practitioner = practitioner;
             InitializeComponent();
         }
 
@@ -40,7 +48,63 @@ namespace GUI_WPF.Pages.Practitioner
 
         private void Generate(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result = MessageBox.Show("¿Desea generar la autoevaluacion?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                String destinyPath = PathToSave();
+
+                if (destinyPath != "")
+                {
+                    DocumentManagement documentManagement = new DocumentManagement();
+                    Selfassessment selfassesment = GetAssessment();
+
+                    if (documentManagement.GenerateSelfAssessment(selfassesment, destinyPath))
+                    {
+                        MessageBox.Show("Autoevaluacion generada exitosamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al generar el PDF de la autoevaluacion", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+        }
+
+        private Selfassessment GetAssessment()
+        {
+            Selfassessment newAssessment = new Selfassessment()
+            {
+                AddBy = practitioner,
+                QuestionsValues = GetQuestionsValues()
+            };
+
+            return newAssessment;
+        }
+
+        private List<int> GetQuestionsValues()
+        {
+            List<int> questionsValues = new List<int>();
             
+            foreach (StackPanel panel in questionContainer.Children.OfType<StackPanel>())
+            {
+                foreach (ComboBox item in panel.Children.OfType<ComboBox>())
+                {
+                    questionsValues.Add(int.Parse(item.SelectionBoxItem.ToString()));
+                }
+            }
+
+            return questionsValues;
+        }
+
+        private String PathToSave()
+        {
+            SaveFileDialog saveWindow = new SaveFileDialog();
+            saveWindow.Filter = "PDF Document|*.pdf";
+            saveWindow.Title = "Selecciona ruta de guardado";
+            saveWindow.ShowDialog();
+
+            return saveWindow.FileName;
         }
     }
 }

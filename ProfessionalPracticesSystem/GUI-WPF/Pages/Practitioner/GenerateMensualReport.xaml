@@ -27,7 +27,7 @@
                                         Ingresa las actividades que realizaste durante el mes
                         </TextBlock>
 
-                        <RichTextBox x:Name="documentDescription" Width="600" Margin="0,15,0,20"></RichTextBox>
+                        <TextBox x:Name="documentDescription" Width="600" Margin="0,15,0,20"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">

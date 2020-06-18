@@ -268,8 +268,8 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO Document(name, path, idDocumentType, idPractitioner, grade, observations)" +
-                    "VALUES (@name, @path, @idDocumentType, @idPractitioner, @grade, @observations)"
+                    CommandText = "INSERT INTO Document(name, path, idDocumentType, idPractitioner)" +
+                    "VALUES (@name, @path, @idDocumentType, @idPractitioner)"
                 };
 
                 MySqlParameter name = new MySqlParameter("@name", MySqlDbType.VarChar, 60)
@@ -277,37 +277,25 @@ namespace DataAccess.Implementation
                     Value = document.Name
                 };
 
-                MySqlParameter path = new MySqlParameter("@path", MySqlDbType.MediumText, 2000)
+                MySqlParameter path = new MySqlParameter("@path", MySqlDbType.VarChar, 150)
                 {
                     Value = document.Path
                 };
 
-                MySqlParameter iddocumentType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 2)
+                MySqlParameter iddocumentType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
                 {
                     Value = document.TypeOf.IdDocumentType
                 };
 
-                MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
+                MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 11)
                 {
                     Value = document.AddBy.IdPractitioner
-                };
-
-                MySqlParameter grade = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)
-                {
-                    Value = document.Grade
-                };
-
-                MySqlParameter observations = new MySqlParameter("@observations", MySqlDbType.VarChar, 200)
-                {
-                    Value = document.Observations
                 };
 
                 query.Parameters.Add(name);
                 query.Parameters.Add(path);
                 query.Parameters.Add(iddocumentType);
                 query.Parameters.Add(idpractitioner);
-                query.Parameters.Add(grade);
-                query.Parameters.Add(observations);
 
                 query.ExecuteNonQuery();
                 isSaved = true;
