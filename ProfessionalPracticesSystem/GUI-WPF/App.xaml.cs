@@ -13,5 +13,10 @@ namespace GUI_WPF
     /// </summary>
     public partial class App : Application
     {
+        void App_Startup(object sender, StartupEventArgs e)
+        {
+            Login window = new Login();
+            window.Show();
+        }
     }
 }

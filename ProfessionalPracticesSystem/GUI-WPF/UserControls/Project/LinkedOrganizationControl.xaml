@@ -10,9 +10,9 @@
     <StackPanel Orientation="Horizontal">
         <TextBlock Text="Organización Vinculada (*): " Margin="70,10,10,0" FontSize="14"/>
         <ComboBox x:Name="linkedOrganizations" Width="250" 
-                  ItemsSource="{Binding Path = allLinkedOrganizations}" 
+                  ItemsSource="{Binding allLinkedOrganizations}" 
                   DisplayMemberPath="Name"
-                  SelectedItem="{Binding LinkedOrganizationSelected}"
+                  IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding ProposedBy}"
                   />
 
         <Button Width="119" Cursor="Hand" Margin="20,0,0,0">

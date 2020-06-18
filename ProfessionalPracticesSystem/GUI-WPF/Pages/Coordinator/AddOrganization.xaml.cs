@@ -30,9 +30,9 @@ namespace GUI_WPF.Pages.Coordinator
             InitializeComponent();
             OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
             List<OrganizationSector> sectorList = sectorDao.GetAllOrganizationSectors();
-
             sectorsList.ItemsSource = sectorList;
         }
+
         private void CancelAdd(object sender, RoutedEventArgs e)
         {
             MessageBoxResult confirmation = System.Windows.MessageBox.Show("¿Seguro que deseas salir?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -42,40 +42,64 @@ namespace GUI_WPF.Pages.Coordinator
                 NavigationService.GoBack();
             }
         }
+
+        private bool AreFieldsEmpty()
+        {
+            bool areEmpty = false;
+
+            if (organizationName == null||organizationState == null ||
+                organizationPhone == null || organizationEmail == null || 
+                organizationCity == null || organizationAddress == null || sectorsList == null)
+            {
+                areEmpty = true;
+            }
+
+            return areEmpty;
+        }
+
         private void AddNewOrganization(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult question = System.Windows.MessageBox.Show("¿Está seguro de guardar la organizacion?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (question == MessageBoxResult.Yes)
+            if (AreFieldsEmpty() == true)
             {
+                MessageBoxResult emptyFieldsBox = System.Windows.MessageBox.Show("1 o mas casillas se encuentran vacias.Porfavor llene todas", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBoxResult question = System.Windows.MessageBox.Show("¿Está seguro de guardar la organizacion?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
-
-                String sectorName = sectorsList.Text;
-                OrganizationSector sectorOrg = sectorDao.GetOrganizationSectorByName(sectorName);
-                LinkedOrganization newOrganization = new LinkedOrganization();
-
-                newOrganization.Name = organizationName.Text;
-                newOrganization.State = organizationState.Text;
-                newOrganization.TelephoneNumber = organizationPhone.Text;
-                newOrganization.Email = organizationEmail.Text;
-                newOrganization.City = organizationCity.Text;
-                newOrganization.Address = organizationAddress.Text;
-                newOrganization.BelongsTo = sectorOrg;
-
-                LinkedOrganizationDAO linkedOrganizationDAO = new LinkedOrganizationDAO();
-                bool check = linkedOrganizationDAO.SaveLinkedOrganization(newOrganization);
-
-                if (check == true)
+                if (question == MessageBoxResult.Yes)
                 {
-                    System.Windows.MessageBox.Show("Se ha guardado correctamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    NavigationService.GoBack();
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Ha ocurrido un error", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
 
+                    OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
+                    String sectorName = sectorsList.Text;
+                    OrganizationSector sectorOrg = sectorDao.GetOrganizationSectorByName(sectorName);
+
+                    LinkedOrganization newOrganization = new LinkedOrganization
+                    {
+                        Name = organizationName.Text,
+                        State = organizationState.Text,
+                        TelephoneNumber = organizationPhone.Text,
+                        Email = organizationEmail.Text,
+                        City = organizationCity.Text,
+                        Address = organizationAddress.Text,
+                        BelongsTo = sectorOrg
+                    };
+
+                    ManageOrganization manageOrganization = new ManageOrganization();
+
+                    bool check = manageOrganization.OrganizationSave(newOrganization);
+
+                    if (check == true)
+                    {
+                        System.Windows.MessageBox.Show("Se ha guardado correctamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("Ha ocurrido un error al intentar guardar. Porfavor intente mas tarde", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
+                }
             }
 
         }
@@ -91,6 +115,16 @@ namespace GUI_WPF.Pages.Coordinator
                 e.Handled = false;
             }
 
+        }
+
+        private void ClearFields()
+        {
+           organizationName.Clear();
+            organizationState.Clear();
+            organizationPhone.Clear();
+            organizationEmail.Clear();
+            organizationCity.Clear();
+            organizationAddress.Clear();
         }
     }
 }

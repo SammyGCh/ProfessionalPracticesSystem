@@ -35,8 +35,8 @@
                         Height="60" Margin="0,14,-0.4,14.8" Width="320">
                 
                 <materialDesing:PackIcon Kind="User" Width="40" Height="60" Foreground="White"/>
-                
-                <TextBlock Text="Angel Juan Sanchez Juarez" Foreground="White" VerticalAlignment="Center" 
+
+                <TextBlock x:Name="userName" Text="{Binding userNameFullName}" Foreground="White" VerticalAlignment="Center" 
                            FontSize="18" HorizontalAlignment="Left" FontWeight="Bold"/>
 
                 <materialDesing:PopupBox Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
@@ -70,6 +70,6 @@
         </Grid>
 
         <Frame Grid.Row="1" Name="homeFrame" NavigationUIVisibility="Hidden"
-               HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+               HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" x:FieldModifier="public"/>
     </Grid>
 </Window>

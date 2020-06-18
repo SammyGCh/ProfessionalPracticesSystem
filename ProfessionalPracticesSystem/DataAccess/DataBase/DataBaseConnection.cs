@@ -22,7 +22,7 @@ namespace DataAccess.DataBase
                 connection = new MySqlConnection(infoConnection);
                 connection.Open();
             }
-            catch (MySqlException ex)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -34,7 +34,7 @@ namespace DataAccess.DataBase
             {
                 Connect();
             }
-            catch (MySqlException ex)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -53,7 +53,7 @@ namespace DataAccess.DataBase
                         connection.Close();
                     }
                 }
-                catch (MySqlException ex)
+                catch (MySqlException)
                 {
                     throw;
                 }

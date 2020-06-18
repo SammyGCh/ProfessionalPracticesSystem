@@ -33,9 +33,10 @@ namespace GUI_WPF.Windows
             InitializeComponent();
         }
 
-        public Home(Page homePage)
+        public Home(Page homePage, string userNameFullName)
         {
             InitializeComponent();
+            userName.Text = userNameFullName;
             homeFrame.Content = homePage;
         }
     }

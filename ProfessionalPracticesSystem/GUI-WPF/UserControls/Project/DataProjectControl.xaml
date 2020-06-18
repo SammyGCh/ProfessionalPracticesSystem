@@ -10,7 +10,7 @@
 
         <StackPanel Orientation="Horizontal" Height="25" Margin="10">
             <TextBlock Text="Nombre (*): " Margin="110,0,10,0" FontSize="14" VerticalAlignment="Center"/>
-            <TextBox x:Name="projectName" Width="386"/>
+            <TextBox x:Name="projectName" Width="386" TextChanged="ValidateText" Text="{Binding Name}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Height="114" Margin="10,0,10.4,0">
@@ -19,7 +19,8 @@
                <LineBreak/>
                general (*):
             </TextBlock>
-            <TextBox x:Name="projectDescription" Width="450" Height="100" TextWrapping="Wrap" Margin="0,8,0,5.6"/>
+            <TextBox x:Name="projectDescription" Width="450" Height="100" TextWrapping="Wrap" Margin="0,8,0,5.6" 
+                     TextChanged="ValidateText" Text="{Binding GeneralDescription}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -29,7 +30,8 @@
                general (*):
             </TextBlock>
 
-            <TextBox x:Name="projectGeneralGoals" Width="450" Height="100" TextWrapping="Wrap"/>
+            <TextBox x:Name="projectGeneralGoals" Width="450" Height="100" TextWrapping="Wrap" 
+                     TextChanged="ValidateText" Text="{Binding GeneralGoal}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -39,7 +41,8 @@
                inmediatos (*):
             </TextBlock>
 
-            <TextBox x:Name="inmediateGoals" Width="450" Height="100" TextWrapping="Wrap"/>
+            <TextBox x:Name="inmediateGoals" Width="450" Height="100" TextWrapping="Wrap" TextChanged="ValidateText"
+                     Text="{Binding InmediateGoals}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -49,14 +52,16 @@
                mediatos (*):
             </TextBlock>
 
-            <TextBox x:Name="mediateGoals" Width="450" Height="100" TextWrapping="Wrap"/>
+            <TextBox x:Name="mediateGoals" Width="450" Height="100" TextWrapping="Wrap" TextChanged="ValidateText"
+                     Text="{Binding MediateGoals}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
             <TextBlock  Margin="90,10,16,0" FontSize="14">
                Metodología (*):
             </TextBlock>
-            <TextBox x:Name="metology" Width="450" Height="100" TextWrapping="Wrap"/>
+            <TextBox x:Name="metology" Width="450" Height="100" TextWrapping="Wrap" TextChanged="ValidateText"
+                     Text="{Binding Metology}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -69,21 +74,25 @@
                 <LineBreak/>
                 y materiales (*):
             </TextBlock>
-            <TextBox x:Name="neededResources" Width="450" Height="100" TextWrapping="Wrap"/>
+            <TextBox x:Name="neededResources" Width="450" Height="100" TextWrapping="Wrap" TextChanged="ValidateText"
+                     Text="{Binding NeededResources}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
             <TextBlock  Margin="55,10,16,0" FontSize="14">
                 Responsabilidades (*):
             </TextBlock>
-            <TextBox x:Name="responsabilities" Width="450" Height="100" TextWrapping="Wrap"/>
+            <TextBox x:Name="responsabilities" Width="450" Height="100" TextWrapping="Wrap" 
+                     TextChanged="ValidateText" Text="{Binding Responsabilities}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
             <TextBlock  Margin="110,2,16,0" FontSize="14">
                 Duración (*):
             </TextBlock>
-            <TextBox x:Name="duration" Width="150" Height="25" TextWrapping="Wrap"/>
+            <TextBox x:Name="duration" Width="150" Height="25" TextWrapping="Wrap" 
+                     TextChanged="ValidateNumber" MaxLength="3" Text="{Binding Duration}"/>
+            <TextBlock Text="horas" Margin="10,2,16,0" FontSize="14"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -94,7 +103,8 @@
                 <LineBreak/>
                 directos (*):
             </TextBlock>
-            <TextBox x:Name="directUserNumber" Margin="0,30,0,0" Width="150" Height="25" TextWrapping="Wrap"/>
+            <TextBox x:Name="directUserNumber" Margin="0,30,0,0" Width="150" Height="25" TextWrapping="Wrap"
+                     TextChanged="ValidateNumber" MaxLength="4" Text="{Binding DirectUsersNumber}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -105,7 +115,8 @@
                 <LineBreak/>
                 indirectos (*):
             </TextBlock>
-            <TextBox x:Name="indirectUserNumber" Margin="0,30,0,0" Width="150" Height="25" TextWrapping="Wrap"/>
+            <TextBox x:Name="indirectUserNumber" Margin="0,30,0,0" Width="150" Height="25" TextWrapping="Wrap"
+                     TextChanged="ValidateNumber" MaxLength="4" Text="{Binding IndirectUsersNumber}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -115,7 +126,8 @@
                 desarrollo (*):
             </TextBlock>
             <ComboBox x:Name="developmentStages" Width="250" Margin="0,10,0,0" 
-                      ItemsSource="{Binding allDevelopmentStages}" DisplayMemberPath="Name"/>
+                      ItemsSource="{Binding allDevelopmentStages}" DisplayMemberPath="Name" 
+                      IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding BelongsTo}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -126,7 +138,8 @@
                 <LineBreak/>
                 aceptados (*):
             </TextBlock>
-            <TextBox x:Name="practitionerNumber" Width="100" Height="25" TextWrapping="Wrap"/>
+            <TextBox x:Name="practitionerNumber" Width="100" Height="25" TextWrapping="Wrap" 
+                     TextChanged="ValidateNumber" MaxLength="2" Text="{Binding PractitionerNumber}"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" 
             Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="1124" Grid.ColumnSpan="2" Grid.RowSpan="2"><Run Text="Informacion de la "/><Run Text="O"/><Run Text="rganizaci"/><Run Text="ó"/><Run Text="n"/></TextBlock>
-            <Button x:Name="backButton" Content="Regresar" HorizontalAlignment="Left" Margin="352,1043,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="backButtonClick" Grid.Column="1" Grid.Row="2"/>
+            <Button x:Name="backButton" Content="Regresar" HorizontalAlignment="Left" Margin="352,1043,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="BackButtonClick" Grid.Column="1" Grid.Row="2"/>
             <Grid HorizontalAlignment="Left" Height="306" Margin="300,100,0,0" VerticalAlignment="Top" Width="932" Grid.ColumnSpan="2" Grid.Row="2">
                 <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="109" Text="Estado:" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" IsReadOnly="True"/>
                 <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="109" Text="Ciudad:" FontSize="30" Margin="0,48,0,0" BorderBrush="{x:Null}" IsReadOnly="True"/>
@@ -37,7 +37,7 @@
                 <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" Text="{Binding TelephoneNumber}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="151,192,0,0" IsReadOnly="True"/>
                 <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="109,240,0,0" IsReadOnly="True" Name="orgSector"/>
             </Grid>
-            <TextBox HorizontalAlignment="Left" Height="100" Margin="166,71,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="570" BorderBrush="{x:Null}" FontSize="80" Grid.Row="1" Grid.Column="1" FontWeight="Bold"/>
+            <TextBox HorizontalAlignment="Left" Height="100" Margin="166,71,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="570" BorderBrush="{x:Null}" FontSize="80" Grid.Row="1" Grid.Column="1" FontWeight="Bold" IsReadOnly="True"/>
             <TextBlock HorizontalAlignment="Left" Margin="200,467,0,0" TextWrapping="Wrap" 
             Grid.Row="2" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="461" Grid.ColumnSpan="2" Text="Proyectos relacionados"/>
             <TextBlock HorizontalAlignment="Left" Margin="602,467,0,0" TextWrapping="Wrap" 
@@ -45,7 +45,15 @@
 
             <DataGrid x:Name="projectsList" HorizontalAlignment="Left" Height="370" Margin="200,577,0,0" Grid.Row="2" VerticalAlignment="Top" Width="461" Grid.ColumnSpan="2" ItemsSource="{Binding Path=projects}" Background="White" BorderBrush="#89000000" Foreground="Black" HeadersVisibility="None">
                 <DataGrid.Columns>
-                    <DataGridHyperlinkColumn  Width ="1000" MinWidth="1000" MaxWidth="1000" Binding="{Binding Name}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                    <DataGridHyperlinkColumn  Width ="1000" MinWidth="1000" MaxWidth="1000" 
+                        Binding="{Binding Name}" CanUserResize="False" CanUserSort="False" 
+                        IsReadOnly="True" CanUserReorder="False">
+                        
+                        <DataGridHyperlinkColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <EventSetter Event="Hyperlink.Click" Handler="GoToProject"/>
+                            </Style>
+                        </DataGridHyperlinkColumn.ElementStyle>
 
                     </DataGridHyperlinkColumn>
                 </DataGrid.Columns>

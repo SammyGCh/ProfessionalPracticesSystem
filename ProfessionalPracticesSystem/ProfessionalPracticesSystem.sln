@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessTests", "DataAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI-WPF", "GUI-WPF\GUI-WPF.csproj", "{DB2B3DB2-9301-4BDE-AE58-B28B5527529A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fdvcadfs", "fdvcadfs\fdvcadfs.csproj", "{B6E617EC-CB1D-4095-B408-EAEC86C1460A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DB2B3DB2-9301-4BDE-AE58-B28B5527529A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB2B3DB2-9301-4BDE-AE58-B28B5527529A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB2B3DB2-9301-4BDE-AE58-B28B5527529A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E617EC-CB1D-4095-B408-EAEC86C1460A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E617EC-CB1D-4095-B408-EAEC86C1460A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E617EC-CB1D-4095-B408-EAEC86C1460A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E617EC-CB1D-4095-B408-EAEC86C1460A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

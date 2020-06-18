@@ -1,0 +1,125 @@
+﻿<Page x:Class="GUI_WPF.Pages.Practitioner.RequestProject"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Practitioner"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1500"
+      Title="RequestProject">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Background="White">
+        <StackPanel>
+            <StackPanel>
+                <TextBlock Text="Solicitar proyectos" FontSize="40" FontWeight="Bold" Margin="30"/>
+                <TextBlock FontSize="20" FontWeight="Light" Margin="100,0,0,0">
+                    Selecciona <Bold>tres</Bold> proyectos y da clic en <Bold>Solicitar</Bold>.
+                </TextBlock>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Proyectos disponibles" FontSize="24" FontWeight="Medium" Margin="250,20,250,10"/>
+
+                    <DataGrid x:Name="availableProjects" CanUserAddRows="False" AutoGenerateColumns="False" Width="400" 
+                              AlternatingRowBackground="AliceBlue" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Nombre" Width ="250" MinWidth="250" MaxWidth="250"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FF5BA1DA"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="FontSize" Value="24"/>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn  Header="Opción" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Visualizar" Width ="100" MinWidth="100" 
+                                                Click="GoToProjectInformation" HorizontalAlignment="Left"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FF5BA1DA"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="FontSize" Value="24"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                            </DataGridTemplateColumn  >
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Mis proyectos seleccionados" FontSize="24" FontWeight="Medium" 
+                               Margin="250,20,220,10" TextWrapping="Wrap"/>
+
+                    <DataGrid x:Name="selectedProjects" CanUserAddRows="False" AutoGenerateColumns="False" Width="400" 
+                              AlternatingRowBackground="AliceBlue" Margin="30,10,0,0" x:FieldModifier="public">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Nombre" Width ="250" MinWidth="250" MaxWidth="250"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FF5BA1DA"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="FontSize" Value="24"/>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn  Header="Opción" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Eliminar" Width ="100" MinWidth="100" 
+                                                HorizontalAlignment="Left" Click="DeleteProjectSelected"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#FF5BA1DA"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="FontSize" Value="24"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                            </DataGridTemplateColumn  >
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Width="750" Margin="20">
+                <Button Width="115" Cursor="Hand" Margin="240,0,0,0" Click="RequestProjects">
+                    <StackPanel Orientation="Horizontal" Width="100">
+                        <materialDesign:PackIcon Kind="Add" Margin="0,2,6,0"/>
+                        <TextBlock Text="Solicitar"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red">
+                    <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
+                        <TextBlock Text="Cancelar"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
