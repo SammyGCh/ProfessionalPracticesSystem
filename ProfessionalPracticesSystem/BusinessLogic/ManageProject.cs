@@ -3,17 +3,16 @@
     Author(s) : Sammy Guadarrama Chávez
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using BusinessDomain;
 using DataAccess.Implementation;
+using System.Collections.Generic;
 
 namespace BusinessLogic
 {
     public class ManageProject
     {
-        private ProjectDAO projectDao;
+        private readonly ProjectDAO projectDao;
+        private const int INVALID_ID = 0;
 
         public ManageProject()
         {
@@ -36,6 +35,67 @@ namespace BusinessLogic
             }
 
             return isAllSaved;
+        }
+
+        public bool UpdateProjectData(Project projectUpdated)
+        {
+            bool isUpdated;
+
+            isUpdated = projectDao.UpdateProjectData(projectUpdated);
+
+            return isUpdated;
+        }
+
+        public bool UpdateProjectResponsableData(Project projectResponsableData)
+        {
+            bool isUpdated;
+
+            isUpdated = projectDao.UpdateProjectResponsableData(projectResponsableData);
+
+            return isUpdated;
+        }
+
+        public bool UpdateLinkedOrganizationOfProject(int idProject, int idLinkedOrganization)
+        {
+            bool isUpdated;
+
+            isUpdated = projectDao.UpdateLinkedOrganizationOfProject(idProject, idLinkedOrganization);
+
+            return isUpdated;
+        }
+
+        public bool DeleteProjectActivity(ProjectActivity projectActivity)
+        {
+            bool isDeleted;
+            int idProjectActivity = projectActivity.IdProjectActivity;
+
+            isDeleted = projectDao.DeleteProjectActivity(idProjectActivity);
+
+            return isDeleted;
+        }
+
+        public bool AddProjectActivities(List<ProjectActivity> newProjectActivities, string projectName)
+        {
+            bool areAdded = false;
+
+            foreach (ProjectActivity newProjectActivity in newProjectActivities)
+            {
+                areAdded = projectDao.SaveProjectActivity(newProjectActivity, projectName);
+            }
+
+            return areAdded;
+        }
+
+        public bool UpdateProjectStatus(int idProjectToUpdate)
+        {
+            bool isStatusUpdated = false;
+
+            if(idProjectToUpdate != INVALID_ID)
+            {
+                isStatusUpdated = projectDao.DeleteProject(idProjectToUpdate);
+            }
+
+            return isStatusUpdated;
         }
     }
 }

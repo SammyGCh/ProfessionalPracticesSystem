@@ -41,9 +41,17 @@ namespace GUI_WPF.Pages.Coordinator
             practitionerList.ItemsSource = practitioners;
 
         }
-        private void backButtonClick(object sender, RoutedEventArgs e)
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void GoToProject(object sender, RoutedEventArgs e)
+        {
+            Project projectSelected = (projectsList.SelectedItem as Project);
+
+            NavigationService.Navigate(new ProjectDetails(projectSelected));
         }
 
     }

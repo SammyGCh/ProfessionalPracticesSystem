@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="GUI_WPF.UserControls.Project.ProjectActivityUpdateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI_WPF.UserControls.Project"
+             xmlns:uc="clr-namespace:GUI_WPF.UserControls.Project"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <StackPanel>
+            <TextBlock Text="Actividades programadas" FontSize="20" FontWeight="SemiBold" Margin="40,10,0,10"/>
+            <TextBlock TextWrapping="Wrap" Margin="10,0,10,30" FontSize="13">
+                Si desea eliminar actividades ya programadas, solo selecciona el botón <Bold>Eliminar</Bold> 
+                en la actividad deseada de la lista de abajo. 
+                <LineBreak/>Agrega nuevas actividades en la sección 
+                <Bold>Calendarización de actividades</Bold> y posteriormente selecciona el botón <Bold>Actualizar</Bold>.
+            </TextBlock>
+
+            <DataGrid x:Name="projectActivityList" CanUserAddRows="false" AutoGenerateColumns="False" 
+                         Width="650" MinWidth="650">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Nombre" Width="350" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Mes" Width="150" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Month}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--
+                    <materialDesign:DataGridTextColumn Header="Nombre" Width="300" Binding="{Binding Name}" 
+                         CanUserReorder="False"/>
+                    
+                    <materialDesign:DataGridComboBoxColumn x:Name="months" CanUserReorder="False"
+                        Header="Mes" Width="200" MinWidth="200" CanUserResize="False" SelectedItemBinding="{Binding Month}"/>
+                    -->
+                    <DataGridTemplateColumn Header="Opción" Width="150" CanUserResize="False" CanUserReorder="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="115" Cursor="Hand" Click="DeleteProjectActivity">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Delete" Margin="0,3,4,0"/>
+                                        <TextBlock Text="Eliminar" Margin="0,2,0,0"/>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Margin="0,40,0,0">
+            <uc:ProjectActivityControl x:Name="projectActivityControl"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

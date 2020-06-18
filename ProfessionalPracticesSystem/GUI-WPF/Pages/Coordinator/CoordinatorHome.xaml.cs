@@ -3,20 +3,11 @@
     Author(s): Sammy Guadarrama Chavez
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GUI_WPF.Pages.Practitioner;
+
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -48,6 +39,11 @@ namespace GUI_WPF.Pages.Coordinator
         private void RegisterOrganization(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AddOrganization());
+        }
+
+        private void GoToNotices(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RequestProject());
         }
     }
 }
