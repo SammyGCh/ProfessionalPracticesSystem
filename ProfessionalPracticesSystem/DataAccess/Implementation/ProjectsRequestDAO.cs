@@ -56,10 +56,12 @@ namespace DataAccess.Implementation
                         Date = reader.GetString(2)
                     };
 
-                    projectsRequest.ProjectsRequested = new List<Project>();
-                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(3)));
-                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(4)));
-                    projectsRequest.ProjectsRequested.Add(projectsHandler.GetProjectById(reader.GetInt32(5)));
+                    projectsRequest.ProjectsRequested = new List<Project>
+                    {
+                        projectsHandler.GetProjectById(reader.GetInt32(3)),
+                        projectsHandler.GetProjectById(reader.GetInt32(4)),
+                        projectsHandler.GetProjectById(reader.GetInt32(5))
+                    };
                     projectsRequest.RequestedBy = practisingHandler.GetPractitioner(reader.GetInt32(6));
 
                     projectsRequests.Add(projectsRequest);

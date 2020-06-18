@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.UserControls.Project
 {
@@ -18,29 +19,7 @@ namespace GUI_WPF.UserControls.Project
     /// </summary>
     public partial class ProjectResponsableControl : UserControl
     {
-        public string ResponsableName
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableCharge
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableEmail
-        {
-            get;
-            set;
-        }
-
-        public string ResponsableTelephone
-        {
-            get;
-            set;
-        }
+        private const int MINIMUM_LENGHT = 10;
 
         public ProjectResponsableControl()
         {
@@ -65,6 +44,63 @@ namespace GUI_WPF.UserControls.Project
             return areEmpty;
         }
 
+        public void UpdateProjectResponsable()
+        {
+            if (AreFieldsEmpty())
+            {
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
+            }
+            else if (AreFieldsWrong())
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
+            }
+            else
+            {
+                bool isUpdated = UpdateProjectResponsableData();
+                string messageWindow;
+
+                if (isUpdated)
+                {
+                    messageWindow = "El proyecto fue actualizado existosamente";
+
+                    DialogWindowManager.ShowSuccessWindow(messageWindow);
+                }
+                else
+                {
+                    messageWindow = "No se pudo actualizar la información del proyecto. Intente de nuevo.";
+
+                    DialogWindowManager.ShowErrorWindow(messageWindow);
+                }
+            }
+        }
+
+        private bool UpdateProjectResponsableData()
+        {
+            bool isUpdated;
+            ManageProject manageProject = new ManageProject();
+            int idProjectToUpdate = (DataContext as BusinessDomain.Project).IdProject;
+
+            BusinessDomain.Project projectResponsableData = GetProjectResponsableData();
+            projectResponsableData.IdProject = idProjectToUpdate;
+
+            isUpdated = manageProject.UpdateProjectResponsableData(projectResponsableData);
+
+            return isUpdated;
+        }
+
+        public BusinessDomain.Project GetProjectResponsableData()
+        {
+            BusinessDomain.Project projectResponsableData = new BusinessDomain.Project
+            {
+                ResponsableName = responsableName.Text,
+                ResponsableCharge = responsableCharge.Text,
+                ResponsableEmail = responsableEmail.Text,
+                ResponsableTelephone = responsableTelephone.Text
+            };
+
+            return projectResponsableData;
+        }
+
         public void ClearFields()
         {
             responsableName.Clear();
@@ -87,7 +123,7 @@ namespace GUI_WPF.UserControls.Project
 
         private void IsName(object sender, RoutedEventArgs e)
         {
-            if (ValidatorText.IsPersonName(responsableName.Text) && responsableName.Text.Length > 10)
+            if (IsResponsableNameRight())
             {
                 responsableName.BorderBrush = Brushes.Green;
             }
@@ -111,7 +147,9 @@ namespace GUI_WPF.UserControls.Project
 
         private void ValidateText(object sender, TextChangedEventArgs e)
         {
-            if (ValidatorText.IsRightExpression(((TextBox)sender).Text))
+            string textToValidate = ((TextBox)sender).Text;
+
+            if (ValidatorText.IsTextRight(textToValidate))
             {
                 ((TextBox)sender).BorderBrush = Brushes.Green;
             }
@@ -123,22 +161,39 @@ namespace GUI_WPF.UserControls.Project
 
         public bool AreFieldsWrong()
         {
-            bool areWrong = false;
+            bool areWrong = true;
 
-            if (
-                projectResponsableData.Children.OfType<StackPanel>().Any(
-                    responsableSection => responsableSection.Children.OfType<TextBox>().Any(
-                        responsableFields => !ValidatorText.IsPersonName(responsableFields.Text) ||
-                        !ValidatorText.IsEmail(responsableFields.Text) ||
-                        !ValidatorText.IsRightExpression(responsableFields.Text)
-                    )
-                )
-            )
+            if (IsResponsableNameRight() && IsResponsableEmailRight() && IsResponsableChargeRight())
             {
-                areWrong = true;
+                areWrong = false;
             }
 
             return areWrong;
+        }
+
+        private bool IsResponsableNameRight()
+        {
+            return ValidatorText.IsPersonName(responsableName.Text) && responsableName.Text.Length > MINIMUM_LENGHT;
+        }
+
+        private bool IsResponsableEmailRight()
+        {
+            bool isEmail;
+            string emailToValidate = responsableEmail.Text;
+
+            isEmail = ValidatorText.IsEmail(emailToValidate);
+
+            return isEmail; 
+        }
+
+        private bool IsResponsableChargeRight()
+        {
+            bool isRight;
+            string textToValidate = responsableCharge.Text;
+
+            isRight = ValidatorText.IsTextRight(textToValidate);
+
+            return isRight;
         }
     }
 }

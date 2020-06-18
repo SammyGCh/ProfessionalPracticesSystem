@@ -9,32 +9,56 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddPractitioner">
 
-    <Grid Background="GhostWhite">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="200*"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" >
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="188*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1">
-            <TextBlock HorizontalAlignment="Left" Margin="200,10,0,0" TextWrapping="Wrap" Text="¿Seguro que deseas eliminar este Académico?" 
-                  Grid.Row="0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="52" Width="500"/>
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Registrar proyecto" 
+                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="361"/>
 
-            <StackPanel Orientation="Horizontal" Margin="20" Width="750">
-                <Button x:Name="addButton" Width="115" Margin="240,0,0,0" Cursor="Hand" 
-                            Click="RemoveAcademic">
-                    <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
-                        <TextBlock Text="Eliminar"/>
-                    </StackPanel>
-                </Button>
+            <StackPanel Grid.Row="1">
 
-                <Button x:Name="cancelButton" Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red" Click="CancelAction">
-                    <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
-                        <TextBlock Text="Cancelar"/>
-                    </StackPanel>
-                </Button>
+                <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
+                    <uc:IndigenousLanguageControl x:Name="indigenousLanguageControl"/>
+                </materialDesign:Card>
+
+                <materialDesign:Card Background="AliceBlue" Margin="30" Padding="10" BorderThickness="50" Width="750">
+                    <uc:ProjectResponsableControl x:Name="projectResponsableControl"/>
+                </materialDesign:Card>
+
+                <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
+                    <uc:DataProjectControl x:Name="dataProjectControl"/>
+                </materialDesign:Card>
+
+                <materialDesign:Card Background="AliceBlue" Margin="10" Padding="10" BorderThickness="50" Width="750">
+                    <uc:ProjectActivityControl x:Name="projectActivityControl"/>
+                </materialDesign:Card>
+
+                <StackPanel Margin="20" Width="750">
+                    <TextBlock Text="* Campos obligatorios" FontSize="14" FontWeight="Light"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20" Width="750">
+                    <Button x:Name="addButton" Width="115" Margin="240,0,0,0" Cursor="Hand" 
+                            Click="AddNewProject">
+                        <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Registrar"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="cancelButton" Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red" Click="Cancel">
+                        <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Cancelar"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>

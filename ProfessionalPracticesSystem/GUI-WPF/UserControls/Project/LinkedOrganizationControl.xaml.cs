@@ -3,22 +3,12 @@
     Author(s): Sammy Guadarrama Chavez
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
 using DataAccess.Implementation;
+using GUI_WPF.Windows;
+using BusinessLogic;
 
 namespace GUI_WPF.UserControls.Project
 {
@@ -27,12 +17,6 @@ namespace GUI_WPF.UserControls.Project
     /// </summary>
     public partial class LinkedOrganizationControl : UserControl
     {
-        public object LinkedOrganizationSelected
-        {
-            get;
-            set;
-        }
-
         public LinkedOrganizationControl()
         {
             InitializeComponent();
@@ -43,11 +27,42 @@ namespace GUI_WPF.UserControls.Project
             linkedOrganizations.ItemsSource = allLinkedOrganizations;
         }
 
+        public void UpdateProjectLinkedOrganization()
+        {
+            bool isUpdated = UpdatedLinkedOrganizationSelected();
+            string messageWindow;
+
+            if (isUpdated)
+            {
+                messageWindow = "El proyecto fue actualizado existosamente";
+
+                DialogWindowManager.ShowSuccessWindow(messageWindow);
+            }
+            else
+            {
+                messageWindow = "No se pudo actualizar la información del proyecto. Intente de nuevo.";
+
+                DialogWindowManager.ShowErrorWindow(messageWindow);
+            }
+        }
+
+        private bool UpdatedLinkedOrganizationSelected()
+        {
+            bool isUpdated;
+            ManageProject manageProject = new ManageProject();
+            int idProject = (DataContext as BusinessDomain.Project).IdProject;
+            int idLinkedOrganization = (linkedOrganizations.SelectedItem as LinkedOrganization).IdLinkedOrganization;
+
+            isUpdated = manageProject.UpdateLinkedOrganizationOfProject(idProject, idLinkedOrganization);
+
+            return isUpdated;
+        }
+
         public bool IsNotSelected()
         {
             bool isNotSelected = true;
 
-            if(linkedOrganizations.SelectedItem != null)
+            if (linkedOrganizations.SelectedItem != null)
             {
                 isNotSelected = false;
             }
@@ -58,6 +73,13 @@ namespace GUI_WPF.UserControls.Project
         public void UnSelectLinkedOrganization()
         {
             linkedOrganizations.SelectedItem = null;
+        }
+
+        public LinkedOrganization GetLinkedOrganizationSelected()
+        {
+            LinkedOrganization linkedOrganizationSelected = linkedOrganizations.SelectedItem as LinkedOrganization;
+
+            return linkedOrganizationSelected;
         }
     }
 }

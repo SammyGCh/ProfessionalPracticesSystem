@@ -70,6 +70,6 @@
         </Grid>
 
         <Frame Grid.Row="1" Name="homeFrame" NavigationUIVisibility="Hidden"
-               HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+               HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" x:FieldModifier="public"/>
     </Grid>
 </Window>

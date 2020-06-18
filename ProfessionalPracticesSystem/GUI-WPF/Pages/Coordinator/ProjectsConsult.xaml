@@ -15,8 +15,8 @@
             VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="514"/>
 
             <StackPanel Margin="80">
-                <DataGrid x:Name="tableProjects" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1084" AutoGenerateColumns="False" Background="#FFFAFAFA" 
-                  CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="100">
+                <DataGrid x:Name="tableProjects" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1210" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+                  CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="100" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
 
                         <DataGridTemplateColumn Header="Nombre" Width ="200" MinWidth="200" MaxWidth="200"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
@@ -68,15 +68,39 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn Header="Status" Width ="120"  CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                            <DataGridTemplateColumn.HeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Background" Value="#FF5BA1DA"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="WrapWithOverflow">
+                                        <TextBlock.Style>
+                                            <Style>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="1">
+                                                        <Setter Property="TextBlock.Text" Value="Activo"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="0">
+                                                        <Setter Property="TextBlock.Text" Value="No Activo"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
                         <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Name="details" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="GoProjectDetails">
-                                        <StackPanel Orientation="Horizontal" Width="110">
-                                            <materialDesign:PackIcon Kind="Details" Margin="0,2,1,0"/>
-                                            <TextBlock Text="Detalles"/>
-                                        </StackPanel>
-                                    </Button>
+                                    <Button Content="Detalles" Name="details" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="GoProjectDetails"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
 
@@ -92,8 +116,8 @@
                         <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Name="update" Content="Actualizar" Width ="100" MinWidth="100" HorizontalAlignment="Left"/>
-
+                                    <Button Name="update" Width ="100"
+                                            HorizontalAlignment="Left" Click="GoToProjectSections" Content="Actualizar"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
 
@@ -109,8 +133,13 @@
                         <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Name="delete" Content="Eliminar" Width ="100" MinWidth="100" HorizontalAlignment="Left"/>
-
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Status}" Value="0">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                    <Button Content="Eliminar" Name="delete" Width ="100" MinWidth="100" HorizontalAlignment="Left"
+                                            Click="DeleteProject"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
 
@@ -127,7 +156,12 @@
             </StackPanel>
 
             <StackPanel Width="400" Height="40">
-                <Button x:Name="backButton" Content="Regresar" Width="126" Height="36" Click="backButtonClick"/>
+                <Button x:Name="backButton" Width="126" Height="36" Click="BackButtonClick">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ArrowBack" Margin="0,2,5,0"/>
+                        <TextBlock Text="Regresar"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>
