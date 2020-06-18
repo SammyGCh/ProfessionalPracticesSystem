@@ -247,6 +247,64 @@ namespace DataAccess.Implementation
             return practitioner;
         }
 
+        public Practitioner GetPractitionerByMatricula(string matriculaP)
+        {
+            belogsTo = new ScholarPeriodDAO();
+            speaks = new IndigenousLanguageDAO();
+            academic = new AcademicDAO();
+            assigned = new ProjectDAO();
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM Practitioner WHERE Practitioner.matricula = @matriculaP"
+                };
+                MySqlParameter matricula = new MySqlParameter("@matriculaP", MySqlDbType.VarChar, 9)
+                {
+                    Value = matriculaP
+                };
+
+                query.Parameters.Add(matricula);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    practitioner = new Practitioner
+                    {
+                        IdPractitioner = reader.GetInt32(0),
+                        Matricula = reader.GetString(1),
+                        Password = reader.GetString(2),
+                        Grade = reader.GetString(3),
+                        Gender = reader.GetString(4),
+                        Names = reader.GetString(5),
+                        LastName = reader.GetString(6),
+                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
+                        Status = reader.GetInt32(9),
+                        Instructed = academic.GetAcademic(reader.GetInt32(10)),
+                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
+                    };
+
+                    if (!reader.IsDBNull(8))
+                    {
+                        practitioner.Assigned = assigned.GetProjectById(reader.GetInt32(8));
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/GetPractitioner:", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return practitioner;
+        }
+
         public bool SavePractitioner(Practitioner practitioner)
         {
             bool isSaved = false;

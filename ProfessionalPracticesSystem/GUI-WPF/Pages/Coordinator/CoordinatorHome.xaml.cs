@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessDomain;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -25,7 +26,7 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class CoordinatorHome : Page
     {
-        public CoordinatorHome()
+        public CoordinatorHome(Academic userCoordinator)
         {
             InitializeComponent();
         }

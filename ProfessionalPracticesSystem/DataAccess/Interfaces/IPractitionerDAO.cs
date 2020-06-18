@@ -13,6 +13,7 @@ namespace DataAccess.Interfaces
         List<Practitioner> GetAllPractitioner();
         List<Practitioner> GetAllPractitionerByindigenousLanguage();
         Practitioner GetPractitioner(int idPractitioner);
+        Practitioner GetPractitionerByMatricula(string matricula);
         bool SavePractitioner(Practitioner practitioner);
         bool DeletePractitioner(int idPractitioner);
         List<Practitioner> GetAllPractitionerByAcademic(int idAcademic);

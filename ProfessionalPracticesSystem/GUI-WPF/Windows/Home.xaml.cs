@@ -27,15 +27,11 @@ namespace GUI_WPF.Windows
     /// </summary>
     public partial class Home : Window
     {
-        public Home()
-        {
-            InitializeComponent();
-            homeFrame.Content = new CoordinatorHome();
-        }
 
-        public Home(Page homePage)
+        public Home(Page homePage, string userNameFullName)
         {
             InitializeComponent();
+            userName.Text = userNameFullName;
             homeFrame.Content = homePage;
         }
     }

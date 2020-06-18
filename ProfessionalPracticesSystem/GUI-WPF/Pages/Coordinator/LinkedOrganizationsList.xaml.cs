@@ -33,7 +33,16 @@ namespace GUI_WPF.Pages.Coordinator
             InitializeComponent();
             LinkedOrganizationDAO linkedOrganizationDAO = new LinkedOrganizationDAO();
             List<LinkedOrganization> allLinkedOrganizations = linkedOrganizationDAO.GetAllLinkedOrganizations();
-            tableLinkedOrganizations.ItemsSource = allLinkedOrganizations;
+            if (allLinkedOrganizations.Count == 0)
+            {
+                MessageBoxResult emptyList = System.Windows.MessageBox.Show("No se encuentra ninguna organizacion registrada.",
+                    "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                NavigationService.GoBack();
+            }
+            else
+            {
+                tableLinkedOrganizations.ItemsSource = allLinkedOrganizations;
+            }
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)

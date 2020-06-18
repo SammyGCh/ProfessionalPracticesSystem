@@ -16,7 +16,7 @@
                 <GradientStop Color="#FFA0CFFF" Offset="0.924"/>
             </LinearGradientBrush>
         </Grid.Background>
-  
+
         <Image HorizontalAlignment="Left" Height="121" Margin="336,10,0,0" VerticalAlignment="Top" Width="128" 
                Source="uvlogo.png"/>
 
@@ -35,8 +35,8 @@
                      Width="214" Height="26" PasswordChar="*" PasswordChanged="EnableLoginButton"/>
 
         <Button 
-            Name="logInButton" Content="Iniciar sesión" HorizontalAlignment="Left" Margin="364,333,0,0" 
-            VerticalAlignment="Top" Width="81" Height="27" Click="LogIn" IsEnabled="False"
+            Name="logInButton" Content="Iniciar sesión" HorizontalAlignment="Left" Margin="350,333,0,0" 
+            VerticalAlignment="Top" Width="156" Height="27" Click="LogIn" IsEnabled="False"
         >
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -44,6 +44,6 @@
                 </Style>
             </Button.Resources>
         </Button>
-        
+
     </Grid>
 </Window>
