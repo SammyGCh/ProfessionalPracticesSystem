@@ -105,7 +105,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Pages\Administrator\AddAcademic.xaml">
-     <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Pages\PageMannagerNavigation.cs" />
@@ -372,6 +372,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Professor\" />
+    <Folder Include="UserControls\Practitioner\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="uvlogo.png" />
