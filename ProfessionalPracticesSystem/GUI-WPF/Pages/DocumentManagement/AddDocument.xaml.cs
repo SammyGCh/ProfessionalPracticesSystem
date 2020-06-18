@@ -7,12 +7,13 @@ using System.Windows;
 using System.Windows.Controls;
 using BusinessLogic;
 using System.Windows.Forms;
+using BusinessDomain;
+using DataAccess;
 
 namespace GUI_WPF
 {
     public partial class AddDocument : Page
     {
-        OpenFileDialog explorador = new OpenFileDialog();
         private String sourcePath;
         private int idDocumentType;
         private int idPractitioner;
@@ -22,7 +23,6 @@ namespace GUI_WPF
         {
             this.idDocumentType = documentType;
             this.idPractitioner = idPractitioner;
-            documentManager = new DocumentManagement();
             InitializeComponent();
         }
 
@@ -34,7 +34,7 @@ namespace GUI_WPF
             {
                 if(sourcePath != null)
                 {
-                    String functionResult = documentManager.AddDocument(sourcePath, idPractitioner, idDocumentType);
+                    String functionResult = saveDocument();
                     System.Windows.MessageBox.Show(functionResult, "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
@@ -44,24 +44,35 @@ namespace GUI_WPF
             }
         }
 
+        public String saveDocument()
+        {
+            documentManager = new DocumentManagement();
+            Document newDocument = GetDocument();
+            String result = documentManager.AddDocument(newDocument, sourcePath);
+
+            return result;
+        }
+
         private void Select(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog explorador = new OpenFileDialog
+            {
+                Filter = "pdf files (*.pdf)|*.pdf"
+            };
 
             try
             {
-                explorador.Filter = "pdf files (*.pdf)|*.pdf";
-                var result = explorador.ShowDialog();
-
-                if (result == System.Windows.Forms.DialogResult.OK)
+                if (explorador.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     sourcePath = explorador.FileName;
                     pdfViewer.Navigate(sourcePath);
                 }
             }
-            catch (Exception)
+            catch (ArgumentException ex)
             {
 
-                System.Windows.MessageBox.Show("Error no se pudo abrir el explorador de archivos", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Ocurrio un error al abrir el explorador, intente mas tarde", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                LogManager.WriteLog("Something went wrong in  GUI-WPF/Pages/DocumentManagement/AddDocument:", ex);
             }
         }
 
@@ -73,6 +84,25 @@ namespace GUI_WPF
             {
                 NavigationService.GoBack();
             }
+        }
+
+        private Document GetDocument()
+        {
+            String documentName = sourcePath.Substring(sourcePath.LastIndexOf(@"\"));
+            String documentsDirectory = "..\\..\\..\\\\BusinessLogic\\Documents";
+            String finalPath = documentsDirectory + documentName;
+            DocumentType auxiliarDocumentType = new DocumentType { IdDocumentType = idDocumentType };
+            Practitioner auxiliarPractitioner = new Practitioner { IdPractitioner = idPractitioner };
+
+            Document newDocument = new Document
+            {
+                Name = documentName,
+                Path = finalPath,
+                TypeOf = auxiliarDocumentType,
+                AddBy = auxiliarPractitioner
+            };
+
+            return newDocument;
         }
     }
 }

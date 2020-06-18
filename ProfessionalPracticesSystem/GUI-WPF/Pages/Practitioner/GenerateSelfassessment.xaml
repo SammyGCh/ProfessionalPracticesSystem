@@ -13,7 +13,7 @@
                 <StackPanel>
                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                         <TextBlock TextAlignment="Center" Text="Autoevaluacion" FontSize="24" FontWeight="SemiBold"/>
-                        <TextBlock TextAlignment="Center" Text="Responde a cada una de las afirmaciones presentadas, marcando con una 'X' la casilla correspondiente de acuerdo a los siguientes criterios:" TextWrapping="Wrap" FontSize="12" FontWeight="SemiBold" Height="40" Width="547"/>
+                        <TextBlock TextAlignment="Center" Text="Responde a cada una de las afirmaciones presentadas, marcando la casilla correspondiente de acuerdo a los siguientes criterios:" TextWrapping="Wrap" FontSize="12" FontWeight="SemiBold" Height="40" Width="547"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,5,0,0" Orientation="Vertical" HorizontalAlignment="Center">
@@ -24,8 +24,8 @@
                         <TextBlock FontSize="10" HorizontalAlignment="Center" Text="Totalmente de acuerdo   5" />
                     </StackPanel>
 
-                    <StackPanel Margin="0,20,0,0" Orientation="Vertical">
-                        
+                    <StackPanel x:Name="questionContainer" Margin="0,20,0,0" Orientation="Vertical">
+
                         <StackPanel Orientation="Horizontal">
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="150,0,0,0" Width="350">Mi participación en la Organización Vinculada fue productiva.</TextBlock>
                             <ComboBox SelectedIndex="0" Margin="50,0,0,0" MaxWidth="50" VerticalAlignment="Stretch" Width="120">
