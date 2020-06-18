@@ -3,25 +3,12 @@
     Author(s): Sammy Guadarrama Chavez
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
-using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
-using GUI_WPF.UserControls.Project;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -38,76 +25,50 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            
-            MessageBoxResult userAnswer =  MessageBox.Show("¿Seguro desea cancelar?", "Cancelar registro", 
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            string confirmMessage = "¿Seguro desea cancelar el registro del proyecto?";
 
-            if (userAnswer == MessageBoxResult.Yes)
+            bool wantToCancel = DialogWindowManager.ShowConfirmationWindow(confirmMessage);
+
+            if (wantToCancel)
             {
                 NavigationService.GoBack();
             }
-            
         }
 
-        public LinkedOrganization GetLinkedOrganization()
+        private Project GetProject()
         {
-            object linkedOrg = linkedOrganizationControl.FindName("linkedOrganizations");
-            LinkedOrganization linkedOrganization = ((linkedOrg as ComboBox).SelectedItem as LinkedOrganization);
-
-            return linkedOrganization;
-        }
-
-        public Project GetProject()
-        {
-            object responsableName = projectResponsableControl.FindName("responsableName");
-            object responsableCharge = projectResponsableControl.FindName("responsableCharge");
-            object responsableEmail = projectResponsableControl.FindName("responsableEmail");
-            object responsableTelephone = projectResponsableControl.FindName("responsableTelephone");
-
-            object projectName = dataProjectControl.FindName("projectName");
-            object projectDescription = dataProjectControl.FindName("projectDescription");
-            object projectGeneralGoals = dataProjectControl.FindName("projectGeneralGoals");
-            object inmediateGoals = dataProjectControl.FindName("inmediateGoals");
-            object mediateGoals = dataProjectControl.FindName("mediateGoals");
-            object metology = dataProjectControl.FindName("metology");
-            object neededResources = dataProjectControl.FindName("neededResources");
-            object responsabilities = dataProjectControl.FindName("responsabilities");
-            object duration = dataProjectControl.FindName("duration");
-            object directUserNumber = dataProjectControl.FindName("directUserNumber");
-            object indirectUserNumber = dataProjectControl.FindName("indirectUserNumber");
-            object developmentStage = dataProjectControl.FindName("developmentStages");
-            object practitionerNumber = dataProjectControl.FindName("practitionerNumber");
-            int practitionerNum = Convert.ToInt32((practitionerNumber as TextBox).Text);
+            Project projectResponsableData = projectResponsableControl.GetProjectResponsableData();
+            Project projectData = dataProjectControl.GetProjectData();
 
             Project project = new Project
             {
-                ResponsableName = (responsableName as TextBox).Text,
-                ResponsableCharge = (responsableCharge as TextBox).Text,
-                ResponsableEmail = (responsableEmail as TextBox).Text,
-                ResponsableTelephone = (responsableTelephone as TextBox).Text,
+                ResponsableName = projectResponsableData.ResponsableName,
+                ResponsableCharge = projectResponsableData.ResponsableCharge,
+                ResponsableEmail = projectResponsableData.ResponsableEmail,
+                ResponsableTelephone = projectResponsableData.ResponsableTelephone,
 
-                Name = (projectName as TextBox).Text,
-                GeneralDescription = (projectDescription as TextBox).Text,
-                GeneralGoal = (projectGeneralGoals as TextBox).Text,
-                InmediateGoals = (inmediateGoals as TextBox).Text,
-                MediateGoals = (mediateGoals as TextBox).Text,
-                Metology = (metology as TextBox).Text,
-                NeededResources = (neededResources as TextBox).Text,
-                Responsabilities = (responsabilities as TextBox).Text,
-                Duration = (duration as TextBox).Text,
-                DirectUsersNumber = (directUserNumber as TextBox).Text,
-                IndirectUsersNumber = (indirectUserNumber as TextBox).Text,
-                BelongsTo = ((developmentStage as ComboBox).SelectedItem as DevelopmentStage),
-                PractitionerNumber = practitionerNum,
+                Name = projectData.Name,
+                GeneralDescription = projectData.GeneralDescription,
+                GeneralGoal = projectData.GeneralGoal,
+                InmediateGoals = projectData.InmediateGoals,
+                MediateGoals = projectData.MediateGoals,
+                Metology = projectData.Metology,
+                NeededResources = projectData.NeededResources,
+                Responsabilities = projectData.Responsabilities,
+                Duration = projectData.Duration,
+                DirectUsersNumber = projectData.DirectUsersNumber,
+                IndirectUsersNumber = projectData.IndirectUsersNumber,
+                BelongsTo = projectData.BelongsTo,
+                PractitionerNumber = projectData.PractitionerNumber,
 
-                ProposedBy = GetLinkedOrganization(),
+                ProposedBy = linkedOrganizationControl.GetLinkedOrganizationSelected(),
                 ProjectActivities = projectActivityControl.GetProjectActivities()
             };
 
             return project;
         }
 
-        public bool AreFieldsEmpty()
+        private bool AreFieldsEmpty()
         {
             bool areEmpty = false;
 
@@ -124,28 +85,48 @@ namespace GUI_WPF.Pages.Coordinator
             return areEmpty;
         }
 
+        private bool AreFieldsWrong()
+        {
+            bool areWrong = false;
+
+            if (projectResponsableControl.AreFieldsWrong() ||
+                dataProjectControl.AreFieldsWrong()    
+            )
+            {
+                areWrong = true;
+            }
+
+            return areWrong;
+        }
+
         private void AddNewProject(object sender, RoutedEventArgs e)
         {
-
             if (AreFieldsEmpty())
             {
-                MessageBox.Show("Uno o varios campos están vacíos. Por favor ingresa los datos necesarios.", 
-                    "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Error);
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
+            }
+            else if (AreFieldsWrong())
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
             }
             else
             {
-                bool isAdded = SaveProject();
+                bool isSaved = SaveProject();
+                string messageWindow;
 
-                if (isAdded)
+                if (isSaved)
                 {
-                    MessageBox.Show("Proyecto fue registrado exitosamente.", "Registro exitoso", 
-                        MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    messageWindow = "El proyecto fue registrado exitosamente.";
+
+                    DialogWindowManager.ShowSuccessWindow(messageWindow);
+
                     ClearFields();
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo registrar el proyecto. Intente de nuevo.", "Error",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    messageWindow = "No se pudo registrar el proyecto. Intente de nuevo.";
+
+                    DialogWindowManager.ShowErrorWindow(messageWindow);
                 }
             }
 

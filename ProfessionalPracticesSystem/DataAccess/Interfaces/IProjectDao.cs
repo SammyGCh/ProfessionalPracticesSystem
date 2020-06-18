@@ -14,12 +14,17 @@ namespace DataAccess.Interfaces
         bool SaveProject(Project project);
         bool SaveProjectActivity(ProjectActivity projectActivity, String projectName);
         List<Project> GetAllProjects();
+        List<Project> GetActiveProjects();
         Project GetProjectById(int idProject);
         Project GetProjectByName(String name);
         int GetIdProjectByName(String name);
         List<ProjectActivity> GetAllProjectActivities(int idProject);
         bool UpdateProject(Project projectUpdated);
+        bool UpdateProjectData(Project projectDataUpdated);
+        bool UpdateProjectResponsableData(Project projectResponsableData);
+        bool UpdateLinkedOrganizationOfProject(int idProject, int idLinkedOrganization);
         bool UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject);
         bool DeleteProject(int idProject);
+        bool DeleteProjectActivity(int idProjectActivity);
     }
 }
