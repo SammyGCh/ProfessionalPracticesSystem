@@ -12,6 +12,7 @@ namespace DataAccess.Interfaces
     {
         List<Academic> GetAllAcademic();
         Academic GetAcademic(int idAcademic);
+        Academic GetAcademicByPersonalNumber(string personalNumber);
         bool SaveAcademic(Academic academic);
         bool DeleteAcademic(int idAcademic);
     }
