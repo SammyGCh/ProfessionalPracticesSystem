@@ -13,6 +13,7 @@ namespace BusinessLogic
     {
         private readonly ProjectDAO projectDao;
         private const int INVALID_ID = 0;
+        private const int PROJECT_SELECTED_INDEX = 0;
 
         public ManageProject()
         {
@@ -96,6 +97,38 @@ namespace BusinessLogic
             }
 
             return isStatusUpdated;
+        }
+
+        public AssignProjectResult AssignProject(ProjectsRequest projectsRequest)
+        {
+            AssignProjectResult assignedResult = AssignProjectResult.NoAssigned;
+
+            if (projectsRequest != null)
+            {
+                int practitionerNumber = projectsRequest.ProjectsRequested[PROJECT_SELECTED_INDEX].PractitionerNumber;
+                int practitionerAssigned = projectsRequest.ProjectsRequested[PROJECT_SELECTED_INDEX].PractitionersAssigned;
+
+                if (practitionerNumber > practitionerAssigned)
+                {
+                    int idPractitioner = projectsRequest.RequestedBy.IdPractitioner;
+                    int idProject = projectsRequest.ProjectsRequested[PROJECT_SELECTED_INDEX].IdProject;
+
+                    PractitionerDAO practitionerDao = new PractitionerDAO();
+
+                    bool isAssigned = practitionerDao.AssignPractitioner(idPractitioner, idProject);
+
+                    if (isAssigned)
+                    {
+                        assignedResult = AssignProjectResult.Assigned;
+                    }
+                }
+                else
+                {
+                    assignedResult = AssignProjectResult.NoEnoughSpace;
+                }
+            }
+
+            return assignedResult;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace DataAccess.Interfaces
         Project GetProjectById(int idProject);
         Project GetProjectByName(String name);
         int GetIdProjectByName(String name);
+        Project GetProjectRequestInfo(int idProject);
         List<ProjectActivity> GetAllProjectActivities(int idProject);
         bool UpdateProject(Project projectUpdated);
         bool UpdateProjectData(Project projectDataUpdated);

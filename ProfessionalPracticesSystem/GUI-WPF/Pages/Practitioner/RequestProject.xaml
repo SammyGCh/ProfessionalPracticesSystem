@@ -113,7 +113,8 @@
                     </StackPanel>
                 </Button>
 
-                <Button Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red">
+                <Button Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red"
+                        Click="CancelRequest">
                     <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                         <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
                         <TextBlock Text="Cancelar"/>

@@ -6,9 +6,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
-
 using GUI_WPF.Pages.Practitioner;
 
 
@@ -20,6 +18,11 @@ namespace GUI_WPF.Pages.Coordinator
     public partial class CoordinatorHome : Page
     {
         public CoordinatorHome(Academic userCoordinator)
+        {
+            InitializeComponent();
+        }
+
+        public CoordinatorHome()
         {
             InitializeComponent();
         }
@@ -47,6 +50,11 @@ namespace GUI_WPF.Pages.Coordinator
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RequestProject());
+        }
+
+        private void GoToRequests(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Requests());
         }
     }
 }

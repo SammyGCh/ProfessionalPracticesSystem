@@ -3,21 +3,10 @@
     Author(s): Sammy Guadarrama Chávez
  */
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
 using DataAccess.Implementation;
 using GUI_WPF.Windows;
@@ -63,8 +52,9 @@ namespace GUI_WPF.Pages.Practitioner
         public bool AreThreeProjectsSelected()
         {
             bool areSelected = false;
+            int projectsSelectedNumber = projectsSelectedList.Count;
 
-            if (projectsSelectedList.Count == MAX_PROJECTSELECTED_NUMBER)
+            if (projectsSelectedNumber == MAX_PROJECTSELECTED_NUMBER)
             {
                 areSelected = true;
             }
@@ -154,6 +144,11 @@ namespace GUI_WPF.Pages.Practitioner
             }
 
             return isGenerated;
+        }
+
+        private void CancelRequest(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

@@ -53,5 +53,11 @@ namespace GUI_WPF.Windows
             MessageBox.Show("La información en uno o varios campos es incorrecta. Por favor verifica la información.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        public static void ShowNoEnoughProjectSpaceWindow()
+        {
+            MessageBox.Show("El proyecto ya no tiene cupo para asignar a otro Practicante.",
+                "No hay espacio disponible", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

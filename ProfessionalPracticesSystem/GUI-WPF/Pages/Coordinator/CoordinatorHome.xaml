@@ -87,7 +87,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Height="30" Width="119" Cursor="Hand" Padding="1">
+                    <Button Height="30" Width="119" Cursor="Hand" Padding="1" Click="GoToRequests">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>
