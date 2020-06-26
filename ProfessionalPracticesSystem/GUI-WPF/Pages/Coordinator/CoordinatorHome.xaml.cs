@@ -29,8 +29,18 @@ namespace GUI_WPF.Pages.Coordinator
             NavigationService.Navigate(new AddProject());
         }
 
+        private void RegisterPractitioner(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddPractitioner());
+        }
+
+        private void CheckPractioners(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PractitionerList());
+        }
+
         private void CheckOrg(object sender, RoutedEventArgs e)
-        { 
+        {
             NavigationService.Navigate(new LinkedOrganizationsList());
         }
 
@@ -38,6 +48,7 @@ namespace GUI_WPF.Pages.Coordinator
         {
             NavigationService.Navigate(new ProjectsConsult());
         }
+
 
         private void RegisterOrganization(object sender, RoutedEventArgs e)
         {
@@ -47,6 +58,11 @@ namespace GUI_WPF.Pages.Coordinator
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RequestProject());
+        }
+
+        private void CheckPractitionerButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

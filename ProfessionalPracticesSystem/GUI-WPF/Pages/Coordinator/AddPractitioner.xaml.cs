@@ -21,7 +21,6 @@ using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
 using GUI_WPF.Windows;
-
 namespace GUI_WPF.Pages.Coordinator
 {
     /// <summary>

@@ -53,5 +53,11 @@ namespace GUI_WPF.Windows
             MessageBox.Show("La información en uno o varios campos es incorrecta. Por favor verifica la información.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        public static void ShowConnectionErrorWindow()
+        {
+            MessageBox.Show("Ocurrió un fallo al intentar conectarse a la base de datos. Intente de nuevo más tarde.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

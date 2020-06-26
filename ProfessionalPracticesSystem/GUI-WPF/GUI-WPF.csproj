@@ -108,21 +108,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Pages\Coordinator\PractitionerList.xaml.cs">
+      <DependentUpon>PractitionerList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageMannagerNavigation.cs" />
-    
     <Compile Include="UserControls\Practitioner\PractitionerDataControl.xaml.cs">
       <DependentUpon>PractitionerDataControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Practitioner\IndigenousLanguageDataControl.xaml.cs">
       <DependentUpon>IndigenousLanguageDataControl.xaml</DependentUpon>
     </Compile>
-   
     <Compile Include="Windows\ProjectInformation.xaml.cs">
       <DependentUpon>ProjectInformation.xaml</DependentUpon>
     </Compile>
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Coordinator\PractitionerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Practitioner\Documentation.xaml">
       <SubType>Designer</SubType>
@@ -384,7 +389,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Professor\" />
-    <Folder Include="UserControls\Practitioner\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="uvlogo.png" />

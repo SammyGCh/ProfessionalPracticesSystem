@@ -137,5 +137,47 @@ namespace DataAccess.Implementation
 
             return scholarPeriod;
         }
+
+        public ScholarPeriod GetScholarPeriodByName(String schoolPeriodName)
+        {
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM ScholarPeriod WHERE name = @schoolPeriodName"
+                };
+
+                MySqlParameter scholarPeriodName = new MySqlParameter("@schoolPeriodName", MySqlDbType.VarChar, 45)
+                {
+                    Value = schoolPeriodName
+                };
+
+                query.Parameters.Add(scholarPeriodName);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    scholarPeriod = new ScholarPeriod()
+                    {
+                        IdScholarPeriod = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Status = reader.GetInt32(2)
+                    };
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ScholarPeriodDAO: ", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return scholarPeriod;
+        }
     }
 }
