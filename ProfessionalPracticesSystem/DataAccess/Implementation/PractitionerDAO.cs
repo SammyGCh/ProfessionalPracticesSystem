@@ -594,6 +594,46 @@ namespace DataAccess.Implementation
             return isUpdated;
         }
 
+        public bool UpdatePractitionerData(Practitioner updatedPractitionerData)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "UPDATE Practitioner SET matricula = @matricula, gender = @gender, " +
+                    "names = @names, lastName = @lastName, idIndigenousLanguage =@idIndigenousLanguage, " +
+                    "idAcademic =@idAcademic, idScholarPeriod = @idScholarPeriod " +
+                    "WHERE idPractitioner = @idPractitioner"
+                };
+
+                query.Parameters.Add("@matricula", MySqlDbType.VarChar, 9).Value = updatedPractitionerData.Matricula;
+                query.Parameters.Add("@gender", MySqlDbType.VarChar, 10).Value = updatedPractitionerData.Gender;
+                query.Parameters.Add("@names", MySqlDbType.VarChar, 60).Value = updatedPractitionerData.Names;
+                query.Parameters.Add("@lastName", MySqlDbType.VarChar, 60).Value = updatedPractitionerData.LastName;
+                query.Parameters.Add("@idIndigenousLanguage", MySqlDbType.Int32, 2).Value = updatedPractitionerData.Speaks.IdIndigenousLanguage;
+                query.Parameters.Add("@idAcademic", MySqlDbType.Int32, 2).Value = updatedPractitionerData.Instructed.IdAcademic;
+                query.Parameters.Add("@idScholarPeriod", MySqlDbType.Int32, 2).Value = updatedPractitionerData.ScholarPeriod.IdScholarPeriod;
+                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = updatedPractitionerData.IdPractitioner;
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/UpdatePractitionerGrade:", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
+
         public List<Practitioner> GetAllPractitionerByLinkedOrganization(int idLinkedOrganization)
         {
             belogsTo = new ScholarPeriodDAO();

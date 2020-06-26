@@ -2,7 +2,7 @@
         Date: 08/04/2020                               
             Author:Cesar Sergio Martinez Palacios
  */
-
+using System;
 using BusinessDomain;
 using DataAccess.DataBase;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace DataAccess.Implementation
 {
     public class IndigenousLanguageDAO : IIndigenousLanguageDAO
     {
-        private List <IndigenousLanguage> indigenousLanguages;
+        private List<IndigenousLanguage> indigenousLanguages;
         private IndigenousLanguage indigenousLanguage;
         private DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
@@ -32,15 +32,16 @@ namespace DataAccess.Implementation
 
         public List<IndigenousLanguage> GetAllIndigenousLanguages()
         {
+            indigenousLanguages = new List<IndigenousLanguage>();
+
             try
             {
-                indigenousLanguages = new List<IndigenousLanguage>();
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText ="SELECT * FROM IndigenousLanguge"
+                    CommandText = "SELECT * FROM IndigenousLanguage"
                 };
-                
+
                 reader = query.ExecuteReader();
 
                 while (reader.Read())
@@ -48,7 +49,8 @@ namespace DataAccess.Implementation
                     indigenousLanguage = new IndigenousLanguage
                     {
                         IdIndigenousLanguage = reader.GetInt32(0),
-                        IndigenousLanguageName = reader.GetString(1)
+                        IndigenousLanguageName = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
 
                     indigenousLanguages.Add(indigenousLanguage);
@@ -93,7 +95,8 @@ namespace DataAccess.Implementation
                     indigenousLanguage = new IndigenousLanguage
                     {
                         IdIndigenousLanguage = reader.GetInt32(0),
-                        IndigenousLanguageName = reader.GetString(1)
+                        IndigenousLanguageName = reader.GetString(1),
+                        Status = reader.GetInt32(2)
                     };
                 }
 
@@ -101,7 +104,50 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex );
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return indigenousLanguage;
+        }
+
+        public IndigenousLanguage GetIndigenousLanguageByName(String languageName)
+        {
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "SELECT * FROM IndigenousLanguge WHERE name = @languageName"
+                };
+
+                MySqlParameter indiLanguageName = new MySqlParameter("@languageName", MySqlDbType.VarChar, 50)
+                {
+                    Value = languageName
+                };
+
+                query.Parameters.Add(indiLanguageName);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    indigenousLanguage = new IndigenousLanguage
+                    {
+                        IdIndigenousLanguage = reader.GetInt32(0),
+                        IndigenousLanguageName = reader.GetString(1),
+                        Status = reader.GetInt32(2)
+                    };
+                }
+
+                reader.Close();
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/IndigenousLanguageDAO", ex);
             }
             finally
             {
