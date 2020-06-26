@@ -54,6 +54,12 @@ namespace GUI_WPF.Windows
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        public static void ShowEmptyListErrorWindow()
+        {
+            MessageBox.Show("No se encuentra ninguna entrada registrada.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
         public static void ShowConnectionErrorWindow()
         {
             MessageBox.Show("Ocurrió un fallo al intentar conectarse a la base de datos. Intente de nuevo más tarde.",

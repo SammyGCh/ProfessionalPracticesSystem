@@ -36,7 +36,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void CheckPractioners(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PractitionerList());
+            NavigationService.Navigate(new RegisteredPractitionerList());
         }
 
         private void CheckOrg(object sender, RoutedEventArgs e)
