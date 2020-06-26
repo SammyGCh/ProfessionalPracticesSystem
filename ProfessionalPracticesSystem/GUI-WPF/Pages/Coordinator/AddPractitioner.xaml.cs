@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+        Date: 15/06/2020                              
+        Author:Ricardo Moguel Sanchez
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +20,7 @@ using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -24,167 +29,146 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class AddPractitioner : Page
     {
+        private List<string> genderList;
 
         public AddPractitioner()
         {
             InitializeComponent();
+            genderList = new List<string>
+            {
+                "Masculino",
+                "Femenino",
+                "Otro"
+            };
+            practitionerGender.ItemsSource = genderList;
+
+            IndigenousLanguageDAO practitionerLanguageDao = new IndigenousLanguageDAO();
+            List<IndigenousLanguage> indigenousLanguageList = practitionerLanguageDao.GetAllIndigenousLanguages();
+            practitionerLanguageList.ItemsSource = indigenousLanguageList;
+
+            AcademicDAO academicDao = new AcademicDAO();
+            List<Academic> academicList = academicDao.GetAllAcademic();
+            practitionerAcademicList.ItemsSource = academicList;
+
+            ScholarPeriodDAO schoolPeriodDao = new ScholarPeriodDAO();
+            List<ScholarPeriod> schoolPeriodList = schoolPeriodDao.GetAllScholarPeriods();
+            practitionerSchoolPeriodList.ItemsSource = schoolPeriodList;
         }
 
-        private void Cancel(object sender, RoutedEventArgs e)
+        private void CancelAddNewPractitioner(object sender, RoutedEventArgs e)
         {
-
-            MessageBoxResult coordinatorAnswer = MessageBox.Show("¿Seguro que desea cancelar?", "Cancelar registrar practicante",
-                MessageBoxButton.OKCancel, MessageBoxImage.Question);
-
-            if (coordinatorAnswer == MessageBoxResult.OK)
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
+            
+            if (cancelConfirmation)
             {
                 NavigationService.GoBack();
             }
-
         }
 
-        /*
-        private IndigenousLanguage asociatedIndigenousLanguage()
+        private BusinessDomain.Practitioner GetPractitonerData()
         {
-            object asociatedLanguage = indigenousLanguageDataControl.FindName("IndigenousLanguage");
-            IndigenousLanguage linkedIndigenousLanguage = (( asociatedLanguage as ComboBox).SelectedItem as IndigenousLanguage);
+            IndigenousLanguage practitionerLanguage = practitionerLanguageList.SelectedItem as IndigenousLanguage;
+            Academic linkedAcademic = practitionerAcademicList.SelectedItem as Academic;
+            ScholarPeriod practitionerPeriod = practitionerSchoolPeriodList.SelectedItem as ScholarPeriod;
 
-            return linkedOrganization;
-        }
+            HashManagement hashManager = new HashManagement();
+            
+            String encryptedPassword = hashManager.TextToHash(practitionerEnrollment.Text);
 
-        private Project GetProject()
-        {
-            object responsableName = projectResponsableControl.FindName("responsableName");
-            object responsableCharge = projectResponsableControl.FindName("responsableCharge");
-            object responsableEmail = projectResponsableControl.FindName("responsableEmail");
-            object responsableTelephone = projectResponsableControl.FindName("responsableTelephone");
-
-            object projectName = dataProjectControl.FindName("projectName");
-            object projectDescription = dataProjectControl.FindName("projectDescription");
-            object projectGeneralGoals = dataProjectControl.FindName("projectGeneralGoals");
-            object inmediateGoals = dataProjectControl.FindName("inmediateGoals");
-            object mediateGoals = dataProjectControl.FindName("mediateGoals");
-            object metology = dataProjectControl.FindName("metology");
-            object neededResources = dataProjectControl.FindName("neededResources");
-            object responsabilities = dataProjectControl.FindName("responsabilities");
-            object duration = dataProjectControl.FindName("duration");
-            object directUserNumber = dataProjectControl.FindName("directUserNumber");
-            object indirectUserNumber = dataProjectControl.FindName("indirectUserNumber");
-            object developmentStage = dataProjectControl.FindName("developmentStages");
-            object practitionerNumber = dataProjectControl.FindName("practitionerNumber");
-            int practitionerNum = Convert.ToInt32((practitionerNumber as TextBox).Text);
-
-            Project project = new Project
+            BusinessDomain.Practitioner newPractitioner = new BusinessDomain.Practitioner
             {
-                ResponsableName = (responsableName as TextBox).Text,
-                ResponsableCharge = (responsableCharge as TextBox).Text,
-                ResponsableEmail = (responsableEmail as TextBox).Text,
-                ResponsableTelephone = (responsableTelephone as TextBox).Text,
-
-                Name = (projectName as TextBox).Text,
-                GeneralDescription = (projectDescription as TextBox).Text,
-                GeneralGoal = (projectGeneralGoals as TextBox).Text,
-                InmediateGoals = (inmediateGoals as TextBox).Text,
-                MediateGoals = (mediateGoals as TextBox).Text,
-                Metology = (metology as TextBox).Text,
-                NeededResources = (neededResources as TextBox).Text,
-                Responsabilities = (responsabilities as TextBox).Text,
-                Duration = (duration as TextBox).Text,
-                DirectUsersNumber = (directUserNumber as TextBox).Text,
-                IndirectUsersNumber = (indirectUserNumber as TextBox).Text,
-                BelongsTo = ((developmentStage as ComboBox).SelectedItem as DevelopmentStage),
-                PractitionerNumber = practitionerNum,
-
-                ProposedBy = GetLinkedOrganization(),
-                ProjectActivities = projectActivityControl.GetProjectActivities()
+                Matricula = practitionerEnrollment.Text,
+                Password = encryptedPassword,
+                Names = practitionerNames.Text,
+                LastName = practitionerSurnames.Text,
+                Gender = practitionerGender.Text,
+                Speaks = practitionerLanguage,
+                Instructed = linkedAcademic,
+                ScholarPeriod = practitionerPeriod
             };
-
-            return project;
+            return newPractitioner;
         }
 
         private bool AreFieldsEmpty()
         {
             bool areEmpty = false;
 
-            if (linkedOrganizationControl.IsNotSelected() ||
-                dataProjectControl.AreFieldsEmpty() ||
-                projectResponsableControl.AreFieldsEmpty() ||
-                dataProjectControl.AreFieldsEmpty() ||
-                projectActivityControl.AreThereNotActivities()
-             )
+            if (
+                practitionerData.Children.OfType<StackPanel>().Any(
+                    practitionerSections => practitionerSections.Children.OfType<TextBox>().Any(
+                        practitionerFields => String.IsNullOrWhiteSpace(practitionerFields.Text)
+                    )
+                )
+                ||
+                practitionerLanguageList.SelectedItem == null || practitionerAcademicList.SelectedItem == null ||
+                practitionerSchoolPeriodList.SelectedItem == null
+            )
             {
                 areEmpty = true;
             }
-
+            
             return areEmpty;
         }
 
-        private bool AreFieldsWrong()
+        private void AddNewPractitioner(object sender, RoutedEventArgs e)
         {
-            bool areWrong = false;
-
-            if (projectResponsableControl.AreFieldsWrong() ||
-                dataProjectControl.AreFieldsWrong()
-            )
-            {
-                areWrong = true;
-            }
-
-            return areWrong;
-        }
-
-        private void AddNewProject(object sender, RoutedEventArgs e)
-        {
-
             if (AreFieldsEmpty())
             {
-                MessageBox.Show("Uno o varios campos están vacíos. Por favor ingresa los datos necesarios.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (AreFieldsWrong())
-            {
-                MessageBox.Show("La información en uno o varios campos es incorrecta. Por favor verifica la información.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
             else
             {
-                bool isSaved = SaveProject();
+                bool isSaved = SavePractitioner();
 
                 if (isSaved)
                 {
-                    MessageBox.Show("Proyecto fue registrado exitosamente.", "Éxito",
-                        MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    ClearFields();
+                    DialogWindowManager.ShowSuccessWindow("El practicante fue registrado exitosamente.");
+
+                    NavigationService.GoBack();
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo registrar el proyecto. Intente de nuevo.", "Error",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    DialogWindowManager.ShowConnectionErrorWindow();
                 }
             }
-
         }
 
-        private bool SaveProject()
+        private bool SavePractitioner()
         {
-            bool isAdded;
-            ManageProject manageProject = new ManageProject();
+            bool isPractitionerSaved = false;
+            
+            BusinessDomain.Practitioner newPractitioner = GetPractitonerData();
 
-            Project newProject = GetProject();
+            ManagePractitioner managePractitioner = new ManagePractitioner();
 
-            isAdded = manageProject.SaveProject(newProject);
+            isPractitionerSaved = managePractitioner.AddPractitioner(newPractitioner);
 
-            return isAdded;
+            return isPractitionerSaved;
+            
         }
 
-        private void ClearFields()
+        private void IsPersonName(object sender, TextCompositionEventArgs e)
         {
-            linkedOrganizationControl.UnSelectLinkedOrganization();
-            dataProjectControl.ClearFields();
-            projectResponsableControl.ClearFields();
-            dataProjectControl.ClearFields();
-            projectActivityControl.DeleteActivities();
+            if (!ValidatorText.IsPersonName(e.Text))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+
+        }   
+
+        private void CleanTextFields()
+        {
+            practitionerEnrollment.Clear();
+            practitionerNames.Clear();
+            practitionerSurnames.Clear();
+            practitionerGender.SelectedItem = null;
+            practitionerLanguageList.SelectedItem = null;
+            practitionerAcademicList.SelectedItem = null;
+            practitionerSchoolPeriodList.SelectedItem = null;
         }
-        */
     }
 }
