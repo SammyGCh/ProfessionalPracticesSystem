@@ -19,7 +19,7 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class CoordinatorHome : Page
     {
-        public CoordinatorHome(Academic userCoordinator)
+        public CoordinatorHome()
         {
             InitializeComponent();
         }
