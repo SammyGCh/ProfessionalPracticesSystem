@@ -1,5 +1,5 @@
 ﻿/*
-        Date: 15/06/2020                              
+        Date: 25/06/2020                              
         Author:Ricardo Moguel Sanchez
  */
 using System;
@@ -16,23 +16,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
-using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
+using DataAccess.Implementation;
 using GUI_WPF.Windows;
+
 namespace GUI_WPF.Pages.Coordinator
 {
     /// <summary>
-    /// Interaction logic for AddPractitioner.xaml
+    /// Interaction logic for UpdatePractitioner.xaml
     /// </summary>
-    public partial class AddPractitioner : Page
+    public partial class UpdatePractitioner : Page
     {
         private List<string> genderList;
 
-        public AddPractitioner()
+        public UpdatePractitioner(String matricula)
         {
             InitializeComponent();
+
             genderList = new List<string>
             {
                 "Masculino",
@@ -40,6 +41,9 @@ namespace GUI_WPF.Pages.Coordinator
                 "Otro"
             };
             practitionerGender.ItemsSource = genderList;
+
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+            BusinessDomain.Practitioner updatedPractitioner = new BusinessDomain.Practitioner();
 
             IndigenousLanguageDAO practitionerLanguageDao = new IndigenousLanguageDAO();
             List<IndigenousLanguage> indigenousLanguageList = practitionerLanguageDao.GetAllIndigenousLanguages();
@@ -52,28 +56,35 @@ namespace GUI_WPF.Pages.Coordinator
             ScholarPeriodDAO schoolPeriodDao = new ScholarPeriodDAO();
             List<ScholarPeriod> schoolPeriodList = schoolPeriodDao.GetAllScholarPeriods();
             practitionerSchoolPeriodList.ItemsSource = schoolPeriodList;
+
+            this.DataContext = updatedPractitioner;
+            practitionerGender.Text = updatedPractitioner.Gender;
+            practitionerLanguageList.Text = updatedPractitioner.Speaks.IndigenousLanguageName;
+            practitionerAcademicList.Text = updatedPractitioner.Instructed.LastName;
+            practitionerSchoolPeriodList.Text = updatedPractitioner.ScholarPeriod.Name;
+
+            practitionerNames.Text = updatedPractitioner.Names;
+            practitionerSurnames.Text = updatedPractitioner.LastName;
         }
 
-        private void CancelAddNewPractitioner(object sender, RoutedEventArgs e)
+        private void CancelUpdatePractitioner(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
-            
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar actualizar el practicante?");
+
             if (cancelConfirmation)
             {
                 NavigationService.GoBack();
             }
         }
 
-        private BusinessDomain.Practitioner GetPractitonerData()
+        private BusinessDomain.Practitioner GetUpdatedPractitonerData()
         {
             IndigenousLanguage practitionerLanguage = practitionerLanguageList.SelectedItem as IndigenousLanguage;
             Academic linkedAcademic = practitionerAcademicList.SelectedItem as Academic;
             ScholarPeriod practitionerPeriod = practitionerSchoolPeriodList.SelectedItem as ScholarPeriod;
 
-            BusinessDomain.Practitioner newPractitioner = new BusinessDomain.Practitioner
+            BusinessDomain.Practitioner updatedNewPractitioner = new BusinessDomain.Practitioner
             {
-                Matricula = practitionerEnrollment.Text,
-                Password = practitionerEnrollment.Text,
                 Names = practitionerNames.Text,
                 LastName = practitionerSurnames.Text,
                 Gender = practitionerGender.Text,
@@ -81,7 +92,7 @@ namespace GUI_WPF.Pages.Coordinator
                 Instructed = linkedAcademic,
                 ScholarPeriod = practitionerPeriod
             };
-            return newPractitioner;
+            return updatedNewPractitioner;
         }
 
         private bool AreFieldsEmpty()
@@ -101,11 +112,11 @@ namespace GUI_WPF.Pages.Coordinator
             {
                 areEmpty = true;
             }
-            
+
             return areEmpty;
         }
 
-        private void AddNewPractitioner(object sender, RoutedEventArgs e)
+        private void UpdatePractitionerData(object sender, RoutedEventArgs e)
         {
             if (AreFieldsEmpty())
             {
@@ -113,11 +124,11 @@ namespace GUI_WPF.Pages.Coordinator
             }
             else
             {
-                bool isSaved = SavePractitioner();
+                bool isSaved = SaveUpdatedPractitioner();
 
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El practicante fue registrado exitosamente.");
+                    DialogWindowManager.ShowSuccessWindow("El practicante fue actualizado exitosamente.");
 
                     NavigationService.GoBack();
                 }
@@ -128,18 +139,18 @@ namespace GUI_WPF.Pages.Coordinator
             }
         }
 
-        private bool SavePractitioner()
+        private bool SaveUpdatedPractitioner()
         {
-            bool isPractitionerSaved = false;
-            
-            BusinessDomain.Practitioner newPractitioner = GetPractitonerData();
+            bool isUpdatedPractitionerSaved = false;
+
+            BusinessDomain.Practitioner changedPractitioner = GetUpdatedPractitonerData();
 
             ManagePractitioner managePractitioner = new ManagePractitioner();
 
-            isPractitionerSaved = managePractitioner.AddPractitioner(newPractitioner);
+            isUpdatedPractitionerSaved = managePractitioner.UpdatePractitioner(changedPractitioner);
 
-            return isPractitionerSaved;
-            
+            return isUpdatedPractitionerSaved;
+
         }
 
         private void IsPersonName(object sender, TextCompositionEventArgs e)
@@ -153,7 +164,7 @@ namespace GUI_WPF.Pages.Coordinator
                 e.Handled = false;
             }
 
-        }   
+        }
 
         private void CleanTextFields()
         {

@@ -9,10 +9,12 @@ namespace BusinessDomain
 {
 	public class IndigenousLanguage
 	{
-    	private int idIndigenousLanguage;
+        
+        private int idIndigenousLanguage;
   		private String indigenousLanguageName;
+        private int status;
 
-    	public int IdIndigenousLanguage
+        public int IdIndigenousLanguage
     	{
         	get => idIndigenousLanguage;
 			set => idIndigenousLanguage = value;
@@ -23,5 +25,11 @@ namespace BusinessDomain
         	get => indigenousLanguageName;
             set => indigenousLanguageName = value;
 		}
-	}
+
+        public int Status
+        {
+            get => status;
+            set => status = value;
+        }
+    }
 }

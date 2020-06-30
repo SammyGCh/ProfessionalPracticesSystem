@@ -2,6 +2,7 @@
     Date: 09/04/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */
+using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using BusinessDomain;
@@ -212,6 +213,58 @@ namespace DataAccess.Implementation
             }
 
             return academicList;
+        }
+
+        public Academic GetAcademicByLastName(String academicSurname)
+        {
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM Academic WHERE lastname = @academicSurname"
+                };
+
+                MySqlParameter academicLastName = new MySqlParameter("@academicName", MySqlDbType.VarChar, 60)
+                {
+                    Value = academicSurname
+                };
+                query.Parameters.Add(academicLastName);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    academic = new Academic
+                    {
+                        IdAcademic = reader.GetInt32(0),
+                        PersonalNumber = reader.GetString(1),
+                        Names = reader.GetString(2),
+                        Cubicle = reader.GetString(3),
+                        LastName = reader.GetString(4),
+                        Gender = reader.GetString(5),
+                        Password = reader.GetString(6),
+                        BelongTo = belongsto.GetAcademicTypeById(reader.GetInt32(7)),
+                        Shift = reader.GetString(8),
+                        Status = reader.GetInt32(9)
+                    };
+
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/GetAllAcademic:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return academic;
         }
 
         public bool SaveAcademic(Academic academic)

@@ -18,7 +18,7 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class CoordinatorHome : Page
     {
-        public CoordinatorHome(Academic userCoordinator)
+        public CoordinatorHome()
         {
             InitializeComponent();
         }
@@ -33,8 +33,18 @@ namespace GUI_WPF.Pages.Coordinator
             NavigationService.Navigate(new AddProject());
         }
 
+        private void RegisterPractitioner(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddPractitioner());
+        }
+
+        private void CheckPractioners(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RegisteredPractitionerList());
+        }
+
         private void CheckOrg(object sender, RoutedEventArgs e)
-        { 
+        {
             NavigationService.Navigate(new LinkedOrganizationsList());
         }
 
@@ -42,6 +52,7 @@ namespace GUI_WPF.Pages.Coordinator
         {
             NavigationService.Navigate(new ProjectsConsult());
         }
+
 
         private void RegisterOrganization(object sender, RoutedEventArgs e)
         {
@@ -57,6 +68,11 @@ namespace GUI_WPF.Pages.Coordinator
         private void GoToRequests(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Requests());
+        }
+
+        private void CheckPractitionerButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -20,6 +20,7 @@ using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -43,36 +44,52 @@ namespace GUI_WPF.Pages.Coordinator
             }
         }
 
-        private bool AreFieldsEmpty()
+
+        private void InputTextChanged(Object sender, RoutedEventArgs e)
         {
-            bool areEmpty = false;
-
-            if (organizationName == null||organizationState == null ||
-                organizationPhone == null || organizationEmail == null || 
-                organizationCity == null || organizationAddress == null || sectorsList == null)
+            if (organizationName.Text.Length == 0 || organizationState.Text.Length == 0 ||
+                organizationPhone.Text.Length == 0 || organizationEmail.Text.Length == 0 ||
+                organizationCity.Text.Length == 0 || organizationAddress.Text.Length == 0 || sectorsList.Text.Length == 0)
             {
-                areEmpty = true;
-            }
-
-            return areEmpty;
-        }
-
-        private void AddNewOrganization(object sender, RoutedEventArgs e)
-        {
-            if (AreFieldsEmpty() == true)
-            {
-                MessageBoxResult emptyFieldsBox = System.Windows.MessageBox.Show("1 o mas casillas se encuentran vacias.Porfavor llene todas", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                registerButton.IsEnabled = false;
             }
             else
             {
+                registerButton.IsEnabled = true;
+            }
+        }
+
+        private bool IsEmpty()
+        {
+            bool empyFields = true;
+            if (organizationName.Text.Length == 0 || organizationState.Text.Length == 0 ||
+                organizationPhone.Text.Length == 0 || organizationEmail.Text.Length == 0 ||
+                organizationCity.Text.Length == 0 || organizationAddress.Text.Length == 0 || sectorsList.Text.Length == 0)
+            {
+                empyFields = true;
+            }
+            else
+            {
+                empyFields = false;
+            }
+
+            return empyFields;
+        }
+        private void AddNewOrganization(object sender, RoutedEventArgs e)
+        {
+            if (IsEmpty() == true)
+            {
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
+            }
+            else
+            {
+
                 MessageBoxResult question = System.Windows.MessageBox.Show("¿Está seguro de guardar la organizacion?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (question == MessageBoxResult.Yes)
                 {
 
-                    OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
                     String sectorName = sectorsList.Text;
-                    OrganizationSector sectorOrg = sectorDao.GetOrganizationSectorByName(sectorName);
 
                     LinkedOrganization newOrganization = new LinkedOrganization
                     {
@@ -82,12 +99,12 @@ namespace GUI_WPF.Pages.Coordinator
                         Email = organizationEmail.Text,
                         City = organizationCity.Text,
                         Address = organizationAddress.Text,
-                        BelongsTo = sectorOrg
+                        BelongsTo = null
                     };
 
                     ManageOrganization manageOrganization = new ManageOrganization();
 
-                    bool check = manageOrganization.OrganizationSave(newOrganization);
+                    bool check = manageOrganization.OrganizationSave(newOrganization, sectorName);
 
                     if (check == true)
                     {

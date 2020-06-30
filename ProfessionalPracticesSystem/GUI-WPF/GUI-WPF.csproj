@@ -115,6 +115,15 @@
     <Compile Include="Pages\Coordinator\Requests.xaml.cs">
       <DependentUpon>Requests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Coordinator\DisplayPractitioner.xaml.cs">
+      <DependentUpon>DisplayPractitioner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\RegisteredPractitionerList.xaml.cs">
+      <DependentUpon>RegisteredPractitionerList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\UpdatePractitioner.xaml.cs">
+      <DependentUpon>UpdatePractitioner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageMannagerNavigation.cs" />
     <Compile Include="UserControls\Practitioner\PractitionerDataControl.xaml.cs">
       <DependentUpon>PractitionerDataControl.xaml</DependentUpon>
@@ -133,6 +142,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Coordinator\Requests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\DisplayPractitioner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\RegisteredPractitionerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Coordinator\UpdatePractitioner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

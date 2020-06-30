@@ -133,7 +133,66 @@ namespace DataAccess.Implementation
 
             return practitionerList;
         }
-        
+
+        public List<Practitioner> GetAllPractitionerByMatricula()
+        {
+            belogsTo = new ScholarPeriodDAO();
+            speaks = new IndigenousLanguageDAO();
+            academic = new AcademicDAO();
+            assigned = new ProjectDAO();
+            try
+            {
+                practitionerList = new List<Practitioner>();
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM Practitioner ORDER BY MATRICULA ASC"
+                };
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    practitioner = new Practitioner
+                    {
+                        IdPractitioner = reader.GetInt32(0),
+                        Matricula = reader.GetString(1),
+                        Password = reader.GetString(2),
+                        Gender = reader.GetString(4),
+                        Names = reader.GetString(5),
+                        LastName = reader.GetString(6),
+                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
+                        Status = reader.GetInt32(9),
+                        Instructed = academic.GetAcademic(reader.GetInt32(10)),
+                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
+                    };
+
+                    if (!reader.IsDBNull(8))
+                    {
+                        practitioner.Grade = reader.GetString(3);
+                    }
+
+                    if (!reader.IsDBNull(8))
+                    {
+                        practitioner.Assigned = assigned.GetProjectById(reader.GetInt32(8));
+                    }
+
+                    practitionerList.Add(practitioner);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/GetAllPractitioner:", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return practitionerList;
+        }
+
         public List<Practitioner> GetAllPractitionerByindigenousLanguage()
         {
             belogsTo = new ScholarPeriodDAO();
@@ -326,19 +385,35 @@ namespace DataAccess.Implementation
                         IdPractitioner = reader.GetInt32(0),
                         Matricula = reader.GetString(1),
                         Password = reader.GetString(2),
-                        Grade = reader.GetString(3),
                         Gender = reader.GetString(4),
                         Names = reader.GetString(5),
                         LastName = reader.GetString(6),
-                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
-                        Status = reader.GetInt32(9),
-                        Instructed = academic.GetAcademic(reader.GetInt32(10)),
-                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
+                        Status = reader.GetInt32(9)
+                        
                     };
+
+                    if (!reader.IsDBNull(3))
+                    {
+                        practitioner.Grade = reader.GetString(3);
+                    }
+
+                    if (!reader.IsDBNull(7))
+                    {
+                        practitioner.Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7));
+                    }
 
                     if (!reader.IsDBNull(8))
                     {
                         practitioner.Assigned = assigned.GetProjectById(reader.GetInt32(8));
+                    }
+
+                    if (!reader.IsDBNull(10))
+                    {
+                        practitioner.Instructed = academic.GetAcademic(reader.GetInt32(10));
+                    }
+                    if (!reader.IsDBNull(11))
+                    {
+                        practitioner.ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11));
                     }
                 }
             }
@@ -627,6 +702,46 @@ namespace DataAccess.Implementation
                 };
 
                 query.Parameters.Add(idpractitioner);
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/UpdatePractitionerGrade:", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
+
+        public bool UpdatePractitionerData(Practitioner updatedPractitionerData)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "UPDATE Practitioner SET matricula = @matricula, gender = @gender, " +
+                    "names = @names, lastName = @lastName, idIndigenousLanguage =@idIndigenousLanguage, " +
+                    "idAcademic =@idAcademic, idScholarPeriod = @idScholarPeriod " +
+                    "WHERE idPractitioner = @idPractitioner"
+                };
+
+                query.Parameters.Add("@matricula", MySqlDbType.VarChar, 9).Value = updatedPractitionerData.Matricula;
+                query.Parameters.Add("@gender", MySqlDbType.VarChar, 10).Value = updatedPractitionerData.Gender;
+                query.Parameters.Add("@names", MySqlDbType.VarChar, 60).Value = updatedPractitionerData.Names;
+                query.Parameters.Add("@lastName", MySqlDbType.VarChar, 60).Value = updatedPractitionerData.LastName;
+                query.Parameters.Add("@idIndigenousLanguage", MySqlDbType.Int32, 2).Value = updatedPractitionerData.Speaks.IdIndigenousLanguage;
+                query.Parameters.Add("@idAcademic", MySqlDbType.Int32, 2).Value = updatedPractitionerData.Instructed.IdAcademic;
+                query.Parameters.Add("@idScholarPeriod", MySqlDbType.Int32, 2).Value = updatedPractitionerData.ScholarPeriod.IdScholarPeriod;
+                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = updatedPractitionerData.IdPractitioner;
 
                 query.ExecuteNonQuery();
                 isUpdated = true;
