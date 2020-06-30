@@ -23,11 +23,6 @@ namespace GUI_WPF.Pages.Coordinator
             InitializeComponent();
         }
 
-        public CoordinatorHome()
-        {
-            InitializeComponent();
-        }
-
         private void AddProject(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AddProject());
