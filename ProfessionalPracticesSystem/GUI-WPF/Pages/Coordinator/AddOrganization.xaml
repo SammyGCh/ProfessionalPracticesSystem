@@ -53,7 +53,7 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="15,0,168.2,0" Height="25">
                             <TextBlock Text="Correo electrónico (*): " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="organizationEmail" Width="402" />
+                            <TextBox x:Name="organizationEmail" Width="402" TextChanged="InputTextChanged"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
@@ -70,7 +70,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="20" Width="750">
-                    <Button x:Name="registerButton" Width="115" Margin="240,0,0,0" Cursor="Hand" IsEnabled="True" 
+                    <Button x:Name="registerButton" Width="115" Margin="240,0,0,0" Cursor="Hand" IsEnabled="False" 
                             Click="AddNewOrganization">
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>

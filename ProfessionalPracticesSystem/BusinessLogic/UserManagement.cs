@@ -13,9 +13,14 @@ namespace BusinessLogic
 {
     public class UserManagement
     {
-        private PractitionerDAO practitionerDao;
-        private AcademicDAO academicDao;
-        private AdministratorDAO administratorDao;
+        private static PractitionerDAO practitionerDao;
+        private static AcademicDAO academicDao;
+        private static AdministratorDAO administratorDao;
+        private const int NO_USER = 0;
+        private const int PRACTITIONER_USER = 1;
+        private const int COORDINADOR_USER = 2;
+        private const int PROFESOR_USER = 3;
+        private const int ADMINISTRATOR_USER = 4;
 
         public UserManagement()
         {
@@ -83,25 +88,46 @@ namespace BusinessLogic
             userDetector = IsPractitioner(username);
             if(userDetector == true)
             {
-                return 1;
+                return PRACTITIONER_USER;
             }
 
             userDetector = IsCoordinator(username);
             if (userDetector == true)
             {
-                return 2;
+                return COORDINADOR_USER;
             }
             userDetector = IsProfesor(username);
             if (userDetector == true)
             {
-                return 3;
+                return PROFESOR_USER;
             }
             userDetector = IsAdministrator(username);
             if (userDetector == true)
             {
-                return 4;
+                return ADMINISTRATOR_USER;
             }
-            return 0;
+            return NO_USER;
+        }
+
+        public static string GetUserName(int userNumber, string userName)
+        {
+            string userCompleteName=" ";
+            switch (userNumber)
+            {
+                case 1:
+                    Practitioner practitioner = practitionerDao.GetPractitionerByMatricula(userName);
+                    userCompleteName = practitioner.Names + " " + practitioner.LastName;
+                    break;
+                case 2:
+                    Academic coordinator = academicDao.GetAcademicByPersonalNumber(userName);
+                    userCompleteName = coordinator.Names + " " + coordinator.LastName;
+                    break;
+                case 3:
+                    Academic professor = academicDao.GetAcademicByPersonalNumber(userName);
+                    userCompleteName = professor.Names + " " + professor.LastName;
+                    break;
+            }
+            return userCompleteName;
         }
     }
 }

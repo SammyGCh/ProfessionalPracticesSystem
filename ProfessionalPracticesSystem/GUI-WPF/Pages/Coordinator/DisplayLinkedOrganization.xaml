@@ -43,7 +43,8 @@
             <TextBlock HorizontalAlignment="Left" Margin="602,467,0,0" TextWrapping="Wrap" 
             Grid.Row="2" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="461" Grid.Column="1"><Run Text="Practicantes afiliados"/><LineBreak/><Run/></TextBlock>
 
-            <DataGrid x:Name="projectsList" HorizontalAlignment="Left" Height="370" Margin="200,577,0,0" Grid.Row="2" VerticalAlignment="Top" Width="461" Grid.ColumnSpan="2" ItemsSource="{Binding Path=projects}" Background="White" BorderBrush="#89000000" Foreground="Black" HeadersVisibility="None">
+            <DataGrid x:Name="projectsList" HorizontalAlignment="Left" Height="370" Margin="200,577,0,0" Grid.Row="2" VerticalAlignment="Top" Width="461" Grid.ColumnSpan="2" ItemsSource="{Binding Path=projects}" 
+                      CanUserAddRows="false" Background="White" BorderBrush="#89000000" Foreground="Black" HeadersVisibility="None" HorizontalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>
                     <DataGridHyperlinkColumn  Width ="1000" MinWidth="1000" MaxWidth="1000" 
                         Binding="{Binding Name}" CanUserResize="False" CanUserSort="False" 
@@ -58,10 +59,10 @@
                     </DataGridHyperlinkColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="practitionerList" HorizontalAlignment="Left" Height="370" Margin="602,577,0,0" Grid.Row="2" VerticalAlignment="Top" Width="461" ItemsSource="{Binding Path=practitioners}" Grid.Column="1" HeadersVisibility="None">
+            <DataGrid x:Name="practitionerList" HorizontalAlignment="Center" Height="370" Margin="602,577,0,0" Grid.Row="2" VerticalAlignment="Top" Width="461" ItemsSource="{Binding Path=practitioners}" 
+                      CanUserAddRows="false" Grid.Column="1" HeadersVisibility="None" HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridHyperlinkColumn  Width ="1000" MinWidth="1000" MaxWidth="1000" Binding="{Binding Names}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
-
                     </DataGridHyperlinkColumn>
                 </DataGrid.Columns>
             </DataGrid>

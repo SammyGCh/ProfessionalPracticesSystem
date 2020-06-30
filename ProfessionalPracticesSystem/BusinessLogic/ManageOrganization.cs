@@ -19,10 +19,12 @@ namespace BusinessLogic
             linkedOrganization = new LinkedOrganizationDAO();
         }
 
-        public bool OrganizationSave(LinkedOrganization newOrganization)
+        public bool OrganizationSave(LinkedOrganization newOrganization, string sectorName)
         {
             bool isSaved = false;
-
+            OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
+            OrganizationSector sectorOrg = sectorDao.GetOrganizationSectorByName(sectorName);
+            newOrganization.BelongsTo = sectorOrg;
             isSaved = linkedOrganization.SaveLinkedOrganization(newOrganization);
 
             return isSaved;
