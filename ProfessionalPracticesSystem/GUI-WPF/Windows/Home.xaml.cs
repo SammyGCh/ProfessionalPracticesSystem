@@ -20,8 +20,6 @@ namespace GUI_WPF.Windows
         public Home()
         {
             InitializeComponent();
-            Page homePage = new CoordinatorHome();
-            homeFrame.Content = homePage;
         }
 
         public Home(Page homePage, string userNameFullName)
