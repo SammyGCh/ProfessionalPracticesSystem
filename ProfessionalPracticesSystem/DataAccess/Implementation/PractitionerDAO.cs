@@ -1,4 +1,4 @@
-﻿/*
+/*
     Date: 07/04/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */
@@ -335,7 +335,7 @@ namespace DataAccess.Implementation
             return practitioner;
         }
 
-        public Practitioner GetPractitionerByMatricula(String matriculaP)
+        public Practitioner GetPractitionerByMatricula(string matriculaP)
         {
             belogsTo = new ScholarPeriodDAO();
             speaks = new IndigenousLanguageDAO();

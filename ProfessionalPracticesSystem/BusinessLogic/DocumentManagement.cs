@@ -1,4 +1,4 @@
-﻿/*
+/*
     Date: 01/05/2020
     Author(s) : Angel de Jesus Juarez Garcia
 */
@@ -28,10 +28,6 @@ namespace BusinessLogic
 
         public DocumentManagement()
         {
-
-        public DocumentManagement(){
-
-        }
 
         public bool AddDocument(Document newDocument, String sourcePath)
         {
@@ -636,7 +632,6 @@ namespace BusinessLogic
             }
 
             return isGenerated;
-
         }
     }
 }
