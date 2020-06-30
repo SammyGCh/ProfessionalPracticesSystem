@@ -2,12 +2,12 @@
     Date: 09/04/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */
-using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using BusinessDomain;
 using DataAccess.DataBase;
 using DataAccess.Interfaces;
+using System;
 
 namespace DataAccess.Implementation
 {
@@ -20,7 +20,8 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private int NO_ACTIVE = 0;
+        private int STATUS_NO_ACTIVE = 0;
+        private int STATUS_ACTIVE = 1;
 
         public AcademicDAO()
         {
@@ -44,7 +45,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
                 {
-                    Value = NO_ACTIVE
+                    Value = STATUS_NO_ACTIVE
                 };
 
                 MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
@@ -112,14 +113,17 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
             return academic;
         }
 
-        public Academic GetAcademicByPersonalNumber(string personalNumber)
+        public Academic GetAcademicByPersonalNumber(String personalNumber)
         {
             belongsto = new AcademicTypeDAO();
 
@@ -161,7 +165,10 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
@@ -208,28 +215,35 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
             return academicList;
         }
 
-        public Academic GetAcademicByLastName(String academicSurname)
+        public List<Academic> GetAllActiveAcademic()
         {
+            belongsto = new AcademicTypeDAO();
             try
             {
+                academicList = new List<Academic>();
                 mySqlConnection = connection.OpenConnection();
+
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Academic WHERE lastname = @academicSurname"
+                    CommandText = "SELECT * FROM Academic WHERE Academic.status = @status"
                 };
 
-                MySqlParameter academicLastName = new MySqlParameter("@academicName", MySqlDbType.VarChar, 60)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
                 {
-                    Value = academicSurname
+                    Value = STATUS_ACTIVE
                 };
-                query.Parameters.Add(academicLastName);
+
+                query.Parameters.Add(status);
 
                 reader = query.ExecuteReader();
 
@@ -249,7 +263,9 @@ namespace DataAccess.Implementation
                         Status = reader.GetInt32(9)
                     };
 
+                    academicList.Add(academic);
                 }
+
             }
             catch (MySqlException ex)
             {
@@ -264,7 +280,7 @@ namespace DataAccess.Implementation
                 connection.CloseConnection();
             }
 
-            return academic;
+            return academicList;
         }
 
         public bool SaveAcademic(Academic academic)
@@ -424,6 +440,47 @@ namespace DataAccess.Implementation
             catch (MySqlException ex)
             {
                 LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicDAO: ", ex);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isUpdated;
+        }
+
+        public bool UpdateAcademicPassword(int idAcademic, String password)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "UPDATE Academic SET Academic.password = @newPassword WHERE idAcademic = @idAcademic;"
+                };
+
+                MySqlParameter newPassword = new MySqlParameter("@newPassword", MySqlDbType.VarChar, 255)
+                {
+                    Value = password
+                };
+
+                MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
+                {
+                    Value = idAcademic
+                };
+
+                query.Parameters.Add(newPassword);
+                query.Parameters.Add(idacademic);
+
+                query.ExecuteNonQuery();
+                isUpdated = true;
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/UpdateAcademicPassword:", ex);
             }
             finally
             {
