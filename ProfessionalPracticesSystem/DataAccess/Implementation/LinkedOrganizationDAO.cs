@@ -189,6 +189,7 @@ namespace DataAccess.Implementation
                 {
                     reader.Close();
                 }
+                
                 connection.CloseConnection();
             }
 

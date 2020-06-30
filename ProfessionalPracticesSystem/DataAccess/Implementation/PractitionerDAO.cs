@@ -15,7 +15,7 @@ namespace DataAccess.Implementation
     {
         private List<Practitioner> practitionerList;
         private Practitioner practitioner;
-        private DataBaseConnection connection;
+        private readonly DataBaseConnection connection;
         private IndigenousLanguageDAO speaks;
         private AcademicDAO academic;
         private ProjectDAO assigned;
@@ -23,7 +23,7 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private int NO_ACTIVE = 0;
+        private readonly int NO_ACTIVE = 0;
 
         public PractitionerDAO()
         {
@@ -300,6 +300,56 @@ namespace DataAccess.Implementation
             finally
             {
                 reader.Close();
+                connection.CloseConnection();
+            }
+
+            return practitioner;
+        }
+
+        public Practitioner GetPractitionerPersonalInfo(int idPractitioner)
+        {
+            practitioner = null;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT idPractitioner, names, lastName, matricula FROM Practitioner WHERE Practitioner.idPractitioner = @idPractitioner"
+                };
+
+                MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
+                {
+                    Value = idPractitioner
+                };
+
+                query.Parameters.Add(idpractitioner);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    practitioner = new Practitioner
+                    {
+                        IdPractitioner = reader.GetInt32(0),
+                        Names = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        Matricula = reader.GetString(3),
+                        Password = reader.GetString(2),
+                    };
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/GetPractitioner:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
                 connection.CloseConnection();
             }
 

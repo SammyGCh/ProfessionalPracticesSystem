@@ -9,6 +9,7 @@ using System.Windows.Navigation;
 using GUI_WPF.UserControls.Project;
 using GUI_WPF.Windows;
 using BusinessDomain;
+using System;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -25,6 +26,7 @@ namespace GUI_WPF.Pages.Coordinator
 
             this.sectionSelected = sectionSelected;
             projectSection.Children.Add(this.sectionSelected);
+            
         }
 
         private void CancelUpdate(object sender, RoutedEventArgs e)
@@ -35,9 +37,7 @@ namespace GUI_WPF.Pages.Coordinator
 
             if (wantToCancel)
             {
-                //NavigationService.GoBack();
-                Project projectSelected = sectionSelected.DataContext as Project;
-                PageMannagerNavigation.NavigateTo(this, new ProjectSections(projectSelected));
+                NavigationService.GoBack();               
             }
         }
 
@@ -54,6 +54,14 @@ namespace GUI_WPF.Pages.Coordinator
             else if (sectionSelected is ProjectActivityUpdateControl)
             {
                 (sectionSelected as ProjectActivityUpdateControl).UpdateProjectActivities();
+            }
+        }
+
+        protected virtual void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            if (sectionSelected.Content != null)
+            {
+                
             }
         }
     }

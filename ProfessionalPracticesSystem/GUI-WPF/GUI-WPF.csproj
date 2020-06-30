@@ -104,10 +104,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\ProjectsRequest\RequestSummary.xaml.cs">
+      <DependentUpon>RequestSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowManager.cs" />
     <Page Include="Pages\Administrator\AddAcademic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Pages\Coordinator\Requests.xaml.cs">
+      <DependentUpon>Requests.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Coordinator\DisplayPractitioner.xaml.cs">
       <DependentUpon>DisplayPractitioner.xaml</DependentUpon>
     </Compile>
@@ -124,12 +131,19 @@
     <Compile Include="UserControls\Practitioner\IndigenousLanguageDataControl.xaml.cs">
       <DependentUpon>IndigenousLanguageDataControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ProjectsRequest\ProjectsRequestsControl.xaml.cs">
+      <DependentUpon>ProjectsRequestsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProjectInformation.xaml.cs">
       <DependentUpon>ProjectInformation.xaml</DependentUpon>
     </Compile>
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Coordinator\Requests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Coordinator\DisplayPractitioner.xaml">
       <SubType>Designer</SubType>
@@ -326,6 +340,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ProjectsRequest\ProjectsRequestsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Project\DataProjectControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -367,6 +385,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ProjectInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProjectsRequest\RequestSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

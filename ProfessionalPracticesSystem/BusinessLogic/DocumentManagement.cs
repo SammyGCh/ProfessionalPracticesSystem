@@ -22,7 +22,6 @@ namespace BusinessLogic
 {
     public class DocumentManagement
     {
-
         public DocumentManagement(){
         }
 
@@ -68,8 +67,7 @@ namespace BusinessLogic
             bool isGenerated = false;
             try
             {
-                PdfWriter writer;
-                writer = new PdfWriter(finalPath);
+                PdfWriter writer = new PdfWriter(finalPath);
                 PdfDocument pdfDocument = new PdfDocument(writer);
                 iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
                 document.SetMargins(75, 35, 70, 35);
@@ -94,7 +92,7 @@ namespace BusinessLogic
                 document.Add(new Paragraph("__________________________________________________").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
                 document.Add(new Paragraph("NOMBRE Y FIRMA DEL ALUMNO").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
 
-                document.Close();
+                document.Close();               
                 isGenerated = true;
             }
             catch (IOException ex)
@@ -236,6 +234,56 @@ namespace BusinessLogic
             questionsTable.AddCell(rightColumnCell.AddStyle(styleHeaderText));
 
             return questionsTable;
+        }
+
+        public bool GenerateAsignmentLetter(AssignmentLetter assignmentLetter, String finalPath)
+        {
+            bool isGenerated = false;
+
+            try
+            {
+                /*
+                PdfWriter writer = new PdfWriter(finalPath);
+                PdfDocument pdfDocument = new PdfDocument(writer);
+                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+                document.SetMargins(75, 35, 70, 35);
+
+                String para = "En atención a su solicitud expresada a la Coordinación de Prácticas " +
+                    "Profesionales de la Licenciatura en Ingeniería de Software, hacemos de su conocimiento " +
+                    "que el C. " + assignmentLetter.PractitionerAssigned.Names + " "+ assignmentLetter.PractitionerAssigned.LastName 
+                    + " estudiante de la Licenciatura con matrícula " +
+                    "S15011634, ha sido asignado al proyecto Sistema integral clínico de la clínica " +
+                    "Universitaria Sexual y Reproductiva de la Universidad Veracruzana a su digno cargo a " +
+                    "partir del 13 de Agosto del presente hasta cubrir 200 horas. Cabe mencionar que el " +
+                    "estudiante cuenta con la formación y el perfil para las actividades a desempeñar. ";
+
+                document.Add(new Paragraph(para).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+
+                writer.Close();
+                document.Close();
+                isGenerated = true;
+                */
+
+                PdfWriter writer = new PdfWriter("C:\\Users\\sammy\\Desktop\\prueba.pdf");
+                PdfDocument pdfDocument = new PdfDocument(writer);
+                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+                document.SetMargins(75, 35, 70, 35);
+
+                String letras = "qué pedo banda";
+
+                document.Add(new iText.Layout.Element.Paragraph(letras));
+
+                document.Close();
+                writer.Close();
+                isGenerated = true;
+                
+            }
+            catch (IOException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/GenerateAssigmentLetter", ex);
+            }
+
+            return isGenerated;
         }
     }
 }
