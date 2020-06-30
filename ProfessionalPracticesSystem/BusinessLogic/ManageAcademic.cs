@@ -15,38 +15,45 @@ namespace BusinessLogic
     {
         AcademicDAO academicDAO;
         AcademicTypeDAO academicTypeDAO;
-        bool isActionPerformed;
 
         public ManageAcademic()
         {
-            academicDAO = null;
-            academicTypeDAO = null;
-            isActionPerformed = false;
             academicDAO = new AcademicDAO();
             academicTypeDAO = new AcademicTypeDAO();
         }
 
-        public bool AddAcademic(Academic academic)
+        public bool AddAcademic(Academic newAcademic)
         {
-            Academic newAcademic = academic;
-            isActionPerformed = academicDAO.SaveAcademic(newAcademic);
-            return isActionPerformed;
+            bool isAcademicSaved = false;
+
+            HashManagement hashManager = new HashManagement();
+
+            String encryptedPassword = hashManager.TextToHash(newAcademic.Password);
+            newAcademic.Password = encryptedPassword;
+
+            isAcademicSaved = academicDAO.SaveAcademic(newAcademic);
+            return isAcademicSaved;
+        }
+
+        public bool EliminateAcademic(int idOldAcademic)
+        {
+            bool isAcademicDeleted = false;
+            isAcademicDeleted = academicDAO.DeleteAcademic(idOldAcademic);
+            return isAcademicDeleted;
 
         }
 
-        public bool EliminateAcademic(int idAcademic)
+        public bool UpdateAcademic(Academic changedAcademic)
         {
-            int idOldAcademic = idAcademic;
-            isActionPerformed = academicDAO.DeleteAcademic(idOldAcademic);
-            return isActionPerformed;
+            bool isAcademicUpdated = false;
 
-        }
+            HashManagement hashManager = new HashManagement();
 
-        public bool UpdateAcademic(Academic academic)
-        {
-            Academic changeAcademic = academic;
-            isActionPerformed = academicDAO.UpdateAcademic(changeAcademic);
-            return isActionPerformed;
+            String encryptedPassword = hashManager.TextToHash(changedAcademic.Password);
+            changedAcademic.Password = encryptedPassword;
+
+            isAcademicUpdated = academicDAO.UpdateAcademic(changedAcademic);
+            return isAcademicUpdated;
         }
 
 

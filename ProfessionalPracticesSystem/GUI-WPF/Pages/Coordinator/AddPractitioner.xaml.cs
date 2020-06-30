@@ -70,14 +70,10 @@ namespace GUI_WPF.Pages.Coordinator
             Academic linkedAcademic = practitionerAcademicList.SelectedItem as Academic;
             ScholarPeriod practitionerPeriod = practitionerSchoolPeriodList.SelectedItem as ScholarPeriod;
 
-            HashManagement hashManager = new HashManagement();
-            
-            String encryptedPassword = hashManager.TextToHash(practitionerEnrollment.Text);
-
             BusinessDomain.Practitioner newPractitioner = new BusinessDomain.Practitioner
             {
                 Matricula = practitionerEnrollment.Text,
-                Password = encryptedPassword,
+                Password = practitionerEnrollment.Text,
                 Names = practitionerNames.Text,
                 LastName = practitionerSurnames.Text,
                 Gender = practitionerGender.Text,
