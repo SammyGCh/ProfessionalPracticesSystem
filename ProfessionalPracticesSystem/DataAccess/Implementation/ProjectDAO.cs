@@ -163,11 +163,15 @@ namespace DataAccess.Implementation
                         ResponsableCharge = reader.GetString(15),
                         ResponsableEmail = reader.GetString(16),
                         ResponsableTelephone = reader.GetString(17),
-                        PractitionersAssigned = reader.GetInt32(18),
                         BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(19)),
                         ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20)),
                         ProjectActivities = GetAllProjectActivities(reader.GetInt32(0))
                     };
+
+                    if (!reader.IsDBNull(18))
+                    {
+                        project.PractitionersAssigned = reader.GetInt32(18);
+                    }
 
                     projects.Add(project);
                 }
@@ -227,12 +231,16 @@ namespace DataAccess.Implementation
                         ResponsableName = reader.GetString(14),
                         ResponsableCharge = reader.GetString(15),
                         ResponsableEmail = reader.GetString(16),
-                        ResponsableTelephone = reader.GetString(17),
-                        PractitionersAssigned = reader.GetInt32(18),
+                        ResponsableTelephone = reader.GetString(17),                        
                         BelongsTo = developmentStageHandler.GetDevelopmentStageById(reader.GetInt32(19)),
                         ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(20)),
                         ProjectActivities = GetAllProjectActivities(reader.GetInt32(0))
                     };
+
+                    if (!reader.IsDBNull(18))
+                    {
+                        project.PractitionersAssigned = reader.GetInt32(18);
+                    }
 
                     projects.Add(project);
                 }
@@ -243,7 +251,11 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
                 connection.CloseConnection();
             }
 
@@ -302,7 +314,60 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
+                connection.CloseConnection();
+            }
+
+            return project;
+        }
+
+        public Project GetProjectRequestInfo(int idProject)
+        {
+            project = null;
+            linkedOrganizationHandler = new LinkedOrganizationDAO();
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "SELECT name, generalDescription, idLinkedOrganization, " +
+                    "practitionersAssigned, practitionerNumber FROM Project WHERE " +
+                    "idProject = @idProject"
+                };
+
+                query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = idProject;
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    project = new Project
+                    {
+                        IdProject = idProject,
+                        Name = reader.GetString(0),
+                        GeneralDescription = reader.GetString(1),
+                        ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(2)),
+                        PractitionersAssigned = reader.GetInt32(3),
+                        PractitionerNumber = reader.GetInt32(4)
+                    };
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
                 connection.CloseConnection();
             }
 
@@ -442,7 +507,11 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                activityReader.Close();
+                if (activityReader != null)
+                {
+                    activityReader.Close();
+                }
+
                 connection.CloseConnection();
             }
 

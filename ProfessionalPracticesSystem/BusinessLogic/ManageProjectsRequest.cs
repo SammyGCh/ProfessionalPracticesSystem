@@ -3,9 +3,7 @@
     Author(s): Sammy Guadarrama Chávez
  */
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 using DataAccess.Implementation;
 using BusinessDomain;
 
@@ -13,7 +11,7 @@ namespace BusinessLogic
 {
     public class ManageProjectsRequest
     {
-        private ProjectsRequestDAO projectsRequestDao;
+        private readonly ProjectsRequestDAO projectsRequestDao;
 
         public ManageProjectsRequest()
         {

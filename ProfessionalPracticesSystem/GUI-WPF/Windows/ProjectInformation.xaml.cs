@@ -7,6 +7,7 @@ using GUI_WPF.Pages.Practitioner;
 using System.Linq;
 using System.Windows;
 using BusinessDomain;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Windows
 {
@@ -22,7 +23,7 @@ namespace GUI_WPF.Windows
 
         private void SelectProject(object sender, RoutedEventArgs e)
         {
-            RequestProject requestProjectPage = GetRequestProjectPage();
+            RequestProject requestProjectPage = WindowManager.GetRequestProjectPage();
 
             if (requestProjectPage.AreThreeProjectsSelected())
             {
@@ -39,17 +40,6 @@ namespace GUI_WPF.Windows
                 requestProjectPage.RemoveAvailableProjectSelected(projectSelected);
                 this.Close();
             }         
-        }
-
-        private RequestProject GetRequestProjectPage()
-        {
-            var requestProjectWindow = Application.Current.Windows.Cast<Window>().FirstOrDefault(
-                    window => window is Home
-                ) as Home;
-
-            RequestProject requestProjectPage = requestProjectWindow.homeFrame.Content as RequestProject;
-
-            return requestProjectPage;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

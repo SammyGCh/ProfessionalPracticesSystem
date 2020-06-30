@@ -54,6 +54,12 @@ namespace GUI_WPF.Windows
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        public static void ShowNoEnoughProjectSpaceWindow()
+        {
+            MessageBox.Show("El proyecto ya no tiene cupo para asignar a otro Practicante.",
+                "No hay espacio disponible", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
         public static void ShowEmptyListErrorWindow()
         {
             MessageBox.Show("No se encuentra ninguna entrada registrada.",

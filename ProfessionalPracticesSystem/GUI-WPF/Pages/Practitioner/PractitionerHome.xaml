@@ -39,7 +39,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Height="30" Width="119" Margin="10" Cursor="Hand">
+                    <Button Height="30" Width="119" Margin="10" Cursor="Hand" Click="GoToRequestProject">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>
