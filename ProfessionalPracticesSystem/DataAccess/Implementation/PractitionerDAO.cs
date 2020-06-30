@@ -335,19 +335,35 @@ namespace DataAccess.Implementation
                         IdPractitioner = reader.GetInt32(0),
                         Matricula = reader.GetString(1),
                         Password = reader.GetString(2),
-                        Grade = reader.GetString(3),
                         Gender = reader.GetString(4),
                         Names = reader.GetString(5),
                         LastName = reader.GetString(6),
-                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
-                        Status = reader.GetInt32(9),
-                        Instructed = academic.GetAcademic(reader.GetInt32(10)),
-                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
+                        Status = reader.GetInt32(9)
+                        
                     };
+
+                    if (!reader.IsDBNull(3))
+                    {
+                        practitioner.Grade = reader.GetString(3);
+                    }
+
+                    if (!reader.IsDBNull(7))
+                    {
+                        practitioner.Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7));
+                    }
 
                     if (!reader.IsDBNull(8))
                     {
                         practitioner.Assigned = assigned.GetProjectById(reader.GetInt32(8));
+                    }
+
+                    if (!reader.IsDBNull(10))
+                    {
+                        practitioner.Instructed = academic.GetAcademic(reader.GetInt32(10));
+                    }
+                    if (!reader.IsDBNull(11))
+                    {
+                        practitioner.ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11));
                     }
                 }
             }

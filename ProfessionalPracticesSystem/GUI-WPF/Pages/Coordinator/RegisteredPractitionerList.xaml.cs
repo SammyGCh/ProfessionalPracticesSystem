@@ -52,12 +52,11 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void DisplayPractitionerData(object sender, RoutedEventArgs e)
         {
-
             DataGrid dataGrid = tableOfPractitioners;
             DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
             DataGridCell rowAndColumn = (DataGridCell)dataGrid.Columns[0].GetCellContent(row).Parent;
-            string practitionerName = ((TextBlock)rowAndColumn.Content).Text;
-            NavigationService.Navigate(new DisplayLinkedOrganization(practitionerName));
+            string practitionerMatricula = ((TextBlock)rowAndColumn.Content).Text;            
+            NavigationService.Navigate(new DisplayPractitioner(practitionerMatricula));
 
         }
 
@@ -66,8 +65,8 @@ namespace GUI_WPF.Pages.Coordinator
             DataGrid dataGrid = tableOfPractitioners;
             DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
             DataGridCell rowAndColumn = (DataGridCell)dataGrid.Columns[0].GetCellContent(row).Parent;
-            string practitionerName = ((TextBlock)rowAndColumn.Content).Text;
-            NavigationService.Navigate(new UpdateOrganization(practitionerName));
+            string practitionerMatricula = ((TextBlock)rowAndColumn.Content).Text;
+            NavigationService.Navigate(new UpdatePractitioner(practitionerMatricula));
         }
     }
 }

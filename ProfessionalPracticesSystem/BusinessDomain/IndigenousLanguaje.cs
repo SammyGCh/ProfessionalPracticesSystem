@@ -12,7 +12,7 @@ namespace BusinessDomain
         
         private int idIndigenousLanguage;
   		private String indigenousLanguageName;
-        public int status;
+        private int status;
 
         public int IdIndigenousLanguage
     	{
