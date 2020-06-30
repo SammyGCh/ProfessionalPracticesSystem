@@ -22,6 +22,8 @@ namespace DataAccess.Implementation
         private MySqlDataReader reader;
         private ProjectDAO projectHandler;
         private PractitionerDAO practitionerHandler;
+        private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
+        private const int STATUS_ACTIVE = 1;
 
         public MensualReportDAO()
         {
@@ -33,7 +35,7 @@ namespace DataAccess.Implementation
             reader = null;
             projectHandler = new ProjectDAO();
             practitionerHandler = new PractitionerDAO();
-    }
+        }
 
         public bool InsertMensualReport(MensualReport mensualReport)
         {
@@ -68,6 +70,7 @@ namespace DataAccess.Implementation
 
             return isSaved;
         }
+
         public bool DeleteMensualReport(int idMensualReport)
         {
             bool isDeleted = false;
@@ -101,6 +104,7 @@ namespace DataAccess.Implementation
 
             return isDeleted;
         }
+
         public bool UpdateMensualReport(MensualReport mensualReportUpdate)
         {
             bool isUpdated = false;
@@ -110,10 +114,10 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE MensualReport SET description = @description, monthReportedDate = @monthReportedDate, " +  
+                    CommandText = "UPDATE MensualReport SET description = @description, monthReportedDate = @monthReportedDate, " +
                     "name = @mensualReportName, idProject = @idProject, idPractitioner = @idPractitioner, grade = @grade WHERE idMensualReport = @idMensualReport"
                 };
-                
+
                 query.Parameters.Add("@description", MySqlDbType.LongText, 2000).Value = mensualReportUpdate.Description;
                 query.Parameters.Add("@mensualReportName", MySqlDbType.VarChar, 60).Value = mensualReportUpdate.MensualReportName;
                 query.Parameters.Add("@monthReportedDate", MySqlDbType.VarChar, 20).Value = DateTime.Parse(mensualReportUpdate.MonthReportedDate);
@@ -136,6 +140,7 @@ namespace DataAccess.Implementation
 
             return isUpdated;
         }
+
         public List<MensualReport> GetAllMensualReports()
         {
             mensualReports = new List<MensualReport>();
@@ -163,8 +168,16 @@ namespace DataAccess.Implementation
                         MensualReportName = reader.GetString(3),
                         DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
                         GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
-                        Grade = reader.GetString(6)
                     };
+
+                    if (reader.IsDBNull(6))
+                    {
+                        mensualReport.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        mensualReport.Grade = reader.GetString(6);
+                    }
 
                     mensualReports.Add(mensualReport);
                 }
@@ -182,21 +195,22 @@ namespace DataAccess.Implementation
 
             return mensualReports;
         }
+
         public MensualReport GetMensualReportById(int idMensualReport)
-    	{
-			try
+        {
+            try
             {
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "SELECT * FROM MensualReport WHERE MensualReport.idMensualReport = @idMensualReport"
                 };
-				MySqlParameter id = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
+                MySqlParameter id = new MySqlParameter("@idMensualReport", MySqlDbType.Int32, 2)
                 {
                     Value = idMensualReport
                 };
 
-				query.Parameters.Add(id);
+                query.Parameters.Add(id);
 
                 reader = query.ExecuteReader();
 
@@ -210,8 +224,16 @@ namespace DataAccess.Implementation
                         MensualReportName = reader.GetString(3),
                         DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
                         GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
-                        Grade = reader.GetString(6)
                     };
+
+                    if (reader.IsDBNull(6))
+                    {
+                        mensualReport.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        mensualReport.Grade = reader.GetString(6);
+                    }
                 }
             }
             catch (MySqlException ex)
@@ -225,9 +247,10 @@ namespace DataAccess.Implementation
             }
 
             return mensualReport;
-		}
-		public List<MensualReport> GetAllReportsByPractitioner(int idPractitioner)
-		{
+        }
+
+        public List<MensualReport> GetAllReportsByPractitioner(int idPractitioner)
+        {
             mensualReports = new List<MensualReport>();
             practitionerHandler = new PractitionerDAO();
             projectHandler = new ProjectDAO();
@@ -240,12 +263,12 @@ namespace DataAccess.Implementation
                     CommandText = "SELECT * FROM MensualReport WHERE idPractitioner = @idPractitioner"
                 };
 
-				MySqlParameter id = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
+                MySqlParameter id = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
                 {
                     Value = idPractitioner
                 };
 
-				query.Parameters.Add(id);
+                query.Parameters.Add(id);
                 reader = query.ExecuteReader();
 
                 while (reader.Read())
@@ -258,8 +281,16 @@ namespace DataAccess.Implementation
                         MensualReportName = reader.GetString(3),
                         DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
                         GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
-                        Grade = reader.GetString(6)
                     };
+
+                    if (reader.IsDBNull(6))
+                    {
+                        mensualReport.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        mensualReport.Grade = reader.GetString(6);
+                    }
 
                     mensualReports.Add(mensualReport);
                 }
@@ -276,9 +307,10 @@ namespace DataAccess.Implementation
             }
 
             return mensualReports;
-		}
+        }
+
         public List<MensualReport> GetAllReportsByProject(int idProject)
-		{
+        {
             mensualReports = new List<MensualReport>();
             practitionerHandler = new PractitionerDAO();
             projectHandler = new ProjectDAO();
@@ -291,12 +323,12 @@ namespace DataAccess.Implementation
                     CommandText = "SELECT * FROM MensualReport WHERE idProject = @idProject"
                 };
 
-				MySqlParameter id = new MySqlParameter("@idProject", MySqlDbType.Int32, 2)
+                MySqlParameter id = new MySqlParameter("@idProject", MySqlDbType.Int32, 2)
                 {
                     Value = idProject
                 };
 
-				query.Parameters.Add(id);
+                query.Parameters.Add(id);
                 reader = query.ExecuteReader();
                 while (reader.Read())
                 {
@@ -308,8 +340,17 @@ namespace DataAccess.Implementation
                         MensualReportName = reader.GetString(3),
                         DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
                         GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
-                        Grade = reader.GetString(6)
                     };
+
+                    if (reader.IsDBNull(6))
+                    {
+                        mensualReport.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        mensualReport.Grade = reader.GetString(6);
+                    }
+
                     mensualReports.Add(mensualReport);
                 }
 
@@ -325,6 +366,85 @@ namespace DataAccess.Implementation
             }
 
             return mensualReports;
-		}
-	}
+        }
+
+        public List<MensualReport> GetAllReportsByAcademic(int idAcademic)
+        {
+            mensualReports = new List<MensualReport>();
+            practitionerHandler = new PractitionerDAO();
+            projectHandler = new ProjectDAO();
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT " +
+                    "MensualReport.idMensualReport, " +
+                    "MensualReport.description, " +
+                    "MensualReport.monthReportedDate, " +
+                    "MensualReport.name, " +
+                    "MensualReport.idProject, " +
+                    "MensualReport.idPractitioner, " +
+                    "MensualReport.grade " +
+                    "FROM MensualReport,Practitioner " +
+                    "WHERE  MensualReport.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Practitioner.idAcademic = @idAcademic " +
+                    "AND Practitioner.status = @status"
+                };
+
+                MySqlParameter academic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
+                {
+                    Value = idAcademic
+                };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
+                query.Parameters.Add(academic);
+                query.Parameters.Add(status);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    mensualReport = new MensualReport
+                    {
+                        IdMensualReport = reader.GetInt32(0),
+                        Description = reader.GetString(1),
+                        MonthReportedDate = reader.GetString(2),
+                        MensualReportName = reader.GetString(3),
+                        DerivedFrom = projectHandler.GetProjectById(reader.GetInt32(4)),
+                        GeneratedBy = practitionerHandler.GetPractitioner(reader.GetInt32(5)),
+                    };
+
+                    if (reader.IsDBNull(6))
+                    {
+                        mensualReport.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        mensualReport.Grade = reader.GetString(6);
+                    }
+
+                    mensualReports.Add(mensualReport);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/GetAllReportsByAcademic", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return mensualReports;
+        }
+    }
 }
