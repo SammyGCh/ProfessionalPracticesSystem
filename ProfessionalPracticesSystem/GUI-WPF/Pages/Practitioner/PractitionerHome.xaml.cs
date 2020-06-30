@@ -37,5 +37,10 @@ namespace GUI_WPF.Pages.Practitioner
         {
             NavigationService.Navigate(new Documentation(practitioner));
         }
+
+        private void GoToRequestProject(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RequestProject());
+        }
     }
 }

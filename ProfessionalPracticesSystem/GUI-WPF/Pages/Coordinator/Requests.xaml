@@ -1,0 +1,48 @@
+﻿<Page x:Class="GUI_WPF.Pages.Coordinator.Requests"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:uc="clr-namespace:GUI_WPF.UserControls.ProjectsRequest"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Requests">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Background="White">
+        <StackPanel>
+            <StackPanel>
+                <TextBlock Text="Solicitudes de proyecto" FontSize="30" FontWeight="Bold" Margin="20"/>
+                <TextBlock FontSize="20" Margin="50,0,0,20">
+                    Selecciona el botón <Bold>Asignar</Bold> en el proyecto deseado de un Practicante.
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel>
+                <ItemsControl x:Name="projectsRequestsTemplate">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <uc:ProjectsRequestsControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Width="115" Margin="30">
+                <Button Width="115" Cursor="Hand" Click="GoBack">
+                    <StackPanel Width="100" Orientation="Horizontal" Height="25">
+                        <materialDesign:PackIcon Kind="ArrowBack" Margin="0,3,4,0"/>
+                        <TextBlock Text="Regresar" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

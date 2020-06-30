@@ -6,10 +6,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
-
 using GUI_WPF.Pages.Practitioner;
+using BusinessLogic;
 
 
 namespace GUI_WPF.Pages.Coordinator
@@ -19,6 +18,11 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class CoordinatorHome : Page
     {
+        public CoordinatorHome()
+        {
+            InitializeComponent();
+        }
+
         public CoordinatorHome()
         {
             InitializeComponent();
@@ -57,7 +61,13 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RequestProject());
+            DocumentManagement documentManagement = new DocumentManagement();
+            documentManagement.GenerateAsignmentLetter(new AssignmentLetter(), "");
+        }
+
+        private void GoToRequests(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Requests());
         }
 
         private void CheckPractitionerButton_Click(object sender, RoutedEventArgs e)

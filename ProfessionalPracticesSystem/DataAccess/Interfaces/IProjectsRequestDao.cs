@@ -11,7 +11,7 @@ namespace DataAccess.Interfaces
     public interface IProjectsRequestDAO
     {
         bool SaveProjectsRequest(ProjectsRequest projectsRequest);
-        List<ProjectsRequest> GetAllProjectsRequest();
+        List<ProjectsRequest> GetAllProjectsRequestActive();
         bool UpdateProjectsRequest(int idProjectsRequest);
     }
 }

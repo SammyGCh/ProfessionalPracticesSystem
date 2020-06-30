@@ -15,26 +15,26 @@
 
         <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="0,15,0,0">
             <TextBlock Text="Nombre (*): " Margin="2,2,3,4" FontSize="14" TextAlignment="Right"/>
-            <TextBox x:Name="responsableName" Text="{Binding ResponsableName}" Width="380" 
+            <TextBox x:Name="responsableName" Text="{Binding ResponsableName, Mode=OneWay}" Width="380" 
                      TextChanged="IsName" MaxLength="60"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
             <TextBlock Text="Cargo (*): " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
-            <TextBox x:Name="responsableCharge" Text="{Binding ResponsableCharge}" Width="380" 
+            <TextBox x:Name="responsableCharge" Text="{Binding ResponsableCharge, Mode=OneWay}" Width="380" 
                      TextChanged="ValidateText" MaxLength="60"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Width="480" Margin="15,0,168.2,0" Height="25">
             <TextBlock Text="Correo electrónico (*): " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
-            <TextBox x:Name="responsableEmail" Text="{Binding ResponsableEmail}" Width="300" 
+            <TextBox x:Name="responsableEmail" Text="{Binding ResponsableEmail, Mode=OneWay}" Width="300" 
                      materialDesign:HintAssist.Hint="ejemplo@empresa.com" TextChanged="IsEmail" 
-                     MaxLength="60"/>
+                     MaxLength="60" TextWrapping="Wrap"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
             <TextBlock Text="Teléfono (*): " Margin="0,3,4,1" FontSize="14"/>
-            <TextBox x:Name="responsableTelephone" Text="{Binding ResponsableTelephone}" Width="300" 
+            <TextBox x:Name="responsableTelephone" Text="{Binding ResponsableTelephone, Mode=OneWay}" Width="300" 
                      MaxLength="10" TextCompositionManager.PreviewTextInput="IsTelephoneNumber"/>
         </StackPanel>
     </StackPanel>

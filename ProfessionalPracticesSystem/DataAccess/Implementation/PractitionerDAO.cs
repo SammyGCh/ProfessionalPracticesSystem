@@ -1,4 +1,4 @@
-﻿/*
+/*
     Date: 07/04/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */
@@ -15,7 +15,7 @@ namespace DataAccess.Implementation
     {
         private List<Practitioner> practitionerList;
         private Practitioner practitioner;
-        private DataBaseConnection connection;
+        private readonly DataBaseConnection connection;
         private IndigenousLanguageDAO speaks;
         private AcademicDAO academic;
         private ProjectDAO assigned;
@@ -26,6 +26,9 @@ namespace DataAccess.Implementation
         private const int STATUS_NO_ACTIVE = 0;
         private const int STATUS_ACTIVE = 1;
         private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
+
+        private readonly int NO_ACTIVE = 0;
+
 
         public PractitionerDAO()
         {
@@ -282,7 +285,61 @@ namespace DataAccess.Implementation
             return practitioner;
         }
 
+
         public Practitioner GetPractitionerByMatricula(String matriculaP)
+
+        public Practitioner GetPractitionerPersonalInfo(int idPractitioner)
+        {
+            practitioner = null;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT idPractitioner, names, lastName, matricula FROM Practitioner WHERE Practitioner.idPractitioner = @idPractitioner"
+                };
+
+                MySqlParameter idpractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
+                {
+                    Value = idPractitioner
+                };
+
+                query.Parameters.Add(idpractitioner);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    practitioner = new Practitioner
+                    {
+                        IdPractitioner = reader.GetInt32(0),
+                        Names = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        Matricula = reader.GetString(3),
+                        Password = reader.GetString(2),
+                    };
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/GetPractitioner:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
+                connection.CloseConnection();
+            }
+
+            return practitioner;
+        }
+
+        public Practitioner GetPractitionerByMatricula(string matriculaP)
+
         {
             belogsTo = new ScholarPeriodDAO();
             speaks = new IndigenousLanguageDAO();

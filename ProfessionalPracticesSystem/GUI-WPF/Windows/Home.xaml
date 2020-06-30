@@ -37,7 +37,7 @@
                 <materialDesing:PackIcon Kind="User" Width="40" Height="60" Foreground="White"/>
 
                 <TextBlock x:Name="userName" Text="{Binding userNameFullName}" Foreground="White" VerticalAlignment="Center" 
-                           FontSize="18" HorizontalAlignment="Left" FontWeight="Bold"/>
+                           FontSize="18" HorizontalAlignment="Left" FontWeight="Bold" x:FieldModifier="public"/>
 
                 <materialDesing:PopupBox Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
 
