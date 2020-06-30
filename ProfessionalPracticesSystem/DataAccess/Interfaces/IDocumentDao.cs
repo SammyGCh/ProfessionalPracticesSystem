@@ -12,7 +12,8 @@ namespace DataAccess.Interfaces
     {
         List<Document> GetAllDocument();
         List<Document> GetAllDocumentByPractitioner(int idPractitioner);
-        List<Document> GetAllDocumentByType(int idDocumentType);
+        List<Document> GetAllPartialReportByAcademic(int idAcademic);
+        List<Document> GetAllSelfassessmentByAcademic(int idAcademic);
         Document GetDocument(int idDocument);
         bool SaveDocument(Document document);
         bool DeleteDocument(int idDocument);

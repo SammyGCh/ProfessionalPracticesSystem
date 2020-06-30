@@ -14,11 +14,15 @@ namespace DataAccess.Interfaces
         List<Practitioner> GetAllPractitionerByindigenousLanguage();
         Practitioner GetPractitioner(int idPractitioner);
         Practitioner GetPractitionerByMatricula(string matricula);
+        Practitioner GetPractitionerPersonalInfo(int idPractitioner);
         bool SavePractitioner(Practitioner practitioner);
         bool DeletePractitioner(int idPractitioner);
         List<Practitioner> GetAllPractitionerByAcademic(int idAcademic);
         List<Practitioner> GetAllPractitionerByProject(int idProject);
         List<Practitioner> GetAllPractitionerByLinkedOrganization(int idLinkedOrganization);
         bool UpdatePractitionerGrade(int idPractitioner);
+        bool UpdatePractitioner(Practitioner updatePractitioner);
+        bool UpdatePractitionerPassword(int idPractitioner, String password);
+        bool AssignPractitioner(int idPractitioner, int idProject);
     }
 }

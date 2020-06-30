@@ -31,7 +31,7 @@ namespace DataAccess.Implementation
             reader = null;
         }
 
-        public List<ProjectsRequest> GetAllProjectsRequest()
+        public List<ProjectsRequest> GetAllProjectsRequestActive()
         {
             projectsRequests = new List<ProjectsRequest>();
             ProjectDAO projectsHandler = new ProjectDAO();
@@ -42,8 +42,10 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection) 
                 {
-                    CommandText = "SELECT * FROM ProjectsRequest"
+                    CommandText = "SELECT * FROM ProjectsRequest WHERE status = @status"
                 };
+
+                query.Parameters.Add("@status", MySqlDbType.VarChar, 10).Value = ACTIVE;
 
                 reader = query.ExecuteReader();
 
@@ -58,11 +60,11 @@ namespace DataAccess.Implementation
 
                     projectsRequest.ProjectsRequested = new List<Project>
                     {
-                        projectsHandler.GetProjectById(reader.GetInt32(3)),
-                        projectsHandler.GetProjectById(reader.GetInt32(4)),
-                        projectsHandler.GetProjectById(reader.GetInt32(5))
+                        projectsHandler.GetProjectRequestInfo(reader.GetInt32(3)),
+                        projectsHandler.GetProjectRequestInfo(reader.GetInt32(4)),
+                        projectsHandler.GetProjectRequestInfo(reader.GetInt32(5))
                     };
-                    projectsRequest.RequestedBy = practisingHandler.GetPractitioner(reader.GetInt32(6));
+                    projectsRequest.RequestedBy = practisingHandler.GetPractitionerPersonalInfo(reader.GetInt32(6));
 
                     projectsRequests.Add(projectsRequest);
                 }
@@ -73,7 +75,10 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 

@@ -91,7 +91,10 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
@@ -133,7 +136,10 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
@@ -157,7 +163,7 @@ namespace DataAccess.Implementation
                 };
 
                 query.Parameters.Add(name);
-      
+
                 query.ExecuteNonQuery();
                 isSaved = true;
             }

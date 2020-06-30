@@ -13,6 +13,7 @@ namespace BusinessLogic
     public static class ValidatorText
     {
         private const int MINIMUM_LENGHT = 10;
+        private const int MINIMUM_LENGHT_MENSUAL_REPORT = 200;
 
         public static bool IsUserName(string userName)
         {
@@ -62,6 +63,18 @@ namespace BusinessLogic
             bool isTextRight = false;
 
             if (IsRightExpression(textToValidate) && textToValidate.Length > MINIMUM_LENGHT)
+            {
+                isTextRight = true;
+            }
+
+            return isTextRight;
+        }
+
+        public static bool IsMensualReportTextRight(string textToValidate)
+        {
+            bool isTextRight = false;
+
+            if (IsRightExpression(textToValidate) && textToValidate.Length > MINIMUM_LENGHT_MENSUAL_REPORT)
             {
                 isTextRight = true;
             }

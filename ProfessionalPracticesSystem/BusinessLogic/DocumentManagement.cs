@@ -1,4 +1,4 @@
-﻿/*
+/*
     Date: 01/05/2020
     Author(s) : Angel de Jesus Juarez Garcia
 */
@@ -17,41 +17,86 @@ using Style = iText.Layout.Style;
 using iText.IO.Font.Constants;
 using DataAccess;
 using System.Linq;
+using System.Net;
 
 namespace BusinessLogic
 {
     public class DocumentManagement
     {
 
+        private const String USER_CREDENTIAL = "UsuarioFTP";
+        private const String PASSWORD_CREDENTIAL = "246810";
+
+        public DocumentManagement()
+        {
+          
         public DocumentManagement(){
         }
 
-        public String AddDocument(BusinessDomain.Document newDocument, String sourcePath)
+        public bool AddDocument(Document newDocument, String sourcePath)
         {
-            String result;
+            bool isAdded = false;
 
-            if (!File.Exists(newDocument.Path))
+            if (SaveDocumentInDataBase(newDocument))
             {
-                DocumentDAO documentDAO = new DocumentDAO();
-
-                if (documentDAO.SaveDocument(newDocument))
-                {
-                    Computer thisPC = new Computer();
-                    thisPC.FileSystem.CopyFile(sourcePath, newDocument.Path);
-                    result = "Archivo guardado exitosamente";
-                }
-                else
-                {
-                    result = "Error, no se pudo cargar el documento, intente más tarde";
-                }
-
-            }
-            else
-            {
-                result = "El archivo ya existe en la plataforma, por favor ingrese el archivo con otro nombre";
+                CreateDirectoryInFTPServer(newDocument);
+                isAdded = AddDocumentInFTPServer(newDocument, sourcePath);
             }
 
-            return result;
+            return isAdded;
+        }
+
+        private bool SaveDocumentInDataBase(Document newDocument)
+        {
+            bool isSaveInDataBase;
+
+            DocumentDAO documentDAO = new DocumentDAO();
+            isSaveInDataBase = documentDAO.SaveDocument(newDocument);
+
+            return isSaveInDataBase;
+        }
+
+        private bool AddDocumentInFTPServer(Document newDocument, String sourcePath)
+        {
+            bool isUpload;
+
+            WebClient myClient = new WebClient();
+            myClient.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
+
+            try
+            {
+                myClient.UploadFile(newDocument.Path + newDocument.Name, sourcePath);
+                isUpload = true;
+            }
+            catch (ArgumentNullException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/AddDocumentInFTPServer", ex);
+                isUpload = false;
+            }
+            catch (WebException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/AddDocumentInFTPServer", ex);
+                isUpload = false;
+            }
+
+
+            return isUpload;
+        }
+
+        private void CreateDirectoryInFTPServer(Document newDocument)
+        {
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(newDocument.Path);
+            request.Method = WebRequestMethods.Ftp.MakeDirectory;
+            request.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
+
+            try
+            {
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+            }
+            catch (WebException)
+            {
+            }
+
         }
 
         public bool GenerateMensualReport(MensualReport newMensualReport)
@@ -68,8 +113,7 @@ namespace BusinessLogic
             bool isGenerated = false;
             try
             {
-                PdfWriter writer;
-                writer = new PdfWriter(finalPath);
+                PdfWriter writer = new PdfWriter(finalPath);
                 PdfDocument pdfDocument = new PdfDocument(writer);
                 iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
                 document.SetMargins(75, 35, 70, 35);
@@ -94,7 +138,7 @@ namespace BusinessLogic
                 document.Add(new Paragraph("__________________________________________________").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
                 document.Add(new Paragraph("NOMBRE Y FIRMA DEL ALUMNO").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
 
-                document.Close();
+                document.Close();               
                 isGenerated = true;
             }
             catch (IOException ex)
@@ -236,6 +280,362 @@ namespace BusinessLogic
             questionsTable.AddCell(rightColumnCell.AddStyle(styleHeaderText));
 
             return questionsTable;
+        }
+
+
+        public bool GeneratePartialReport(String finalPath)
+        {
+            PdfWriter writer;
+            writer = new PdfWriter(finalPath);
+            PdfDocument pdfDocument = new PdfDocument(writer);
+            iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+            document.SetMargins(75, 35, 70, 35);
+
+            String formatName = "Formato: INFORME PARCIAL EE Prácticas de Ingeniería Software";
+            pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(formatName));
+
+            Style styleText = new Style()
+                .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
+                .SetFontSize(8f)
+                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
+
+            Style styleLabelText = new Style()
+                .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
+                .SetFontSize(8f)
+                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+
+            Style styleHeaderText = new Style()
+                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
+                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                .SetFontSize(10f)
+                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+
+            /*
+             
+            ZONA DE LA TABLA DE INFORMACION AL PRINCIPIO 
+
+             */
+            Table informationTable = new Table(4).SetWidth(500).SetMargin(25);
+
+            Cell informationCell = new Cell(1, 4).Add(new Paragraph("Datos Generales de la EE"));
+            informationTable.AddHeaderCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("Carrera: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("NRC: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Profesor: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("Período escolar: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell(1, 4).Add(new Paragraph("Datos del Proyecto"));
+            informationTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("Alumno(s): "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("Organización vinculada: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Proyecto: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("Período del reporte y horas cubiertas: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Fecha del reporte: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("Número del informe: "));
+            informationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph(/*AQUI VA LA INFORMACION DEL REPORTE*/));
+            informationTable.AddCell(informationCell.AddStyle(styleText));
+
+            /*
+             
+            AQUI COMIENZA LA TABLA DE OBJETIVO Y METODOLOGIA DEL PROYECTO
+             
+             */
+
+            Table projectTable = new Table(1).SetWidth(500).SetMargin(25);
+
+            informationCell = new Cell().Add(new Paragraph("Objetivo general del proyecto"));
+            projectTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("TEXTO DE RELLENO"/*AQUI VA LA INFORMACION DEL PROYECTO*/));
+            projectTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Metodología"));
+            projectTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("TEXTO DE RELLENO"/*AQUI VA LA INFORMACION DEL PROYECTO*/));
+            projectTable.AddCell(informationCell.AddStyle(styleText));
+
+
+            /*
+
+            AQUI COMIENZA LA TABLA QUE TIENE UN BUUEN DE COSAS             
+
+            */
+
+            Table workplanTable = new Table(10).SetWidth(500).SetMargin(25);
+
+            informationCell = new Cell(1, 10).Add(new Paragraph("Avance de actividades realizadas en relación al plan de trabajo"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell(2, 1).Add(new Paragraph("Actividades"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell(2, 1).Add(new Paragraph("Tiempo"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell(1, 4).Add(new Paragraph("Mes 1"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell(1, 4).Add(new Paragraph("Mes 2"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S1"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S2"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S3"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S4"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S5"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S6"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S7"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("S8"));
+            workplanTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+
+            /*
+
+            ESTA ES UNA FILA DE LA TABLA DE AVANCES             
+
+            */
+
+
+            informationCell = new Cell(2, 1).Add(new Paragraph("AQUI VA LA ACTIVIDAD DEL PROYECTO"));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("Plan"));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("Real"));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            workplanTable.AddCell(informationCell.AddStyle(styleText));
+
+
+            /*
+
+            TABLA CON LA INFORMACION QUE METIO EL PRACTICANTE           
+
+            */
+
+            Table practitionerAnswers = new Table(1).SetWidth(500).SetMargin(25);
+
+            informationCell = new Cell().Add(new Paragraph("Resultados obtenidos al momento"));
+            practitionerAnswers.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("TEXTO DE RELLENO"/*AQUI VA LA INFORMACION DEL PROYECTO*/));
+            practitionerAnswers.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Observaciones"));
+            practitionerAnswers.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("TEXTO DE RELLENO"/*AQUI VA LA INFORMACION DEL PROYECTO*/));
+            practitionerAnswers.AddCell(informationCell.AddStyle(styleText));
+
+
+
+            /*
+
+            SECCION EXCLUSIVA PARA EL RESPONSABLE           
+
+            */
+
+            Table technicalSupportTable = new Table(1).SetWidth(500).SetMargin(25);
+
+            informationCell = new Cell().Add(new Paragraph("Sección EXCLUSIVA para llenado por parte del Responsable Técnico designado por la Organización Vinculada"));
+            technicalSupportTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+
+            /*
+
+            TABLA DE EVALUACION DE DESEMPEÑO           
+
+            */
+
+            Table performanceEvaluationTable = new Table(2).SetWidth(500).SetMargin(10);
+
+            informationCell = new Cell().Add(new Paragraph("FORMATO DE EVALUACIÓN DE DESMPEÑO"));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleHeaderText));
+            informationCell = new Cell().Add(new Paragraph("VALOR ASIGNADO"));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("Es responsable en las actividades asignadas."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Aporta ideas para la toma de decisiones en la solución."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Se organiza para el desarrollo del trabajo."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Aplica los conocimientos teórico-prácticos en el desarrollo de sus actividades."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleText));
+
+            informationCell = new Cell().Add(new Paragraph("Realiza las actividades encomendadas correctamente."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleLabelText));
+            informationCell = new Cell().Add(new Paragraph("."));
+            performanceEvaluationTable.AddCell(informationCell.AddStyle(styleText));
+
+
+
+
+            /*
+
+            TABLA PARA LAS FIRMAS FINALES DEL DOCUMENTO       
+
+            */
+
+            Table signatureTable = new Table(2).SetWidth(500).SetMargin(25);
+
+            informationCell = new Cell(3, 1).SetHeight(210);
+            signatureTable.AddCell(informationCell);
+
+            informationCell = new Cell().SetHeight(70);
+            signatureTable.AddCell(informationCell);
+
+            informationCell = new Cell().Add(new Paragraph("Vo. Bo. Nombre, Puesto y Firma del Responsable Técnico designado por la organización vinculada "));
+            signatureTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell();
+            signatureTable.AddCell(informationCell);
+
+            informationCell = new Cell().Add(new Paragraph("Nombre(s) y Firma(s) de los Estudiantes miembros del equipo (si aplica)"));
+            signatureTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+            informationCell = new Cell().Add(new Paragraph("Sello de la organización vinculada"));
+            signatureTable.AddCell(informationCell.AddStyle(styleHeaderText));
+
+
+            document.Add(informationTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(projectTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(workplanTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(practitionerAnswers.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(new AreaBreak());
+            document.Add(technicalSupportTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(GenerateCriteriaTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(performanceEvaluationTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(signatureTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+
+
+            document.Close();
+            return true;
+
+        public bool GenerateAsignmentLetter(AssignmentLetter assignmentLetter, String finalPath)
+        {
+            bool isGenerated = false;
+
+            try
+            {
+                /*
+                PdfWriter writer = new PdfWriter(finalPath);
+                PdfDocument pdfDocument = new PdfDocument(writer);
+                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+                document.SetMargins(75, 35, 70, 35);
+
+                String para = "En atención a su solicitud expresada a la Coordinación de Prácticas " +
+                    "Profesionales de la Licenciatura en Ingeniería de Software, hacemos de su conocimiento " +
+                    "que el C. " + assignmentLetter.PractitionerAssigned.Names + " "+ assignmentLetter.PractitionerAssigned.LastName 
+                    + " estudiante de la Licenciatura con matrícula " +
+                    "S15011634, ha sido asignado al proyecto Sistema integral clínico de la clínica " +
+                    "Universitaria Sexual y Reproductiva de la Universidad Veracruzana a su digno cargo a " +
+                    "partir del 13 de Agosto del presente hasta cubrir 200 horas. Cabe mencionar que el " +
+                    "estudiante cuenta con la formación y el perfil para las actividades a desempeñar. ";
+
+                document.Add(new Paragraph(para).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+
+                writer.Close();
+                document.Close();
+                isGenerated = true;
+                */
+
+                PdfWriter writer = new PdfWriter("C:\\Users\\sammy\\Desktop\\prueba.pdf");
+                PdfDocument pdfDocument = new PdfDocument(writer);
+                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+                document.SetMargins(75, 35, 70, 35);
+
+                String letras = "qué pedo banda";
+
+                document.Add(new iText.Layout.Element.Paragraph(letras));
+
+                document.Close();
+                writer.Close();
+                isGenerated = true;
+                
+            }
+            catch (IOException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/GenerateAssigmentLetter", ex);
+            }
+
+            return isGenerated;
         }
     }
 }
