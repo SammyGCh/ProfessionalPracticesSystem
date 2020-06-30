@@ -42,7 +42,7 @@ namespace BusinessLogic
             String encryptedPassword = hashManager.TextToHash(updatedPractitioner.Password);
             updatedPractitioner.Password = encryptedPassword;
 
-            isUpdated = practitionerDao.UpdatePractitionerData(updatedPractitioner);
+            isUpdated = practitionerDao.UpdatePractitioner(updatedPractitioner);
 
             return isUpdated;
         }

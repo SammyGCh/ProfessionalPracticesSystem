@@ -285,9 +285,6 @@ namespace DataAccess.Implementation
             return practitioner;
         }
 
-
-        public Practitioner GetPractitionerByMatricula(String matriculaP)
-
         public Practitioner GetPractitionerPersonalInfo(int idPractitioner)
         {
             practitioner = null;
@@ -617,6 +614,65 @@ namespace DataAccess.Implementation
             return practitionerList;
         }
 
+        public List<Practitioner> GetAllPractitionerByMatricula()
+        {
+            belogsTo = new ScholarPeriodDAO();
+            speaks = new IndigenousLanguageDAO();
+            academic = new AcademicDAO();
+            assigned = new ProjectDAO();
+            try
+            {
+                practitionerList = new List<Practitioner>();
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM Practitioner ORDER BY MATRICULA ASC"
+                };
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    practitioner = new Practitioner
+                    {
+                        IdPractitioner = reader.GetInt32(0),
+                        Matricula = reader.GetString(1),
+                        Password = reader.GetString(2),
+                        Gender = reader.GetString(4),
+                        Names = reader.GetString(5),
+                        LastName = reader.GetString(6),
+                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
+                        Status = reader.GetInt32(9),
+                        Instructed = academic.GetAcademic(reader.GetInt32(10)),
+                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
+                    };
+
+                    if (!reader.IsDBNull(8))
+                    {
+                        practitioner.Grade = reader.GetString(3);
+                    }
+
+                    if (!reader.IsDBNull(8))
+                    {
+                        practitioner.Assigned = assigned.GetProjectById(reader.GetInt32(8));
+                    }
+
+                    practitionerList.Add(practitioner);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/GetAllPractitioner:", ex);
+            }
+            finally
+            {
+                reader.Close();
+                connection.CloseConnection();
+            }
+
+            return practitionerList;
+        }
+
         public List<Practitioner> GetAllPractitionerByProject(int idProject)
         {
             belogsTo = new ScholarPeriodDAO();
@@ -805,7 +861,6 @@ namespace DataAccess.Implementation
                 {
                     CommandText = "UPDATE Practitioner SET  " +
                     "matricula = @matricula," +
-                    "grade = @grade," +
                     "gender = @gender," +
                     "names = @names," +
                     "lastName = @lastName," +
@@ -819,11 +874,6 @@ namespace DataAccess.Implementation
                 MySqlParameter matricula = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
                 {
                     Value = updatePractitioner.Matricula
-                };
-
-                MySqlParameter grade = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)
-                {
-                    Value = updatePractitioner.Grade
                 };
 
                 MySqlParameter gender = new MySqlParameter("@gender", MySqlDbType.VarChar, 10)
@@ -868,7 +918,6 @@ namespace DataAccess.Implementation
                 };
 
                 query.Parameters.Add(matricula);
-                query.Parameters.Add(grade);
                 query.Parameters.Add(gender);
                 query.Parameters.Add(names);
                 query.Parameters.Add(lastName);

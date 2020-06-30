@@ -34,8 +34,8 @@ namespace GUI_WPF
             {
                 if(sourcePath != null)
                 {
-                    String functionResult = saveDocument();
-                    System.Windows.MessageBox.Show(functionResult, "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    bool functionResult = saveDocument();
+                    System.Windows.MessageBox.Show("", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -44,11 +44,11 @@ namespace GUI_WPF
             }
         }
 
-        public String saveDocument()
+        public bool saveDocument()
         {
             documentManager = new DocumentManagement();
             Document newDocument = GetDocument();
-            String result = documentManager.AddDocument(newDocument, sourcePath);
+            bool result = documentManager.AddDocument(newDocument, sourcePath);
 
             return result;
         }

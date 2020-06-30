@@ -27,260 +27,257 @@ namespace BusinessLogic
         private const String USER_CREDENTIAL = "UsuarioFTP";
         private const String PASSWORD_CREDENTIAL = "246810";
 
-        public DocumentManagement()
-        {
-          
-        public DocumentManagement(){
-        }
-
-        public bool AddDocument(Document newDocument, String sourcePath)
-        {
-            bool isAdded = false;
-
-            if (SaveDocumentInDataBase(newDocument))
-            {
-                CreateDirectoryInFTPServer(newDocument);
-                isAdded = AddDocumentInFTPServer(newDocument, sourcePath);
+            public DocumentManagement() {
             }
 
-            return isAdded;
-        }
-
-        private bool SaveDocumentInDataBase(Document newDocument)
-        {
-            bool isSaveInDataBase;
-
-            DocumentDAO documentDAO = new DocumentDAO();
-            isSaveInDataBase = documentDAO.SaveDocument(newDocument);
-
-            return isSaveInDataBase;
-        }
-
-        private bool AddDocumentInFTPServer(Document newDocument, String sourcePath)
-        {
-            bool isUpload;
-
-            WebClient myClient = new WebClient();
-            myClient.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
-
-            try
+            public bool AddDocument(Document newDocument, String sourcePath)
             {
-                myClient.UploadFile(newDocument.Path + newDocument.Name, sourcePath);
-                isUpload = true;
-            }
-            catch (ArgumentNullException ex)
-            {
-                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/AddDocumentInFTPServer", ex);
-                isUpload = false;
-            }
-            catch (WebException ex)
-            {
-                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/AddDocumentInFTPServer", ex);
-                isUpload = false;
+                bool isAdded = false;
+
+                if (SaveDocumentInDataBase(newDocument))
+                {
+                    CreateDirectoryInFTPServer(newDocument);
+                    isAdded = AddDocumentInFTPServer(newDocument, sourcePath);
+                }
+
+                return isAdded;
             }
 
-
-            return isUpload;
-        }
-
-        private void CreateDirectoryInFTPServer(Document newDocument)
-        {
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(newDocument.Path);
-            request.Method = WebRequestMethods.Ftp.MakeDirectory;
-            request.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
-
-            try
+            private bool SaveDocumentInDataBase(Document newDocument)
             {
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-            }
-            catch (WebException)
-            {
+                bool isSaveInDataBase;
+
+                DocumentDAO documentDAO = new DocumentDAO();
+                isSaveInDataBase = documentDAO.SaveDocument(newDocument);
+
+                return isSaveInDataBase;
             }
 
-        }
-
-        public bool GenerateMensualReport(MensualReport newMensualReport)
-        {
-            bool isSaved;
-            MensualReportDAO mensualReportDAO = new MensualReportDAO();
-            isSaved = mensualReportDAO.InsertMensualReport(newMensualReport);
-
-            return isSaved;
-        }
-
-        public bool GenerateSelfAssessment(Selfassessment assessment, String finalPath)
-        {
-            bool isGenerated = false;
-            try
+            private bool AddDocumentInFTPServer(Document newDocument, String sourcePath)
             {
-                PdfWriter writer = new PdfWriter(finalPath);
-                PdfDocument pdfDocument = new PdfDocument(writer);
-                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
-                document.SetMargins(75, 35, 70, 35);
+                bool isUpload;
+
+                WebClient myClient = new WebClient();
+                myClient.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
+
+                try
+                {
+                    myClient.UploadFile(newDocument.Path + newDocument.Name, sourcePath);
+                    isUpload = true;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/AddDocumentInFTPServer", ex);
+                    isUpload = false;
+                }
+                catch (WebException ex)
+                {
+                    LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/AddDocumentInFTPServer", ex);
+                    isUpload = false;
+                }
+
+
+                return isUpload;
+            }
+
+            private void CreateDirectoryInFTPServer(Document newDocument)
+            {
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(newDocument.Path);
+                request.Method = WebRequestMethods.Ftp.MakeDirectory;
+                request.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
+
+                try
+                {
+                    FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                }
+                catch (WebException)
+                {
+                }
+
+            }
+
+            public bool GenerateMensualReport(MensualReport newMensualReport)
+            {
+                bool isSaved;
+                MensualReportDAO mensualReportDAO = new MensualReportDAO();
+                isSaved = mensualReportDAO.InsertMensualReport(newMensualReport);
+
+                return isSaved;
+            }
+
+            public bool GenerateSelfAssessment(Selfassessment assessment, String finalPath)
+            {
+                bool isGenerated = false;
+                try
+                {
+                    PdfWriter writer = new PdfWriter(finalPath);
+                    PdfDocument pdfDocument = new PdfDocument(writer);
+                    iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+                    document.SetMargins(75, 35, 70, 35);
+
+                    Style styleText = new Style()
+                        .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
+                        .SetFontSize(8f)
+                        .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+
+                    String formatName = "Formato: EVALUACIÓN DEL ALUMNO. EE Prácticas de Ingeniería de Software";
+                    pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(formatName));
+
+
+                    document.Add(GenerateInformationTableSelfassessment(assessment).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+
+                    document.Add(new Paragraph("Responde a cada una de las afirmaciones presentadas, marcando con una “X” la casilla correspondiente de acuerdo a los siguientes criterios:").AddStyle(styleText).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+                    document.Add(GenerateCriteriaTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+
+                    document.Add(GenerateQuestionsTableSelfassessment(assessment));
+
+                    document.Add(new Paragraph("LUGAR Y FECHA: Xalapa veracruz a " + DateTime.Now.ToString("MM/dd/yyyy")).AddStyle(styleText).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+                    document.Add(new Paragraph("__________________________________________________").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+                    document.Add(new Paragraph("NOMBRE Y FIRMA DEL ALUMNO").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+
+                    document.Close();
+                    isGenerated = true;
+                }
+                catch (IOException ex)
+                {
+                    LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/GenerateSelfAssessment", ex);
+                }
+                return isGenerated;
+            }
+
+            private Table GenerateInformationTableSelfassessment(Selfassessment assessment)
+            {
+                Style styleText = new Style()
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
+                    .SetFontSize(8f)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+
+                Table informationTable = new Table(2).SetWidth(500).SetMargin(25);
+
+                Cell informationCell = new Cell().Add(new Paragraph("Nombre del alumno"));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+                informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Names + " " + assessment.AddBy.LastName));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+
+                informationCell = new Cell().Add(new Paragraph("Matricula"));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+                informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Matricula));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+
+                informationCell = new Cell().Add(new Paragraph("Organizacion vinculada"));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+                informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.ProposedBy.Name));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+
+                informationCell = new Cell().Add(new Paragraph("Departamento"));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+                informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.BelongsTo.Name));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+
+                informationCell = new Cell().Add(new Paragraph("Responsable del proyecto"));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+                informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.ResponsableName));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+
+                informationCell = new Cell().Add(new Paragraph("Nombre del proyecto"));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+                informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.Name));
+                informationTable.AddCell(informationCell.AddStyle(styleText));
+
+                return informationTable;
+            }
+
+            private Table GenerateCriteriaTable()
+            {
 
                 Style styleText = new Style()
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
                     .SetFontSize(8f)
                     .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
 
-                String formatName = "Formato: EVALUACIÓN DEL ALUMNO. EE Prácticas de Ingeniería de Software";
-                pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(formatName));
+                Style styleHeaderText = new Style()
+                    .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetFontSize(10f)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
 
+                Table evaluationCriteriaTable = new Table(2).SetStrokeWidth(100).SetMargin(15);
 
-                document.Add(GenerateInformationTableSelfassessment(assessment).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+                Cell criteriaCell = new Cell(1, 2).Add(new Paragraph("CRITERIOS"));
+                criteriaCell.AddStyle(styleHeaderText);
+                evaluationCriteriaTable.AddHeaderCell(criteriaCell);
 
-                document.Add(new Paragraph("Responde a cada una de las afirmaciones presentadas, marcando con una “X” la casilla correspondiente de acuerdo a los siguientes criterios:").AddStyle(styleText).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-                document.Add(GenerateCriteriaTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+                criteriaCell = new Cell().Add(new Paragraph("Totalmente en desacuerdo"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
+                criteriaCell = new Cell().Add(new Paragraph("1"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
 
-                document.Add(GenerateQuestionsTableSelfassessment(assessment));
+                criteriaCell = new Cell().Add(new Paragraph("En desacuerdo"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
+                criteriaCell = new Cell().Add(new Paragraph("2"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
 
-                document.Add(new Paragraph("LUGAR Y FECHA: Xalapa veracruz a " + DateTime.Now.ToString("MM/dd/yyyy")).AddStyle(styleText).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-                document.Add(new Paragraph("__________________________________________________").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-                document.Add(new Paragraph("NOMBRE Y FIRMA DEL ALUMNO").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+                criteriaCell = new Cell().Add(new Paragraph("Indeciso"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
+                criteriaCell = new Cell().Add(new Paragraph("3"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
 
-                document.Close();               
-                isGenerated = true;
+                criteriaCell = new Cell().Add(new Paragraph("De acuerdo"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
+                criteriaCell = new Cell().Add(new Paragraph("4"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
+
+                criteriaCell = new Cell().Add(new Paragraph("Totalmente de acuerdo"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
+                criteriaCell = new Cell().Add(new Paragraph("5"));
+                evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
+
+                return evaluationCriteriaTable;
             }
-            catch (IOException ex)
+
+            private Table GenerateQuestionsTableSelfassessment(Selfassessment assessment)
             {
-                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/GenerateSelfAssessment", ex);
+                Style styleText = new Style()
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
+                    .SetFontSize(8f)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+
+                Style styleTextValue = new Style()
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetFontSize(8f)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+
+                Style styleHeaderText = new Style()
+                    .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetFontSize(10f)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+
+                Table questionsTable = new Table(2).UseAllAvailableWidth();
+
+                Cell leftColumnCell = new Cell().Add(new Paragraph("AFIRMACIONES"));
+                questionsTable.AddHeaderCell(leftColumnCell.AddStyle(styleHeaderText));
+
+                Cell rightColumnCell = new Cell().Add(new Paragraph("VALOR OTORGADO"));
+                questionsTable.AddHeaderCell(rightColumnCell.AddStyle(styleHeaderText));
+
+                int finalScore = 0;
+                for (int i = 0; i < assessment.Questions.Count; i++)
+                {
+                    leftColumnCell = new Cell().Add(new Paragraph(assessment.Questions.ElementAt(i)));
+                    questionsTable.AddCell(leftColumnCell.AddStyle(styleText));
+                    rightColumnCell = new Cell().Add(new Paragraph(assessment.QuestionsValues.ElementAt(i).ToString()));
+                    questionsTable.AddCell(rightColumnCell.AddStyle(styleTextValue));
+                    finalScore += assessment.QuestionsValues.ElementAt(i);
+                }
+
+                leftColumnCell = new Cell().Add(new Paragraph("Puntuacion final"));
+                questionsTable.AddCell(leftColumnCell.AddStyle(styleHeaderText));
+                rightColumnCell = new Cell().Add(new Paragraph(finalScore.ToString()));
+                questionsTable.AddCell(rightColumnCell.AddStyle(styleHeaderText));
+
+                return questionsTable;
             }
-            return isGenerated;
-        }
-
-        private Table GenerateInformationTableSelfassessment(Selfassessment assessment)
-        {
-            Style styleText = new Style()
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
-                .SetFontSize(8f)
-                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
-
-            Table informationTable = new Table(2).SetWidth(500).SetMargin(25);
-
-            Cell informationCell = new Cell().Add(new Paragraph("Nombre del alumno"));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-            informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Names + " " + assessment.AddBy.LastName));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-
-            informationCell = new Cell().Add(new Paragraph("Matricula"));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-            informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Matricula));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-
-            informationCell = new Cell().Add(new Paragraph("Organizacion vinculada"));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-            informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.ProposedBy.Name));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-
-            informationCell = new Cell().Add(new Paragraph("Departamento"));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-            informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.BelongsTo.Name));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-
-            informationCell = new Cell().Add(new Paragraph("Responsable del proyecto"));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-            informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.ResponsableName));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-
-            informationCell = new Cell().Add(new Paragraph("Nombre del proyecto"));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-            informationCell = new Cell().Add(new Paragraph(assessment.AddBy.Assigned.Name));
-            informationTable.AddCell(informationCell.AddStyle(styleText));
-
-            return informationTable;
-        }
-
-        private Table GenerateCriteriaTable()
-        {
-
-            Style styleText = new Style()
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
-                .SetFontSize(8f)
-                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
-
-            Style styleHeaderText = new Style()
-                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                .SetFontSize(10f)
-                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
-
-            Table evaluationCriteriaTable = new Table(2).SetStrokeWidth(100).SetMargin(15);
-
-            Cell criteriaCell = new Cell(1, 2).Add(new Paragraph("CRITERIOS"));
-            criteriaCell.AddStyle(styleHeaderText);
-            evaluationCriteriaTable.AddHeaderCell(criteriaCell);
-
-            criteriaCell = new Cell().Add(new Paragraph("Totalmente en desacuerdo"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-            criteriaCell = new Cell().Add(new Paragraph("1"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-
-            criteriaCell = new Cell().Add(new Paragraph("En desacuerdo"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-            criteriaCell = new Cell().Add(new Paragraph("2"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-
-            criteriaCell = new Cell().Add(new Paragraph("Indeciso"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-            criteriaCell = new Cell().Add(new Paragraph("3"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-
-            criteriaCell = new Cell().Add(new Paragraph("De acuerdo"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-            criteriaCell = new Cell().Add(new Paragraph("4"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-
-            criteriaCell = new Cell().Add(new Paragraph("Totalmente de acuerdo"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-            criteriaCell = new Cell().Add(new Paragraph("5"));
-            evaluationCriteriaTable.AddCell(criteriaCell.AddStyle(styleText));
-
-            return evaluationCriteriaTable;
-        }
-
-        private Table GenerateQuestionsTableSelfassessment(Selfassessment assessment)
-        {
-            Style styleText = new Style()
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
-                .SetFontSize(8f)
-                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
-
-            Style styleTextValue = new Style()
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                .SetFontSize(8f)
-                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
-
-            Style styleHeaderText = new Style()
-                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                .SetFontSize(10f)
-                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
-
-            Table questionsTable = new Table(2).UseAllAvailableWidth();
-
-            Cell leftColumnCell = new Cell().Add(new Paragraph("AFIRMACIONES"));
-            questionsTable.AddHeaderCell(leftColumnCell.AddStyle(styleHeaderText));
-
-            Cell rightColumnCell = new Cell().Add(new Paragraph("VALOR OTORGADO"));
-            questionsTable.AddHeaderCell(rightColumnCell.AddStyle(styleHeaderText));
-
-            int finalScore = 0;
-            for (int i = 0; i < assessment.Questions.Count; i++)
-            {
-                leftColumnCell = new Cell().Add(new Paragraph(assessment.Questions.ElementAt(i)));
-                questionsTable.AddCell(leftColumnCell.AddStyle(styleText));
-                rightColumnCell = new Cell().Add(new Paragraph(assessment.QuestionsValues.ElementAt(i).ToString()));
-                questionsTable.AddCell(rightColumnCell.AddStyle(styleTextValue));
-                finalScore += assessment.QuestionsValues.ElementAt(i);
-            }
-
-            leftColumnCell = new Cell().Add(new Paragraph("Puntuacion final"));
-            questionsTable.AddCell(leftColumnCell.AddStyle(styleHeaderText));
-            rightColumnCell = new Cell().Add(new Paragraph(finalScore.ToString()));
-            questionsTable.AddCell(rightColumnCell.AddStyle(styleHeaderText));
-
-            return questionsTable;
-        }
 
 
         public bool GeneratePartialReport(String finalPath)
@@ -311,7 +308,7 @@ namespace BusinessLogic
                 .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
 
             /*
-             
+
             ZONA DE LA TABLA DE INFORMACION AL PRINCIPIO 
 
              */
@@ -369,9 +366,9 @@ namespace BusinessLogic
             informationTable.AddCell(informationCell.AddStyle(styleText));
 
             /*
-             
+
             AQUI COMIENZA LA TABLA DE OBJETIVO Y METODOLOGIA DEL PROYECTO
-             
+
              */
 
             Table projectTable = new Table(1).SetWidth(500).SetMargin(25);
@@ -587,6 +584,7 @@ namespace BusinessLogic
 
             document.Close();
             return true;
+        }
 
         public bool GenerateAsignmentLetter(AssignmentLetter assignmentLetter, String finalPath)
         {
@@ -628,7 +626,7 @@ namespace BusinessLogic
                 document.Close();
                 writer.Close();
                 isGenerated = true;
-                
+
             }
             catch (IOException ex)
             {
