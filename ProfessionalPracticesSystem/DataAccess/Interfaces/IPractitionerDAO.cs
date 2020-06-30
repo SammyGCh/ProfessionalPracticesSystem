@@ -20,5 +20,8 @@ namespace DataAccess.Interfaces
         List<Practitioner> GetAllPractitionerByProject(int idProject);
         List<Practitioner> GetAllPractitionerByLinkedOrganization(int idLinkedOrganization);
         bool UpdatePractitionerGrade(int idPractitioner);
+        bool UpdatePractitioner(Practitioner updatePractitioner);
+        bool UpdatePractitionerPassword(int idPractitioner, String password);
+        bool AssignPractitioner(int idPractitioner, int idProject);
     }
 }

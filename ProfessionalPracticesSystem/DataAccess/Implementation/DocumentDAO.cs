@@ -21,6 +21,11 @@ namespace DataAccess.Implementation
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
+        private const int STATUS_ACTIVE = 1;
+        private const int ID_PARTIAL_REPORT = 1;
+        private const int ID_SELFASSESSMENT = 3;
+        private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
+        private const String OBSERVATIONS_NOT_ASSIGNED_MESSAGE = "Sin observaciones";
 
         public DocumentDAO()
         {
@@ -52,7 +57,7 @@ namespace DataAccess.Implementation
                 isSaved = true;
 
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/DeleteDocument:", ex);
             }
@@ -88,10 +93,26 @@ namespace DataAccess.Implementation
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
                         AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
-                        Grade = reader.GetString(5),
-                        Observations = reader.GetString(6)
-                        
+
                     };
+
+                    if (reader.IsDBNull(5))
+                    {
+                        document.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(5);
+                    }
+
+                    if (reader.IsDBNull(6))
+                    {
+                        document.Grade = OBSERVATIONS_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(6);
+                    }
 
                     documentList.Add(document);
                 }
@@ -103,7 +124,10 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
@@ -139,9 +163,25 @@ namespace DataAccess.Implementation
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
                         AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
-                        Grade = reader.GetString(5),
-                        Observations = reader.GetString(6)
                     };
+
+                    if (reader.IsDBNull(5))
+                    {
+                        document.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(5);
+                    }
+
+                    if (reader.IsDBNull(6))
+                    {
+                        document.Grade = OBSERVATIONS_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(6);
+                    }
                 }
 
             }
@@ -151,7 +191,10 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
@@ -188,9 +231,25 @@ namespace DataAccess.Implementation
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
                         AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
-                        Grade = reader.GetString(5),
-                        Observations = reader.GetString(6)
                     };
+
+                    if (reader.IsDBNull(5))
+                    {
+                        document.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(5);
+                    }
+
+                    if (reader.IsDBNull(6))
+                    {
+                        document.Grade = OBSERVATIONS_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(6);
+                    }
 
                     documentList.Add(document);
                 }
@@ -202,14 +261,17 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
             return documentList;
         }
 
-        public List<Document> GetAllDocumentByType(int idDocumentType)
+        public List<Document> GetAllPartialReportByAcademic(int idAcademic)
         {
             addBy = new PractitionerDAO();
             typeOf = new DocumentTypeDAO();
@@ -219,14 +281,33 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Document WHERE Document.idDocumentType = @idDocumentType"
+                    CommandText = "" +
+                    "SELECT Document.idDocument, Document.name, Document.path, Document.idDocumentType, Document.idPractitioner, Document.grade, Document.observations" +
+                    "FROM Document, Practitioner" +
+                    "WHERE Document.idDocumentType = @idDocumentType " +
+                    "AND Document.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Practitioner.idAcademic = @idAcademic" +
+                    "AND Practitioner.status = @status;"
                 };
+
                 MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 1)
                 {
-                    Value = idDocumentType
+                    Value = ID_PARTIAL_REPORT
+                };
+
+                MySqlParameter academic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 1)
+                {
+                    Value = idAcademic
+                };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 1)
+                {
+                    Value = STATUS_ACTIVE
                 };
 
                 query.Parameters.Add(idType);
+                query.Parameters.Add(academic);
+                query.Parameters.Add(status);
 
                 reader = query.ExecuteReader();
 
@@ -239,8 +320,95 @@ namespace DataAccess.Implementation
                         Path = reader.GetString(2),
                         TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
                         AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
-                        Grade = reader.GetString(5),
-                        Observations = reader.GetString(6)
+                    };
+
+                    if (reader.IsDBNull(5))
+                    {
+                        document.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(5);
+                    }
+
+                    if (reader.IsDBNull(6))
+                    {
+                        document.Grade = OBSERVATIONS_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
+                    {
+                        document.Grade = reader.GetString(6);
+                    }
+
+                    documentList.Add(document);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllPartialReportByAcademic:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return documentList;
+        }
+
+        public List<Document> GetAllSelfassessmentByAcademic(int idAcademic)
+        {
+            addBy = new PractitionerDAO();
+            typeOf = new DocumentTypeDAO();
+            try
+            {
+                documentList = new List<Document>();
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "" +
+                    "SELECT Document.idDocument, Document.name, Document.path, Document.idDocumentType, Document.idPractitioner" +
+                    "FROM Document, Practitioner" +
+                    "WHERE Document.idDocumentType = @idDocumentType " +
+                    "AND Document.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Practitioner.idAcademic = @idAcademic" +
+                    "AND Practitioner.status = @status;"
+                };
+
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 1)
+                {
+                    Value = ID_SELFASSESSMENT
+                };
+
+                MySqlParameter academic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 1)
+                {
+                    Value = idAcademic
+                };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 1)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
+                query.Parameters.Add(idType);
+                query.Parameters.Add(academic);
+                query.Parameters.Add(status);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    document = new Document
+                    {
+                        IdDocument = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Path = reader.GetString(2),
+                        TypeOf = typeOf.GetDocumentType(reader.GetInt32(3)),
+                        AddBy = addBy.GetPractitioner(reader.GetInt32(4)),
                     };
 
                     documentList.Add(document);
@@ -249,11 +417,14 @@ namespace DataAccess.Implementation
             }
             catch (MySqlException ex)
             {
-                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetDocumentByType:", ex);
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllSelfassessmentByAcademic:", ex);
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 connection.CloseConnection();
             }
 
