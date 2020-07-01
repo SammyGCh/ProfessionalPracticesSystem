@@ -303,6 +303,7 @@ namespace BusinessLogic
                 document.Add(GenerateSignatureTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
 
                 document.Close();
+                isGenerated = true;
             }
             catch (IOException ex)
             {
