@@ -27,8 +27,6 @@ namespace DataAccess.Implementation
         private const int STATUS_ACTIVE = 1;
         private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
 
-        private readonly int NO_ACTIVE = 0;
-
 
         public PractitionerDAO()
         {
@@ -335,7 +333,7 @@ namespace DataAccess.Implementation
             return practitioner;
         }
 
-        public Practitioner GetPractitionerByMatricula(string matriculaP)
+        public Practitioner GetPractitionerByMatricula(String matriculaP)
         {
             belogsTo = new ScholarPeriodDAO();
             speaks = new IndigenousLanguageDAO();
