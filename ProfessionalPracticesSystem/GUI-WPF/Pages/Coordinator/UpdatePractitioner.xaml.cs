@@ -115,10 +115,6 @@ namespace GUI_WPF.Pages.Coordinator
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else if (!AreTextFieldsRight())
-            {
-                DialogWindowManager.ShowWrongFieldsErrorWindow();
-            }
             else
             {
                 bool isSaved = SaveUpdatedPractitioner();
@@ -150,34 +146,34 @@ namespace GUI_WPF.Pages.Coordinator
 
         }
 
-        private void ValidateText(object sender, TextChangedEventArgs e)
+        private void IsUserName(object sender, TextCompositionEventArgs e)
         {
-            string textToValidate = ((TextBox)sender).Text;
-
-            if (ValidatorText.IsTextRight(textToValidate))
+            if (!ValidatorText.IsUserName(e.Text))
             {
+                e.Handled = true;
                 ((TextBox)sender).BorderBrush = Brushes.Green;
             }
             else
             {
+                e.Handled = false;
                 ((TextBox)sender).BorderBrush = Brushes.Red;
             }
+
         }
 
-        private bool AreTextFieldsRight()
+        private void IsPersonName(object sender, TextCompositionEventArgs e)
         {
-            bool areRight = false;
-
-            if (
-                ValidatorText.IsTextRight(practitionerMatricula.Text) &&
-                ValidatorText.IsTextRight(practitionerNames.Text) &&
-                ValidatorText.IsTextRight(practitionerSurname.Text)
-                )
+            if (!ValidatorText.IsPersonName(e.Text))
             {
-                areRight = true;
+                e.Handled = true;
+                ((TextBox)sender).BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                e.Handled = false;
+                ((TextBox)sender).BorderBrush = Brushes.Red;
             }
 
-            return areRight;
         }
 
         private void CleanTextFields()
