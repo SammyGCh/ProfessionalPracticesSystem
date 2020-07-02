@@ -23,14 +23,13 @@ namespace GUI_WPF.Pages.Coordinator
 {
     public partial class DisplayLinkedOrganization : Page
     {
-        public DisplayLinkedOrganization(String name)
+        public DisplayLinkedOrganization(LinkedOrganization linkedOrganization)
         {
             InitializeComponent();
-            LinkedOrganizationDAO linkedOrganizationDAO = new LinkedOrganizationDAO();
+
             PractitionerDAO practitionerDAO = new PractitionerDAO();
             ProjectDAO projectDAO = new ProjectDAO();
 
-            LinkedOrganization linkedOrganization = linkedOrganizationDAO.GetLinkedOrganizationByName(name);
             this.DataContext = linkedOrganization;
 
             List<Project> projects = projectDAO.GetProjectsByOrganization(linkedOrganization.IdLinkedOrganization);

@@ -27,9 +27,8 @@ namespace GUI_WPF.Pages.Practitioner
     {
         private BusinessDomain.Practitioner practitioner;
 
-        public PractitionerHome(BusinessDomain.Practitioner practitioner)
+        public PractitionerHome(string practitionerMatricula)
         {
-            this.practitioner = practitioner;
             InitializeComponent();
         }
 

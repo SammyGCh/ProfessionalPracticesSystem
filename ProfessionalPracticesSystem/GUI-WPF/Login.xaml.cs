@@ -51,20 +51,20 @@ namespace GUI_WPF
                     DialogWindowManager.ShowErrorWindow("No se ha ingresado un usario valido");
                     break;
                 case 1:
-                    /*PractitionerHome practitionerHome = new PractitionerHome();
+                    PractitionerHome practitionerHome = new PractitionerHome(usernameEntered);
                     string practitionerFullName = UserManagement.GetUserName(userID, usernameEntered);
                     Home homeWindow = new Home(practitionerHome, practitionerFullName);
                     homeWindow.Show();
 
                     this.Close();
-                    */
+                    
                     break;
                 case 2:
                     
                     CoordinatorHome coordinatorHome = new CoordinatorHome();
                     string coordinatorFullName = UserManagement.GetUserName(userID, usernameEntered);
-                    Home homeWindow = new Home(coordinatorHome, coordinatorFullName);
-                    homeWindow.Show();
+                    Home coordinatorHomeWindow = new Home(coordinatorHome, coordinatorFullName);
+                    coordinatorHomeWindow.Show();
 
                     this.Close();
                     break;
@@ -81,7 +81,7 @@ namespace GUI_WPF
                     this.Close();
                     break;
                 case 5:
-                    DialogWindowManager.ShowErrorWindow("La contraseña es incorrecta");
+                    DialogWindowManager.ShowErrorWindow("La contraseña o usuario es incorrecta");
                     break;
 
             }
