@@ -1,4 +1,5 @@
 ﻿using BusinessDomain;
+using GUI_WPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,19 +23,19 @@ namespace GUI_WPF.Pages.Practitioner
     /// </summary>
     public partial class GeneratePartialReport : Page
     {
-         BusinessDomain.Practitioner practitioner;
+         private String practitionerMatricula;
 
-        public GeneratePartialReport(BusinessDomain.Practitioner practitioner)
+        public GeneratePartialReport(String practitionerMatricula)
         {
-            this.practitioner = practitioner;
+            this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Seguro que deseas cancelar?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar?");
 
-            if (result == MessageBoxResult.Yes)
+            if (isConfirmed)
             {
                 NavigationService.GoBack();
             }

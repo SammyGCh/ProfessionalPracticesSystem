@@ -51,13 +51,13 @@ namespace GUI_WPF
                     DialogWindowManager.ShowErrorWindow("No se ha ingresado un usario valido");
                     break;
                 case 1:
-                    /*PractitionerHome practitionerHome = new PractitionerHome();
+                    PractitionerHome practitionerHome = new PractitionerHome(usernameEntered);
                     string practitionerFullName = UserManagement.GetUserName(userID, usernameEntered);
-                    Home homeWindow = new Home(practitionerHome, practitionerFullName);
-                    homeWindow.Show();
+                    Home homeWindowPractitioner = new Home(practitionerHome, practitionerFullName);
+                    homeWindowPractitioner.Show();
 
                     this.Close();
-                    */
+
                     break;
                 case 2:
                     

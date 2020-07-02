@@ -686,5 +686,14 @@ namespace BusinessLogic
 
             return isGenerated;
         }
+
+        public Practitioner GetAllInformationPractitioner(String matricula)
+        {
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+
+            Practitioner practitioner = practitionerDAO.GetPractitionerByMatricula(matricula);
+
+            return practitioner;
+        }
     }
 }

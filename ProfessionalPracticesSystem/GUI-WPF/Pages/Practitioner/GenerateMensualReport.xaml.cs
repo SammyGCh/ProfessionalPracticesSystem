@@ -21,6 +21,7 @@ using System.Windows.Shapes;
 using BusinessLogic;
 using BusinessDomain;
 using System.Globalization;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF
 {
@@ -30,19 +31,19 @@ namespace GUI_WPF
     public partial class GenerateMensualReport : Page
     {
         private DocumentManagement documentManager;
-        private Practitioner practitioner;
+        private String practitionerMatricula;
 
-        public GenerateMensualReport(Practitioner practitioner)
+        public GenerateMensualReport(String practitionerMatricula)
         {
-            this.practitioner = practitioner;
+            this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Seguro que deseas cancelar?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar?");
 
-            if (result == MessageBoxResult.Yes)
+            if (isConfirmed)
             {
                 NavigationService.GoBack();
             }
@@ -50,29 +51,28 @@ namespace GUI_WPF
 
         private void GenerateReport(object sender, RoutedEventArgs e)
         {
-
-            if (!AreFieldsEmpty())
+            if (AreFieldsComplete())
             {
-                MessageBoxResult result = MessageBox.Show("¿Deseas finalizar tu reporte?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Deseas finalizar tu reporte?");
 
-                if (result == MessageBoxResult.Yes)
+                if (isConfirmed)
                 {
                     if (SaveMensualReport())
                     {
-                        MessageBox.Show("Generaste tu reporte mensual exitosamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        DialogWindowManager.ShowSuccessWindow("Generaste tu reporte mensual exitosamente");
                         NavigationService.GoBack();
 
                     }
                     else
                     {
-                        MessageBox.Show("Error, no se pudo cargar el reporte, intente más tarde", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                        DialogWindowManager.ShowErrorWindow("Error, no se pudo cargar el reporte, intente más tarde");
                     }
                 }
 
             }
             else
             {
-                MessageBox.Show("Uno o varios campos están vacíos. Por favor ingresa los datos necesarios", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
             }
         }
 
@@ -86,6 +86,18 @@ namespace GUI_WPF
             return isSaved;
         }
 
+        private bool AreFieldsComplete()
+        {
+            bool isComplete = false;
+
+            if (!AreFieldsEmpty())
+            {
+                isComplete = (ValidatorText.IsTextRight(documentName.Text) == ValidatorText.IsMensualReportTextRight(documentDescription.Text));
+            }
+
+            return isComplete;
+        }
+
         private bool AreFieldsEmpty()
         {
             return (String.IsNullOrEmpty(documentName.Text) || String.IsNullOrEmpty(documentDescription.Text));
@@ -93,9 +105,10 @@ namespace GUI_WPF
 
         private MensualReport GetReport()
         {
+            Practitioner currentPractitioner = GetCurrentPractitioner();
             Project auxiliarProject = new Project
             {
-                IdProject = practitioner.Assigned.IdProject
+                IdProject = currentPractitioner.Assigned.IdProject
             };
 
 
@@ -103,12 +116,20 @@ namespace GUI_WPF
             {
                 MensualReportName = documentName.Text,
                 Description = documentDescription.Text,
-                GeneratedBy = practitioner,
+                GeneratedBy = currentPractitioner,
                 DerivedFrom = auxiliarProject,
                 MonthReportedDate = DateTime.Now.ToString("MM/dd/yyyy")
             };
 
             return mensualReport;
+        }
+
+        private Practitioner GetCurrentPractitioner()
+        {
+            DocumentManagement documentManager = new DocumentManagement();
+            Practitioner currentPractitioner = documentManager.GetAllInformationPractitioner(practitionerMatricula);
+
+            return currentPractitioner;
         }
     }
 }

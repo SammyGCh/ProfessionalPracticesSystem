@@ -78,7 +78,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM IndigenousLanguge WHERE idIndigenousLanguage = @idIndigenousLanguage"
+                    CommandText = "SELECT * FROM IndigenousLanguage WHERE idIndigenousLanguage = @idIndigenousLanguage"
                 };
 
                 MySqlParameter idIndiLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 32)
@@ -121,7 +121,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM IndigenousLanguge WHERE name = @languageName"
+                    CommandText = "SELECT * FROM IndigenousLanguage WHERE name = @languageName"
                 };
 
                 MySqlParameter indiLanguageName = new MySqlParameter("@languageName", MySqlDbType.VarChar, 50)
@@ -166,7 +166,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "INSERT INTO IndigenousLanguge(name) VALUES (@indigenousLanguageName)"
+                    CommandText = "INSERT INTO IndigenousLanguage(name) VALUES (@indigenousLanguageName)"
                 };
 
                 query.Parameters.Add("@indigenousLanguageName", MySqlDbType.VarChar, 255).Value = indigenousLanguage.IndigenousLanguageName;
@@ -195,7 +195,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "DELETE FROM IndigenousLanguge WHERE IndigenousLanguge.idIndigenousLanguage = @idIndigenousLanguage"
+                    CommandText = "DELETE FROM IndigenousLanguage WHERE IndigenousLanguage.idIndigenousLanguage = @idIndigenousLanguage"
                 };
                 MySqlParameter id = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 2)
                 {
