@@ -25,38 +25,45 @@
                         <TextBlock FontSize="18" FontWeight="SemiBold" Margin="40,0,0,0"><Run Text="Ingrese la  información nueva del Practicante"/></TextBlock>
 
                         <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="0,15,0,0">
-                            <TextBlock Text="Matricula : " Margin="0,2,15,4.8" FontSize="14" TextAlignment="Right" Width="84"/>
-                            <TextBox x:Name="practitionerEnrollment" Width="380" MaxLength="9" IsReadOnly="True" />
+                            <TextBlock Text="Matricula (*): " Margin="0,2,15,4.8" FontSize="14" TextAlignment="Right" Width="84"/>
+                            <TextBox x:Name="practitionerMatricula" Width="386"  Text="{Binding Matricula}"
+                                     TextCompositionManager.PreviewTextInput="IsUserName"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Nombres (*): " Margin="1,2,16,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="practitionerNames" Width="378" MaxLength="59" TextCompositionManager.PreviewTextInput="IsPersonName" Margin="0,0,0,-0.2" />
+                            <TextBox x:Name="practitionerNames" Width="386" Text="{Binding Names}"
+                                     TextCompositionManager.PreviewTextInput="IsPersonName"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Apellidos (*): " Margin="2,2,18,-0.2" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="practitionerSurnames" Width="403" MaxLength="59" TextCompositionManager.PreviewTextInput="IsPersonName" Margin="0,0,0,-0.2" />
+                            <TextBox x:Name="practitionerSurname" Width="386" Text="{Binding LastName}" 
+                                     TextCompositionManager.PreviewTextInput="IsPersonName"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Genero (*): " Margin="13,3,18,0" FontSize="14" TextAlignment="Right" TextWrapping="Wrap"/>
-                            <ComboBox x:Name="practitionerGender" Width="200" ItemsSource="{Binding genderList}" Height="25" Margin="0,0,0,-0.2"/>
+                            <ComboBox x:Name="practitionerGender" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding genderList}" 
+                                      IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Gender}" Height="25"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Lengua Indigena (*): " Margin="-47,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerLanguageList" Width="200" ItemsSource="{Binding indigenousLanguageList}" DisplayMemberPath="IndigenousLanguageName"/>
+                            <ComboBox x:Name="practitionerLanguageList" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding indigenousLanguageList}"
+                                      DisplayMemberPath="IndigenousLanguageName" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Speaks.IndigenousLanguageName}" Height="25"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Académico Asignado (*): " Margin="-73,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerAcademicList" Width="200" ItemsSource="{Binding academicList}" DisplayMemberPath="LastName"/>
+                            <ComboBox x:Name="practitionerAcademicList" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding academicList}"
+                                      DisplayMemberPath="LastName" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Instructed.LastName}" Height="25"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Periodo Escolar (*): " Margin="-37,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerSchoolPeriodList" Width="200" ItemsSource="{Binding scholarPeriodList}" DisplayMemberPath="Name" Margin="0,0,0,-0.2"/>
+                            <ComboBox x:Name="practitionerSchoolPeriodList" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding schoolPeriodList}"
+                                      DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding ScholarPeriod.Name}" Height="25"/>
                         </StackPanel>
 
                     </StackPanel>

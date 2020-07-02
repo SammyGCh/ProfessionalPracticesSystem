@@ -46,5 +46,14 @@ namespace BusinessLogic
 
             return isUpdated;
         }
+
+        public bool DeletePractitioner(int deletedPractitionerID)
+        {
+            bool isDeleted = false;
+
+            isDeleted = practitionerDao.DeletePractitioner(deletedPractitionerID);
+
+            return isDeleted;
+        }
     }
 }
