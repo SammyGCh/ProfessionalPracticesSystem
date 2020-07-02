@@ -25,7 +25,7 @@ namespace DataAccess.Implementation
         private MySqlDataReader reader;
         private const int STATUS_NO_ACTIVE = 0;
         private const int STATUS_ACTIVE = 1;
-        private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
+        private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificación no asignada";
 
         private readonly int NO_ACTIVE = 0;
 
@@ -646,8 +646,11 @@ namespace DataAccess.Implementation
                         Instructed = academic.GetAcademic(reader.GetInt32(10)),
                         ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
                     };
-
-                    if (!reader.IsDBNull(8))
+                    if (reader.IsDBNull(3))
+                    {
+                        practitioner.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
                     {
                         practitioner.Grade = reader.GetString(3);
                     }
@@ -850,63 +853,6 @@ namespace DataAccess.Implementation
             return practitionerList;
         }
 
-        public List<Practitioner> GetAllPractitionerByMatricula()
-        {
-            belogsTo = new ScholarPeriodDAO();
-            speaks = new IndigenousLanguageDAO();
-            academic = new AcademicDAO();
-            assigned = new ProjectDAO();
-            try
-            {
-                practitionerList = new List<Practitioner>();
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "SELECT * FROM Practitioner ORDER BY MATRICULA ASC"
-                };
-
-                reader = query.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    practitioner = new Practitioner
-                    {
-                        IdPractitioner = reader.GetInt32(0),
-                        Matricula = reader.GetString(1),
-                        Password = reader.GetString(2),
-                        Gender = reader.GetString(4),
-                        Names = reader.GetString(5),
-                        LastName = reader.GetString(6),
-                        Speaks = speaks.GetIndigenousLanguageById(reader.GetInt32(7)),
-                        Status = reader.GetInt32(9),
-                        Instructed = academic.GetAcademic(reader.GetInt32(10)),
-                        ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
-                    };
-
-                    if (!reader.IsDBNull(8))
-                    {
-                        practitioner.Grade = reader.GetString(3);
-                    }
-
-                    if (!reader.IsDBNull(8))
-                    {
-                        practitioner.Assigned = assigned.GetProjectById(reader.GetInt32(8));
-                    }
-
-                    practitionerList.Add(practitioner);
-                }
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/GetAllPractitioner:", ex);
-            }
-            finally
-            {
-                reader.Close();
-                connection.CloseConnection();
-            }
-
-            return practitionerList;
         public bool UpdatePractitioner(Practitioner updatePractitioner)
         {
             bool isUpdated = false;

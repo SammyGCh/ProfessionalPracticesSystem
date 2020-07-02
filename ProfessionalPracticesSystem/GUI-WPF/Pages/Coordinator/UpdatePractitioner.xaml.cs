@@ -30,9 +30,11 @@ namespace GUI_WPF.Pages.Coordinator
     {
         private List<string> genderList;
 
-        public UpdatePractitioner(String matricula)
+        public UpdatePractitioner(BusinessDomain.Practitioner selectedPractitioner)
         {
             InitializeComponent();
+
+            this.DataContext = selectedPractitioner;
 
             genderList = new List<string>
             {
@@ -56,15 +58,6 @@ namespace GUI_WPF.Pages.Coordinator
             ScholarPeriodDAO schoolPeriodDao = new ScholarPeriodDAO();
             List<ScholarPeriod> schoolPeriodList = schoolPeriodDao.GetAllScholarPeriods();
             practitionerSchoolPeriodList.ItemsSource = schoolPeriodList;
-
-            this.DataContext = updatedPractitioner;
-            practitionerGender.Text = updatedPractitioner.Gender;
-            practitionerLanguageList.Text = updatedPractitioner.Speaks.IndigenousLanguageName;
-            practitionerAcademicList.Text = updatedPractitioner.Instructed.LastName;
-            practitionerSchoolPeriodList.Text = updatedPractitioner.ScholarPeriod.Name;
-
-            practitionerNames.Text = updatedPractitioner.Names;
-            practitionerSurnames.Text = updatedPractitioner.LastName;
         }
 
         private void CancelUpdatePractitioner(object sender, RoutedEventArgs e)
@@ -86,7 +79,7 @@ namespace GUI_WPF.Pages.Coordinator
             BusinessDomain.Practitioner updatedNewPractitioner = new BusinessDomain.Practitioner
             {
                 Names = practitionerNames.Text,
-                LastName = practitionerSurnames.Text,
+                LastName = practitionerSurname.Text,
                 Gender = practitionerGender.Text,
                 Speaks = practitionerLanguage,
                 Instructed = linkedAcademic,
@@ -122,6 +115,10 @@ namespace GUI_WPF.Pages.Coordinator
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
+            else if (!AreTextFieldsRight())
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
+            }
             else
             {
                 bool isSaved = SaveUpdatedPractitioner();
@@ -153,24 +150,41 @@ namespace GUI_WPF.Pages.Coordinator
 
         }
 
-        private void IsPersonName(object sender, TextCompositionEventArgs e)
+        private void ValidateText(object sender, TextChangedEventArgs e)
         {
-            if (!ValidatorText.IsPersonName(e.Text))
+            string textToValidate = ((TextBox)sender).Text;
+
+            if (ValidatorText.IsTextRight(textToValidate))
             {
-                e.Handled = true;
+                ((TextBox)sender).BorderBrush = Brushes.Green;
             }
             else
             {
-                e.Handled = false;
+                ((TextBox)sender).BorderBrush = Brushes.Red;
+            }
+        }
+
+        private bool AreTextFieldsRight()
+        {
+            bool areRight = false;
+
+            if (
+                ValidatorText.IsTextRight(practitionerMatricula.Text) &&
+                ValidatorText.IsTextRight(practitionerNames.Text) &&
+                ValidatorText.IsTextRight(practitionerSurname.Text)
+                )
+            {
+                areRight = true;
             }
 
+            return areRight;
         }
 
         private void CleanTextFields()
         {
-            practitionerEnrollment.Clear();
+            practitionerMatricula.Clear();
             practitionerNames.Clear();
-            practitionerSurnames.Clear();
+            practitionerSurname.Clear();
             practitionerGender.SelectedItem = null;
             practitionerLanguageList.SelectedItem = null;
             practitionerAcademicList.SelectedItem = null;

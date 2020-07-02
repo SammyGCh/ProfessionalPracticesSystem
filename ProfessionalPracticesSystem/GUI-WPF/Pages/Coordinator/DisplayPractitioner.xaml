@@ -3,71 +3,118 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
       mc:Ignorable="d" 
-      d:DesignHeight="2000" d:DesignWidth="1700"
+      d:DesignHeight="900" d:DesignWidth="1500"
       Title="DisplayPractitioner">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" >
-        <Grid Background="White" ScrollViewer.CanContentScroll="True" Height="1018">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="42*"/>
-                <RowDefinition Height="107*"/>
-                <RowDefinition Height="1129*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="303*"/>
-                <ColumnDefinition Width="963*"/>
-                <ColumnDefinition Width="14*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" 
-            Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="1124" Grid.ColumnSpan="2" Grid.RowSpan="2"><Run Text="Informacion del "/><Run Text="P"/><Run Text="racticante"/><Run Text=""/><Run Text=""/></TextBlock>
-            <Button x:Name="cancelButton" Content="Regresar" FontSize="25" HorizontalAlignment="Left" Margin="354.6,760.2,0,0" VerticalAlignment="Top" Width="165" Height="55" Click="CancelViewPractitionerData" Grid.Column="1" Grid.Row="2"/>
-            <Grid HorizontalAlignment="Left" Height="457" Margin="300,10.2,0,0" VerticalAlignment="Top" Width="941" Grid.ColumnSpan="2" Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="463*"/>
-                    <ColumnDefinition Width="469*"/>
-                </Grid.ColumnDefinitions>
-                <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Text="Matricula:" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" IsReadOnly="True"/>
-                <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Text="Calificación:" FontSize="30" Margin="0,48,0,0" BorderBrush="{x:Null}" IsReadOnly="True"/>
-                <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Text="Género:" FontSize="30" Margin="0,96,0,0" BorderBrush="{x:Null}" IsReadOnly="True"/>
-                <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Text="Instructor:" FontSize="30" Margin="0,144,0,0" BorderBrush="{x:Null}" IsReadOnly="True"/>
-                <TextBox HorizontalAlignment="Left" Height="84" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Text="Periodo Escolar:" FontSize="30" Margin="0,288,0,0" BorderBrush="{x:Null}" IsReadOnly="True"/>
-                <TextBox HorizontalAlignment="Left" Height="96" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Text="Lengua Indigena:" FontSize="30" Margin="0,192,0,0" BorderBrush="{x:Null}" IsReadOnly="True"/>
-                <TextBox HorizontalAlignment="Left" Height="49" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" Text="Status:" FontSize="30" Margin="0,379,0,0" BorderBrush="{x:Null}" IsReadOnly="True" RenderTransformOrigin="0.5,0.5">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <StackPanel Background="White">
 
-                    <TextBox.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-0.403"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </TextBox.RenderTransform>
-                </TextBox>
-                <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="490" Text="{Binding Matricula}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="197,0,0,0" IsReadOnly="True" Grid.ColumnSpan="2"/>
-                <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="490" Text="{Binding Grade}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="197,48,0,0" IsReadOnly="True" Grid.ColumnSpan="2"/>
-                <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="485" Text="{Binding Gender}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="202,96,0,0" IsReadOnly="True" Grid.ColumnSpan="2"/>
-                <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Width="531" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="156,276,0,85" IsReadOnly="True" Name="practitionerInstructor" Grid.ColumnSpan="2"/>
-                <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Width="485" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="202,197,0,181" IsReadOnly="True" Name="practitionerLanguage" Grid.ColumnSpan="2"/>
-                <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Width="485" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="202,149,0,265" IsReadOnly="True" Name="practitionerPeriod" Grid.ColumnSpan="2"/>
-                <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Width="490" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="197,377,0,36" IsReadOnly="True" Name="practitionerStatus" Grid.ColumnSpan="2"/>
-            </Grid>
-            <TextBox HorizontalAlignment="Left" Height="100" Margin="398,71.4,0,0" TextWrapping="Wrap" Text="{Binding LastName}" VerticalAlignment="Top" Width="570" BorderBrush="{x:Null}" FontSize="80" Grid.Row="1" FontWeight="Bold" IsReadOnly="True" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-            <TextBox HorizontalAlignment="Left" Height="100" Margin="601.6,67.4,0,0" TextWrapping="Wrap" Text="{Binding Names}" VerticalAlignment="Top" Width="570" BorderBrush="{x:Null}" FontSize="80" Grid.Row="1" Grid.Column="1" FontWeight="Bold" IsReadOnly="True" Grid.RowSpan="2"/>
-            <TextBlock HorizontalAlignment="Left" Margin="300,533.2,0,0" TextWrapping="Wrap" 
-            Grid.Row="2" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="401" Text="Proyecto Asignado:" Grid.ColumnSpan="2"/>
-            <TextBox TextWrapping="Wrap" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="309.6,526.6,466.8,309.6" IsReadOnly="True" Name="projectName" Grid.Column="1" Grid.Row="2" RenderTransformOrigin="0.5,0.5">
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
-            </TextBox>
-            <Button x:Name="goToProjectButton" Content="Ver Proyecto" FontSize="25" HorizontalAlignment="Left" Margin="855.6,525.2,0,0" VerticalAlignment="Top" Width="187" Height="54" Click="GoToProject" Grid.Column="1" Grid.Row="2" RenderTransformOrigin="3.34,1.9"/>
-        </Grid>
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Detalles del Practicante" FontSize="35" FontWeight="Bold"
+                           Margin="20"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontSize="30" TextWrapping="Wrap">
+                            <Run Text="{Binding LastName}"/><Run Text=" "/><Run Text="{Binding Names}"/>
+                        </TextBlock>
+                </StackPanel>
+
+                <StackPanel Margin="515,20,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Matricula: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Matricula}" FontSize="14" TextAlignment="Justify" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Calificación: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Grade}" FontSize="14" TextAlignment="Justify" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Género: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Gender}" FontSize="14" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Lengua Indigena: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Speaks.IndigenousLanguageName}" FontSize="14" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Académico Asignado: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock FontSize="14" TextWrapping="Wrap">
+                            <Run Text="{Binding Instructed.LastName}"/><Run Text=" "/><Run Text="{Binding Instructed.Names}"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Periodo Escolar: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding ScholarPeriod.Name}" FontSize="14" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Status: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock FontSize="14" TextWrapping="Wrap">
+                            <TextBlock.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status}" Value="1">
+                                            <Setter Property="TextBlock.Text" Value="Activo"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="0">
+                                            <Setter Property="TextBlock.Text" Value="No Activo"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Name="projectData" Margin="515,20,0,0" Visibility="Collapsed">
+                    <TextBlock Text="Proyecto Asignado" FontSize="24" FontWeight="Bold"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Name="projectName" Text="{Binding Assigned.Name}" FontSize="14" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Organización Vinculada: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Assigned.ProposedBy.Name}" FontSize="14" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Etapa de Desarrollo: " FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Assigned.BelongsTo.Name}" FontSize="14" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Width="152" Margin="-850,30,0,100" >
+                        <Button Click="GoToProject">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccessPoint" Margin="0,2,5,0"/>
+                                <TextBlock Text="Ver Proyecto"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                
+                
+            </StackPanel>
+
+            <StackPanel Width="130" Margin="40">
+                <Button Click="CancelViewPractitionerData" Background="Red" BorderBrush="Red">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ArrowBack" Margin="0,2,5,0"/>
+                        <TextBlock Text="Regresar"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
     </ScrollViewer>
 </Page>
 
