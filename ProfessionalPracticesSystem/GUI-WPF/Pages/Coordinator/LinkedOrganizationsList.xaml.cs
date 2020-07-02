@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class LinkedOrganizationsList : Page
     {
+        ICollectionView organizationsView;
         public LinkedOrganizationsList()
         {
             InitializeComponent();
@@ -41,7 +43,9 @@ namespace GUI_WPF.Pages.Coordinator
             }
             else
             {
-                tableLinkedOrganizations.ItemsSource = allLinkedOrganizations;
+                organizationsView = CollectionViewSource.GetDefaultView(allLinkedOrganizations);
+                tableLinkedOrganizations.ItemsSource = organizationsView;
+                
             }
         }
 
@@ -54,10 +58,11 @@ namespace GUI_WPF.Pages.Coordinator
         {
 
             DataGrid dataGrid = tableLinkedOrganizations;
-            DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
+            /*1DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
             DataGridCell rowAndColumn = (DataGridCell)dataGrid.Columns[0].GetCellContent(row).Parent;
-            string name = ((TextBlock)rowAndColumn.Content).Text;
-            NavigationService.Navigate(new DisplayLinkedOrganization(name));
+            string name = ((TextBlock)rowAndColumn.Content).Text;*/
+            LinkedOrganization selectedOrganization = (LinkedOrganization)dataGrid.SelectedItem;
+            NavigationService.Navigate(new DisplayLinkedOrganization(selectedOrganization));
 
         }
 
