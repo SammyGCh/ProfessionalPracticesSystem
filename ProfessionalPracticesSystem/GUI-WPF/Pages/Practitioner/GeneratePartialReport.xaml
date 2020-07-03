@@ -28,12 +28,12 @@
                             <TextBlock TextAlignment="Center" Width="300" FontSize="14" FontWeight="DemiBold">
                                         Resultados obtenidos al momento
                             </TextBlock>
-                            <TextBox Width="600" TextAlignment="Center" MaxLength="35"></TextBox>
+                            <TextBox x:Name="practitionerResults" Width="600" TextAlignment="Center" MaxLength="1000"></TextBox>
 
                             <TextBlock Margin="0,15,0,0" TextAlignment="Center" Width="300" FontSize="14" FontWeight="DemiBold">
                                         Observaciones
                             </TextBlock>
-                            <TextBox Width="600" Margin="0,15,0,20" MaxLength="200"></TextBox>
+                            <TextBox x:Name="practitionerObservations" Width="600" TextAlignment="Center" Margin="0,15,0,20" MaxLength="1000"></TextBox>
                             
                         </StackPanel>
 
@@ -44,7 +44,7 @@
                             Cancelar
                         </Button>
 
-                        <Button Width="190" Margin="30,0,0,0">
+                        <Button Width="190" Margin="30,0,0,0" Click="Generate">
                             Generar
                         </Button>
                     </StackPanel>
