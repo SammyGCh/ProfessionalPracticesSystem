@@ -104,6 +104,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\Notice\AddNewNotice.xaml.cs">
+      <DependentUpon>AddNewNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notice\DisplayNotice.xaml.cs">
+      <DependentUpon>DisplayNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notice\NoticeBoard.xaml.cs">
+      <DependentUpon>NoticeBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notice\UpdateNotice.xaml.cs">
+      <DependentUpon>UpdateNotice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Practitioner\AssignedProjectData.xaml.cs">
       <DependentUpon>AssignedProjectData.xaml</DependentUpon>
     </Compile>
@@ -157,6 +169,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Coordinator\UpdatePractitioner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\AddNewNotice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\DisplayNotice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\NoticeBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\UpdateNotice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

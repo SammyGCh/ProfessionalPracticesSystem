@@ -20,9 +20,10 @@
 
             <StackPanel Grid.Row="1">
 
-                <materialDesign:Card Background="AliceBlue" Margin="66,30,67,30" Padding="10" BorderThickness="50" Width="750" Height="446">
+                <materialDesign:Card Background="AliceBlue" Margin="67,30,66.2,30" Padding="10" BorderThickness="50" Width="750" Height="440">
                     <StackPanel x:Name="practitionerData" Margin="0,40,0,8">
-                        <TextBlock FontSize="18" FontWeight="SemiBold" Margin="40,0,0,0"><Run Text="Ingrese la  información nueva del Practicante"/></TextBlock>
+
+                        <TextBlock FontSize="18" FontWeight="SemiBold" Margin="40,-30,-0.6,0"><Run Text="Ingrese la  información nueva del Practicante"/></TextBlock>
 
                         <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="0,15,0,0">
                             <TextBlock Text="Matricula (*): " Margin="0,2,15,4.8" FontSize="14" TextAlignment="Right" Width="84"/>
@@ -47,23 +48,22 @@
                             <ComboBox x:Name="practitionerGender" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding genderList}" 
                                       IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Gender}" Height="25"/>
                         </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
-                            <TextBlock Text="Lengua Indigena (*): " Margin="-47,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerLanguageList" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding indigenousLanguageList}"
-                                      DisplayMemberPath="IndigenousLanguageName" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Speaks.IndigenousLanguageName}" Height="25"/>
+                        <StackPanel Orientation="Horizontal" Height="34" Margin="85,20,186.4,20">
+                            <TextBlock Text="Lengua Indigena (*): " Margin="0,3,18,1" FontSize="14" />
+                            <ComboBox x:Name="practitionerLanguageList" Width="250" Margin="0,2,0,-0.2" ItemsSource="{Binding indigenousLanguageList}" Text="{Binding Speaks.IndigenousLanguageName}"
+                                      DisplayMemberPath="IndigenousLanguageName" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Speaks}" Height="28"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
-                            <TextBlock Text="Académico Asignado (*): " Margin="-73,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerAcademicList" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding academicList}"
-                                      DisplayMemberPath="LastName" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Instructed.LastName}" Height="25"/>
+                        <StackPanel Orientation="Horizontal" Height="35" Margin="55,10,156.4,10">
+                            <TextBlock Text="Académico Asignado (*): " Margin="0,3,18,-0.4" FontSize="14"/>
+                            <ComboBox x:Name="practitionerAcademicList" Width="250" Margin="0,2,0,-0.4" ItemsSource="{Binding academicList}" Text="{Binding Instructed.ToString}"
+                                      IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Instructed}" Height="28"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
-                            <TextBlock Text="Periodo Escolar (*): " Margin="-37,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerSchoolPeriodList" Width="250" Margin="0,0,0,-0.2" ItemsSource="{Binding schoolPeriodList}"
-                                      DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding ScholarPeriod.Name}" Height="25"/>
+                        <StackPanel Orientation="Horizontal" Width="480" Height="30" Margin="10">
+                            <TextBlock Text="Periodo Escolar (*): " Margin="-37,3,18,-0.4" FontSize="14" />
+                            <ComboBox x:Name="practitionerSchoolPeriodList" Width="250" Margin="0,2,0,-0.4" ItemsSource="{Binding schoolPeriodList}"
+                                      DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding ScholarPeriod.Name}" Height="28"/>
                         </StackPanel>
 
                     </StackPanel>

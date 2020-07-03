@@ -158,7 +158,6 @@ namespace GUI_WPF.Pages.Coordinator
                 e.Handled = false;
                 ((TextBox)sender).BorderBrush = Brushes.Red;
             }
-
         }
 
         private void IsPersonName(object sender, TextCompositionEventArgs e)

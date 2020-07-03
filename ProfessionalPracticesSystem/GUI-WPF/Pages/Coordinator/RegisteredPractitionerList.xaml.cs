@@ -1,5 +1,5 @@
 ﻿/*
-        Date: 07/20/2020                              
+        Date: 06/20/2020                              
         Author:Ricardo Moguel Sanchez
  */
 using System;
