@@ -27,8 +27,6 @@ namespace DataAccess.Implementation
         private const int STATUS_ACTIVE = 1;
         private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
 
-        private readonly int NO_ACTIVE = 0;
-
 
         public PractitionerDAO()
         {
@@ -335,8 +333,7 @@ namespace DataAccess.Implementation
             return practitioner;
         }
 
-        public Practitioner GetPractitionerByMatricula(string matriculaP)
-
+        public Practitioner GetPractitionerByMatricula(String matriculaP)
         {
             belogsTo = new ScholarPeriodDAO();
             speaks = new IndigenousLanguageDAO();
@@ -347,14 +344,21 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Practitioner WHERE Practitioner.matricula = @matriculaP"
+                    CommandText = "SELECT * FROM Practitioner WHERE Practitioner.matricula = @matriculaP AND Practitioner.status = @status"
                 };
+
                 MySqlParameter matricula = new MySqlParameter("@matriculaP", MySqlDbType.VarChar, 9)
                 {
                     Value = matriculaP
                 };
 
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
                 query.Parameters.Add(matricula);
+                query.Parameters.Add(status);
 
                 reader = query.ExecuteReader();
 
@@ -448,22 +452,22 @@ namespace DataAccess.Implementation
                     Value = practitioner.LastName
                 };
 
-                MySqlParameter idIndigenousLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 2)
+                MySqlParameter idIndigenousLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.Speaks.IdIndigenousLanguage
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.Status
                 };
 
-                MySqlParameter idAcademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
+                MySqlParameter idAcademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.Instructed.IdAcademic
                 };
 
-                MySqlParameter scholarPeriod = new MySqlParameter("@idScholarPeriod", MySqlDbType.Int32, 2)
+                MySqlParameter scholarPeriod = new MySqlParameter("@idScholarPeriod", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.ScholarPeriod.IdScholarPeriod
                 };

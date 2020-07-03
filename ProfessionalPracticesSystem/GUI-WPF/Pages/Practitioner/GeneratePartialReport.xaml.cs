@@ -1,4 +1,5 @@
 ﻿using BusinessDomain;
+using GUI_WPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BusinessDomain;
+using BusinessLogic;
+using Microsoft.Win32;
 
 namespace GUI_WPF.Pages.Practitioner
 {
@@ -23,22 +25,103 @@ namespace GUI_WPF.Pages.Practitioner
     /// </summary>
     public partial class GeneratePartialReport : Page
     {
-         BusinessDomain.Practitioner practitioner;
+         private String practitionerMatricula;
 
-        public GeneratePartialReport(BusinessDomain.Practitioner practitioner)
+        public GeneratePartialReport(String practitionerMatricula)
         {
-            this.practitioner = practitioner;
+            this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Seguro que deseas cancelar?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar?");
 
-            if (result == MessageBoxResult.Yes)
+            if (isConfirmed)
             {
                 NavigationService.GoBack();
             }
+        }
+
+        private void Generate(object sender, RoutedEventArgs e)
+        {
+            if (AreFieldsComplete())
+            {
+                bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Desea finalizar su reporte?” ");
+
+                if (isConfirmed)
+                {
+                    String destinyPath = PathToSave();
+
+                    if (destinyPath != null)
+                    {
+                        DocumentManagement documentManager = new DocumentManagement();
+                        PartialReport partialReport = GetReport();
+
+                        if (documentManager.GeneratePartialReport(destinyPath, partialReport))
+                        {
+                            DialogWindowManager.ShowSuccessWindow("Reporte parcial generado exitosamente");
+                        }
+                        else
+                        {
+                            DialogWindowManager.ShowErrorWindow("Error al generar el archivo PDF del reporte parcial");
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
+            }
+        }
+
+        private bool AreFieldsComplete()
+        {
+            bool isComplete = false;
+
+            if (!AreFieldsEmpty())
+            {
+                isComplete = (ValidatorText.IsPartialReportTextRight(practitionerObservations.Text) == ValidatorText.IsPartialReportTextRight(practitionerResults.Text));
+            }
+
+            return isComplete;
+        }
+
+        private bool AreFieldsEmpty()
+        {
+            return (String.IsNullOrEmpty(practitionerObservations.Text) || String.IsNullOrEmpty(practitionerResults.Text));
+        }
+
+        private PartialReport GetReport()
+        {
+
+            PartialReport partialReport = new PartialReport()
+            {
+                GeneratedBy = GetCurrentPractitioner(),
+                PractitionerObservationsAnswer = practitionerObservations.Text,
+                PractitionerResultsAnswer = practitionerResults.Text
+            };
+
+            return partialReport;
+        }
+
+        private BusinessDomain.Practitioner GetCurrentPractitioner()
+        {
+            DocumentManagement documentManager = new DocumentManagement();
+            BusinessDomain.Practitioner currentPractitioner = documentManager.GetAllInformationPractitioner(practitionerMatricula);
+
+            return currentPractitioner;
+        }
+
+        private String PathToSave()
+        {
+            SaveFileDialog saveWindow = new SaveFileDialog();
+            saveWindow.Filter = "PDF Document|*.pdf";
+            saveWindow.Title = "Selecciona ruta de guardado";
+            saveWindow.ShowDialog();
+
+            return saveWindow.FileName;
         }
     }
 }

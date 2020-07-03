@@ -3,6 +3,7 @@
     Author(s) : Angel de Jesus Juarez Garcia
  */
 using BusinessDomain;
+using GUI_WPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +26,13 @@ namespace GUI_WPF.Pages.Practitioner
     /// </summary>
     public partial class Documentation : Page
     {
-        private BusinessDomain.Practitioner practitioner;
+        private String practitionerMatricula;
         private const int IDPARTIALREPORT = 1;
-        private const int IDFINALREPORT = 2;
         private const int IDSELFASSESSMENT = 3;
 
-        public Documentation(BusinessDomain.Practitioner practitioner)
+        public Documentation(String practitionerMatricula)
         {
-            this.practitioner = practitioner;
+            this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
         }
 
@@ -50,37 +50,32 @@ namespace GUI_WPF.Pages.Practitioner
         {
             if (IsTheOptionActivated())
             {
-                NavigationService.Navigate(new GenerateMensualReport(practitioner));
+                NavigationService.Navigate(new GenerateMensualReport(practitionerMatricula));
             }
             else
             {
-                MessageBox.Show("La opcion 'Generar reporte mensual' no esta activa","Funcion no habilitada",MessageBoxButton.OK,MessageBoxImage.Information);
+                DialogWindowManager.ShowErrorWindow("La opcion 'Generar reporte mensual' no esta activa");
             }
         }
 
         private void GenerateSelfassessment(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GenerateSelfassessment(practitioner));
+            NavigationService.Navigate(new GenerateSelfassessment(practitionerMatricula));
         }
 
         private void AddPartialReport(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(IDPARTIALREPORT,practitioner.IdPractitioner));
-        }
-
-        private void AddFinalReport(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new AddDocument(IDFINALREPORT, practitioner.IdPractitioner));
+            NavigationService.Navigate(new AddDocument(IDPARTIALREPORT, practitionerMatricula));
         }
 
         private void AddSelfAssessment(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(IDSELFASSESSMENT, practitioner.IdPractitioner));
+            NavigationService.Navigate(new AddDocument(IDSELFASSESSMENT, practitionerMatricula));
         }
 
         private void GeneratePartialReport(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GeneratePartialReport(practitioner));
+            NavigationService.Navigate(new GeneratePartialReport(practitionerMatricula));
         }
     }
 }

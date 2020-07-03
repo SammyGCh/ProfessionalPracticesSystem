@@ -25,17 +25,17 @@ namespace GUI_WPF.Pages.Practitioner
     /// </summary>
     public partial class PractitionerHome : Page
     {
-        private BusinessDomain.Practitioner practitioner;
+        private String practitionerMatricula;
 
-        public PractitionerHome(BusinessDomain.Practitioner practitioner)
+        public PractitionerHome(String practitionerMatricula)
         {
-            this.practitioner = practitioner;
+            this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
         }
 
         private void ConsultDocumentation(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Documentation(practitioner));
+            NavigationService.Navigate(new Documentation(practitionerMatricula));
         }
 
         private void GoToRequestProject(object sender, RoutedEventArgs e)
