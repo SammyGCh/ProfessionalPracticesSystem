@@ -151,7 +151,7 @@ namespace DataAccess.Implementation
             return isUpdated;
         }
 
-        public int ExistsProjectsRequestFromPractitioner(int idPractitioner)
+        public int ExistsProjectsRequestFromPractitioner(string practitionerMatricula)
         {
             int exists = DOESNT_EXIST;
 
@@ -160,11 +160,14 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT EXISTS (SELECT idPractitioner FROM ProjectsRequest WHERE " +
-                    "idPractitioner = @idPractitioner);"
+                    CommandText = "SELECT EXISTS (SELECT ProjectsRequest.idPractitioner, " +
+                    "Practitioner.status, Practitioner.matricula, Practitioner.idPractitioner " +
+                    "FROM Projectsrequest, Practitioner " +
+                    "WHERE ProjectsRequest.idPractitioner = Practitioner.idPractitioner AND " +
+                    "Practitioner.status = 1 AND Practitioner.matricula = @matricula)"
                 };
 
-                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = idPractitioner;
+                query.Parameters.Add("@matricula", MySqlDbType.VarChar, 9).Value = practitionerMatricula;
 
                 reader = query.ExecuteReader();
 

@@ -69,13 +69,13 @@ namespace GUI_WPF.Windows
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        public static String ShowSaveAssigmentLetterWindow()
+        public static String ShowSaveAssigmentLetterWindow(string practitionerName)
         {
             System.Windows.Forms.SaveFileDialog saveWindow = new System.Windows.Forms.SaveFileDialog
             {
                 Filter = SAVE_FILTER,
                 Title = SAVE_TITLE,
-                FileName = "oficioAsignacion.pdf"
+                FileName = "oficioAsignacion" + practitionerName + ".pdf"
             };
 
             saveWindow.ShowDialog();
@@ -83,13 +83,13 @@ namespace GUI_WPF.Windows
             return saveWindow.FileName;
         }
 
-        public static String ShowSaveAcceptanceLetterWindow()
+        public static String ShowSaveAcceptanceLetterWindow(string practitionerName)
         {
             System.Windows.Forms.SaveFileDialog saveWindow = new System.Windows.Forms.SaveFileDialog
             {
                 Filter = SAVE_FILTER,
                 Title = SAVE_TITLE,
-                FileName = "oficioAceptacion.pdf"
+                FileName = "oficioAceptacion" + practitionerName + ".pdf"
             };
 
             saveWindow.ShowDialog();

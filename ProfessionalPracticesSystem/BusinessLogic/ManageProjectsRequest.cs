@@ -3,6 +3,7 @@
     Author(s): Sammy Guadarrama Chávez
  */
 
+using System;
 using System.Collections.Generic;
 using DataAccess.Implementation;
 using BusinessDomain;
@@ -18,18 +19,26 @@ namespace BusinessLogic
             projectsRequestDao = new ProjectsRequestDAO();
         }
 
-        public bool GenerateProjectsRequest(List<Project> projectsSelected, Practitioner requester)
+        public bool GenerateProjectsRequest(List<Project> projectsSelected, String practitionerMatricula)
         {
             bool isGenerated = false;
 
-            if (projectsSelected != null && requester != null)
+            if (projectsSelected != null)
             {
-                ProjectsRequest projectsRequest = new ProjectsRequest() { 
-                    ProjectsRequested = projectsSelected,
-                    RequestedBy = requester
-                };
+                PractitionerDAO practitionerDao = new PractitionerDAO();
 
-                isGenerated = projectsRequestDao.SaveProjectsRequest(projectsRequest);
+                Practitioner requester = practitionerDao.GetPractitionerByMatricula(practitionerMatricula);
+
+                if (!String.IsNullOrWhiteSpace(practitionerMatricula))
+                {
+                    ProjectsRequest projectsRequest = new ProjectsRequest()
+                    {
+                        ProjectsRequested = projectsSelected,
+                        RequestedBy = requester
+                    };
+
+                    isGenerated = projectsRequestDao.SaveProjectsRequest(projectsRequest);
+                }                
             }
 
             return isGenerated;

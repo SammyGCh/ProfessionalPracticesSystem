@@ -47,7 +47,6 @@ namespace GUI_WPF.Windows.ProjectsRequest
                 message = "No se pudo asignar el Practicante a un proyecto. Intente de nuevo.";
                 DialogWindowManager.ShowErrorWindow(message);
             }
-
         }
 
         private AssignProjectResult AssignProjectSelected()
@@ -79,9 +78,11 @@ namespace GUI_WPF.Windows.ProjectsRequest
 
         private void GenerateLetters()
         {
-            DocumentManagement documentManagement = new DocumentManagement();
+            LetterDocumentManager documentManagement = new LetterDocumentManager();
             Letter letter = GetLetter();
-            string path = DialogWindowManager.ShowSaveAssigmentLetterWindow();
+            string practitionerName = letter.PractitionerSelected.Names;
+
+            string path = DialogWindowManager.ShowSaveAssigmentLetterWindow(practitionerName);
             string message;
            
             bool isAssigmentLetterGenerated = documentManagement.GenerateAsignmentLetter(letter, path);
@@ -92,7 +93,7 @@ namespace GUI_WPF.Windows.ProjectsRequest
                 DialogWindowManager.ShowErrorWindow(message);
             }
 
-            path = DialogWindowManager.ShowSaveAcceptanceLetterWindow();
+            path = DialogWindowManager.ShowSaveAcceptanceLetterWindow(practitionerName);
             bool isAcceptanceLetterGenerated = documentManagement.GenerateAcceptanceLetter(letter, path);
 
             if (!isAcceptanceLetterGenerated)

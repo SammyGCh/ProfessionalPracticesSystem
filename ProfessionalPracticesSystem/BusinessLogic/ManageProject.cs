@@ -117,13 +117,12 @@ namespace BusinessLogic
 
             if (projectsRequest != null)
             {
-                int practitionerNumber = projectsRequest.ProjectsRequested[PROJECT_SELECTED_INDEX].PractitionerNumber;
-                int practitionerAssigned = projectsRequest.ProjectsRequested[PROJECT_SELECTED_INDEX].PractitionersAssigned;
+                Project projectRequested = projectsRequest.ProjectsRequested[PROJECT_SELECTED_INDEX];
 
-                if (practitionerNumber > practitionerAssigned)
+                if (CanBeAssigned(projectRequested))
                 {
                     int idPractitioner = projectsRequest.RequestedBy.IdPractitioner;
-                    int idProject = projectsRequest.ProjectsRequested[PROJECT_SELECTED_INDEX].IdProject;
+                    int idProject = projectRequested.IdProject;
 
                     PractitionerDAO practitionerDao = new PractitionerDAO();
 
@@ -134,6 +133,7 @@ namespace BusinessLogic
                         ManageProjectsRequest manageProjectsRequest = new ManageProjectsRequest();
 
                         manageProjectsRequest.DeleteProjectsRequest(projectsRequest);
+                        projectDao.UpdateAvailabilityProjectStatus(idProject);
 
                         assignedResult = AssignProjectResult.Assigned;
                     }
@@ -145,6 +145,26 @@ namespace BusinessLogic
             }
 
             return assignedResult;
+        }
+
+        private bool CanBeAssigned(Project projectToAssign)
+        {
+            bool canBeAssigned = true;
+            int idProject = projectToAssign.IdProject;
+            Project projectAvailabilityInfo = projectDao.GetProjectAvailabilityInfo(idProject);
+
+            if (projectAvailabilityInfo != null)
+            {
+                int practitionersAcceptedNumber = projectAvailabilityInfo.PractitionerNumber;
+                int practitionersAssignedNumber = projectAvailabilityInfo.PractitionersAssigned;
+
+                if (practitionersAcceptedNumber == practitionersAssignedNumber)
+                {
+                    canBeAssigned = false;
+                }
+            }
+
+            return canBeAssigned;
         }
     }
 }

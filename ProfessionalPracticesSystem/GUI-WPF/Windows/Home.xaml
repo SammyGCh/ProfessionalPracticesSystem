@@ -65,7 +65,7 @@
                             </StackPanel>
                         </Button>
                         <Separator Background="White"/>
-                        <Button Foreground="White">
+                        <Button Foreground="White" Click="Logout">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesing:PackIcon Kind="Logout" Width="25" Height="25" Margin="5"/>
                                 <TextBlock Text="Cerrar sesión" Margin="5"/>

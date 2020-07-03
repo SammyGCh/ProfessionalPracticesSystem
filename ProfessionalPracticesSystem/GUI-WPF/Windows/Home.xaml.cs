@@ -47,5 +47,13 @@ namespace GUI_WPF.Windows
         {
             homeFrame.Navigate(new UpdatePassword());
         }
+
+        private void Logout(object sender, RoutedEventArgs e)
+        {
+            Login loginWindow = new Login();
+
+            loginWindow.Show();
+            this.Close();
+        }
     }
 }

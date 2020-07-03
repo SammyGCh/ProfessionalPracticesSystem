@@ -48,17 +48,16 @@ namespace BusinessLogic
             return isUpdated;
         }
 
-        public bool CanRequestProject(Practitioner practitionerRequester)
+        public bool CanRequestProject(String practitionerMatricula)
         {
             bool canRequest = true;
 
-            if (practitionerRequester != null)
+            if (!String.IsNullOrWhiteSpace(practitionerMatricula))
             {
                 ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
                 int existsProjectsRequest;
-                int idPractitioner = practitionerRequester.IdPractitioner;
 
-                existsProjectsRequest = projectsRequestDao.ExistsProjectsRequestFromPractitioner(idPractitioner);
+                existsProjectsRequest = projectsRequestDao.ExistsProjectsRequestFromPractitioner(practitionerMatricula);
 
                 if (existsProjectsRequest == EXISTS)
                 {
