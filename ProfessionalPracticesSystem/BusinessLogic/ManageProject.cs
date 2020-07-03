@@ -22,36 +22,44 @@ namespace BusinessLogic
 
         public bool SaveProject(Project project)
         {
-            bool isProjectSaved;
-            bool isAllSaved = false;
+            bool isProjectSaved = false;
 
-            isProjectSaved = projectDao.SaveProject(project);
-
-            if (isProjectSaved)
+            if (project != null)
             {
-                foreach (ProjectActivity activity in project.ProjectActivities)
+                isProjectSaved = projectDao.SaveProject(project);
+
+                if (isProjectSaved)
                 {
-                    isAllSaved = projectDao.SaveProjectActivity(activity, project.Name);
+                    foreach (ProjectActivity activity in project.ProjectActivities)
+                    {
+                        projectDao.SaveProjectActivity(activity, project.Name);
+                    }
                 }
             }
 
-            return isAllSaved;
+            return isProjectSaved;
         }
 
         public bool UpdateProjectData(Project projectUpdated)
         {
-            bool isUpdated;
+            bool isUpdated = false;
 
-            isUpdated = projectDao.UpdateProjectData(projectUpdated);
+            if (projectUpdated != null)
+            {
+                isUpdated = projectDao.UpdateProjectData(projectUpdated);
+            }
 
             return isUpdated;
         }
 
         public bool UpdateProjectResponsableData(Project projectResponsableData)
         {
-            bool isUpdated;
+            bool isUpdated = false;
 
-            isUpdated = projectDao.UpdateProjectResponsableData(projectResponsableData);
+            if (projectResponsableData != null)
+            {
+                isUpdated = projectDao.UpdateProjectResponsableData(projectResponsableData);
+            }
 
             return isUpdated;
         }
@@ -67,10 +75,14 @@ namespace BusinessLogic
 
         public bool DeleteProjectActivity(ProjectActivity projectActivity)
         {
-            bool isDeleted;
-            int idProjectActivity = projectActivity.IdProjectActivity;
+            bool isDeleted = false;
 
-            isDeleted = projectDao.DeleteProjectActivity(idProjectActivity);
+            if (projectActivity != null)
+            {
+                int idProjectActivity = projectActivity.IdProjectActivity;
+
+                isDeleted = projectDao.DeleteProjectActivity(idProjectActivity);
+            }
 
             return isDeleted;
         }
@@ -119,6 +131,10 @@ namespace BusinessLogic
 
                     if (isAssigned)
                     {
+                        ManageProjectsRequest manageProjectsRequest = new ManageProjectsRequest();
+
+                        manageProjectsRequest.DeleteProjectsRequest(projectsRequest);
+
                         assignedResult = AssignProjectResult.Assigned;
                     }
                 }

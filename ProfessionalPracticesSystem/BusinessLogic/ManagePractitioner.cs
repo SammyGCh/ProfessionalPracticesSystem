@@ -11,8 +11,9 @@ namespace BusinessLogic
 {
     public class ManagePractitioner
     {
-        private PractitionerDAO practitionerDao;
+        private readonly PractitionerDAO practitionerDao;
         private const int INVALID_ID = 0;
+        private const int EXISTS = 1;
 
         public ManagePractitioner()
         {
@@ -45,6 +46,27 @@ namespace BusinessLogic
             isUpdated = practitionerDao.UpdatePractitioner(updatedPractitioner);
 
             return isUpdated;
+        }
+
+        public bool CanRequestProject(Practitioner practitionerRequester)
+        {
+            bool canRequest = true;
+
+            if (practitionerRequester != null)
+            {
+                ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
+                int existsProjectsRequest;
+                int idPractitioner = practitionerRequester.IdPractitioner;
+
+                existsProjectsRequest = projectsRequestDao.ExistsProjectsRequestFromPractitioner(idPractitioner);
+
+                if (existsProjectsRequest == EXISTS)
+                {
+                    canRequest = false;
+                }
+            }
+
+            return canRequest;
         }
     }
 }

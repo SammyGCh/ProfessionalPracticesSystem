@@ -34,5 +34,18 @@ namespace BusinessLogic
 
             return isGenerated;
         }
+
+        public bool DeleteProjectsRequest(ProjectsRequest projectsRequestToDelete)
+        {
+            bool isDeleted = false;
+
+            if (projectsRequestToDelete != null)
+            {
+                int idProjectsRequest = projectsRequestToDelete.IdProjectsRequest;
+                isDeleted = projectsRequestDao.UpdateProjectsRequestStatus(idProjectsRequest);
+            }
+
+            return isDeleted;
+        }
     }
 }

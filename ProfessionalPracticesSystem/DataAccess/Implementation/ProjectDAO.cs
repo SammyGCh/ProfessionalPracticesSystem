@@ -336,7 +336,8 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mysqlConnection)
                 {
                     CommandText = "SELECT name, generalDescription, idLinkedOrganization, " +
-                    "practitionersAssigned, practitionerNumber FROM Project WHERE " +
+                    "practitionersAssigned, practitionerNumber, responsableName, responsableCharge, responsableEmail, " +
+                    "responsableTelephone FROM Project WHERE " +
                     "idProject = @idProject"
                 };
 
@@ -353,7 +354,11 @@ namespace DataAccess.Implementation
                         GeneralDescription = reader.GetString(1),
                         ProposedBy = linkedOrganizationHandler.GetLinkedOrganizationById(reader.GetInt32(2)),
                         PractitionersAssigned = reader.GetInt32(3),
-                        PractitionerNumber = reader.GetInt32(4)
+                        PractitionerNumber = reader.GetInt32(4),
+                        ResponsableName = reader.GetString(5),
+                        ResponsableCharge = reader.GetString(6),
+                        ResponsableEmail = reader.GetString(7),
+                        ResponsableTelephone = reader.GetString(8)
                     };
                 }
             }

@@ -15,12 +15,13 @@ namespace DataAccess.Implementation
     {
         private List<ProjectsRequest> projectsRequests;
         private ProjectsRequest projectsRequest;
-        private DataBaseConnection connection;
+        private readonly DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
         private const int ACTIVE = 1;
         private const int NO_ACTIVE = 0;
+        private const int DOESNT_EXIST = 0;
 
         public ProjectsRequestDAO()
         {
@@ -79,6 +80,7 @@ namespace DataAccess.Implementation
                 {
                     reader.Close();
                 }
+
                 connection.CloseConnection();
             }
 
@@ -119,7 +121,7 @@ namespace DataAccess.Implementation
             return isSaved;
         }
 
-        public bool UpdateProjectsRequest(int idProjectsRequest)
+        public bool UpdateProjectsRequestStatus(int idProjectsRequest)
         {
             bool isUpdated = false;
 
@@ -147,6 +149,45 @@ namespace DataAccess.Implementation
             }
 
             return isUpdated;
+        }
+
+        public int ExistsProjectsRequestFromPractitioner(int idPractitioner)
+        {
+            int exists = DOESNT_EXIST;
+
+            try
+            {
+                mysqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mysqlConnection)
+                {
+                    CommandText = "SELECT EXISTS (SELECT idPractitioner FROM ProjectsRequest WHERE " +
+                    "idPractitioner = @idPractitioner);"
+                };
+
+                query.Parameters.Add("@idPractitioner", MySqlDbType.Int32, 2).Value = idPractitioner;
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    exists = reader.GetInt32(0);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectsRequestDAO: ", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
+                connection.CloseConnection();
+            }
+
+            return exists;
         }
     }
 }

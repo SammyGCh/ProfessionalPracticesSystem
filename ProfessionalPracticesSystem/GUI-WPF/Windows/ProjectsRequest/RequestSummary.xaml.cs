@@ -7,8 +7,7 @@ using System;
 using System.Windows;
 using BusinessLogic;
 using BusinessDomain;
-using System.Windows.Forms;
-using GUI_WPF.Windows;
+using GUI_WPF.Pages.Coordinator;
 
 namespace GUI_WPF.Windows.ProjectsRequest
 {
@@ -17,8 +16,6 @@ namespace GUI_WPF.Windows.ProjectsRequest
     /// </summary>
     public partial class RequestSummary : Window
     {
-        private BusinessDomain.ProjectsRequest projectsRequestSelected;
-
         public RequestSummary()
         {
             InitializeComponent();
@@ -26,7 +23,6 @@ namespace GUI_WPF.Windows.ProjectsRequest
 
         private void AssignProject(object sender, RoutedEventArgs e)
         {
-            /*
             AssignProjectResult isAssigned;
             string message;
 
@@ -35,6 +31,11 @@ namespace GUI_WPF.Windows.ProjectsRequest
             if (isAssigned == AssignProjectResult.Assigned)
             {
                 message = "El proyecto fue asignado correctamente";
+
+                GenerateLetters();
+
+                this.Close();
+                DeleteProjectsRequest();
                 DialogWindowManager.ShowSuccessWindow(message);
             }
             else if (isAssigned == AssignProjectResult.NoEnoughSpace)
@@ -46,63 +47,71 @@ namespace GUI_WPF.Windows.ProjectsRequest
                 message = "No se pudo asignar el Practicante a un proyecto. Intente de nuevo.";
                 DialogWindowManager.ShowErrorWindow(message);
             }
-            */
 
-            string path = PathToSave();
-
-            DocumentManagement documentManagement = new DocumentManagement();
-
-            if (documentManagement.GenerateAsignmentLetter(GetAssignmentLetter(), path))
-            {
-                DialogWindowManager.ShowSuccessWindow("Sí se generó");
-            }
-            else
-            {
-                DialogWindowManager.ShowErrorWindow("nelpas");
-            }
         }
 
         private AssignProjectResult AssignProjectSelected()
         {
             AssignProjectResult isAssigned;
-
-            projectsRequestSelected = this.DataContext as BusinessDomain.ProjectsRequest;
+            
             ManageProject manageProjectToAsign = new ManageProject();
+            BusinessDomain.ProjectsRequest projectsRequestSelected = DataContext as BusinessDomain.ProjectsRequest;
 
             isAssigned = manageProjectToAsign.AssignProject(projectsRequestSelected);
 
             return isAssigned;
         }
 
-        private AssignmentLetter GetAssignmentLetter()
+        private Letter GetLetter()
         {
             string coordinatorName = WindowManager.GetCurrentUserName();
+            BusinessDomain.ProjectsRequest projectsRequestSelected = DataContext as BusinessDomain.ProjectsRequest;
 
-            //Esto se debe quitar
-            projectsRequestSelected = this.DataContext as BusinessDomain.ProjectsRequest;
-            AssignmentLetter assignmentLetter = new AssignmentLetter
+            Letter assignmentLetter = new Letter
             {
-                PractitionerAssigned = projectsRequestSelected.RequestedBy,
-                ProjectAssigned = projectsRequestSelected.ProjectsRequested[0],
+                PractitionerSelected = projectsRequestSelected.RequestedBy,
+                ProjectSelected = projectsRequestSelected.ProjectsRequested[0],
                 CoordinatorName = coordinatorName
             };
 
             return assignmentLetter;
         }
 
+        private void GenerateLetters()
+        {
+            DocumentManagement documentManagement = new DocumentManagement();
+            Letter letter = GetLetter();
+            string path = DialogWindowManager.ShowSaveAssigmentLetterWindow();
+            string message;
+           
+            bool isAssigmentLetterGenerated = documentManagement.GenerateAsignmentLetter(letter, path);
+
+            if (!isAssigmentLetterGenerated)
+            {
+                message = "Ocurrió un error al generar el Oficio de Asignación. Intente más tarde.";
+                DialogWindowManager.ShowErrorWindow(message);
+            }
+
+            path = DialogWindowManager.ShowSaveAcceptanceLetterWindow();
+            bool isAcceptanceLetterGenerated = documentManagement.GenerateAcceptanceLetter(letter, path);
+
+            if (!isAcceptanceLetterGenerated)
+            {
+                message = "Ocurrió un error al generar el Oficio de Aceptación. Intente más tarde.";
+                DialogWindowManager.ShowErrorWindow(message);
+            }
+        }
+
+        private void DeleteProjectsRequest()
+        {
+            Requests requestsPage = WindowManager.GetRequestsPage();
+            BusinessDomain.ProjectsRequest projectsRequest = DataContext as BusinessDomain.ProjectsRequest;
+            requestsPage.DeleteProjectRequestAssigned(projectsRequest);
+        }
+
         private void Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private String PathToSave()
-        {
-            SaveFileDialog saveWindow = new SaveFileDialog();
-            saveWindow.Filter = "PDF Document|*.pdf";
-            saveWindow.Title = "Selecciona ruta de guardado";
-            saveWindow.ShowDialog();
-
-            return saveWindow.FileName;
         }
     }
 }

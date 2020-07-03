@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using BusinessDomain;
 using GUI_WPF.Pages.Coordinator;
 using GUI_WPF.Pages.Practitioner;
+using GUI_WPF.Pages.User;
 
 namespace GUI_WPF.Windows
 {
@@ -17,6 +18,8 @@ namespace GUI_WPF.Windows
     /// </summary>
     public partial class Home : Window
     {
+        private readonly Page userHomePage;
+
         public Home()
         {
             InitializeComponent();
@@ -27,6 +30,22 @@ namespace GUI_WPF.Windows
             InitializeComponent();
             userName.Text = userNameFullName;
             homeFrame.Content = homePage;
+            userHomePage = homePage;
+        }
+
+        public Page GetUserHomePage()
+        {
+            return userHomePage;
+        }
+
+        private void GoHome(object sender, RoutedEventArgs e)
+        {
+            homeFrame.Navigate(userHomePage);
+        }
+
+        private void UpdatePassword(object sender, RoutedEventArgs e)
+        {
+            homeFrame.Navigate(new UpdatePassword());
         }
     }
 }
