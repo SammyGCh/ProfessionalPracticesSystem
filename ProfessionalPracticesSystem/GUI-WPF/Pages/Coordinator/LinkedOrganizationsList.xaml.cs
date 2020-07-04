@@ -21,6 +21,7 @@ using System.Windows.Shapes;
 using BusinessDomain;
 using BusinessLogic;
 using DataAccess.Implementation;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -37,8 +38,7 @@ namespace GUI_WPF.Pages.Coordinator
             List<LinkedOrganization> allLinkedOrganizations = linkedOrganizationDAO.GetAllLinkedOrganizations();
             if (allLinkedOrganizations.Count == 0)
             {
-                MessageBoxResult emptyList = System.Windows.MessageBox.Show("No se encuentra ninguna organizacion registrada.",
-                    "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                DialogWindowManager.ShowEmptyListErrorWindow();
                 NavigationService.GoBack();
             }
             else
@@ -47,6 +47,23 @@ namespace GUI_WPF.Pages.Coordinator
                 tableLinkedOrganizations.ItemsSource = organizationsView;
                 
             }
+        }
+        public bool FilterRecords(object o)
+        {
+            LinkedOrganization organization = (o as LinkedOrganization);
+
+            if (organization != null)
+            {
+
+                if (organization.Name.Contains(searchText.Text))
+                    return true;
+            }
+            return false;
+        }
+
+        private void SearchName(object sender, RoutedEventArgs e)
+        {
+            organizationsView.Filter = FilterRecords;
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
@@ -58,9 +75,6 @@ namespace GUI_WPF.Pages.Coordinator
         {
 
             DataGrid dataGrid = tableLinkedOrganizations;
-            /*1DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
-            DataGridCell rowAndColumn = (DataGridCell)dataGrid.Columns[0].GetCellContent(row).Parent;
-            string name = ((TextBlock)rowAndColumn.Content).Text;*/
             LinkedOrganization selectedOrganization = (LinkedOrganization)dataGrid.SelectedItem;
             NavigationService.Navigate(new DisplayLinkedOrganization(selectedOrganization));
 
@@ -69,10 +83,8 @@ namespace GUI_WPF.Pages.Coordinator
         private void ClickUpdateOv(object sender, RoutedEventArgs e)
         {
             DataGrid dataGrid = tableLinkedOrganizations;
-            DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
-            DataGridCell rowAndColumn = (DataGridCell)dataGrid.Columns[0].GetCellContent(row).Parent;
-            string name = ((TextBlock)rowAndColumn.Content).Text;
-            NavigationService.Navigate(new UpdateOrganization(name));
+            LinkedOrganization selectedOrganization = (LinkedOrganization)dataGrid.SelectedItem;
+            NavigationService.Navigate(new UpdateOrganization(selectedOrganization));
         }
     }
 }

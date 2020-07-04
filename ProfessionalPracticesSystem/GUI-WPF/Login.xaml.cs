@@ -26,6 +26,7 @@ using System.Diagnostics;
 using DataAccess.Implementation;
 using GUI_WPF.Pages.Administrator;
 using GUI_WPF.Pages.Practitioner;
+using GUI_WPF.Pages.Professor;
 
 namespace GUI_WPF
 {
@@ -59,25 +60,32 @@ namespace GUI_WPF
                     this.Close();
                     break;
                 case 2:
-                    
+
                     CoordinatorHome coordinatorHome = new CoordinatorHome();
                     string coordinatorFullName = UserManagement.GetUserName(userID, usernameEntered);
                     Home coordinatorHomeWindow = new Home(coordinatorHome, coordinatorFullName);
-                    coordinatorHomeWindow.Show();
 
+                    coordinatorHomeWindow.Show();
                     this.Close();
+
                     break;
                 case 3:
-                    /*
-                      Aqui va el home de profesor
-                     */
+
+                    ProfessorHome professorHome = new ProfessorHome();
+                    string professorFullName = UserManagement.GetUserName(userID, usernameEntered);
+                    Home professorHomeWindow = new Home(professorHome, professorFullName);
+
+                    professorHomeWindow.Show();
+                    this.Close();
+
                     break;
                 case 4:
                     AdministratorHome administratorHome = new AdministratorHome();
-                    Home adminHomeWindow = new Home(administratorHome, " ");
-                    adminHomeWindow.Show();
+                    Home adminHomeWindow = new Home(administratorHome, "Administrador");
 
+                    adminHomeWindow.Show();
                     this.Close();
+
                     break;
                 case 5:
                     DialogWindowManager.ShowErrorWindow("La contraseña o usuario es incorrecta");

@@ -36,7 +36,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM Administrator WHERE username = @adminUsername"
+                    CommandText = "SELECT * FROM Administrator WHERE user = @adminUsername"
                 };
 
                 MySqlParameter adUsername = new MySqlParameter("@adminUsername", MySqlDbType.VarChar, 45)
