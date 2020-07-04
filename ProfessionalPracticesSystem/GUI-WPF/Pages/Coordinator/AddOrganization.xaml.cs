@@ -29,6 +29,7 @@ namespace GUI_WPF.Pages.Coordinator
         public AddOrganization()
         {
             InitializeComponent();
+
             OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
             List<OrganizationSector> sectorList = sectorDao.GetAllOrganizationSectors();
             sectorsList.ItemsSource = sectorList;
@@ -36,9 +37,8 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void CancelAdd(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult confirmation = System.Windows.MessageBox.Show("¿Seguro que deseas salir?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (confirmation == MessageBoxResult.Yes)
+            
+            if (DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas salir?") == true)
             {
                 NavigationService.GoBack();
             }
@@ -84,9 +84,7 @@ namespace GUI_WPF.Pages.Coordinator
             else
             {
 
-                MessageBoxResult question = System.Windows.MessageBox.Show("¿Está seguro de guardar la organizacion?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (question == MessageBoxResult.Yes)
+                if (DialogWindowManager.ShowConfirmationWindow("¿Está seguro de guardar la organizacion?") == true)
                 {
 
                     String sectorName = sectorsList.Text;
@@ -108,12 +106,13 @@ namespace GUI_WPF.Pages.Coordinator
 
                     if (check == true)
                     {
-                        System.Windows.MessageBox.Show("Se ha guardado correctamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        DialogWindowManager.ShowSuccessWindow("Se ha guardado con exito la organizacion");
+                        ClearFields();
                         NavigationService.GoBack();
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("Ha ocurrido un error al intentar guardar. Porfavor intente mas tarde", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        DialogWindowManager.ShowErrorWindow("Ha ocurrido un error al intentar guardar. Porfavor intente mas tarde");
                     }
 
                 }

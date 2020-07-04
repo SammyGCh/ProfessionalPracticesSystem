@@ -83,30 +83,28 @@ namespace BusinessLogic
 
         public int UserRoleNumber(string username)
         {
-            bool userDetector = false;
+            int role = NO_USER;
 
-            userDetector = IsPractitioner(username);
-            if(userDetector == true)
+            if(IsPractitioner(username) == true)
             {
-                return PRACTITIONER_USER;
+                role = PRACTITIONER_USER;
             }
 
-            userDetector = IsCoordinator(username);
-            if (userDetector == true)
+            if (IsCoordinator(username) == true)
             {
-                return COORDINADOR_USER;
+                role = COORDINADOR_USER;
             }
-            userDetector = IsProfesor(username);
-            if (userDetector == true)
+
+            if (IsProfesor(username) == true)
             {
-                return PROFESOR_USER;
+                role = PROFESOR_USER;
             }
-            userDetector = IsAdministrator(username);
-            if (userDetector == true)
+
+            if (IsAdministrator(username) == true)
             {
-                return ADMINISTRATOR_USER;
+                role = ADMINISTRATOR_USER;
             }
-            return NO_USER;
+            return role;
         }
 
         public static string GetUserName(int userNumber, string userName)
@@ -125,9 +123,6 @@ namespace BusinessLogic
                 case 3:
                     Academic professor = academicDao.GetAcademicByPersonalNumber(userName);
                     userCompleteName = professor.Names + " " + professor.LastName;
-                    break;
-                case 4:
-                    userCompleteName = "Administrador";
                     break;
             }
             return userCompleteName;

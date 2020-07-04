@@ -56,10 +56,13 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
-            DocumentManagement documentManagement = new DocumentManagement();
-            documentManagement.GenerateAsignmentLetter(new AssignmentLetter(), "");
+            
         }
 
+        private void GoToStatitics(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new DisplayPractitionersStatistics());
+        }
         private void GoToRequests(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Requests());

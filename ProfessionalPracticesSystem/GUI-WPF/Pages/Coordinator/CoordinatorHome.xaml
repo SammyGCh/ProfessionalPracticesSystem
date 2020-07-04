@@ -75,7 +75,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="registerPractitionerButton" Height="30" Width="119" Cursor="Hand"  Click="RegisterPractitioner">
+                    <Button x:Name="registerPractitionerButton" Height="30" Width="119" Margin="10" Cursor="Hand"  Click="RegisterPractitioner">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>
@@ -146,7 +146,7 @@
                     <materialDesign:PackIcon Kind="TrendingUp" Width="150" Height="150" HorizontalAlignment="Center" 
                                         Foreground="White" VerticalAlignment="Center" Margin="30"/>
 
-                    <Button Height="30" Width="119" Cursor="Hand">
+                    <Button Height="30" Width="119" Cursor="Hand" Click="GoToStatitics">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3"/>

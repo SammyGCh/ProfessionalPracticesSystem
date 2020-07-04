@@ -18,12 +18,14 @@
         <StackPanel Margin="0,74,17,0">
 
             <StackPanel Orientation="Horizontal" Margin="30" Width="600"/>
+            <TextBox x:Name="searchText" Height="32" TextWrapping="Wrap" Text="Introducir Nombre" Margin="60,0,1050,0"/>
 
             <StackPanel Orientation="Horizontal" Width="600" Margin="10"/>
             <StackPanel Orientation="Horizontal" Width="600" Margin="15,0,168,0"/>
+            <Button x:Name="Search" Content="Buscar" Height="36" Margin="60,0,1050,0" Click="SearchName"/>
 
         </StackPanel>
-        <DataGrid x:Name="tableLinkedOrganizations" HorizontalAlignment="Left" Height="445" Margin="174,98,0,0" VerticalAlignment="Top" Width="942" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+        <DataGrid x:Name="tableLinkedOrganizations" HorizontalAlignment="Left" Height="445" Margin="280,98,0,0" VerticalAlignment="Top" Width="942" AutoGenerateColumns="False" Background="#FFFAFAFA" 
                   CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Width ="200" MinWidth="200" MaxWidth="200" Binding="{Binding Name}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">

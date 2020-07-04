@@ -104,6 +104,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\Coordinator\DisplayPractitionersStatistics.cs">
+      <DependentUpon>DisplayPractitionersStatistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\ProfessorHome.xaml.cs">
+      <DependentUpon>ProfessorHome.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProjectsRequest\RequestSummary.xaml.cs">
       <DependentUpon>RequestSummary.xaml</DependentUpon>
     </Compile>
@@ -140,6 +146,10 @@
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Coordinator\DisplayPractitionersStatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Coordinator\Requests.xaml">
       <SubType>Designer</SubType>
@@ -340,6 +350,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Professor\ProfessorHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ProjectsRequest\ProjectsRequestsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -423,9 +437,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Professor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="uvlogo.png" />
   </ItemGroup>
