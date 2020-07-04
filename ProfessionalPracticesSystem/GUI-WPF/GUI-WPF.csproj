@@ -104,6 +104,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\Professor\MensualReports.xaml.cs">
+      <DependentUpon>MensualReports.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProjectsRequest\RequestSummary.xaml.cs">
       <DependentUpon>RequestSummary.xaml</DependentUpon>
     </Compile>
@@ -340,6 +343,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Professor\MensualReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ProjectsRequest\ProjectsRequestsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -423,9 +430,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Professor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="uvlogo.png" />
   </ItemGroup>

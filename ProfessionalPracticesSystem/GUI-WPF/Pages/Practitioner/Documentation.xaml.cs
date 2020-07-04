@@ -27,8 +27,11 @@ namespace GUI_WPF.Pages.Practitioner
     public partial class Documentation : Page
     {
         private String practitionerMatricula;
-        private const int IDPARTIALREPORT = 1;
-        private const int IDSELFASSESSMENT = 3;
+        private const int ID_PARTIAL_REPORT = 1;
+        private const int ID_FINAL_REPORT = 2;
+        private const int ID_SELFASSESSMENT = 3;
+        private const int ID_ACEPTANCE_LETTER = 4;
+        private const int ID_ASSIGMENT_LETTER = 5;
 
         public Documentation(String practitionerMatricula)
         {
@@ -63,19 +66,29 @@ namespace GUI_WPF.Pages.Practitioner
             NavigationService.Navigate(new GenerateSelfassessment(practitionerMatricula));
         }
 
+        private void GeneratePartialReport(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new GeneratePartialReport(practitionerMatricula));
+        }
+
         private void AddPartialReport(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(IDPARTIALREPORT, practitionerMatricula));
+            NavigationService.Navigate(new AddDocument(ID_PARTIAL_REPORT, practitionerMatricula));
         }
 
         private void AddSelfAssessment(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(IDSELFASSESSMENT, practitionerMatricula));
+            NavigationService.Navigate(new AddDocument(ID_SELFASSESSMENT, practitionerMatricula));
         }
 
-        private void GeneratePartialReport(object sender, RoutedEventArgs e)
+        private void AddAceptanceLetter(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GeneratePartialReport(practitionerMatricula));
+            NavigationService.Navigate(new AddDocument(ID_ACEPTANCE_LETTER, practitionerMatricula));
+        }
+
+        private void AddAssigmentLetter(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddDocument(ID_ASSIGMENT_LETTER, practitionerMatricula));
         }
     }
 }
