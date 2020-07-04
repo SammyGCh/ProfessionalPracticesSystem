@@ -27,30 +27,16 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class DisplayPractitioner : Page
     {
-        public DisplayPractitioner(String matricula)
+        public DisplayPractitioner(BusinessDomain.Practitioner selectedPractitioner)
         {
             InitializeComponent();
-            PractitionerDAO practitionerDAO = new PractitionerDAO();
-            ProjectDAO projectDAO = new ProjectDAO();
 
-            BusinessDomain.Practitioner practitioner = practitionerDAO.GetPractitionerByMatricula(matricula);
-            this.DataContext = practitioner;
+            this.DataContext = selectedPractitioner;
 
-            practitionerInstructor.Text = practitioner.Instructed.LastName + " "+ practitioner.Instructed.Names;
-            practitionerLanguage.Text = practitioner.Speaks.IndigenousLanguageName;
-            practitionerPeriod.Text = practitioner.ScholarPeriod.Name;
-
-            if(practitioner.Status == 1)
+            if(selectedPractitioner.Assigned != null)
             {
-                practitionerStatus.Text = "Cursando";
+                projectData.Visibility = Visibility.Visible;
             }
-            else
-            {
-                practitionerStatus.Text = "No Cursando";
-            }
-
-            Project assignedProject = projectDAO.GetProjectById(practitioner.Assigned.IdProject);
-            projectName.Text = assignedProject.Name;
         }
 
         private void CancelViewPractitionerData(object sender, RoutedEventArgs e)

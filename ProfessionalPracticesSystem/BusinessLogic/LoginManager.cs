@@ -34,6 +34,9 @@ namespace BusinessLogic
         {
             int userNumber = 0;
             int roleNumber = DetectUserRole(username);
+            HashManagement hashPassword = new HashManagement();
+            String hashedPassword = hashPassword.TextToHash(password);
+            
             switch (roleNumber)
             {
                 case 0:
@@ -44,7 +47,7 @@ namespace BusinessLogic
                     PractitionerDAO practitionerdao = new PractitionerDAO();
                     Practitioner practitioner = practitionerdao.GetPractitionerByMatricula(username);
 
-                    if (password == practitioner.Password)
+                    if (hashPassword.CompareHashs(hashedPassword, practitioner.Password) == true)
                     {
                         userNumber = PRACTITIONER_USER;
                     }
@@ -57,7 +60,8 @@ namespace BusinessLogic
                 case 2:
                     AcademicDAO coordinatorDao = new AcademicDAO();
                     Academic coordinator = coordinatorDao.GetAcademicByPersonalNumber(username);
-                    if (password == coordinator.Password)
+
+                    if (hashPassword.CompareHashs(hashedPassword, coordinator.Password) == true)
                     {
 
                         userNumber = COORDINADOR_USER;
@@ -72,7 +76,8 @@ namespace BusinessLogic
                 case 3:
                     AcademicDAO profesorDao = new AcademicDAO();
                     Academic profesor = profesorDao.GetAcademicByPersonalNumber(username);
-                    if (password == profesor.Password)
+
+                    if (hashPassword.CompareHashs(hashedPassword, profesor.Password) == true)
                     {
                         userNumber = PROFESOR_USER;
                     }
@@ -85,15 +90,11 @@ namespace BusinessLogic
                 case 4:
                     AdministratorDAO administratorDAO = new AdministratorDAO();
                     Administrator administrator = administratorDAO.GetAdministratorByUser(username);
-                    if (password == administrator.Password)
+
+                    if (hashPassword.CompareHashs(hashedPassword, administrator.Password) == true)
                     {
 
                         userNumber = ADMINISTRATOR_USER;
-                        /*AdministratorHome administratorHome = new AdministratorHome();
-                        Home homeWindow = new Home(administratorHome, administrator.Username);
-                        homeWindow.Show();
-
-                        this.Close();*/
                     }
                     else
                     {
@@ -101,6 +102,7 @@ namespace BusinessLogic
                     }
                         break;
             }
+
             return userNumber;
         }
 

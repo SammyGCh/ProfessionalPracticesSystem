@@ -9,7 +9,8 @@ using System.Windows.Navigation;
 using BusinessDomain;
 using GUI_WPF.Pages.Practitioner;
 using BusinessLogic;
-
+using GUI_WPF.Windows;
+using GUI_WPF.Pages.Notice;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -58,6 +59,7 @@ namespace GUI_WPF.Pages.Coordinator
         {
             DocumentManagement documentManagement = new DocumentManagement();
             documentManagement.GenerateAsignmentLetter(new AssignmentLetter(), "");
+            NavigationService.Navigate(new NoticeBoard());
         }
 
         private void GoToRequests(object sender, RoutedEventArgs e)
@@ -65,9 +67,6 @@ namespace GUI_WPF.Pages.Coordinator
             NavigationService.Navigate(new Requests());
         }
 
-        private void CheckPractitionerButton_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }

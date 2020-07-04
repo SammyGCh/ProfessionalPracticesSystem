@@ -126,6 +126,9 @@ namespace BusinessLogic
                     Academic professor = academicDao.GetAcademicByPersonalNumber(userName);
                     userCompleteName = professor.Names + " " + professor.LastName;
                     break;
+                case 4:
+                    userCompleteName = "Administrador";
+                    break;
             }
             return userCompleteName;
         }

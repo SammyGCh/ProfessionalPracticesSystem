@@ -77,5 +77,9 @@ namespace BusinessDomain
             get => status; 
             set => status = value; 
         }
+        public override string ToString()
+        {
+            return LastName + " " + Names;
+        }
     }
 }

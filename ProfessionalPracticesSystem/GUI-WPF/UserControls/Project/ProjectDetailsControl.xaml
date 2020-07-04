@@ -9,7 +9,7 @@
 
     <StackPanel>
         <StackPanel>
-            <TextBlock Text="Datalles del proyecto" FontSize="35" FontWeight="Bold"
+            <TextBlock Text="Detalles del proyecto" FontSize="35" FontWeight="Bold"
                            Margin="20"/>
         </StackPanel>
 
