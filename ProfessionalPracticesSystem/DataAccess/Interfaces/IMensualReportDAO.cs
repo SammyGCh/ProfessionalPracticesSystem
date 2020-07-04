@@ -18,6 +18,6 @@ namespace DataAccess.Interfaces
         bool DeleteMensualReport(int idMensualReport);
 	    bool UpdateMensualReport(MensualReport MensualReport);
 	    MensualReport GetMensualReportById(int idMensualReport);
-        List<MensualReport> GetAllReportsByAcademic(int idAcademic);
+        List<MensualReport> GetAllReportsByAcademic(String personalNumberAcademic);
     }
 }

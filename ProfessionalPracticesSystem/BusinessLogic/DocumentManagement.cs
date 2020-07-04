@@ -181,5 +181,15 @@ namespace BusinessLogic
 
             return practitioner;
         }
+
+        public bool AssingGradeToMensualReport(MensualReport mensualReport)
+        {
+            bool isUpdated;
+            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+
+            isUpdated = mensualReportDAO.UpdateMensualReport(mensualReport);
+
+            return isUpdated;
+        }
     }
 }

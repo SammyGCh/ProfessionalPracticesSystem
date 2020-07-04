@@ -368,7 +368,7 @@ namespace DataAccess.Implementation
             return mensualReports;
         }
 
-        public List<MensualReport> GetAllReportsByAcademic(int idAcademic)
+        public List<MensualReport> GetAllReportsByAcademic(String personalNumberAcademic)
         {
             mensualReports = new List<MensualReport>();
             practitionerHandler = new PractitionerDAO();
@@ -388,15 +388,15 @@ namespace DataAccess.Implementation
                     "MensualReport.idProject, " +
                     "MensualReport.idPractitioner, " +
                     "MensualReport.grade " +
-                    "FROM MensualReport,Practitioner " +
+                    "FROM MensualReport,Practitioner,Academic" +
                     "WHERE  MensualReport.idPractitioner = Practitioner.idPractitioner " +
-                    "AND Practitioner.idAcademic = @idAcademic " +
-                    "AND Practitioner.status = @status"
+                    "AND Practitioner.status = @status" +
+                    "AND Academic.personalNumber = @personalNumber"
                 };
 
-                MySqlParameter academic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
+                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.Int32, 2)
                 {
-                    Value = idAcademic
+                    Value = personalNumberAcademic
                 };
 
                 MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
@@ -404,8 +404,8 @@ namespace DataAccess.Implementation
                     Value = STATUS_ACTIVE
                 };
 
-                query.Parameters.Add(academic);
                 query.Parameters.Add(status);
+                query.Parameters.Add(academic);
 
                 reader = query.ExecuteReader();
 
