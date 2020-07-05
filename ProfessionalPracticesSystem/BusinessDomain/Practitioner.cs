@@ -83,5 +83,9 @@ namespace BusinessDomain
             get => scholarPeriod;
             set => scholarPeriod = value;
         }
+        public override string ToString()
+        {
+            return LastName + " " + Names;
+        }
     }
 }
