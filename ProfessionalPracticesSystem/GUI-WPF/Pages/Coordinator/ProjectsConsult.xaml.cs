@@ -2,20 +2,13 @@
         Date: 07/05/2020                              
         Author:Cesar Sergio Martinez Palacios
  */
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.ComponentModel;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
@@ -28,6 +21,7 @@ namespace GUI_WPF.Pages.Coordinator
     {
         private readonly ObservableCollection<Project> projects;
         private Project projectSelected;
+        ICollectionView projectsView;
 
         public ProjectsConsult()
         {
@@ -35,9 +29,9 @@ namespace GUI_WPF.Pages.Coordinator
             ProjectDAO projectDao = new ProjectDAO();
             List<Project> allProjects = projectDao.GetActiveProjects();
             projects = new ObservableCollection<Project>(allProjects);
-            tableProjects.ItemsSource = projects;
+            projectsView = CollectionViewSource.GetDefaultView(allProjects);
+            tableProjects.ItemsSource = projectsView;
         }
-
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();

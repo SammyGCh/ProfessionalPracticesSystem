@@ -25,34 +25,34 @@
 
                         <TextBlock FontSize="18" FontWeight="Bold" Margin="205,0,200,0"><Run Text="Informacion actual de la organizacion"/></TextBlock>
 
-                        <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="10,15,0,0">
+                        <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="-10,20,0,0">
                             <TextBlock Text="Nombre: " Margin="2,2,3,4" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="organizationName" Width="380"/>
+                            <TextBox x:Name="organizationName" Width="372"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
-                            <TextBlock Text="Estado: " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
+                        <StackPanel Orientation="Horizontal" Width="480" Margin="-10,10,0,10" Height="25">
+                            <TextBlock Text="Estado: " Margin="5,2,3,0" FontSize="14" TextAlignment="Right"/>
                             <TextBox x:Name="organizationState" Width="380" />
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
-                            <TextBlock Text="Ciudad: " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
+                        <StackPanel Orientation="Horizontal" Width="480" Margin="0,0,10,0" Height="25">
+                            <TextBlock Text="Ciudad: " Margin="5,2,3,0" FontSize="14" TextAlignment="Right"/>
                             <TextBox x:Name="organizationCity" Width="380" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="45">
                             <TextBlock Text="Direccion: " Margin="0,2,3,0" FontSize="14" TextAlignment="Right" TextWrapping="Wrap"/>
-                            <TextBox x:Name="organizationAddress" Width="380" />
+                            <TextBox x:Name="organizationAddress" Width="366" />
                         </StackPanel>
 
 
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Teléfono: " Margin="0,3,4,1" FontSize="14"/>
-                            <TextBox x:Name="organizationPhone" Width="402" MaxLength="10" TextCompositionManager.PreviewTextInput="IsTelephoneNumber"/>
+                            <TextBox x:Name="organizationPhone" Width="370" MaxLength="10" TextCompositionManager.PreviewTextInput="IsTelephoneNumber"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Width="480" Margin="15,0,168.2,0" Height="25">
+                        <StackPanel Orientation="Horizontal" Width="480" Margin="120,10,168.2,10" Height="25">
                             <TextBlock Text="Correo electrónico: " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
                             <TextBox x:Name="organizationEmail" Width="402" />
                         </StackPanel>
@@ -84,6 +84,7 @@
 
                 </StackPanel>
             </StackPanel>
+            <TextBox x:Name="organizationID" HorizontalAlignment="Left" Height="23" Margin="178,594,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsReadOnly="True" Visibility="Hidden"/>
         </Grid>
     </ScrollViewer>
 </Page>
