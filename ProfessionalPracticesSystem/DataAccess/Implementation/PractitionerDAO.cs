@@ -25,7 +25,7 @@ namespace DataAccess.Implementation
         private MySqlDataReader reader;
         private const int STATUS_NO_ACTIVE = 0;
         private const int STATUS_ACTIVE = 1;
-        private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
+        private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificación no asignada";
 
         private readonly int NO_ACTIVE = 0;
 
@@ -646,8 +646,11 @@ namespace DataAccess.Implementation
                         Instructed = academic.GetAcademic(reader.GetInt32(10)),
                         ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
                     };
-
-                    if (!reader.IsDBNull(8))
+                    if (reader.IsDBNull(3))
+                    {
+                        practitioner.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
+                    }
+                    else
                     {
                         practitioner.Grade = reader.GetString(3);
                     }

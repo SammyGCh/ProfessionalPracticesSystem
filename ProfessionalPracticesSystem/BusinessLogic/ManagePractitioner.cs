@@ -37,14 +37,18 @@ namespace BusinessLogic
         {
             bool isUpdated = false;
 
-            HashManagement hashManager = new HashManagement();
-
-            String encryptedPassword = hashManager.TextToHash(updatedPractitioner.Password);
-            updatedPractitioner.Password = encryptedPassword;
-
             isUpdated = practitionerDao.UpdatePractitioner(updatedPractitioner);
 
             return isUpdated;
+        }
+
+        public bool DeletePractitioner(int deletedPractitionerID)
+        {
+            bool isDeleted = false;
+
+            isDeleted = practitionerDao.DeletePractitioner(deletedPractitionerID);
+
+            return isDeleted;
         }
     }
 }
