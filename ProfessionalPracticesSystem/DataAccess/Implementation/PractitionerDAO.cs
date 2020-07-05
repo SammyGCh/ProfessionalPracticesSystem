@@ -539,7 +539,7 @@ namespace DataAccess.Implementation
             return isSaved;
         }
 
-        public List<Practitioner> GetAllPractitionerByAcademic(int idAcademic)
+        public List<Practitioner> GetAllPractitionerByAcademic(String PersonalNumber)
         {
             belogsTo = new ScholarPeriodDAO();
             speaks = new IndigenousLanguageDAO();
@@ -551,12 +551,31 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Practitioner WHERE Practitioner.idAcademic = @idAcademic AND Practitioner.status = @status;"
+                    CommandText = 
+                    "SELECT " +
+                    "Practitioner.idPractitioner, " +
+                    "Practitioner.matricula, " +
+                    "Practitioner.password, " +
+                    "Practitioner.grade, " +
+                    "Practitioner.gender, " +
+                    "Practitioner.names, " +
+                    "Practitioner.lastName, " +
+                    "Practitioner.idIndigenousLanguage, " +
+                    "Practitioner.idProject, " +
+                    "Practitioner.status, " +
+                    "Practitioner.idAcademic, " +
+                    "Practitioner.idScholarPeriod " +
+                    "FROM " +
+                    "Academic,Practitioner " +
+                    "WHERE " +
+                    "Practitioner.idAcademic = Academic.idAcademic " +
+                    "AND Academic.personalNumber = @personalNumber " +
+                    "AND Practitioner.status = @status;"
                 };
 
-                MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
+                MySqlParameter idacademic = new MySqlParameter("@personalNumber", MySqlDbType.VarChar, 9)
                 {
-                    Value = idAcademic
+                    Value = PersonalNumber
                 };
 
                 MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
