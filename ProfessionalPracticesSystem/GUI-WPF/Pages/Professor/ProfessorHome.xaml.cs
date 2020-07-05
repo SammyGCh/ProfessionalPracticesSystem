@@ -34,7 +34,7 @@ namespace GUI_WPF.Pages.Professor
 
         }
 
-        private void CheckOrganization(object sender, RoutedEventArgs e)
+        private void CheckNotices(object sender, RoutedEventArgs e)
         {
 
         }
@@ -43,7 +43,7 @@ namespace GUI_WPF.Pages.Professor
 
         }
 
-        private void EvaluateDocuments(object sender, RoutedEventArgs e)
+        private void CheckPartialReports(object sender, RoutedEventArgs e)
         {
 
         }
