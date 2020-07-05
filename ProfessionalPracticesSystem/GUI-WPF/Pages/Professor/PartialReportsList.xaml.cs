@@ -18,16 +18,16 @@ using System.Windows.Shapes;
 namespace GUI_WPF.Pages.Professor
 {
     /// <summary>
-    /// Lógica de interacción para MensualReports.xaml
+    /// Lógica de interacción para PartialReportsList.xaml
     /// </summary>
-    public partial class MensualReportsList : Page
+    public partial class PartialReportsList : Page
     {
-        public MensualReportsList(String personalNumber)
+        public PartialReportsList(String personalNumber)
         {
             InitializeComponent();
-            MensualReportDAO mensualReportDAO = new MensualReportDAO();
-            List<BusinessDomain.MensualReport> mensualReportsList = mensualReportDAO.GetAllReportsByAcademic(personalNumber);
-            mensualReportsTable.ItemsSource = mensualReportsList;
+            DocumentDAO documentDAO = new DocumentDAO();
+            List<BusinessDomain.Document> partialReportsList = documentDAO.GetAllPartialReportByAcademic(personalNumber);
+            partialReportsTable.ItemsSource = partialReportsList;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -37,14 +37,11 @@ namespace GUI_WPF.Pages.Professor
 
         private void Evaluation(object sender, RoutedEventArgs e)
         {
-            MensualReport reportSelected = (MensualReport)mensualReportsTable.SelectedItem;
+            Document reportSelected = (Document)partialReportsTable.SelectedItem;
 
-            EvaluateMensualReport mensualReportPage = new EvaluateMensualReport()
-            {
-                DataContext = reportSelected
-            };
+            EvaluatePartialReport partialReportPage = new EvaluatePartialReport(reportSelected);
 
-            NavigationService.Navigate(mensualReportPage);
+            NavigationService.Navigate(partialReportPage);
         }
     }
 }

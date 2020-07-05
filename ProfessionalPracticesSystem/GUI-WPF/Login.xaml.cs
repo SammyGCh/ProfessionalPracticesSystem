@@ -71,7 +71,7 @@ namespace GUI_WPF
                     break;
                 case 3:
 
-                    ProfessorHome professorHome = new ProfessorHome();
+                    ProfessorHome professorHome = new ProfessorHome(usernameEntered);
                     string professorFullName = UserManagement.GetUserName(userID, usernameEntered);
                     Home professorHomeWindow = new Home(professorHome, professorFullName);
 

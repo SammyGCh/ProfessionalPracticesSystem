@@ -1,4 +1,4 @@
-﻿<Page x:Class="GUI_WPF.Pages.Professor.MensualReportsList"
+﻿<Page x:Class="GUI_WPF.Pages.Professor.PartialReportsList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,16 +6,16 @@
       xmlns:local="clr-namespace:GUI_WPF.Pages.Professor" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Width="Auto" Height="Auto"
-      Title="MensualReportsList">
+      Title="PartialReportsList">
 
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
         <StackPanel Background="White" Height="798">
-            <TextBlock HorizontalAlignment="Left" Margin="100,10,0,0" TextWrapping="Wrap" Text="Reportes mensuales" 
+            <TextBlock HorizontalAlignment="Left" Margin="100,10,0,0" TextWrapping="Wrap" Text="Reportes paricales" 
             VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="514"/>
 
             <StackPanel Margin="80">
-                <DataGrid x:Name="mensualReportsTable" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1100" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+                <DataGrid x:Name="partialReportsTable" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1100" AutoGenerateColumns="False" Background="#FFFAFAFA" 
                   CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="100" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
 
@@ -30,12 +30,12 @@
                             </DataGridTemplateColumn.HeaderStyle>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding MensualReportName}" TextWrapping="WrapWithOverflow"/>
+                                    <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Fecha de subida"  Width ="250" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn Header="Practicante"  Width ="250" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -46,44 +46,44 @@
                             </DataGridTemplateColumn.HeaderStyle>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding MonthReportedDate}" TextWrapping="WrapWithOverflow"/>
+                                    <TextBlock Text="{Binding AddBy.Names}" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        
-                            <DataGridTemplateColumn Header="Calificación" Width ="250"  CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
-                                <DataGridTemplateColumn.HeaderStyle>
-                                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                                        <Setter Property="Background" Value="#FF5BA1DA"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="FontSize" Value="24"/>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    </Style>
-                                </DataGridTemplateColumn.HeaderStyle>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Grade}" TextWrapping="WrapWithOverflow"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Calificación" Width ="250"  CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                            <DataGridTemplateColumn.HeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Background" Value="#FF5BA1DA"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Grade}" TextWrapping="WrapWithOverflow"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
 
-                            <DataGridTemplateColumn  Header="Opciones" Width="350" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="350">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="Evaluar" Name="details" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="Evaluation"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn  Header="Opciones" Width="350" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="350">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Evaluar" Name="details" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="Evaluation"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
 
-                                <DataGridTemplateColumn.HeaderStyle>
-                                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                                        <Setter Property="Background" Value="#FF5BA1DA"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="FontSize" Value="24"/>
-                                    </Style>
-                                </DataGridTemplateColumn.HeaderStyle>
-                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Background" Value="#FF5BA1DA"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="24"/>
+                                </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                        </DataGridTemplateColumn>
 
 
                     </DataGrid.Columns>

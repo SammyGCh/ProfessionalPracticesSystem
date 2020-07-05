@@ -24,9 +24,12 @@ namespace GUI_WPF.Pages.Professor
     /// </summary>
     public partial class ProfessorHome : Page
     {
-        public ProfessorHome()
+        private String personalNumber;
+
+        public ProfessorHome(String personalNumber)
         {
             InitializeComponent();
+            this.personalNumber = personalNumber;
         }
 
         private void CheckPractitioners(object sender, RoutedEventArgs e)
@@ -34,18 +37,18 @@ namespace GUI_WPF.Pages.Professor
 
         }
 
-        private void CheckOrganization(object sender, RoutedEventArgs e)
+        private void CheckNotices(object sender, RoutedEventArgs e)
         {
 
         }
         private void CheckMensualReports(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new MensualReportsList(personalNumber));
         }
 
-        private void EvaluateDocuments(object sender, RoutedEventArgs e)
+        private void CheckPartialReports(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new PartialReportsList(personalNumber));
         }
     }
 }

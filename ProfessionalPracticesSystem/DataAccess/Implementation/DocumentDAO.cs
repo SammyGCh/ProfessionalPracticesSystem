@@ -271,7 +271,7 @@ namespace DataAccess.Implementation
             return documentList;
         }
 
-        public List<Document> GetAllPartialReportByAcademic(int idAcademic)
+        public List<Document> GetAllPartialReportByAcademic(String personalNumber)
         {
             addBy = new PractitionerDAO();
             typeOf = new DocumentTypeDAO();
@@ -282,25 +282,32 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "" +
-                    "SELECT Document.idDocument, Document.name, Document.path, Document.idDocumentType, Document.idPractitioner, Document.grade, Document.observations" +
-                    "FROM Document, Practitioner" +
+                    "SELECT " +
+                    "Document.idDocument, " +
+                    "Document.name, " +
+                    "Document.path, " +
+                    "Document.idDocumentType, " +
+                    "Document.idPractitioner, " +
+                    "Document.grade, " +
+                    "Document.observations " +
+                    "FROM Document,Practitioner,Academic " +
                     "WHERE Document.idDocumentType = @idDocumentType " +
                     "AND Document.idPractitioner = Practitioner.idPractitioner " +
-                    "AND Practitioner.idAcademic = @idAcademic" +
+                    "AND Academic.personalNumber = @personalNumber " +
                     "AND Practitioner.status = @status;"
                 };
 
-                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 1)
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
                 {
                     Value = ID_PARTIAL_REPORT
                 };
 
-                MySqlParameter academic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 1)
+                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.VarChar, 9)
                 {
-                    Value = idAcademic
+                    Value = personalNumber
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 1)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
                     Value = STATUS_ACTIVE
                 };
@@ -333,11 +340,11 @@ namespace DataAccess.Implementation
 
                     if (reader.IsDBNull(6))
                     {
-                        document.Grade = OBSERVATIONS_NOT_ASSIGNED_MESSAGE;
+                        document.Observations = OBSERVATIONS_NOT_ASSIGNED_MESSAGE;
                     }
                     else
                     {
-                        document.Grade = reader.GetString(6);
+                        document.Observations = reader.GetString(6);
                     }
 
                     documentList.Add(document);
@@ -360,7 +367,7 @@ namespace DataAccess.Implementation
             return documentList;
         }
 
-        public List<Document> GetAllSelfassessmentByAcademic(int idAcademic)
+        public List<Document> GetAllSelfassessmentByAcademic(String personalNumber)
         {
             addBy = new PractitionerDAO();
             typeOf = new DocumentTypeDAO();
@@ -371,11 +378,18 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "" +
-                    "SELECT Document.idDocument, Document.name, Document.path, Document.idDocumentType, Document.idPractitioner" +
-                    "FROM Document, Practitioner" +
+                    "SELECT " +
+                    "Document.idDocument, " +
+                    "Document.name, " +
+                    "Document.path, " +
+                    "Document.idDocumentType, " +
+                    "Document.idPractitioner, " +
+                    "Document.grade, " +
+                    "Document.observations " +
+                    "FROM Document,Practitioner,Academic " +
                     "WHERE Document.idDocumentType = @idDocumentType " +
                     "AND Document.idPractitioner = Practitioner.idPractitioner " +
-                    "AND Practitioner.idAcademic = @idAcademic" +
+                    "AND Academic.personalNumber = @personalNumber " +
                     "AND Practitioner.status = @status;"
                 };
 
@@ -384,9 +398,9 @@ namespace DataAccess.Implementation
                     Value = ID_SELFASSESSMENT
                 };
 
-                MySqlParameter academic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 1)
+                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.Int32, 1)
                 {
-                    Value = idAcademic
+                    Value = personalNumber
                 };
 
                 MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 1)
@@ -490,7 +504,7 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE document SET grade = @grade WHERE document.idDocument = @idDocument"
+                    CommandText = "UPDATE Document SET grade = @grade WHERE Document.idDocument = @idDocument"
                 };
 
                 MySqlParameter grad = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)

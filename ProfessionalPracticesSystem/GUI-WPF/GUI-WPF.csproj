@@ -104,7 +104,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-
     <Compile Include="Pages\Notice\AddNewNotice.xaml.cs">
       <DependentUpon>AddNewNotice.xaml</DependentUpon>
     </Compile>
@@ -120,18 +119,23 @@
     <Compile Include="Pages\Professor\EvaluateMensualReport.xaml.cs">
       <DependentUpon>EvaluateMensualReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Professor\EvaluatePartialReport.xaml.cs">
+      <DependentUpon>EvaluatePartialReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Professor\MensualReportsList.xaml.cs">
       <DependentUpon>MensualReportsList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Professor\PartialReportsList.xaml.cs">
+      <DependentUpon>PartialReportsList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Practitioner\AssignedProjectData.xaml.cs">
       <DependentUpon>AssignedProjectData.xaml</DependentUpon>
-
+    </Compile>
     <Compile Include="Pages\Coordinator\DisplayPractitionersStatistics.cs">
       <DependentUpon>DisplayPractitionersStatistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Professor\ProfessorHome.xaml.cs">
       <DependentUpon>ProfessorHome.xaml</DependentUpon>
-
     </Compile>
     <Compile Include="Windows\ProjectsRequest\RequestSummary.xaml.cs">
       <DependentUpon>RequestSummary.xaml</DependentUpon>
@@ -389,12 +393,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
     <Page Include="Pages\Professor\EvaluateMensualReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Professor\EvaluatePartialReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Professor\MensualReportsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\PartialReportsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -403,7 +414,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Professor\ProfessorHome.xaml">
-
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

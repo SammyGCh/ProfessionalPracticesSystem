@@ -92,7 +92,7 @@ namespace GUI_WPF
 
             if (!AreFieldsEmpty())
             {
-                isComplete = (ValidatorText.IsTextRight(documentName.Text) == ValidatorText.IsMensualReportTextRight(documentDescription.Text));
+                isComplete = (ValidatorText.IsTextRight(documentName.Text) && ValidatorText.IsMensualReportTextRight(documentDescription.Text));
             }
 
             return isComplete;

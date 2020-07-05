@@ -15,6 +15,7 @@ namespace BusinessLogic
         private const int MINIMUM_LENGHT = 10;
         private const int MINIMUM_LENGHT_MENSUAL_REPORT = 200;
         private const int MINIMUM_LENGHT_PARTIAL_REPORT = 200;
+        private const int MINIMUM_LENGHT_OBSERVATIONS_REPORT = 100;
 
         public static bool IsUserName(string userName)
         {
@@ -59,6 +60,21 @@ namespace BusinessLogic
             return numberRegularExpression.IsMatch(number);
         }
 
+        public static bool IsAValidGrade(string number)
+        {
+            bool isValid = false;
+            Regex numberRegularExpression = new Regex(@"(\d{1,4})$");
+
+            if (numberRegularExpression.IsMatch(number))
+            {
+                float grade = float.Parse(number);
+
+                isValid = (grade > 0.00) && (grade <= 10.00);
+            }
+
+            return isValid;
+        }
+
         public static bool IsTextRight(string textToValidate)
         {
             bool isTextRight = false;
@@ -88,6 +104,18 @@ namespace BusinessLogic
             bool isTextRight = false;
 
             if (IsRightExpression(textToValidate) && textToValidate.Length > MINIMUM_LENGHT_PARTIAL_REPORT)
+            {
+                isTextRight = true;
+            }
+
+            return isTextRight;
+        }
+
+        public static bool IsPartialReportobservationsRight(string textToValidate)
+        {
+            bool isTextRight = false;
+
+            if (IsRightExpression(textToValidate) && textToValidate.Length > MINIMUM_LENGHT_OBSERVATIONS_REPORT)
             {
                 isTextRight = true;
             }

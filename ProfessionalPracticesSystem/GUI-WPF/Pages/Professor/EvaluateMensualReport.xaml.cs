@@ -70,7 +70,7 @@ namespace GUI_WPF.Pages.Professor
 
         private bool AreGradeValid()
         {
-            return ValidatorText.IsANumber(gradeAssigned.Text);
+            return ValidatorText.IsAValidGrade(gradeAssigned.Text);
         }
 
         private MensualReport GetNewReport()

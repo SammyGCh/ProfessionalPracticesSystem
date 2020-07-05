@@ -370,9 +370,9 @@ namespace DataAccess.Implementation
 
         public List<MensualReport> GetAllReportsByAcademic(String personalNumberAcademic)
         {
-            mensualReports = new List<MensualReport>();
-            practitionerHandler = new PractitionerDAO();
-            projectHandler = new ProjectDAO();
+            List<MensualReport> mensualReports = new List<MensualReport>();
+            PractitionerDAO practitionerHandler = new PractitionerDAO();
+            ProjectDAO projectHandler = new ProjectDAO();
 
             try
             {
@@ -388,20 +388,20 @@ namespace DataAccess.Implementation
                     "MensualReport.idProject, " +
                     "MensualReport.idPractitioner, " +
                     "MensualReport.grade " +
-                    "FROM MensualReport,Practitioner,Academic" +
-                    "WHERE  MensualReport.idPractitioner = Practitioner.idPractitioner " +
-                    "AND Practitioner.status = @status" +
+                    "FROM MensualReport,Practitioner,Academic " +
+                    "WHERE MensualReport.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Practitioner.status = @status " +
                     "AND Academic.personalNumber = @personalNumber"
                 };
 
-                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.Int32, 2)
-                {
-                    Value = personalNumberAcademic
-                };
-
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
                     Value = STATUS_ACTIVE
+                };
+
+                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.VarChar, 9)
+                {
+                    Value = personalNumberAcademic
                 };
 
                 query.Parameters.Add(status);
