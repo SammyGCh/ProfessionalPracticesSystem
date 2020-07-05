@@ -12,7 +12,5 @@ namespace DataAccess.Interfaces
     {
         List <IndigenousLanguage> GetAllIndigenousLanguages();
         IndigenousLanguage GetIndigenousLanguageById(int idIndigenousLanguage);
-        bool InsertIndigenousLanguage(IndigenousLanguage indigenousLanguage);
-        bool DeleteIndigenousLanguageById(int idIndigenousLanguage);
     }
 }
