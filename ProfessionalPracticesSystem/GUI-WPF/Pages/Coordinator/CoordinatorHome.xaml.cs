@@ -9,8 +9,7 @@ using System.Windows.Navigation;
 using BusinessDomain;
 using GUI_WPF.Pages.Practitioner;
 using BusinessLogic;
-using GUI_WPF.Windows;
-using GUI_WPF.Pages.Notice;
+
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -57,7 +56,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
-        
+            
         }
 
         private void GoToStatitics(object sender, RoutedEventArgs e)
@@ -69,6 +68,9 @@ namespace GUI_WPF.Pages.Coordinator
             NavigationService.Navigate(new Requests());
         }
 
+        private void CheckPractitionerButton_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
