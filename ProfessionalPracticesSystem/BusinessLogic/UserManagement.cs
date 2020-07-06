@@ -54,7 +54,7 @@ namespace BusinessLogic
         {
             bool isProfessor = false;
             Academic professor = academicDao.GetAcademicByPersonalNumber(personalNumber);
-            if(professor != null)
+            if(professor.BelongTo != null)
             {
                 if(professor.BelongTo.IdAcademicType == 2)
                 {
@@ -68,7 +68,7 @@ namespace BusinessLogic
         {
             bool isCoordinator = false;
             Academic coordinator = academicDao.GetAcademicByPersonalNumber(personalNumber);
-            if (coordinator != null)
+            if (coordinator.BelongTo != null)
             {
                 if (coordinator.BelongTo.IdAcademicType == 1)
                 {
