@@ -143,12 +143,6 @@
     <Compile Include="UserControls\Practitioner\AssignedProjectData.xaml.cs">
       <DependentUpon>AssignedProjectData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Coordinator\DisplayPractitionersStatistics.cs">
-      <DependentUpon>DisplayPractitionersStatistics.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Professor\ProfessorHome.xaml.cs">
-      <DependentUpon>ProfessorHome.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\ProjectsRequest\RequestSummary.xaml.cs">
       <DependentUpon>RequestSummary.xaml</DependentUpon>
     </Compile>
@@ -428,6 +422,7 @@
     <Page Include="UserControls\Practitioner\AssignedProjectData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\User\UpdatePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -435,10 +430,6 @@
     <Page Include="Pages\Professor\ProfessorHome.xaml">
         <SubType>Designer</SubType>
         <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Practitioner\AssignedProjectData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ProjectsRequest\ProjectsRequestsControl.xaml">
       <SubType>Designer</SubType>
