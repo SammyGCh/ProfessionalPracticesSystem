@@ -27,8 +27,6 @@ namespace DataAccess.Implementation
         private const int STATUS_ACTIVE = 1;
         private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificación no asignada";
 
-        private readonly int NO_ACTIVE = 0;
-
 
         public PractitionerDAO()
         {
@@ -335,8 +333,7 @@ namespace DataAccess.Implementation
             return practitioner;
         }
 
-        public Practitioner GetPractitionerByMatricula(string matriculaP)
-
+        public Practitioner GetPractitionerByMatricula(String matriculaP)
         {
             belogsTo = new ScholarPeriodDAO();
             speaks = new IndigenousLanguageDAO();
@@ -347,14 +344,21 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Practitioner WHERE Practitioner.matricula = @matriculaP"
+                    CommandText = "SELECT * FROM Practitioner WHERE Practitioner.matricula = @matriculaP AND Practitioner.status = @status"
                 };
+
                 MySqlParameter matricula = new MySqlParameter("@matriculaP", MySqlDbType.VarChar, 9)
                 {
                     Value = matriculaP
                 };
 
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
                 query.Parameters.Add(matricula);
+                query.Parameters.Add(status);
 
                 reader = query.ExecuteReader();
 
@@ -425,7 +429,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter password = new MySqlParameter("@password", MySqlDbType.VarChar, 255)
                 {
-                    Value = practitioner.Password
+                    Value = practitioner.Matricula
                 };
 
                 MySqlParameter grade = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)
@@ -448,22 +452,22 @@ namespace DataAccess.Implementation
                     Value = practitioner.LastName
                 };
 
-                MySqlParameter idIndigenousLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 2)
+                MySqlParameter idIndigenousLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.Speaks.IdIndigenousLanguage
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.Status
                 };
 
-                MySqlParameter idAcademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
+                MySqlParameter idAcademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.Instructed.IdAcademic
                 };
 
-                MySqlParameter scholarPeriod = new MySqlParameter("@idScholarPeriod", MySqlDbType.Int32, 2)
+                MySqlParameter scholarPeriod = new MySqlParameter("@idScholarPeriod", MySqlDbType.Int32, 11)
                 {
                     Value = practitioner.ScholarPeriod.IdScholarPeriod
                 };
@@ -535,7 +539,7 @@ namespace DataAccess.Implementation
             return isSaved;
         }
 
-        public List<Practitioner> GetAllPractitionerByAcademic(int idAcademic)
+        public List<Practitioner> GetAllPractitionerByAcademic(String PersonalNumber)
         {
             belogsTo = new ScholarPeriodDAO();
             speaks = new IndigenousLanguageDAO();
@@ -547,12 +551,31 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Practitioner WHERE Practitioner.idAcademic = @idAcademic AND Practitioner.status = @status;"
+                    CommandText = 
+                    "SELECT " +
+                    "Practitioner.idPractitioner, " +
+                    "Practitioner.matricula, " +
+                    "Practitioner.password, " +
+                    "Practitioner.grade, " +
+                    "Practitioner.gender, " +
+                    "Practitioner.names, " +
+                    "Practitioner.lastName, " +
+                    "Practitioner.idIndigenousLanguage, " +
+                    "Practitioner.idProject, " +
+                    "Practitioner.status, " +
+                    "Practitioner.idAcademic, " +
+                    "Practitioner.idScholarPeriod " +
+                    "FROM " +
+                    "Academic,Practitioner " +
+                    "WHERE " +
+                    "Practitioner.idAcademic = Academic.idAcademic " +
+                    "AND Academic.personalNumber = @personalNumber " +
+                    "AND Practitioner.status = @status;"
                 };
 
-                MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
+                MySqlParameter idacademic = new MySqlParameter("@personalNumber", MySqlDbType.VarChar, 9)
                 {
-                    Value = idAcademic
+                    Value = PersonalNumber
                 };
 
                 MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)

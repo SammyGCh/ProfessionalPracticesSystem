@@ -3,6 +3,7 @@
     Author(s): Sammy Guadarrama Chávez
  */
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -22,10 +23,13 @@ namespace GUI_WPF.Pages.Practitioner
         private readonly ObservableCollection<Project> availableProjectsList;
         private readonly ObservableCollection<Project> projectsSelectedList;
         private const int MAX_PROJECTSELECTED_NUMBER = 3;
+        private readonly String currentPractitionerMatricula; 
 
-        public RequestProject()
+        public RequestProject(String practitionerMatricula)
         {
             InitializeComponent();
+
+            currentPractitionerMatricula = practitionerMatricula;
 
             ProjectDAO projectDao = new ProjectDAO();
             List<Project> projects = projectDao.GetActiveProjects();
@@ -115,6 +119,7 @@ namespace GUI_WPF.Pages.Practitioner
                     message = "Has solicitados los proyectos exitosamente.";
 
                     DialogWindowManager.ShowSuccessWindow(message);
+                    NavigationService.GoBack();
                 }
                 else
                 {
@@ -134,13 +139,12 @@ namespace GUI_WPF.Pages.Practitioner
         {
             bool isGenerated = false;
             List<Project> projectsSelected = new List<Project>(projectsSelectedList);
-            BusinessDomain.Practitioner requester = DataContext as BusinessDomain.Practitioner;
 
             ManageProjectsRequest manageProjectsRequest = new ManageProjectsRequest();
 
-            if (projectsSelected != null && requester != null)
+            if (projectsSelected != null)
             {
-                isGenerated = manageProjectsRequest.GenerateProjectsRequest(projectsSelected, requester);
+                isGenerated = manageProjectsRequest.GenerateProjectsRequest(projectsSelected, currentPractitionerMatricula);
             }
 
             return isGenerated;

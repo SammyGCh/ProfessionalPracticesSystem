@@ -9,6 +9,7 @@ using BusinessLogic;
 using System.Windows.Forms;
 using BusinessDomain;
 using DataAccess;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF
 {
@@ -16,35 +17,43 @@ namespace GUI_WPF
     {
         private String sourcePath;
         private int idDocumentType;
-        private int idPractitioner;
+        private String practitionerMatricula;
         private DocumentManagement documentManager;
 
-        public AddDocument(int documentType, int idPractitioner)
+        public AddDocument(int documentType, String practitionerMatricula)
         {
             this.idDocumentType = documentType;
-            this.idPractitioner = idPractitioner;
+            this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
         }
 
         private void Accept(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = System.Windows.MessageBox.Show("¿Está seguro de subir el documento?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Está seguro de subir el documento?");
 
-            if (result == MessageBoxResult.Yes)
+            if (isConfirmed)
             {
-                if(sourcePath != null)
+                if (sourcePath != null)
                 {
-                    bool functionResult = saveDocument();
-                    System.Windows.MessageBox.Show("", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    bool isAdded = SaveDocument();
+
+                    if (isAdded)
+                    {
+                        DialogWindowManager.ShowSuccessWindow("Documento añadido exitosamente");
+                    }
+                    else
+                    {
+                        DialogWindowManager.ShowErrorWindow("Error al añadir archivo, por favor intente más tarde");
+                    }
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Por favor, seleccione un documento", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    DialogWindowManager.ShowErrorWindow("Por favor, seleccione un documento");
                 }
             }
         }
 
-        public bool saveDocument()
+        public bool SaveDocument()
         {
             documentManager = new DocumentManagement();
             Document newDocument = GetDocument();
@@ -55,32 +64,31 @@ namespace GUI_WPF
 
         private void Select(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog explorador = new OpenFileDialog
+            OpenFileDialog explorer = new OpenFileDialog
             {
                 Filter = "pdf files (*.pdf)|*.pdf"
             };
 
             try
             {
-                if (explorador.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (explorer.ShowDialog() == DialogResult.OK)
                 {
-                    sourcePath = explorador.FileName;
+                    sourcePath = explorer.FileName;
                     pdfViewer.Navigate(sourcePath);
                 }
             }
             catch (ArgumentException ex)
             {
-
-                System.Windows.MessageBox.Show("Ocurrio un error al abrir el explorador, intente mas tarde", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                DialogWindowManager.ShowErrorWindow("Ocurrio un error al abrir el explorador, intente mas tarde");
                 LogManager.WriteLog("Something went wrong in  GUI-WPF/Pages/DocumentManagement/AddDocument:", ex);
             }
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = System.Windows.MessageBox.Show("¿Seguro que deseas salir?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas salir?");
 
-            if (result == MessageBoxResult.Yes)
+            if (isConfirmed)
             {
                 NavigationService.GoBack();
             }
@@ -88,21 +96,29 @@ namespace GUI_WPF
 
         private Document GetDocument()
         {
+            Practitioner currentPractitioner = GetCurrentPractitioner();
             String documentName = sourcePath.Substring(sourcePath.LastIndexOf(@"\"));
-            String documentsDirectory = "..\\..\\..\\\\BusinessLogic\\Documents";
-            String finalPath = documentsDirectory + documentName;
+            String documentsDirectory = "ftp://192.168.100.100/" + currentPractitioner.IdPractitioner + "/" + idDocumentType.ToString();
             DocumentType auxiliarDocumentType = new DocumentType { IdDocumentType = idDocumentType };
-            Practitioner auxiliarPractitioner = new Practitioner { IdPractitioner = idPractitioner };
+
 
             Document newDocument = new Document
             {
                 Name = documentName,
-                Path = finalPath,
+                Path = documentsDirectory,
                 TypeOf = auxiliarDocumentType,
-                AddBy = auxiliarPractitioner
+                AddBy = currentPractitioner
             };
 
             return newDocument;
+        }
+
+        private Practitioner GetCurrentPractitioner()
+        {
+            DocumentManagement documentManager = new DocumentManagement();
+            Practitioner currentPRactitioner = documentManager.GetAllInformationPractitioner(practitionerMatricula);
+
+            return currentPRactitioner;
         }
     }
 }

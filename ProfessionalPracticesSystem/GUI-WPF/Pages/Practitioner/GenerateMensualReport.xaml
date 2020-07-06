@@ -20,14 +20,16 @@
                         <TextBlock TextAlignment="Center" Width="300" FontSize="14" FontWeight="DemiBold">
                                         Nombre de reporte
                         </TextBlock>
-                        <TextBox x:Name="documentName" Width="300" TextAlignment="Center">
-                        
+                      
+                        <TextBox x:Name="documentName" TextWrapping="Wrap" Width="300" TextAlignment="Center" MaxLength="35">
                         </TextBox>
+                      
                         <TextBlock Margin="0,15,0,0" TextAlignment="Center" Width="300" FontSize="10" FontWeight="DemiBold">
                                         Ingresa las actividades que realizaste durante el mes
                         </TextBlock>
 
-                        <TextBox x:Name="documentDescription" Width="600" Margin="0,15,0,20"></TextBox>
+                        <TextBox x:Name="documentDescription" Width="600" TextWrapping="Wrap" Margin="0,15,0,20" MaxLength="4000" ></TextBox>
+                  
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">

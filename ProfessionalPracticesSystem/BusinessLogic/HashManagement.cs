@@ -4,7 +4,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
 
@@ -29,18 +28,20 @@ namespace BusinessLogic
             transformHash = md5Code.ComputeHash(transformSource);
 
             StringBuilder hashChain = new StringBuilder();
+
             foreach (var letter in transformHash)
+            {
                 hashChain.Append(letter.ToString("X2"));
+            }
 
             return hashChain.ToString();
-
         }
 
-        public bool CompareHashs(string hashedString1, string hashedString2)
+        public bool CompareHashs(string hashedStringRecieved, string hashedStringOriginal)
         {
             bool isEqual = false;
 
-            if (hashedString1 == hashedString2)
+            if (hashedStringRecieved == hashedStringOriginal)
             {
                 isEqual = true;
             }

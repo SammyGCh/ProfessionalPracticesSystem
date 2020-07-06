@@ -26,8 +26,19 @@
 
             <Image Grid.Column="0" Source="uvlogo.png" Margin="0,4,0.6,4.8"/>
 
-            <Label Content="Sistema de Prácticas Profesionales" HorizontalAlignment="Left" Margin="59.4,10,0,0" 
-                   Foreground="White" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Grid.Column="1" Height="37" Width="331"/>
+            <Button
+                Content="Sistema de Prácticas Profesionales"
+                Grid.Column="1"
+                TextBlock.FontSize="20"
+                TextBlock.FontWeight="Bold"
+                Width="360"
+                Margin="0,0,470,20"
+                Background="#FF5BA1DA"
+                BorderBrush="#FF5BA1DA"
+                BorderThickness="1100"
+                Click="GoHome"
+            />
+            
             <Label Content="Licenciatura en Ingeniería de Software" HorizontalAlignment="Left" 
                    Foreground="White" Margin="99.4,47,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="14" Height="29" Width="245"/>
 
@@ -47,14 +58,14 @@
                             <DropShadowEffect BlurRadius="20" RenderingBias="Quality" Color="#ccc" ShadowDepth="5" Direction="5" />
                         </StackPanel.Effect>
 
-                        <Button Foreground="White">
+                        <Button Foreground="White" Click="UpdatePassword">
                             <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
                                 <materialDesing:PackIcon Kind="Settings" Width="25" Height="25" Margin="1"/>
                                 <TextBlock Text="Cambiar contraseña" Margin="1" TextAlignment="Justify"/>
                             </StackPanel>
                         </Button>
                         <Separator Background="White"/>
-                        <Button Foreground="White">
+                        <Button Foreground="White" Click="Logout">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesing:PackIcon Kind="Logout" Width="25" Height="25" Margin="5"/>
                                 <TextBlock Text="Cerrar sesión" Margin="5"/>

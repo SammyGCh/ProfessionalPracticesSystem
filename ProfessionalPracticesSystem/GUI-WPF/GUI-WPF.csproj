@@ -37,8 +37,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.8.5\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
@@ -104,6 +104,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\User\UpdatePassword.xaml.cs">
+      <DependentUpon>UpdatePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Coordinator\DisplayPractitionersStatistics.cs">
+      <DependentUpon>DisplayPractitionersStatistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\ProfessorHome.xaml.cs">
+      <DependentUpon>ProfessorHome.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Notice\AddNewNotice.xaml.cs">
       <DependentUpon>AddNewNotice.xaml</DependentUpon>
     </Compile>
@@ -115,6 +124,21 @@
     </Compile>
     <Compile Include="Pages\Notice\UpdateNotice.xaml.cs">
       <DependentUpon>UpdateNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\EvaluateMensualReport.xaml.cs">
+      <DependentUpon>EvaluateMensualReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\EvaluatePartialReport.xaml.cs">
+      <DependentUpon>EvaluatePartialReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\MensualReportsList.xaml.cs">
+      <DependentUpon>MensualReportsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\PartialReportsList.xaml.cs">
+      <DependentUpon>PartialReportsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\ProfessorPractitionerList.xaml.cs">
+      <DependentUpon>ProfessorPractitionerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Practitioner\AssignedProjectData.xaml.cs">
       <DependentUpon>AssignedProjectData.xaml</DependentUpon>
@@ -155,6 +179,10 @@
     <Page Include="Pages\Coordinator\AddOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Coordinator\DisplayPractitionersStatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Coordinator\Requests.xaml">
       <SubType>Designer</SubType>
@@ -371,9 +399,37 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Professor\EvaluateMensualReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\EvaluatePartialReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\MensualReportsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\PartialReportsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\ProfessorPractitionerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Practitioner\AssignedProjectData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\User\UpdatePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\ProfessorHome.xaml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ProjectsRequest\ProjectsRequestsControl.xaml">
       <SubType>Designer</SubType>
@@ -458,9 +514,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Professor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="uvlogo.png" />
   </ItemGroup>

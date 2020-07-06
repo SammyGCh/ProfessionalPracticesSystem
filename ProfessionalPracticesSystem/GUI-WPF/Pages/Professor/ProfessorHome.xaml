@@ -1,0 +1,100 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Professor.ProfessorHome"
+      mc:Ignorable="d"
+      Title="Home" Width="Auto" Height="800" WindowTitle="Home" d:DesignWidth="1279.6">
+
+    <Grid Height="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="109*"/>
+            <RowDefinition Height="854*"/>
+            <RowDefinition Height="229*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Left" Margin="142,25,0,0" TextWrapping="Wrap" Text="Bienvenido" 
+                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="217"/>
+        <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA"
+                    Width="280" Height="400" Margin="79,71,904,100">
+            <StackPanel Margin="2">
+                <TextBlock Text="Practicante" FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center"/>
+
+                <materialDesign:PackIcon Kind="People" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="30"/>
+
+                <Button x:Name="checkPractitioners" Height="30" Width="119" Cursor="Hand"  Click="CheckPractitioners" Margin="35">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
+                        <materialDesign:PackIcon Kind="PersonSearch" Margin="3,3.5,1,1" Width="30"/>
+                        <TextBlock Text="Consultar" Margin="1"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA"
+                    Width="280" Height="400" Margin="936,71,47,100">
+            <StackPanel>
+                <TextBlock FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center" TextAlignment="Center" Text="Evaluar Reportes"/>
+                <materialDesign:PackIcon Kind="FileDocument" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="5"/>
+                <Button x:Name="mensualButton" Height="30" Width="119" Cursor="Hand"  Click="CheckMensualReports" Margin="50">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
+                        <materialDesign:PackIcon Kind="Calendar" Margin="3,2,1,1" Width="40" Height="20"/>
+                        <TextBlock Text="Mensual" Margin="1"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="partialButton" Height="30" Width="119" Cursor="Hand"  Click="CheckPartialReports" Margin="-10">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
+                        <materialDesign:PackIcon Kind="DriveDocument" Margin="3,2,1,1" Width="40" Height="20"/>
+                        <TextBlock Text="Parcial" Margin="1"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="#FF5BA1DA" CornerRadius="10" BorderThickness="2" Background="#FF5BA1DA"
+                    Width="280" Height="400" Margin="520,71,463,100">
+            <StackPanel>
+                <TextBlock Text="Avisos" FontSize="24" FontWeight="Bold" Foreground="White" 
+                               Margin="3" HorizontalAlignment="Center"/>
+
+                <materialDesign:PackIcon Kind="Notifications" Width="150" Height="150" HorizontalAlignment="Center" 
+                                        Foreground="White" VerticalAlignment="Center" Margin="30"/>
+
+                <Button Height="30" Width="119" Cursor="Hand" Click="CheckNotices" Margin ="37">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="110">
+                        <materialDesign:PackIcon Kind="FolderSearch" Margin="3,3.5,1,1" Width="30"/>
+                        <TextBlock Text="Consultar" Margin="1"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
