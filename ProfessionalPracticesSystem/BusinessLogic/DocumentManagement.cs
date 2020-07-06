@@ -22,8 +22,8 @@ namespace BusinessLogic
         private const String PASSWORD_CREDENTIAL = "246810";
 
 
-        public DocumentManagement()
-        {
+        public DocumentManagement() {
+
         }
 
         public bool AddDocument(Document newDocument, String sourcePath)
