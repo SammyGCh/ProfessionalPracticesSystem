@@ -3,18 +3,12 @@
     Author(s): Sammy Guadarrama Chavez
  */
 
-
 using System.Windows;
 using System.Windows.Controls;
-using BusinessDomain;
-using GUI_WPF.Pages.Coordinator;
-using GUI_WPF.Pages.Practitioner;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Windows
 {
-    /// <summary>
-    /// Lógica de interacción para Home.xaml
-    /// </summary>
     public partial class Home : Window
     {
         public Home()
@@ -28,5 +22,14 @@ namespace GUI_WPF.Windows
             userName.Text = userNameFullName;
             homeFrame.Content = homePage;
         }
+
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            if (DialogWindowManager.ShowConfirmationWindow("¿Desea cerrar sesion?"))
+            {
+                this.Close();
+            }
+        }
+
     }
 }

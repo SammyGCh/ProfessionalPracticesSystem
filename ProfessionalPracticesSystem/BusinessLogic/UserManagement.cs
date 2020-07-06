@@ -2,12 +2,9 @@
         Date: 05/06/2020                               
         Author: Cesar Sergio Martinez Palacios
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 using BusinessDomain;
 using DataAccess.Implementation;
-using Microsoft.VisualBasic.ApplicationServices;
 
 namespace BusinessLogic
 {
@@ -85,25 +82,32 @@ namespace BusinessLogic
         {
             int role = NO_USER;
 
-            if(IsPractitioner(username) == true)
+            if(IsPractitioner(username))
             {
                 role = PRACTITIONER_USER;
             }
-
-            if (IsCoordinator(username) == true)
+            else
             {
-                role = COORDINADOR_USER;
+                if (IsCoordinator(username))
+                {
+                    role = COORDINADOR_USER;
+                }
+                else
+                {
+                    if (IsProfesor(username))
+                    {
+                        role = PROFESOR_USER;
+                    }
+                    else
+                    {
+                        if (IsAdministrator(username))
+                        {
+                            role = ADMINISTRATOR_USER;
+                        }
+                    }
+                }
             }
 
-            if (IsProfesor(username) == true)
-            {
-                role = PROFESOR_USER;
-            }
-
-            if (IsAdministrator(username) == true)
-            {
-                role = ADMINISTRATOR_USER;
-            }
             return role;
         }
 
@@ -112,17 +116,14 @@ namespace BusinessLogic
             string userCompleteName=" ";
             switch (userNumber)
             {
-                case 1:
+                case PRACTITIONER_USER:
                     Practitioner practitioner = practitionerDao.GetPractitionerByMatricula(userName);
                     userCompleteName = practitioner.Names + " " + practitioner.LastName;
                     break;
-                case 2:
-                    Academic coordinator = academicDao.GetAcademicByPersonalNumber(userName);
-                    userCompleteName = coordinator.Names + " " + coordinator.LastName;
-                    break;
-                case 3:
-                    Academic professor = academicDao.GetAcademicByPersonalNumber(userName);
-                    userCompleteName = professor.Names + " " + professor.LastName;
+
+                default:
+                    Academic academic = academicDao.GetAcademicByPersonalNumber(userName);
+                    userCompleteName = academic.Names + " " + academic.LastName;
                     break;
             }
             return userCompleteName;

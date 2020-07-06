@@ -2,20 +2,12 @@
         Date: 15/05/2020                              
         Author:Cesar Sergio Martinez Palacios
  */
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
 using BusinessLogic;
 using DataAccess.Implementation;
@@ -28,13 +20,11 @@ namespace GUI_WPF.Pages.Coordinator
         public UpdateOrganization(LinkedOrganization updatedOrganization)
         {
             InitializeComponent();
-            OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
-            List<OrganizationSector> sectorList = sectorDao.GetAllOrganizationSectors();
-            sectorsList.ItemsSource = sectorList;
+            sectorsList.ItemsSource = StatisticsListsManage.GetOrganizationSectors();
 
             this.DataContext = updatedOrganization;
             sectorsList.Text = updatedOrganization.BelongsTo.Name;
-
+            organizationID.Text = (updatedOrganization.IdLinkedOrganization).ToString();
             organizationName.Text = updatedOrganization.Name;
             organizationState.Text = updatedOrganization.State;
             organizationPhone.Text = updatedOrganization.TelephoneNumber;
@@ -58,25 +48,26 @@ namespace GUI_WPF.Pages.Coordinator
             if (DialogWindowManager.ShowConfirmationWindow("¿Está seguro de actualizar la organizacion?") == true)
             {
 
-                OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
-                OrganizationSector sectorOrg = sectorDao.GetOrganizationSectorByName(sectorsList.Text);
+                
                 LinkedOrganization newUpdatedOrganization = new LinkedOrganization
                 {
+                    IdLinkedOrganization = int.Parse(organizationID.Text),
                     Name = organizationName.Text,
                     State = organizationState.Text,
                     TelephoneNumber = organizationPhone.Text,
                     Email = organizationEmail.Text,
                     City = organizationCity.Text,
                     Address = organizationAddress.Text,
-                    BelongsTo = sectorOrg
+                    BelongsTo = sectorsList.SelectedItem as OrganizationSector
                 };
+
                 ManageOrganization manageOrganization = new ManageOrganization();
                 bool check = manageOrganization.OrganizationUpdate(newUpdatedOrganization);
 
                 if (check == true)
                 {
                     DialogWindowManager.ShowSuccessWindow("Se ha actualizado correctamente");
-                    
+                    ClearFields();
                     NavigationService.GoBack();
                 }
                 else
@@ -86,6 +77,7 @@ namespace GUI_WPF.Pages.Coordinator
 
             }
         }
+
         private void IsTelephoneNumber(object sender, TextCompositionEventArgs e)
         {
             if (!ValidatorText.IsTelephoneNumber(e.Text))
@@ -97,6 +89,15 @@ namespace GUI_WPF.Pages.Coordinator
                 e.Handled = false;
             }
 
+        }
+        private void ClearFields()
+        {
+            organizationName.Clear();
+            organizationState.Clear();
+            organizationPhone.Clear();
+            organizationEmail.Clear();
+            organizationCity.Clear();
+            organizationAddress.Clear();
         }
     }
 }

@@ -3,21 +3,10 @@
         Author:Cesar Sergio Martinez Palacios
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
-using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
 using GUI_WPF.Windows;
@@ -29,10 +18,7 @@ namespace GUI_WPF.Pages.Coordinator
         public AddOrganization()
         {
             InitializeComponent();
-
-            OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
-            List<OrganizationSector> sectorList = sectorDao.GetAllOrganizationSectors();
-            sectorsList.ItemsSource = sectorList;
+            sectorsList.ItemsSource = StatisticsListsManage.GetOrganizationSectors();
         }
 
         private void CancelAdd(object sender, RoutedEventArgs e)
@@ -43,7 +29,6 @@ namespace GUI_WPF.Pages.Coordinator
                 NavigationService.GoBack();
             }
         }
-
 
         private void InputTextChanged(Object sender, RoutedEventArgs e)
         {
@@ -87,8 +72,6 @@ namespace GUI_WPF.Pages.Coordinator
                 if (DialogWindowManager.ShowConfirmationWindow("¿Está seguro de guardar la organizacion?") == true)
                 {
 
-                    String sectorName = sectorsList.Text;
-
                     LinkedOrganization newOrganization = new LinkedOrganization
                     {
                         Name = organizationName.Text,
@@ -97,12 +80,12 @@ namespace GUI_WPF.Pages.Coordinator
                         Email = organizationEmail.Text,
                         City = organizationCity.Text,
                         Address = organizationAddress.Text,
-                        BelongsTo = null
+                        BelongsTo = sectorsList.SelectedItem as OrganizationSector
                     };
 
                     ManageOrganization manageOrganization = new ManageOrganization();
 
-                    bool check = manageOrganization.OrganizationSave(newOrganization, sectorName);
+                    bool check = manageOrganization.OrganizationSave(newOrganization);
 
                     if (check == true)
                     {
@@ -135,7 +118,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void ClearFields()
         {
-           organizationName.Clear();
+            organizationName.Clear();
             organizationState.Clear();
             organizationPhone.Clear();
             organizationEmail.Clear();
