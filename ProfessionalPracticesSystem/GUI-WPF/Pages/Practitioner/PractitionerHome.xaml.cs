@@ -2,19 +2,9 @@
     Date: 15/05/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */
-using BusinessDomain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogic;
@@ -22,9 +12,7 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Practitioner
 {
-    /// <summary>
-    /// Lógica de interacción para PractitionerHome.xaml
-    /// </summary>
+    
     public partial class PractitionerHome : Page
     {
         private String practitionerMatricula;

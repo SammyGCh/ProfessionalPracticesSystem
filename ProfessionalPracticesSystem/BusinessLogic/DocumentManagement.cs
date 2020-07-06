@@ -4,19 +4,11 @@
 */
 using System;
 using BusinessDomain;
-using Microsoft.VisualBasic.Devices;
 using DataAccess.Implementation;
 using System.IO;
 using iText.Kernel.Pdf;
 using iText.Kernel.Geom;
-using iText.Kernel.Font;
-using iText.Kernel.Events;
-using iText.Layout.Element;
-using iText.Kernel.Colors;
-using Style = iText.Layout.Style;
-using iText.IO.Font.Constants;
 using DataAccess;
-using System.Linq;
 using System.Net;
 using iText.Layout.Borders;
 using iText.IO.Image;
@@ -84,6 +76,12 @@ namespace BusinessLogic
 
         private void CreateDirectoryInFTPServer(Document newDocument)
         {
+            /*
+             
+            Se espera que en el caso de existir el directorio para el archivo suceda una excepcion de tipo "WebException"
+            De esta manera si no exite se crea y en caso contrario solo se loggea 
+
+             */
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(newDocument.Path);
             request.Method = WebRequestMethods.Ftp.MakeDirectory;
             request.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
@@ -92,8 +90,9 @@ namespace BusinessLogic
             {
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
             }
-            catch (WebException)
+            catch (WebException ex)
             {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/CreateDirectoryInFTPServer", ex);
             }
 
         }
@@ -110,40 +109,10 @@ namespace BusinessLogic
         public bool GenerateSelfAssessment(Selfassessment assessment, String finalPath)
         {
             bool isGenerated = false;
-            try
-            {
-                PdfWriter writer = new PdfWriter(finalPath);
-                PdfDocument pdfDocument = new PdfDocument(writer);
-                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
-                document.SetMargins(75, 35, 70, 35);
 
-                Style styleText = new Style()
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
-                    .SetFontSize(8f)
-                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+            SelfAssessmentManager manager = new SelfAssessmentManager(assessment);
 
-                String formatName = "Formato: EVALUACIÓN DEL ALUMNO. EE Prácticas de Ingeniería de Software";
-                pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(formatName));
-
-
-                document.Add(GenerateInformationTableSelfassessment(assessment).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-
-                document.Add(new Paragraph("Responde a cada una de las afirmaciones presentadas, marcando con una “X” la casilla correspondiente de acuerdo a los siguientes criterios:").AddStyle(styleText).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-                document.Add(GenerateCriteriaTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-
-                document.Add(GenerateQuestionsTableSelfassessment(assessment));
-
-                document.Add(new Paragraph("LUGAR Y FECHA: Xalapa veracruz a " + DateTime.Now.ToString("MM/dd/yyyy")).AddStyle(styleText).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-                document.Add(new Paragraph("__________________________________________________").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-                document.Add(new Paragraph("NOMBRE Y FIRMA DEL ALUMNO").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-
-                document.Close();
-                isGenerated = true;
-            }
-            catch (IOException ex)
-            {
-                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/GenerateSelfAssessment", ex);
-            }
+            isGenerated = manager.GenerateSelfAssessment(finalPath);
 
             return isGenerated;
         }
@@ -287,35 +256,8 @@ namespace BusinessLogic
         {
             bool isGenerated = false;
 
-            try
-            {
-                PdfWriter writer;
-                writer = new PdfWriter(finalPath);
-                PdfDocument pdfDocument = new PdfDocument(writer);
-                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
-                document.SetMargins(75, 35, 70, 35);
-
-                String formatName = "Formato: INFORME PARCIAL EE Prácticas de Ingeniería Software";
-                pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(formatName));
-
-                document.Add(GenerateInformationTablePartialReport(partialReport).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                document.Add(GenerateObjectiveAndMethodologyTable(partialReport).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                //document.Add(GenerateProjectActivitiesTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                document.Add(GeneratePractitionerAnswersTable(partialReport).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                document.Add(new AreaBreak());
-                document.Add(GenerateTechnicalSupportTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                document.Add(GenerateCriteriaTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                document.Add(GeneratePerformanceEvaluationTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                document.Add(GenerateSignatureTable().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-
-                document.Close();
-                isGenerated = true;
-            }
-            catch (IOException ex)
-            {
-
-                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/GenerateSelfAssessment", ex);
-            }
+            PartialReportManager create = new PartialReportManager(partialReport);
+            isGenerated = create.GeneratePartialReport(finalPath);
 
             return isGenerated;
         }
@@ -637,6 +579,54 @@ namespace BusinessLogic
             signatureTable.AddCell(informationCell.AddStyle(styleHeaderText));
 
             return signatureTable;
+        public bool GenerateAsignmentLetter(AssignmentLetter assignmentLetter, String finalPath)
+        {
+            bool isGenerated = false;
+
+            try
+            {
+                /*
+                PdfWriter writer = new PdfWriter(finalPath);
+                PdfDocument pdfDocument = new PdfDocument(writer);
+                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+                document.SetMargins(75, 35, 70, 35);
+
+                String para = "En atención a su solicitud expresada a la Coordinación de Prácticas " +
+                    "Profesionales de la Licenciatura en Ingeniería de Software, hacemos de su conocimiento " +
+                    "que el C. " + assignmentLetter.PractitionerAssigned.Names + " "+ assignmentLetter.PractitionerAssigned.LastName 
+                    + " estudiante de la Licenciatura con matrícula " +
+                    "S15011634, ha sido asignado al proyecto Sistema integral clínico de la clínica " +
+                    "Universitaria Sexual y Reproductiva de la Universidad Veracruzana a su digno cargo a " +
+                    "partir del 13 de Agosto del presente hasta cubrir 200 horas. Cabe mencionar que el " +
+                    "estudiante cuenta con la formación y el perfil para las actividades a desempeñar. ";
+
+                document.Add(new Paragraph(para).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+
+                writer.Close();
+                document.Close();
+                isGenerated = true;
+                */
+
+                PdfWriter writer = new PdfWriter("C:\\Users\\sammy\\Desktop\\prueba.pdf");
+                PdfDocument pdfDocument = new PdfDocument(writer);
+                iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
+                document.SetMargins(75, 35, 70, 35);
+
+                String letras = "qué pedo banda";
+
+                document.Add(new iText.Layout.Element.Paragraph(letras));
+
+                document.Close();
+                writer.Close();
+                isGenerated = true;
+
+            }
+            catch (IOException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/GenerateAssigmentLetter", ex);
+            }
+
+            return isGenerated;
         }
 
         public Practitioner GetAllInformationPractitioner(String matricula)
@@ -647,6 +637,76 @@ namespace BusinessLogic
 
             return practitioner;
 
+        }
+
+        public bool AssingGradeToMensualReport(MensualReport mensualReport)
+        {
+            bool isUpdated;
+            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+
+            isUpdated = mensualReportDAO.UpdateMensualReport(mensualReport);
+
+            return isUpdated;
+        }
+
+        public bool AssingGradeToPartialReport(Document partialReport)
+        {
+            bool isUpdated;
+
+            DocumentDAO documentDAO = new DocumentDAO();
+            isUpdated = documentDAO.UpdateDocumentGrade(partialReport.IdDocument, partialReport.Grade);
+
+            return isUpdated;
+        }
+
+        public bool DownloadDocument(Document currentDocument, String destiny)
+        {
+            bool isDownloaded = false;
+
+            String serverRoute = currentDocument.Path + currentDocument.Name;
+            String finalserverRoute = serverRoute.Replace('\\', '/');
+
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(finalserverRoute);
+            request.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
+            request.Method = WebRequestMethods.Ftp.DownloadFile;
+
+            try
+            {
+
+                using (Stream ftpStream = request.GetResponse().GetResponseStream())
+                using (Stream fileStream = File.Create(destiny))
+                {
+                    ftpStream.CopyTo(fileStream);
+                }
+
+                isDownloaded = true;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/DownloadDocument", ex);
+            }
+            catch (ArgumentException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/DownloadDocument", ex);
+            }
+            catch (PathTooLongException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/DownloadDocument", ex);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/DownloadDocument", ex);
+            }
+            catch (IOException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/DownloadDocument", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/DownloadDocument", ex);
+            }
+
+            return isDownloaded;
         }
     }
 }
