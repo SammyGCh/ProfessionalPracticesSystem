@@ -30,36 +30,49 @@ namespace GUI_WPF.Pages.Administrator
     public partial class AddAcademic : Page
     {
         private const int ACTIVO = 1;
-        private List<string> genderList;
+        private List<String> genderList;
+        private List<String> shiftList;
+        private const string CONFIRM_MESSAGE = "¿Seguro que deseas cancelar el registro?";
+        private const string SUCCESS_MESSAGE = "El Académico fue registrado exitosamente.";
+        private const string NO_ACADEMIC_TYPE_MESSAGE = "No existen tipos de Academicos. No se puede crear un Académico sin tipo.";
 
         public AddAcademic()        
         {
             InitializeComponent();
 
-            genderList = new List<string>
+            genderList = new List<String>
             {
                 "Masculino",
                 "Femenino",
             };
+
             academicGender.ItemsSource = genderList;
 
-            AcademicTypeDAO academicTypeHandler = new AcademicTypeDAO();
-            List<AcademicType> ListOfAcademicTypes = academicTypeHandler.GetAllAcademicTypes();
-
-            if(ListOfAcademicTypes.Count == 0)
+            shiftList = new List<String>
             {
-                DialogWindowManager.ShowErrorWindow("No existen tipos de Academicos. No se puede crear un Académico sin tipo.");
+                "Matutino",
+                "Vespertino",
+            };
+
+            academicShift.ItemsSource = shiftList;
+
+            AcademicTypeDAO academicTypeHandler = new AcademicTypeDAO();
+            List<AcademicType> listOfAcademicTypes = academicTypeHandler.GetAllAcademicTypes();
+
+            if(listOfAcademicTypes.Count == 0)
+            {
+                DialogWindowManager.ShowErrorWindow(NO_ACADEMIC_TYPE_MESSAGE);
                 NavigationService.GoBack();
             }
             else
             {
-                academicTypeList.ItemsSource = ListOfAcademicTypes;
+                academicTypeList.ItemsSource = listOfAcademicTypes;
             }
         }
 
         private void CancelAddNewAcademic(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(CONFIRM_MESSAGE);
 
             if (cancelConfirmation)
             {
@@ -98,6 +111,8 @@ namespace GUI_WPF.Pages.Administrator
                 )
                 ||
                 academicGender.SelectedItem == null || academicTypeList.SelectedItem == null
+                ||
+                academicShift.SelectedItem == null
             )
             {
                 areEmpty = true;
@@ -118,7 +133,7 @@ namespace GUI_WPF.Pages.Administrator
 
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El Académico fue registrado exitosamente.");
+                    DialogWindowManager.ShowSuccessWindow(SUCCESS_MESSAGE);
                 }
                 else
                 {
@@ -152,7 +167,30 @@ namespace GUI_WPF.Pages.Administrator
             {
                 e.Handled = false;
             }
+        }
 
+        private void IsANumber(object sender, TextCompositionEventArgs e)
+        {
+            if (!ValidatorText.IsPersonName(e.Text))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+        }
+
+        private void IsUserName(object sender, TextCompositionEventArgs e)
+        {
+            if (!ValidatorText.IsUserName(e.Text))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
         }
 
         private void CleanTextFields()
@@ -162,18 +200,8 @@ namespace GUI_WPF.Pages.Administrator
             academicSurnames.Clear();
             academicGender.SelectedItem = null;
             academicTypeList.SelectedItem = null;
-        }
-
-        private void IsPersonalNumber(object sender, TextCompositionEventArgs e)
-        {
-            if (!ValidatorText.IsTelephoneNumber(e.Text))
-            {
-                e.Handled = true;
-            }
-            else
-            {
-                e.Handled = false;
-            }
+            academicCubicle.Clear();
+            academicShift.SelectedItem = null;
         }
     }
 }

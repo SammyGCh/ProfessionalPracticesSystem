@@ -22,14 +22,14 @@
 
             <StackPanel Orientation="Horizontal" Margin="20" Width="750">
                 <Button x:Name="addButton" Width="115" Margin="240,0,0,0" Cursor="Hand" 
-                            Click="RemoveAcademic">
+                            Click="EliminateAcademic">
                     <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                         <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
                         <TextBlock Text="Eliminar"/>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="cancelButton" Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red" Click="CancelAction">
+                <Button x:Name="cancelButton" Width="115" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red" Click="CancelDelete">
                     <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                         <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
                         <TextBlock Text="Cancelar"/>

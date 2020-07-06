@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+        Date: 20/06/2020                              
+        Author:Ricardo Moguel Sanchez
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +28,11 @@ namespace GUI_WPF.Pages.Administrator
     /// </summary>
     public partial class DetailAcademic : Page
     {
-        public DetailAcademic(Academic academic)
+        public DetailAcademic(Academic selectedAcademic)
         {
             InitializeComponent();
-            AcademicDAO detailAcademicDAO = new AcademicDAO();
-            Academic detailAcademic = detailAcademicDAO.GetAcademic(academic.IdAcademic);
-            this.DataContext = detailAcademic;
+
+            this.DataContext = selectedAcademic;
         }
 
         private void Return(object sender, RoutedEventArgs e)

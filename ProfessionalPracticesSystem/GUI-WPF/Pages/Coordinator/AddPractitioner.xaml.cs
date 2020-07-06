@@ -29,6 +29,8 @@ namespace GUI_WPF.Pages.Coordinator
     public partial class AddPractitioner : Page
     {
         private List<string> genderList;
+        private const String SUCCESS_MESSAGE = "El practicante fue registrado exitosamente.";
+        private const String CONFIRM_MESSAGE = "¿Seguro que deseas cancelar el registro?";
 
         public AddPractitioner()
         {
@@ -56,7 +58,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void CancelAddNewPractitioner(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(CONFIRM_MESSAGE);
             
             if (cancelConfirmation)
             {
@@ -117,7 +119,7 @@ namespace GUI_WPF.Pages.Coordinator
 
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El practicante fue registrado exitosamente.");  
+                    DialogWindowManager.ShowSuccessWindow(SUCCESS_MESSAGE);  
                 }
                 else
                 {

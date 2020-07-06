@@ -31,6 +31,7 @@ namespace GUI_WPF.Pages.Administrator
     {
         private readonly ObservableCollection<Academic> academics;
         private Academic selectedAcademic;
+        private const String NO_ACADEMIC_MESSAGE = "No existen Academicos. Debe crear un Academico";
 
         public AdministratorHome()
         {
@@ -39,8 +40,7 @@ namespace GUI_WPF.Pages.Administrator
 
             if (listOfAcademics.Count == 0)
             {
-                DialogWindowManager.ShowErrorWindow("No existen Academicos. Debe crear un Academico");
-                NavigationService.Navigate(new AddAcademic());
+                DialogWindowManager.ShowErrorWindow(NO_ACADEMIC_MESSAGE);
             }
             else
             {
@@ -69,7 +69,10 @@ namespace GUI_WPF.Pages.Administrator
         private void DeleteAcademic(object sender, RoutedEventArgs e)
         {
             selectedAcademic = (Academic)tableOfAcademics.SelectedItem;
-            NavigationService.Navigate(new DeleteAcademic(selectedAcademic));
+
+            int academicToUpdateID = selectedAcademic.IdAcademic;
+
+            NavigationService.Navigate(new DeleteAcademic(academicToUpdateID));
         }  
     }
 }

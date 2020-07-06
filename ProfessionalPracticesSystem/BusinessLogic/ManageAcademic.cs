@@ -34,25 +34,12 @@ namespace BusinessLogic
             return isAcademicSaved;
         }
 
-        public bool EliminateAcademic(int idOldAcademic)
-        {
-            bool isAcademicDeleted = false;
-
-            isAcademicDeleted = academicDAO.DeleteAcademic(idOldAcademic);
-
-            return isAcademicDeleted;
-        }
-
         public bool UpdateAcademic(Academic changedAcademic)
         {
             bool isAcademicUpdated = false;
 
-            //HashManagement hashManager = new HashManagement();
-
-            //String encryptedPassword = hashManager.TextToHash(changedAcademic.Password);
-            //changedAcademic.Password = encryptedPassword;
-
             isAcademicUpdated = academicDAO.UpdateAcademic(changedAcademic);
+
             return isAcademicUpdated;
         }
 

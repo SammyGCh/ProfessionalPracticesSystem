@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Date: 20/06/2020
+    Author(s) : Ricardo Moguel Sanchez
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,73 +20,145 @@ using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Administrator
 {
     /// <summary>
-    /// Actualizar los atributos de un Academico registrado
+    /// Lógica de interacción para UpdateAcademic.xaml
     /// </summary>
     public partial class UpdateAcademic : Page
     {
-        ManageAcademic academicManager;
-        Academic selectedAcademic;
-        AcademicDAO academicDAO;
-        AcademicTypeDAO academicTypeDAO;
-        public UpdateAcademic(Academic academic)
+        private List<String> genderList;
+        private List<String> shiftList;
+        private const int ACTIVO = 1;
+        private const string CONFIRM_MESSAGE = "¿Seguro que deseas cancelar la actualización?";
+        private const string SUCCESS_MESSAGE = "El Académico fue actualizado exitosamente.";
+        private const string NO_ACADEMIC_MESSAGE = "No existen Académicos. No se puede actualizar un Académico.";
+
+        public UpdateAcademic(Academic academicToUpdate)
         {
             InitializeComponent();
-            this.academicManager = new ManageAcademic();
-            this.selectedAcademic = academic;
-            this.academicDAO = new AcademicDAO();
-            this.academicTypeDAO = new AcademicTypeDAO();
-            List<AcademicType> allAcademicTypes = academicTypeDAO.GetAllAcademicTypes();
-            academicTypes.ItemsSource = allAcademicTypes;
-            AcademicDAO detailAcademicDAO = new AcademicDAO();
-            Academic detailAcademic = detailAcademicDAO.GetAcademic(academic.IdAcademic);
-            this.DataContext = detailAcademic;
-        }
 
-        private void CancelAction(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
-
-        private void ChangeAcademic(object sender, RoutedEventArgs e)
-        {
-            bool isChanged;
-            Academic changeAcademic = new Academic()
+            genderList = new List<String>
             {
-                IdAcademic = selectedAcademic.IdAcademic,
-                Names = academicNames.ToString(),
-                LastName = academicLastName.ToString(),
-                PersonalNumber = academicPersonalNumber.ToString(),
-                Password = academicPassword.ToString(),
-                Cubicle = academicCubicle.ToString(),
-                Gender = academicGender.ToString(),
-                Shift = academicShift.ToString(),
-                BelongTo = academicTypeDAO.GetAcademicTypeById(academicTypes.SelectedIndex)
-
+                "Masculino",
+                "Femenino",
             };
-            isChanged = academicManager.UpdateAcademic(changeAcademic);
 
-            if (!isChanged)
+            academicGender.ItemsSource = genderList;
+
+            shiftList = new List<String>
             {
-                MessageBoxResult userResponse = System.Windows.MessageBox.Show("No se pudo cambiar el academico.", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                if (userResponse == MessageBoxResult.OK)
-                {
-                    NavigationService.GoBack();
-                }
+                "Matutino",
+                "Vespertino",
+            };
+
+            academicShift.ItemsSource = shiftList;
+
+            AcademicTypeDAO academicTypeHandler = new AcademicTypeDAO();
+            List<AcademicType> allAcademicTypes = academicTypeHandler.GetAllAcademicTypes();
+            academicTypeList.ItemsSource = allAcademicTypes;
+
+            this.DataContext = academicToUpdate;
+
+            academicNames.Text = academicToUpdate.Names;
+            academicSurnames.Text = academicToUpdate.LastName;
+            academicPersonalNumber.Text = academicToUpdate.PersonalNumber;
+            academicCubicle.Text = academicToUpdate.Cubicle;
+        }
+
+        private void CancelUpdateAcademic(object sender, RoutedEventArgs e)
+        {
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(CONFIRM_MESSAGE);
+
+            if (cancelConfirmation)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private Academic GetAcademicData()
+        {
+            AcademicType academicType = academicTypeList.SelectedItem as AcademicType;
+
+            Academic updatedAcademic = new Academic()
+            {
+                PersonalNumber = academicPersonalNumber.Text,
+                Names = academicNames.Text,
+                LastName = academicSurnames.Text,
+                Password = academicPersonalNumber.Text,
+                Cubicle = academicCubicle.Text,
+                Gender = academicGender.Text,
+                Shift = academicShift.Text,
+                BelongTo = academicType,
+                Status = ACTIVO
+            };
+
+            return updatedAcademic;
+        }
+
+        private bool AreFieldsEmpty()
+        {
+            bool areEmpty = false;
+
+            if (
+                academicData.Children.OfType<StackPanel>().Any(
+                    academicSections => academicSections.Children.OfType<TextBox>().Any(
+                        practitionerFields => String.IsNullOrWhiteSpace(practitionerFields.Text)
+                    )
+                )
+                ||
+                academicGender.SelectedItem == null || academicTypeList.SelectedItem == null
+                ||
+                academicShift.SelectedItem == null
+            )
+            {
+                areEmpty = true;
+            }
+
+            return areEmpty;
+        }
+
+        private void UpdateAcademicData(object sender, RoutedEventArgs e)
+        {
+            if (AreFieldsEmpty())
+            {
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
             else
             {
-                System.Windows.MessageBox.Show("Se guardo el cambio de datos para el Academico exitosamente.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                bool isUpdated = SaveAcademicUpdate();
+
+                if (isUpdated)
+                {
+                    DialogWindowManager.ShowSuccessWindow(SUCCESS_MESSAGE);
+                }
+                else
+                {
+                    DialogWindowManager.ShowConnectionErrorWindow();
+                }
+                NavigationService.GoBack();
             }
+        }
+
+        private bool SaveAcademicUpdate()
+        {
+            bool isUpdateSaved = false;
+
+            Academic academicUpdate = GetAcademicData();
+
+            ManageAcademic managePractitioner = new ManageAcademic();
+
+            isUpdateSaved = managePractitioner.UpdateAcademic(academicUpdate);
+
+            return isUpdateSaved;
 
         }
 
-        private void IsPersonalNumber(object sender, TextCompositionEventArgs e)
+        private void IsPersonName(object sender, TextCompositionEventArgs e)
         {
-            if (!ValidatorText.IsTelephoneNumber(e.Text))
+            if (!ValidatorText.IsPersonName(e.Text))
             {
                 e.Handled = true;
             }
@@ -90,6 +166,41 @@ namespace GUI_WPF.Pages.Administrator
             {
                 e.Handled = false;
             }
+        }
+
+        private void IsANumber(object sender, TextCompositionEventArgs e)
+        {
+            if (!ValidatorText.IsPersonName(e.Text))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+        }
+
+        private void IsUserName(object sender, TextCompositionEventArgs e)
+        {
+            if (!ValidatorText.IsUserName(e.Text))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+        }
+
+        private void CleanTextFields()
+        {
+            academicPersonalNumber.Clear();
+            academicNames.Clear();
+            academicSurnames.Clear();
+            academicGender.SelectedItem = null;
+            academicTypeList.SelectedItem = null;
+            academicCubicle.Clear();
+            academicShift.SelectedItem = null;
         }
     }
 }
