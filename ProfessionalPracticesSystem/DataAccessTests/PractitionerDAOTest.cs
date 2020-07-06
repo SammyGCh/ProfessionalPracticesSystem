@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataAccessTests
 {
+    /*
     [TestClass]
     public class PractitionerDAOTest
     {
@@ -137,4 +138,5 @@ namespace DataAccessTests
             Assert.IsTrue(result.Count > 0);
         }
     }
+    */
 }

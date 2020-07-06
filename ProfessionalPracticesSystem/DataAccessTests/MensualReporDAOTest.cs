@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 
 namespace DataAccessTests 
 {
+    /*
     [TestClass]
     public class MensualReportDAOTest
     {
@@ -107,4 +108,5 @@ namespace DataAccessTests
             Assert.AreEqual(expectedResult, obtainedResult);
         }
     }
+    */
 }

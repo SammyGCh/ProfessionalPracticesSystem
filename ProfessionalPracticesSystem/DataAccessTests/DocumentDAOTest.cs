@@ -81,6 +81,7 @@ namespace DataAccessTests
             Assert.IsTrue(result.Count > 0);
         }
 
+        /*
         [TestMethod]
         public void GetAllDocumentByType_WhatDocumentsOfThatTypeExist_ReturnDocumentList()
         {
@@ -90,6 +91,7 @@ namespace DataAccessTests
 
             Assert.IsTrue(result.Count > 0);
         }
+        */
 
         [TestMethod]
         public void UpdateDocumentGrade_DocumentExist_ReturnTrue()

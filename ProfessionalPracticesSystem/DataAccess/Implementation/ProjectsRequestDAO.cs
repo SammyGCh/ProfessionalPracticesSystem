@@ -25,11 +25,7 @@ namespace DataAccess.Implementation
 
         public ProjectsRequestDAO()
         {
-            projectsRequests = null;
             connection = new DataBaseConnection();
-            mysqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public List<ProjectsRequest> GetAllProjectsRequestActive()

@@ -16,19 +16,14 @@ namespace DataAccess.Implementation
     {
         private List<OrganizationSector> organizationSectors;
         private OrganizationSector organizationSector;
-        private DataBaseConnection connection;
+        private readonly DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
 
         public OrganizationSectorDAO()
         {
-            organizationSectors = null;
-            organizationSector = null;
             connection = new DataBaseConnection();
-            mysqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public List<OrganizationSector> GetAllOrganizationSectors()

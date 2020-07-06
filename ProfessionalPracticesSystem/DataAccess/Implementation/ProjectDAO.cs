@@ -28,14 +28,7 @@ namespace DataAccess.Implementation
 
         public ProjectDAO()
         {
-            projects = null;
-            project = null;
             connection = new DataBaseConnection();
-            mysqlConnection = null;
-            query = null;
-            reader = null;
-            developmentStageHandler = null;
-            linkedOrganizationHandler = null;
         }
 
         public bool SaveProject(Project project)
@@ -186,6 +179,7 @@ namespace DataAccess.Implementation
                 {
                     reader.Close();
                 }
+
                 connection.CloseConnection();
             }
 
@@ -510,7 +504,11 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                
                 connection.CloseConnection();
             }
 
@@ -683,36 +681,6 @@ namespace DataAccess.Implementation
                 query.Parameters.Add("@responsableEmail", MySqlDbType.VarChar, 60).Value = projectResponsableData.ResponsableEmail;
                 query.Parameters.Add("@responsableTelephone", MySqlDbType.VarChar, 10).Value = projectResponsableData.ResponsableTelephone;
                 query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = projectResponsableData.IdProject;
-
-                query.ExecuteNonQuery();
-                isUpdated = true;
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/ProjectDAO: ", ex);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-
-            return isUpdated;
-        }
-
-        public bool UpdateLinkedOrganizationOfProject(int idProject, int idLinkedOrganization)
-        {
-            bool isUpdated = false;
-
-            try
-            {
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
-                {
-                    CommandText = "UPDATE Project SET idLinkedOrganization = @idLinkedOrganization WHERE idProject = @idProject"
-                };
-
-                query.Parameters.Add("@idLinkedOrganization", MySqlDbType.Int32, 2).Value = idLinkedOrganization;
-                query.Parameters.Add("@idProject", MySqlDbType.Int32, 2).Value = idProject;
 
                 query.ExecuteNonQuery();
                 isUpdated = true;

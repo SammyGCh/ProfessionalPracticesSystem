@@ -64,15 +64,6 @@ namespace BusinessLogic
             return isUpdated;
         }
 
-        public bool UpdateLinkedOrganizationOfProject(int idProject, int idLinkedOrganization)
-        {
-            bool isUpdated;
-
-            isUpdated = projectDao.UpdateLinkedOrganizationOfProject(idProject, idLinkedOrganization);
-
-            return isUpdated;
-        }
-
         public bool DeleteProjectActivity(ProjectActivity projectActivity)
         {
             bool isDeleted = false;

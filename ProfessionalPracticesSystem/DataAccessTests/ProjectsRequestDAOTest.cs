@@ -13,6 +13,7 @@ namespace DataAccessTests
     [TestClass]
     public class ProjectsRequestDAOTest
     {
+        /*
         [TestMethod]
         public void SaveProjectsRequest_NewProjectsRequest_SuccessInserting()
         {
@@ -47,6 +48,7 @@ namespace DataAccessTests
             Assert.IsTrue(isSaved);
         }
 
+        
         [TestMethod]
         public void GetAllProjectsRequest_AvailableProjectsRequest_ListWithElements()
         {
@@ -67,5 +69,7 @@ namespace DataAccessTests
 
             Assert.IsTrue(isUpdated);
         }
+        */
     }
+
 }
