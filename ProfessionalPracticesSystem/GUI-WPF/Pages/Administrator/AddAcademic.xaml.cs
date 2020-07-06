@@ -20,6 +20,7 @@ using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Administrator
 {
@@ -28,64 +29,139 @@ namespace GUI_WPF.Pages.Administrator
     /// </summary>
     public partial class AddAcademic : Page
     {
-        Academic academic;
-        String academicType;
-        AcademicDAO academicDAO;
-        AcademicTypeDAO academicTypeDAO;
-        ManageAcademic academicManager;
-        int idAcademicType;
-        
+        private const int ACTIVO = 1;
+        private List<string> genderList;
 
         public AddAcademic()        
         {
-            this.academic = new Academic();
-            this.academicDAO = new AcademicDAO();
-            this.academicTypeDAO = new AcademicTypeDAO();
-            academicManager = new ManageAcademic();
-            List<AcademicType> allAcademicTypes = academicTypeDAO.GetAllAcademicTypes();
-            academicTypes.ItemsSource = allAcademicTypes;
             InitializeComponent();
+
+            genderList = new List<string>
+            {
+                "Masculino",
+                "Femenino",
+            };
+            academicGender.ItemsSource = genderList;
+
+            AcademicTypeDAO academicTypeHandler = new AcademicTypeDAO();
+            List<AcademicType> ListOfAcademicTypes = academicTypeHandler.GetAllAcademicTypes();
+
+            if(ListOfAcademicTypes.Count == 0)
+            {
+                DialogWindowManager.ShowErrorWindow("No existen tipos de Academicos. No se puede crear un Académico sin tipo.");
+                NavigationService.GoBack();
+            }
+            else
+            {
+                academicTypeList.ItemsSource = ListOfAcademicTypes;
+            }
         }
 
-        private void CancelAction(object sender, RoutedEventArgs e)
+        private void CancelAddNewAcademic(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
+
+            if (cancelConfirmation)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private Academic GetAcademicData()
+        {
+            AcademicType academicType = academicTypeList.SelectedItem as AcademicType;
+
+            Academic newAcademic = new Academic()
+            {
+                PersonalNumber = academicPersonalNumber.Text,
+                Names = academicNames.Text,
+                LastName = academicSurnames.Text,
+                Password = academicPersonalNumber.Text,
+                Cubicle = academicCubicle.Text,
+                Gender = academicGender.Text,
+                Shift = academicShift.Text,
+                BelongTo = academicType,
+                Status = ACTIVO
+            };
+            return newAcademic;
+        }
+
+        private bool AreFieldsEmpty()
+        {
+            bool areEmpty = false;
+
+            if (
+                academicData.Children.OfType<StackPanel>().Any(
+                    academicSections => academicSections.Children.OfType<TextBox>().Any(
+                        practitionerFields => String.IsNullOrWhiteSpace(practitionerFields.Text)
+                    )
+                )
+                ||
+                academicGender.SelectedItem == null || academicTypeList.SelectedItem == null
+            )
+            {
+                areEmpty = true;
+            }
+
+            return areEmpty;
         }
 
         private void AddNewAcademic(object sender, RoutedEventArgs e)
         {
-            List<Academic> allAcademics = academicDAO.GetAllAcademic();
-            bool isSaved = false;
-
-            Academic newAcademic = new Academic()
+            if (AreFieldsEmpty())
             {
-                IdAcademic = allAcademics.Count(),
-                Names = academicNames.ToString(),
-                LastName = academicLastName.ToString(),
-                PersonalNumber = academicPersonalNumber.ToString(),
-                Password = academicPassword.ToString(),
-                Cubicle = academicCubicle.ToString(),
-                Gender = academicGender.ToString(),
-                Shift = academicShift.ToString(),
-                BelongTo = academicTypeDAO.GetAcademicTypeById(academicTypes.SelectedIndex)
-
-            };
-            isSaved = academicManager.AddAcademic(newAcademic);
-            
-            if (!isSaved )
-            {
-                MessageBoxResult userResponse = System.Windows.MessageBox.Show("No se pudo salvar el academico.", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                if (userResponse == MessageBoxResult.OK)
-                {
-                    NavigationService.GoBack();
-                }
+                DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
             else
             {
-                System.Windows.MessageBox.Show("Se guardo el Academico exitosamente.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                bool isSaved = SaveAcademic();
+
+                if (isSaved)
+                {
+                    DialogWindowManager.ShowSuccessWindow("El Académico fue registrado exitosamente.");
+                }
+                else
+                {
+                    DialogWindowManager.ShowConnectionErrorWindow();
+                }
+                NavigationService.GoBack();
+            }
+        }
+
+        private bool SaveAcademic()
+        {
+            bool isAcademicSaved = false;
+
+            Academic newAcademic = GetAcademicData();
+
+            ManageAcademic managePractitioner = new ManageAcademic();
+
+            isAcademicSaved = managePractitioner.AddAcademic(newAcademic);
+
+            return isAcademicSaved;
+
+        }
+
+        private void IsPersonName(object sender, TextCompositionEventArgs e)
+        {
+            if (!ValidatorText.IsPersonName(e.Text))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
             }
 
+        }
 
+        private void CleanTextFields()
+        {
+            academicPersonalNumber.Clear();
+            academicNames.Clear();
+            academicSurnames.Clear();
+            academicGender.SelectedItem = null;
+            academicTypeList.SelectedItem = null;
         }
 
         private void IsPersonalNumber(object sender, TextCompositionEventArgs e)

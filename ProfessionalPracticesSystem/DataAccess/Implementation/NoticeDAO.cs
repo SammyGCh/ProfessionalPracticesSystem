@@ -193,57 +193,57 @@ namespace DataAccess.Implementation
             return notice;
         }
 
-        public List<Notice> GetAllNoticesByAcademic(int idAcademic)
-        {
-            notices = new List<Notice>();
-            academicHandler = new AcademicDAO();
-            try
-            {
-                mySqlConnection = connection.OpenConnection();
+        //public List<Notice> GetAllNoticesByAcademic(int idAcademic)
+        //{
+        //    notices = new List<Notice>();
+        //    academicHandler = new AcademicDAO();
+        //    try
+        //    {
+        //        mySqlConnection = connection.OpenConnection();
 
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "SELECT * FROM Notice WHERE idAcademic = @idAcademic"
-                };
+        //        query = new MySqlCommand("", mySqlConnection)
+        //        {
+        //            CommandText = "SELECT * FROM Notice WHERE idAcademic = @idAcademic"
+        //        };
 
-                MySqlParameter id = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
-                {
-                    Value = idAcademic
-                };
+        //        MySqlParameter id = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
+        //        {
+        //            Value = idAcademic
+        //        };
 
-                query.Parameters.Add(id);
-                noticeReader = query.ExecuteReader();
+        //        query.Parameters.Add(id);
+        //        noticeReader = query.ExecuteReader();
 
-                while (noticeReader.Read())
-                {
-                    notice = new Notice
-                    {
-                        IdNotice = noticeReader.GetInt32(0),
-                        Title = noticeReader.GetString(1),
-                        Body = noticeReader.GetString(2),
-                        CreationDate = noticeReader.GetString(3),
-                        CreatedBy = academicHandler.GetAcademic(noticeReader.GetInt32(4)),
-                    };
+        //        while (noticeReader.Read())
+        //        {
+        //            notice = new Notice
+        //            {
+        //                IdNotice = noticeReader.GetInt32(0),
+        //                Title = noticeReader.GetString(1),
+        //                Body = noticeReader.GetString(2),
+        //                CreationDate = noticeReader.GetString(3),
+        //                CreatedBy = academicHandler.GetAcademic(noticeReader.GetInt32(4)),
+        //            };
 
-                    notices.Add(notice);
-                }
+        //            notices.Add(notice);
+        //        }
 
-            }
-            catch (MySqlException mySQLException)
-            {
-                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/NoticeDAO ", mySQLException);
-            }
-            finally
-            {
-                if (noticeReader != null)
-                {
-                    noticeReader.Close();
-                }
+        //    }
+        //    catch (MySqlException mySQLException)
+        //    {
+        //        LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/NoticeDAO ", mySQLException);
+        //    }
+        //    finally
+        //    {
+        //        if (noticeReader != null)
+        //        {
+        //            noticeReader.Close();
+        //        }
 
-                connection.CloseConnection();
-            }
+        //        connection.CloseConnection();
+        //    }
 
-            return notices;
-        }
+        //    return notices;
+        //}
     }
 }

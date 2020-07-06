@@ -33,11 +33,11 @@ namespace GUI_WPF.Pages.Coordinator
         public AddPractitioner()
         {
             InitializeComponent();
+
             genderList = new List<string>
             {
                 "Masculino",
                 "Femenino",
-                "Otro"
             };
             practitionerGender.ItemsSource = genderList;
 
@@ -117,14 +117,13 @@ namespace GUI_WPF.Pages.Coordinator
 
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El practicante fue registrado exitosamente.");
-
-                    NavigationService.GoBack();
+                    DialogWindowManager.ShowSuccessWindow("El practicante fue registrado exitosamente.");  
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
+                NavigationService.GoBack();
             }
         }
 

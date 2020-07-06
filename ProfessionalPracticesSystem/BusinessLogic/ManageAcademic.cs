@@ -14,12 +14,11 @@ namespace BusinessLogic
     public class ManageAcademic
     {
         AcademicDAO academicDAO;
-        AcademicTypeDAO academicTypeDAO;
+        private const int INVALID_ID = 0;
 
         public ManageAcademic()
         {
             academicDAO = new AcademicDAO();
-            academicTypeDAO = new AcademicTypeDAO();
         }
 
         public bool AddAcademic(Academic newAcademic)
@@ -38,24 +37,36 @@ namespace BusinessLogic
         public bool EliminateAcademic(int idOldAcademic)
         {
             bool isAcademicDeleted = false;
-            isAcademicDeleted = academicDAO.DeleteAcademic(idOldAcademic);
-            return isAcademicDeleted;
 
+            isAcademicDeleted = academicDAO.DeleteAcademic(idOldAcademic);
+
+            return isAcademicDeleted;
         }
 
         public bool UpdateAcademic(Academic changedAcademic)
         {
             bool isAcademicUpdated = false;
 
-            HashManagement hashManager = new HashManagement();
+            //HashManagement hashManager = new HashManagement();
 
-            String encryptedPassword = hashManager.TextToHash(changedAcademic.Password);
-            changedAcademic.Password = encryptedPassword;
+            //String encryptedPassword = hashManager.TextToHash(changedAcademic.Password);
+            //changedAcademic.Password = encryptedPassword;
 
             isAcademicUpdated = academicDAO.UpdateAcademic(changedAcademic);
             return isAcademicUpdated;
         }
 
+        public bool DeleteAcademic(int deletedAcademicID)
+        {
+            bool isAcademicDeleted = false;
+
+            if(deletedAcademicID != INVALID_ID)
+            {
+                isAcademicDeleted = academicDAO.DeleteAcademic(deletedAcademicID);
+            }
+
+            return isAcademicDeleted;
+        }
 
     }
 }

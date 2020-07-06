@@ -28,38 +28,6 @@ namespace DataAccess.Implementation
             query = null;
             reader = null;
         }
-        public bool DeleteDocumentType(int idDocumentType)
-        {
-            bool isSaved = false;
-            try
-            {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "DELETE FROM DocumentType WHERE DocumentType.idDocumentType = @idDocumentType"
-                };
-                MySqlParameter iddocumentType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 2)
-                {
-                    Value = idDocumentType
-                };
-
-                query.Parameters.Add(iddocumentType);
-
-                query.ExecuteNonQuery();
-                isSaved = true;
-
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentTypeDAO/DeleteDocumentType:", ex);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-
-            return isSaved;
-        }
 
         public List<DocumentType> GetAllDocumentType()
         {
@@ -146,36 +114,5 @@ namespace DataAccess.Implementation
             return documentType;
         }
 
-        public bool SaveDocumentType(DocumentType documentType)
-        {
-            bool isSaved = false;
-            try
-            {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "INSERT INTO DocumentType(name) VALUES (@name)"
-                };
-
-                MySqlParameter name = new MySqlParameter("@name", MySqlDbType.VarChar, 100)
-                {
-                    Value = documentType.Name
-                };
-
-                query.Parameters.Add(name);
-
-                query.ExecuteNonQuery();
-                isSaved = true;
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentTypeDAO/SaveDocumentType:", ex);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-            return isSaved;
-        }
     }
 }
