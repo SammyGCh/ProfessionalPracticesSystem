@@ -10,6 +10,14 @@ namespace DataAccessTests
     public class GetDataTest
     {
 
+        [TestMethod]
+        public void GetAministrator_Administrator()
+        {
+            AdministratorDAO administratorDao = new AdministratorDAO();
+            string administratorUser = "S42069420";
+            Administrator administrator = administratorDao.GetAdministratorByUser(administratorUser);
+            Assert.IsNotNull(administrator);
+        }
 
         [TestMethod]
         public void GetMensualReports_PractitionerReports_ListReports()
