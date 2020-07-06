@@ -33,7 +33,7 @@ namespace GUI_WPF
 
             if (isConfirmed)
             {
-                if(sourcePath != null)
+                if (sourcePath != null)
                 {
                     bool isAdded = SaveDocument();
 
@@ -64,16 +64,16 @@ namespace GUI_WPF
 
         private void Select(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog explorador = new OpenFileDialog
+            OpenFileDialog explorer = new OpenFileDialog
             {
                 Filter = "pdf files (*.pdf)|*.pdf"
             };
 
             try
             {
-                if (explorador.ShowDialog() == DialogResult.OK)
+                if (explorer.ShowDialog() == DialogResult.OK)
                 {
-                    sourcePath = explorador.FileName;
+                    sourcePath = explorer.FileName;
                     pdfViewer.Navigate(sourcePath);
                 }
             }
