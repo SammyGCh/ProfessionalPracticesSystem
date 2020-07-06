@@ -107,6 +107,27 @@
     <Compile Include="Pages\User\UpdatePassword.xaml.cs">
       <DependentUpon>UpdatePassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Coordinator\DisplayPractitionersStatistics.cs">
+      <DependentUpon>DisplayPractitionersStatistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\ProfessorHome.xaml.cs">
+      <DependentUpon>ProfessorHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notice\AddNewNotice.xaml.cs">
+      <DependentUpon>AddNewNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notice\DisplayNotice.xaml.cs">
+      <DependentUpon>DisplayNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notice\NoticeBoard.xaml.cs">
+      <DependentUpon>NoticeBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notice\UpdateNotice.xaml.cs">
+      <DependentUpon>UpdateNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Practitioner\AssignedProjectData.xaml.cs">
+      <DependentUpon>AssignedProjectData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProjectsRequest\RequestSummary.xaml.cs">
       <DependentUpon>RequestSummary.xaml</DependentUpon>
     </Compile>
@@ -144,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Coordinator\DisplayPractitionersStatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Coordinator\Requests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +182,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Coordinator\UpdatePractitioner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\AddNewNotice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\DisplayNotice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\NoticeBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Notice\UpdateNotice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -344,6 +385,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\User\UpdatePassword.xaml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\ProfessorHome.xaml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Practitioner\AssignedProjectData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -430,9 +479,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Professor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="uvlogo.png" />
   </ItemGroup>

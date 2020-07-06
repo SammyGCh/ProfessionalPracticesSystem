@@ -4,46 +4,30 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Text.RegularExpressions;
 using BusinessLogic;
-using BusinessDomain;
 using GUI_WPF.Windows;
 using GUI_WPF.Pages.Coordinator;
-using System.Diagnostics;
-using DataAccess.Implementation;
 using GUI_WPF.Pages.Administrator;
 using GUI_WPF.Pages.Practitioner;
+using GUI_WPF.Pages.Professor;
 
 namespace GUI_WPF
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
+
     public partial class Login : Window
     {
         public Login()
         {
-            InitializeComponent();
-            
+            InitializeComponent();        
         }
         
        private void LogIn(object sender, RoutedEventArgs e)
         {
             String passwordEntered = password.Password;
             String usernameEntered = userTextBox.Text;
+
             int userID = LoginManager.UserLog(usernameEntered,passwordEntered);
             switch (userID)
             {
@@ -55,33 +39,40 @@ namespace GUI_WPF
                     string practitionerFullName = UserManagement.GetUserName(userID, usernameEntered);
                     Home homeWindowPractitioner = new Home(practitionerHome, practitionerFullName);
                     homeWindowPractitioner.Show();
-
                     this.Close();
 
                     break;
                 case 2:
-                    
+
                     CoordinatorHome coordinatorHome = new CoordinatorHome();
                     string coordinatorFullName = UserManagement.GetUserName(userID, usernameEntered);
-                    Home homeWindow = new Home(coordinatorHome, coordinatorFullName);
-                    homeWindow.Show();
+                    Home coordinatorHomeWindow = new Home(coordinatorHome, coordinatorFullName);
 
+                    coordinatorHomeWindow.Show();
+                    
                     this.Close();
+
                     break;
                 case 3:
-                    /*
-                      Aqui va el home de profesor
-                     */
+
+                    ProfessorHome professorHome = new ProfessorHome();
+                    string professorFullName = UserManagement.GetUserName(userID, usernameEntered);
+                    Home professorHomeWindow = new Home(professorHome, professorFullName);
+
+                    professorHomeWindow.Show();
+                    this.Close();
+
                     break;
                 case 4:
                     AdministratorHome administratorHome = new AdministratorHome();
-                    Home adminHomeWindow = new Home(administratorHome, " ");
-                    adminHomeWindow.Show();
+                    Home adminHomeWindow = new Home(administratorHome, "Administrador");
 
+                    adminHomeWindow.Show();
                     this.Close();
+
                     break;
                 case 5:
-                    DialogWindowManager.ShowErrorWindow("La contraseña es incorrecta");
+                    DialogWindowManager.ShowErrorWindow("La contraseña o usuario es incorrecta");
                     break;
 
             }

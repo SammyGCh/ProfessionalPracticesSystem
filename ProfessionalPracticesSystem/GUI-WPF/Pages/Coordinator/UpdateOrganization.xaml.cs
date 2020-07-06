@@ -2,41 +2,29 @@
         Date: 15/05/2020                              
         Author:Cesar Sergio Martinez Palacios
  */
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
 using BusinessLogic;
 using DataAccess.Implementation;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
     public partial class UpdateOrganization : Page
     {
-        public UpdateOrganization(String name)
+        public UpdateOrganization(LinkedOrganization updatedOrganization)
         {
             InitializeComponent();
-            OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
-            List<OrganizationSector> sectorList = sectorDao.GetAllOrganizationSectors();
-            sectorsList.ItemsSource = sectorList;
-
-            LinkedOrganizationDAO linkedOrganizationDAO = new LinkedOrganizationDAO();
-            LinkedOrganization updatedOrganization = linkedOrganizationDAO.GetLinkedOrganizationByName(name);
+            sectorsList.ItemsSource = StatisticsListsManage.GetOrganizationSectors();
 
             this.DataContext = updatedOrganization;
             sectorsList.Text = updatedOrganization.BelongsTo.Name;
-
+            organizationID.Text = (updatedOrganization.IdLinkedOrganization).ToString();
             organizationName.Text = updatedOrganization.Name;
             organizationState.Text = updatedOrganization.State;
             organizationPhone.Text = updatedOrganization.TelephoneNumber;
@@ -49,48 +37,47 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void CancelUpdate(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult confirmation = System.Windows.MessageBox.Show("¿Seguro que deseas salir?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (confirmation == MessageBoxResult.Yes)
+            if (DialogWindowManager.ShowConfirmationWindow("¿Seguro que desea salir?") == true)
             {
                 NavigationService.GoBack();
             }
         }
         private void UpdateOrganizationClick(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult question = System.Windows.MessageBox.Show("¿Está seguro de actualizar la organizacion?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (question == MessageBoxResult.Yes)
+            
+            if (DialogWindowManager.ShowConfirmationWindow("¿Está seguro de actualizar la organizacion?") == true)
             {
 
-                OrganizationSectorDAO sectorDao = new OrganizationSectorDAO();
-                OrganizationSector sectorOrg = sectorDao.GetOrganizationSectorByName(sectorsList.Text);
-                LinkedOrganization updatedOrganization = new LinkedOrganization();
+                
+                LinkedOrganization newUpdatedOrganization = new LinkedOrganization
+                {
+                    IdLinkedOrganization = int.Parse(organizationID.Text),
+                    Name = organizationName.Text,
+                    State = organizationState.Text,
+                    TelephoneNumber = organizationPhone.Text,
+                    Email = organizationEmail.Text,
+                    City = organizationCity.Text,
+                    Address = organizationAddress.Text,
+                    BelongsTo = sectorsList.SelectedItem as OrganizationSector
+                };
 
-                updatedOrganization.Name = organizationName.Text;
-                updatedOrganization.State = organizationState.Text;
-                updatedOrganization.TelephoneNumber = organizationPhone.Text;
-                updatedOrganization.Email = organizationEmail.Text;
-                updatedOrganization.City = organizationCity.Text;
-                updatedOrganization.Address = organizationAddress.Text;
-                updatedOrganization.BelongsTo = sectorOrg;
-
-                LinkedOrganizationDAO linkedOrganizationDAO = new LinkedOrganizationDAO();
-                bool check = linkedOrganizationDAO.UpdateLinkedOrganization(updatedOrganization);
+                ManageOrganization manageOrganization = new ManageOrganization();
+                bool check = manageOrganization.OrganizationUpdate(newUpdatedOrganization);
 
                 if (check == true)
                 {
-                    System.Windows.MessageBox.Show("Se ha actualizado correctamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    
+                    DialogWindowManager.ShowSuccessWindow("Se ha actualizado correctamente");
+                    ClearFields();
                     NavigationService.GoBack();
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Ha ocurrido un error", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    DialogWindowManager.ShowErrorWindow("Ha ocurrido un error");
                 }
 
             }
         }
+
         private void IsTelephoneNumber(object sender, TextCompositionEventArgs e)
         {
             if (!ValidatorText.IsTelephoneNumber(e.Text))
@@ -102,6 +89,15 @@ namespace GUI_WPF.Pages.Coordinator
                 e.Handled = false;
             }
 
+        }
+        private void ClearFields()
+        {
+            organizationName.Clear();
+            organizationState.Clear();
+            organizationPhone.Clear();
+            organizationEmail.Clear();
+            organizationCity.Clear();
+            organizationAddress.Clear();
         }
     }
 }
