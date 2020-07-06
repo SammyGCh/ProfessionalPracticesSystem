@@ -4,18 +4,15 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
-using System.Windows.Controls;
 
 namespace GUI_WPF.Windows
 {
     public class DialogWindowManager
     {
+        private const string SAVE_FILTER = "PDF Document|*.pdf";
+        private const string SAVE_TITLE = "Selecciona ruta de guardado";
+
         public static void ShowErrorWindow(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -70,6 +67,34 @@ namespace GUI_WPF.Windows
         {
             MessageBox.Show("Ocurrió un fallo al intentar conectarse a la base de datos. Intente de nuevo más tarde.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        public static String ShowSaveAssigmentLetterWindow(string practitionerName)
+        {
+            System.Windows.Forms.SaveFileDialog saveWindow = new System.Windows.Forms.SaveFileDialog
+            {
+                Filter = SAVE_FILTER,
+                Title = SAVE_TITLE,
+                FileName = "oficioAsignacion" + practitionerName + ".pdf"
+            };
+
+            saveWindow.ShowDialog();
+
+            return saveWindow.FileName;
+        }
+
+        public static String ShowSaveAcceptanceLetterWindow(string practitionerName)
+        {
+            System.Windows.Forms.SaveFileDialog saveWindow = new System.Windows.Forms.SaveFileDialog
+            {
+                Filter = SAVE_FILTER,
+                Title = SAVE_TITLE,
+                FileName = "oficioAceptacion" + practitionerName + ".pdf"
+            };
+
+            saveWindow.ShowDialog();
+
+            return saveWindow.FileName;
         }
     }
 }
