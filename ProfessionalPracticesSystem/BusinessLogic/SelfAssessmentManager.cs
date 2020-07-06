@@ -1,5 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+    Date: 03/07/2020
+    Author(s) : Angel de Jesus Juarez Garcia
+ */
+using System;
 using System.IO;
 using iText.Kernel.Pdf;
 using iText.Kernel.Geom;

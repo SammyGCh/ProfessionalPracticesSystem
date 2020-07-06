@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Date: 02/07/2020
+    Author(s) : Angel de Jesus Juarez Garcia
+ */
+using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Kernel.Pdf;
@@ -33,7 +37,7 @@ namespace BusinessLogic
                 writer = new PdfWriter(finalPath);
                 PdfDocument pdfDocument = new PdfDocument(writer);
                 iText.Layout.Document document = new iText.Layout.Document(pdfDocument, PageSize.LETTER);
-                document.SetMargins(75, 35, 70, 35);
+                document.SetMargins(95, 35, 70, 35);
 
                 String formatName = "Formato: INFORME PARCIAL EE Prácticas de Ingeniería Software";
                 pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(formatName));

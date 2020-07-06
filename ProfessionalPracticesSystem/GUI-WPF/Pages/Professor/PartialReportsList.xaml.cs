@@ -1,19 +1,15 @@
-﻿using BusinessDomain;
+﻿/*
+    Date: 04/07/2020
+    Author(s) : Angel de Jesus Juarez Garcia
+ */
+using BusinessDomain;
 using DataAccess.Implementation;
+using GUI_WPF.Windows;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI_WPF.Pages.Professor
 {
@@ -27,7 +23,16 @@ namespace GUI_WPF.Pages.Professor
             InitializeComponent();
             DocumentDAO documentDAO = new DocumentDAO();
             List<BusinessDomain.Document> partialReportsList = documentDAO.GetAllPartialReportByAcademic(personalNumber);
-            partialReportsTable.ItemsSource = partialReportsList;
+
+            if (partialReportsList.Count == 0)
+            {
+                DialogWindowManager.ShowEmptyListErrorWindow();
+                NavigationService.GoBack();
+            }
+            else
+            {
+                partialReportsTable.ItemsSource = partialReportsList;
+            }
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

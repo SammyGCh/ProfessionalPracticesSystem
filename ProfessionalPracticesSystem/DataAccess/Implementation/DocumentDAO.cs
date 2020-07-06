@@ -533,5 +533,57 @@ namespace DataAccess.Implementation
             }
             return isUpdated;
         }
+
+        public int GetAllPartialReportByPractitioner(String matricula)
+        {
+            int totalReports = 0;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT COUNT(idDocument) " +
+                    "FROM Document,Practitioner " +
+                    "WHERE Document.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Document.idDocumentType = @idDocumentType " +
+                    "AND Practitioner.matricula = @matricula"
+                };
+
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
+                {
+                    Value = ID_PARTIAL_REPORT
+                };
+
+                MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
+                {
+                    Value = matricula
+                };
+
+                query.Parameters.Add(idType);
+                query.Parameters.Add(matriculaPractitioner);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    totalReports = reader.GetInt32(0);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllPartialReportByPractitioner:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return totalReports;
+        }
     }
 }

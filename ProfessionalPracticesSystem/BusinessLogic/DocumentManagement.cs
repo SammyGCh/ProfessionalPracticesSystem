@@ -4,21 +4,12 @@
 */
 using System;
 using BusinessDomain;
-using Microsoft.VisualBasic.Devices;
 using DataAccess.Implementation;
 using System.IO;
 using iText.Kernel.Pdf;
 using iText.Kernel.Geom;
-using iText.Kernel.Font;
-using iText.Kernel.Events;
-using iText.Layout.Element;
-using iText.Kernel.Colors;
-using Style = iText.Layout.Style;
-using iText.IO.Font.Constants;
 using DataAccess;
-using System.Linq;
 using System.Net;
-using System.Collections.Generic;
 
 namespace BusinessLogic
 {

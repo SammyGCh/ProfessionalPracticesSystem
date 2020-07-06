@@ -249,7 +249,7 @@ namespace DataAccess.Implementation
             return mensualReport;
         }
 
-        public List<MensualReport> GetAllReportsByPractitioner(int idPractitioner)
+        public List<MensualReport> GetAllReportsByPractitioner(String matricula)
         {
             mensualReports = new List<MensualReport>();
             practitionerHandler = new PractitionerDAO();
@@ -260,15 +260,32 @@ namespace DataAccess.Implementation
 
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM MensualReport WHERE idPractitioner = @idPractitioner"
+                    CommandText = "SELECT " +
+                    "MensualReport.idMensualReport, " +
+                    "MensualReport.description, " +
+                    "MensualReport.monthReportedDate, " +
+                    "MensualReport.name, " +
+                    "MensualReport.idProject, " +
+                    "MensualReport.idPractitioner, " +
+                    "MensualReport.grade " +
+                    "FROM MensualReport,Practitioner " +
+                    "WHERE Practitioner.matricula = @matricula " +
+                    "AND MensualReport.idPractitioner = Practitioner.idPractitioner"
                 };
 
-                MySqlParameter id = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 2)
+                MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
                 {
-                    Value = idPractitioner
+                    Value = matricula
                 };
 
-                query.Parameters.Add(id);
+                MySqlParameter state = new MySqlParameter("@status", MySqlDbType.Int32, 11)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
+                query.Parameters.Add(matriculaPractitioner);
+                query.Parameters.Add(state);
+
                 reader = query.ExecuteReader();
 
                 while (reader.Read())

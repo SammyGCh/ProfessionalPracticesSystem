@@ -128,6 +128,9 @@
     <Compile Include="Pages\Professor\PartialReportsList.xaml.cs">
       <DependentUpon>PartialReportsList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Professor\ProfessorPractitionerList.xaml.cs">
+      <DependentUpon>ProfessorPractitionerList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Practitioner\AssignedProjectData.xaml.cs">
       <DependentUpon>AssignedProjectData.xaml</DependentUpon>
     </Compile>
@@ -406,6 +409,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Professor\PartialReportsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Professor\ProfessorPractitionerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
