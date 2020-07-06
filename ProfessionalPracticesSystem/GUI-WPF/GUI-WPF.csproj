@@ -143,6 +143,12 @@
     <Compile Include="UserControls\Practitioner\AssignedProjectData.xaml.cs">
       <DependentUpon>AssignedProjectData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Coordinator\DisplayPractitionersStatistics.cs">
+      <DependentUpon>DisplayPractitionersStatistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Professor\ProfessorHome.xaml.cs">
+      <DependentUpon>ProfessorHome.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProjectsRequest\RequestSummary.xaml.cs">
       <DependentUpon>RequestSummary.xaml</DependentUpon>
     </Compile>

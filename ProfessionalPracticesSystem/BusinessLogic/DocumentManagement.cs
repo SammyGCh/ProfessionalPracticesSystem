@@ -133,18 +133,9 @@ namespace BusinessLogic
             return isSaved;
         }
 
-        public bool GenerateMensualReport(MensualReport newMensualReport)
-        {
-            bool isSaved;
-            MensualReportDAO mensualReportDAO = new MensualReportDAO();
-            isSaved = mensualReportDAO.InsertMensualReport(newMensualReport);
-
-            return isSaved;
-        }
-
         public bool GenerateSelfAssessment(Selfassessment assessment, String finalPath)
         {
-            bool isGenerated = false;
+            bool isGenerated;
 
             SelfAssessmentManager manager = new SelfAssessmentManager(assessment);
 
@@ -155,7 +146,7 @@ namespace BusinessLogic
 
         public bool GeneratePartialReport(String finalPath, PartialReport partialReport)
         {
-            bool isGenerated = false;
+            bool isGenerated;
 
             PartialReportManager create = new PartialReportManager(partialReport);
             isGenerated = create.GeneratePartialReport(finalPath);
@@ -173,31 +164,20 @@ namespace BusinessLogic
 
         }
 
-        public Practitioner GetAllInformationPractitioner(String matricula)
-        {
-            PractitionerDAO practitionerDAO = new PractitionerDAO();
-
-            Practitioner practitioner = practitionerDAO.GetPractitionerByMatricula(matricula);
-
-            return practitioner;
-        }
-
-        public bool AssingGradeToMensualReport(MensualReport mensualReport)
-        {
-            bool isUpdated;
-            MensualReportDAO mensualReportDAO = new MensualReportDAO();
-
-            isUpdated = mensualReportDAO.UpdateMensualReport(mensualReport);
-
-            return isUpdated;
-        }
-
         public bool AssingGradeToPartialReport(Document partialReport)
         {
             bool isUpdated;
 
             DocumentDAO documentDAO = new DocumentDAO();
             isUpdated = documentDAO.UpdateDocumentGrade(partialReport.IdDocument, partialReport.Grade);
+        }
+      
+        public bool AssingGradeToMensualReport(MensualReport mensualReport)
+        {
+            bool isUpdated;
+            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+
+            isUpdated = mensualReportDAO.UpdateMensualReport(mensualReport);
 
             return isUpdated;
         }
@@ -221,7 +201,7 @@ namespace BusinessLogic
                 {
                     ftpStream.CopyTo(fileStream);
                 }
-
+              
                 isDownloaded = true;
             }
             catch (UnauthorizedAccessException ex)
