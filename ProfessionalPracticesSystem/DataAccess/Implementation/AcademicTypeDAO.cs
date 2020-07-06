@@ -1,6 +1,6 @@
 /*
         Date: 08/04/2020                               
-            Author:Cesar Sergio Martinez Palacios
+        Author: Cesar Sergio Martinez Palacios
  */
 
 using BusinessDomain;
@@ -110,65 +110,7 @@ namespace DataAccess.Implementation
 
             return academicType;
         }
-        public bool InsertAcademicType(AcademicType academicType)
-        {
-            bool isSaved = false;
-
-            try
-            {
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
-                {
-                    CommandText = "INSERT INTO AcademicType(name) VALUES (@academicTypeName)"
-                };
-
-                query.Parameters.Add("@academicTypeName", MySqlDbType.VarChar, 255).Value = academicType.AcademicTypeName;
-                query.ExecuteNonQuery();
-
-                isSaved = true;
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-
-            return isSaved;
-        }
-        public bool DeleteAcademicTypeById(int idAcademicType)
-        {
-            bool isDeleted = false;
-
-            try
-            {
-                mysqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mysqlConnection)
-                {
-                    CommandText = "DELETE FROM AcademicType WHERE AcademicType.idAcademicType = @idAcademicType"
-                };
-                MySqlParameter id = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 2)
-                {
-                    Value = idAcademicType
-                };
-                query.Parameters.Add(id);
-                query.ExecuteNonQuery();
-
-                isDeleted = true;
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in DataAccess/Implementation/AcademicTypeDAO", ex);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-
-            return isDeleted;
-        }
+        
 
     }   
 }

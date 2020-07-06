@@ -4,13 +4,8 @@
  */
  
 using System;
-using System.Collections.Generic;
-using System.Text;
 using DataAccess.Implementation;
 using BusinessDomain;
-using DataAccess;
-using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace BusinessLogic
 {
@@ -21,30 +16,24 @@ namespace BusinessLogic
         private const int PROFESOR_USER = 3;
         private const int ADMINISTRATOR_USER = 4;
         private const int INCORRECT_PASSWORD = 5;
-        
-        private static int DetectUserRole(string username)
-        {
-            int roleNumber = 0;
-            UserManagement userDetect = new UserManagement();
-            roleNumber = userDetect.UserRoleNumber(username);
-            return roleNumber;
-        }
 
         public static int UserLog(string username,string password)
         {
             int userNumber = 0;
-            int roleNumber = DetectUserRole(username);
+
+            UserManagement userDetect = new UserManagement();
+            int roleNumber = userDetect.UserRoleNumber(username);
+
+            HashManagement hashPassword = new HashManagement();
+            String hashedPassword = hashPassword.TextToHash(password);
+            
             switch (roleNumber)
             {
-                case 0:
-
-                    return userNumber;
-
-                case 1:
+                case PRACTITIONER_USER:
                     PractitionerDAO practitionerdao = new PractitionerDAO();
                     Practitioner practitioner = practitionerdao.GetPractitionerByMatricula(username);
 
-                    if (password == practitioner.Password)
+                    if (hashPassword.CompareHashs(hashedPassword, practitioner.Password) == true)
                     {
                         userNumber = PRACTITIONER_USER;
                     }
@@ -54,10 +43,11 @@ namespace BusinessLogic
                     }
                     break;
 
-                case 2:
+                case COORDINADOR_USER:
                     AcademicDAO coordinatorDao = new AcademicDAO();
                     Academic coordinator = coordinatorDao.GetAcademicByPersonalNumber(username);
-                    if (password == coordinator.Password)
+
+                    if (hashPassword.CompareHashs(hashedPassword, coordinator.Password) == true)
                     {
 
                         userNumber = COORDINADOR_USER;
@@ -69,10 +59,11 @@ namespace BusinessLogic
                     }
                     break;
 
-                case 3:
+                case PROFESOR_USER:
                     AcademicDAO profesorDao = new AcademicDAO();
                     Academic profesor = profesorDao.GetAcademicByPersonalNumber(username);
-                    if (password == profesor.Password)
+
+                    if (hashPassword.CompareHashs(hashedPassword, profesor.Password) == true)
                     {
                         userNumber = PROFESOR_USER;
                     }
@@ -82,18 +73,14 @@ namespace BusinessLogic
                     }
                     break;
 
-                case 4:
+                case ADMINISTRATOR_USER:
                     AdministratorDAO administratorDAO = new AdministratorDAO();
                     Administrator administrator = administratorDAO.GetAdministratorByUser(username);
-                    if (password == administrator.Password)
+
+                    if (hashPassword.CompareHashs(hashedPassword, administrator.Password) == true)
                     {
 
                         userNumber = ADMINISTRATOR_USER;
-                        /*AdministratorHome administratorHome = new AdministratorHome();
-                        Home homeWindow = new Home(administratorHome, administrator.Username);
-                        homeWindow.Show();
-
-                        this.Close();*/
                     }
                     else
                     {
@@ -101,6 +88,7 @@ namespace BusinessLogic
                     }
                         break;
             }
+
             return userNumber;
         }
 

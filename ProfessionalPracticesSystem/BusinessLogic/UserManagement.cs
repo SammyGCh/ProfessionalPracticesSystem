@@ -2,12 +2,9 @@
         Date: 05/06/2020                               
         Author: Cesar Sergio Martinez Palacios
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 using BusinessDomain;
 using DataAccess.Implementation;
-using Microsoft.VisualBasic.ApplicationServices;
 
 namespace BusinessLogic
 {
@@ -83,30 +80,35 @@ namespace BusinessLogic
 
         public int UserRoleNumber(string username)
         {
-            bool userDetector = false;
+            int role = NO_USER;
 
-            userDetector = IsPractitioner(username);
-            if(userDetector == true)
+            if(IsPractitioner(username))
             {
-                return PRACTITIONER_USER;
+                role = PRACTITIONER_USER;
+            }
+            else
+            {
+                if (IsCoordinator(username))
+                {
+                    role = COORDINADOR_USER;
+                }
+                else
+                {
+                    if (IsProfesor(username))
+                    {
+                        role = PROFESOR_USER;
+                    }
+                    else
+                    {
+                        if (IsAdministrator(username))
+                        {
+                            role = ADMINISTRATOR_USER;
+                        }
+                    }
+                }
             }
 
-            userDetector = IsCoordinator(username);
-            if (userDetector == true)
-            {
-                return COORDINADOR_USER;
-            }
-            userDetector = IsProfesor(username);
-            if (userDetector == true)
-            {
-                return PROFESOR_USER;
-            }
-            userDetector = IsAdministrator(username);
-            if (userDetector == true)
-            {
-                return ADMINISTRATOR_USER;
-            }
-            return NO_USER;
+            return role;
         }
 
         public static string GetUserName(int userNumber, string userName)
@@ -114,17 +116,14 @@ namespace BusinessLogic
             string userCompleteName=" ";
             switch (userNumber)
             {
-                case 1:
+                case PRACTITIONER_USER:
                     Practitioner practitioner = practitionerDao.GetPractitionerByMatricula(userName);
                     userCompleteName = practitioner.Names + " " + practitioner.LastName;
                     break;
-                case 2:
-                    Academic coordinator = academicDao.GetAcademicByPersonalNumber(userName);
-                    userCompleteName = coordinator.Names + " " + coordinator.LastName;
-                    break;
-                case 3:
-                    Academic professor = academicDao.GetAcademicByPersonalNumber(userName);
-                    userCompleteName = professor.Names + " " + professor.LastName;
+
+                default:
+                    Academic academic = academicDao.GetAcademicByPersonalNumber(userName);
+                    userCompleteName = academic.Names + " " + academic.LastName;
                     break;
             }
             return userCompleteName;

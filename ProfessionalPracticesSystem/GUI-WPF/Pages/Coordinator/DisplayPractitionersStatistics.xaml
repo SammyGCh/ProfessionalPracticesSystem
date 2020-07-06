@@ -1,0 +1,127 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:Project="clr-namespace:GUI_WPF.UserControls.Project" x:Class="GUI_WPF.Pages.Coordinator.DisplayPractitionersStatistics"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300"
+      Title="DisplayPractitionersStatistics">
+    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Indicadores de Practicantes" 
+            Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="622"/>
+
+            <StackPanel Margin="0,74,17,0">
+
+                <StackPanel Orientation="Horizontal" Margin="30" Width="600"/>
+
+                <StackPanel Orientation="Horizontal" Width="600" Margin="10"/>
+                <StackPanel Orientation="Horizontal" Width="600" Margin="15,0,168,0"/>
+                <StackPanel Height="38" Margin="50,70,907,0">
+                    <Label Content="Genero" Height="27" Margin="0,5,230,0"/>
+                    <ComboBox x:Name="genderBox"  SelectedValuePath="Content" VerticalAlignment="Stretch" Height="25" Margin="100,-26,100,0" SelectionChanged="GenderSelected">
+                        <ComboBoxItem>Masculino</ComboBoxItem>
+                        <ComboBoxItem>Femenino</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Height="38" Margin="50,35,907,0">
+                    <Label Content="Periodo" Height="27" Margin="0,5,230,0"/>
+                    <ComboBox SelectedValuePath="{Binding PeriodsList}" VerticalAlignment="Stretch" Height="26" Margin="100,-26,48,0" x:Name="periodsBox" ItemsSource="{Binding PeriodsList}" DisplayMemberPath="Name" SelectionChanged="PeriodSelected"/>
+                </StackPanel>
+                <StackPanel Height="38" Margin="50,35,907,0">
+                    <Label Content="Etapa de Desarrollo" Height="27" Margin="0,5,204,0"/>
+                    <ComboBox SelectedValuePath="{Binding StagesList}" VerticalAlignment="Stretch" Height="26" Margin="122,-26,48,0" x:Name="stagesBox" ItemsSource="{Binding StagesList}" DisplayMemberPath="Name" SelectionChanged="StageSelected"/>
+                </StackPanel>
+                <StackPanel Height="38" Margin="50,35,907,0">
+                    <Label Content="Organizacion Vinculada" Height="27" Margin="0,5,189,0"/>
+                    <ComboBox SelectedValuePath="{Binding OrganizationList}" VerticalAlignment="Stretch" Height="26" Margin="137,-26,43,0" x:Name="organizationBox" ItemsSource="{Binding OrganizationList}" DisplayMemberPath="Name" SelectionChanged="OrganizationSelected"/>
+                </StackPanel>
+                <StackPanel Height="38" Margin="50,35,907,0">
+                    <Label Content="Sector social de la OV" Height="27" Margin="0,5,200,0"/>
+                    <ComboBox SelectedValuePath="{Binding SectorList}" VerticalAlignment="Stretch" Height="26" Margin="137,-26,39,0" x:Name="sectorsBox" ItemsSource="{Binding SectorList}" DisplayMemberPath="Name" SelectionChanged="SectorSelected"/>
+                </StackPanel>
+                <Button Content="Limpiar filtro" Height="35" Margin="50,30,907,0" Click="FilterClean"/>
+
+            </StackPanel>
+            <DataGrid x:Name="tableOfPractitioners" HorizontalAlignment="Left" Height="505" Margin="480,133,0,0" VerticalAlignment="Top" Width="800" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+                  CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AlternatingRowBackground="AliceBlue">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="  Matricula" Width ="150" MinWidth="150" MaxWidth="150" Binding="{Binding Matricula}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF5BA1DA"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="24"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header=" Nombre(s)"  Width ="250" MinWidth="250" MaxWidth="250" Binding="{Binding Names}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF5BA1DA"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="24"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Apellidos" Width ="250" MinWidth="250" MaxWidth="250" Binding="{Binding LastName}" CanUserResize="False" CanUserReorder="False" IsReadOnly="True">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF5BA1DA"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="24"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Genero" Width ="150" MinWidth="100" MaxWidth="150" Binding="{Binding Gender}" CanUserResize="False" CanUserReorder="False" IsReadOnly="True">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF5BA1DA"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="24"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+
+
+                    <DataGridTemplateColumn  Header="" Width ="150" MinWidth="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
+
+
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF5BA1DA"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="24"/>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button x:Name="cancelButton" Margin="872,701,356,64" Cursor="Hand" Background="Red" BorderBrush="Red" Click="CancelView" Height="Auto">
+                <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
+                    <TextBlock Text="Cancelar"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="generateButton" Margin="356,701,872,64" Height="Auto" Click="GeneratePDF">
+                <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="FileDocument" Margin="0,.5,1,0" Width="30"/>
+                    <TextBlock Text="Generar PDF"/>
+                </StackPanel>
+            </Button>
+            <TextBlock HorizontalAlignment="Left" Margin="52,133,0,0" TextWrapping="Wrap" Text="Filtros individuales" 
+                Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="60" Width="373"/>
+
+
+        </Grid>
+    </ScrollViewer>
+</Page>
