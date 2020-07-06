@@ -11,6 +11,7 @@ using System.Windows.Navigation;
 using BusinessLogic;
 using Microsoft.Win32;
 using BusinessDomain;
+using DataAccess.Implementation;
 using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Practitioner

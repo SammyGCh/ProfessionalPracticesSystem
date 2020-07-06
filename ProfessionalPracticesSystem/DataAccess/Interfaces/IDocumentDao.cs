@@ -12,7 +12,7 @@ namespace DataAccess.Interfaces
     {
         List<Document> GetAllDocument();
         List<Document> GetAllDocumentByPractitioner(int idPractitioner);
-        List<Document> GetAllPartialReportByPractitioner(String matricula);
+        int GetAllPartialReportByPractitioner(String matricula);
         List<Document> GetAllPartialReportByAcademic(String personalNumber);
         List<Document> GetAllSelfassessmentByAcademic(String personalNumber);
         Document GetDocument(int idDocument);

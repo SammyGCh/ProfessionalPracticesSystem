@@ -1,8 +1,11 @@
-﻿/*
+/*
     Date: 02/07/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */
 using System;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BusinessDomain
 {
