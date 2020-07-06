@@ -21,6 +21,7 @@ namespace BusinessLogic
         private const String USER_CREDENTIAL = "UsuarioFTP";
         private const String PASSWORD_CREDENTIAL = "246810";
 
+
         public DocumentManagement() {
         }
 
