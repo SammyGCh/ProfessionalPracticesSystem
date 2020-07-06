@@ -39,6 +39,7 @@ namespace GUI_WPF
                     string practitionerFullName = UserManagement.GetUserName(userID, usernameEntered);
                     Home homeWindowPractitioner = new Home(practitionerHome, practitionerFullName);
                     homeWindowPractitioner.Show();
+
                     this.Close();
                     break;
                 case 2:

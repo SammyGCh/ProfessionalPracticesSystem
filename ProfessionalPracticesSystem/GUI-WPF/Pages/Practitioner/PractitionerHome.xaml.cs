@@ -12,9 +12,7 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Practitioner
 {
-    /// <summary>
-    /// Lógica de interacción para PractitionerHome.xaml
-    /// </summary>
+    
     public partial class PractitionerHome : Page
     {
         private String practitionerMatricula;
