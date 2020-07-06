@@ -75,6 +75,9 @@
     <Compile Include="ProjectDAOTest.cs" />
     <Compile Include="ProjectsRequestDAOTest.cs" />
     <Compile Include="ScholarPeriodDAOTest.cs" />
+    <Compile Include="InsertDataTest.cs" />
+    <Compile Include="GetDataTest.cs" />
+    <Compile Include="UpdateDataTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
