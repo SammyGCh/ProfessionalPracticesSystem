@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Documents\**" />
+    <EmbeddedResource Remove="Documents\**" />
+    <None Remove="Documents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BusinessDomain\BusinessDomain.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>

@@ -56,7 +56,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void GoToStatitics(object sender, RoutedEventArgs e)

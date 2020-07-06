@@ -96,8 +96,9 @@ namespace GUI_WPF
 
         private Document GetDocument()
         {
+            Practitioner currentPractitioner = GetCurrentPractitioner();
             String documentName = sourcePath.Substring(sourcePath.LastIndexOf(@"\"));
-            String documentsDirectory = "ftp://192.168.100.100/" + idDocumentType.ToString();
+            String documentsDirectory = "ftp://192.168.100.100/" + currentPractitioner.idPractitioner + "/" + idDocumentType.ToString();
             DocumentType auxiliarDocumentType = new DocumentType { IdDocumentType = idDocumentType };
 
 
@@ -106,7 +107,7 @@ namespace GUI_WPF
                 Name = documentName,
                 Path = documentsDirectory,
                 TypeOf = auxiliarDocumentType,
-                AddBy = GetCurrentPractitioner()
+                AddBy = currentPractitioner
             };
 
             return newDocument;

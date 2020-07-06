@@ -1,0 +1,62 @@
+﻿<Page x:Class="GUI_WPF.Pages.Professor.EvaluateMensualReport"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI_WPF.Pages.Professor" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      Width="900" Height="Auto"
+      Title="EvaluateMensualReport"
+      Background="White">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <StackPanel Background="White" Height="798" Width="900">
+            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Reporte mensual" 
+            VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54"/>
+
+            <StackPanel Margin="80" HorizontalAlignment="Center">
+
+                <TextBlock HorizontalAlignment="Center" FontSize="20" >Id de reporte</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="{ Binding IdMensualReport }"></TextBlock>
+                
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0" >Fecha de realizacion</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="{ Binding MonthReportedDate }"></TextBlock>
+
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"  >Proyecto</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="{ Binding DerivedFrom.Name }"></TextBlock>
+                
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"  >Autor</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="{ Binding GeneratedBy.Names }"></TextBlock>
+                
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"  >Nombre del reporte</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="{ Binding MensualReportName }"></TextBlock>
+                
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"  >Descripcion</TextBlock>
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{ Binding Description }"></TextBlock>
+                
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"  >Calificacion</TextBlock>
+                <TextBox Name="gradeAssigned" Width="40" MaxLength="5" Margin="0,10,0,0"></TextBox>
+
+
+            </StackPanel>
+
+            <StackPanel Width="400" Height="40" HorizontalAlignment="Center" Orientation="Horizontal">
+
+                <Button Width="126" Height="36"  Click="AssingGrade" Margin="0,0,150,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Check" Margin="0,2,5,0"/>
+                        <TextBlock Text="Calificar"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="126" Height="36" Click="Cancel">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ArrowBack" Margin="0,2,5,0"/>
+                        <TextBlock Text="Regresar"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
