@@ -5,7 +5,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
-using GUI_WPF.Windows;
+using GUI_WPF.Pages.User;
 
 namespace GUI_WPF.Windows
 {

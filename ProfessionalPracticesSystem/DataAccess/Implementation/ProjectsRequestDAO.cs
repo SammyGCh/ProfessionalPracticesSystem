@@ -162,7 +162,7 @@ namespace DataAccess.Implementation
                 {
                     CommandText = "SELECT EXISTS (SELECT ProjectsRequest.idPractitioner, " +
                     "Practitioner.status, Practitioner.matricula, Practitioner.idPractitioner " +
-                    "FROM Projectsrequest, Practitioner " +
+                    "FROM ProjectsRequest, Practitioner " +
                     "WHERE ProjectsRequest.idPractitioner = Practitioner.idPractitioner AND " +
                     "Practitioner.status = 1 AND Practitioner.matricula = @matricula)"
                 };
