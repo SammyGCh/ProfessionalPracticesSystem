@@ -51,11 +51,5 @@ namespace GUI_WPF.Windows
                 this.Close();
             }
         }
-
-        private void LogOut(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
     }
 }

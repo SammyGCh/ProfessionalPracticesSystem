@@ -389,8 +389,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Professor\ProfessorHome.xaml">
-    <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Practitioner\AssignedProjectData.xaml">
       <SubType>Designer</SubType>
