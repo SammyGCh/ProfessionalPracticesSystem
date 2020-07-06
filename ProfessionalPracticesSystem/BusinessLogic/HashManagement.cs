@@ -37,11 +37,11 @@ namespace BusinessLogic
             return hashChain.ToString();
         }
 
-        public bool CompareHashs(string hashedString1, string hashedString2)
+        public bool CompareHashs(string hashedStringRecieved, string hashedStringOriginal)
         {
             bool isEqual = false;
 
-            if (hashedString1 == hashedString2)
+            if (hashedStringRecieved == hashedStringOriginal)
             {
                 isEqual = true;
             }
