@@ -1,21 +1,12 @@
 ﻿/*
-        Date: 02/07/2020                              
-        Author:Cesar Sergio Martinez Palacios
+    Date: 02/07/2020                              
+    Author:Cesar Sergio Martinez Palacios
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace GUI_WPF.Pages.Professor
 {
@@ -24,14 +15,17 @@ namespace GUI_WPF.Pages.Professor
     /// </summary>
     public partial class ProfessorHome : Page
     {
-        public ProfessorHome()
+        private String personalNumber;
+
+        public ProfessorHome(String personalNumber)
         {
             InitializeComponent();
+            this.personalNumber = personalNumber;
         }
 
         private void CheckPractitioners(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new ProfessorPractitionerList(personalNumber));
         }
 
         private void CheckNotices(object sender, RoutedEventArgs e)
@@ -40,12 +34,12 @@ namespace GUI_WPF.Pages.Professor
         }
         private void CheckMensualReports(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new MensualReportsList(personalNumber));
         }
 
         private void CheckPartialReports(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new PartialReportsList(personalNumber));
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿using iText.Kernel.Events;
+﻿/*
+    Date: 18/06/2020
+    Author(s) : Angel de Jesus Juarez Garcia
+ */
+using iText.Kernel.Events;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using System;
