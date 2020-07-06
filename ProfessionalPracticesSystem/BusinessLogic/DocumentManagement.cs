@@ -23,7 +23,6 @@ namespace BusinessLogic
 
 
         public DocumentManagement() {
-
         }
 
         public bool AddDocument(Document newDocument, String sourcePath)

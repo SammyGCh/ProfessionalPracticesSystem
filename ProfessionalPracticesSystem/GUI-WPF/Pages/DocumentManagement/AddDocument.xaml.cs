@@ -71,9 +71,9 @@ namespace GUI_WPF
 
             try
             {
-                if (explorador.ShowDialog() == DialogResult.OK)
+                if (explorer.ShowDialog() == DialogResult.OK)
                 {
-                    sourcePath = explorador.FileName;
+                    sourcePath = explorer.FileName;
                     pdfViewer.Navigate(sourcePath);
                 }
             }
