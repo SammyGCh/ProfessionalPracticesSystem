@@ -60,33 +60,6 @@ namespace BusinessLogic
                 isUpload = true;
             }
             catch (ArgumentNullException ex)
-
-            return isAdded;
-        }
-
-        private bool SaveDocumentInDataBase(Document newDocument)
-        {
-            bool isSaveInDataBase;
-
-            DocumentDAO documentDAO = new DocumentDAO();
-            isSaveInDataBase = documentDAO.SaveDocument(newDocument);
-
-            return isSaveInDataBase;
-        }
-
-        private bool AddDocumentInFTPServer(Document newDocument, String sourcePath)
-        {
-            bool isUpload;
-
-            WebClient myClient = new WebClient();
-            myClient.Credentials = new NetworkCredential(USER_CREDENTIAL, PASSWORD_CREDENTIAL);
-
-            try
-            {
-                myClient.UploadFile(newDocument.Path + newDocument.Name, sourcePath);
-                isUpload = true;
-            }
-            catch (ArgumentNullException ex)
             {
                 LogManager.WriteLog("Something went wrong in BussinessLogic/DocumentManagement/AddDocumentInFTPServer", ex);
                 isUpload = false;
@@ -133,18 +106,9 @@ namespace BusinessLogic
             return isSaved;
         }
 
-        public bool GenerateMensualReport(MensualReport newMensualReport)
-        {
-            bool isSaved;
-            MensualReportDAO mensualReportDAO = new MensualReportDAO();
-            isSaved = mensualReportDAO.InsertMensualReport(newMensualReport);
-
-            return isSaved;
-        }
-
         public bool GenerateSelfAssessment(Selfassessment assessment, String finalPath)
         {
-            bool isGenerated = false;
+            bool isGenerated;
 
             SelfAssessmentManager manager = new SelfAssessmentManager(assessment);
 
@@ -155,7 +119,7 @@ namespace BusinessLogic
 
         public bool GeneratePartialReport(String finalPath, PartialReport partialReport)
         {
-            bool isGenerated = false;
+            bool isGenerated;
 
             PartialReportManager create = new PartialReportManager(partialReport);
             isGenerated = create.GeneratePartialReport(finalPath);
@@ -171,15 +135,6 @@ namespace BusinessLogic
 
             return practitioner;
 
-        }
-
-        public Practitioner GetAllInformationPractitioner(String matricula)
-        {
-            PractitionerDAO practitionerDAO = new PractitionerDAO();
-
-            Practitioner practitioner = practitionerDAO.GetPractitionerByMatricula(matricula);
-
-            return practitioner;
         }
 
         public bool AssingGradeToMensualReport(MensualReport mensualReport)
