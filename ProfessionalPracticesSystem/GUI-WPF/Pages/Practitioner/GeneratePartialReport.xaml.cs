@@ -1,4 +1,4 @@
-﻿/*
+/*
     Date: 18/06/2020
     Author(s) : Angel de Jesus Juarez Garcia
  */

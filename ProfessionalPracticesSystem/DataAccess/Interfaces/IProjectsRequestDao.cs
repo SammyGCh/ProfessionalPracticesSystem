@@ -12,6 +12,7 @@ namespace DataAccess.Interfaces
     {
         bool SaveProjectsRequest(ProjectsRequest projectsRequest);
         List<ProjectsRequest> GetAllProjectsRequestActive();
-        bool UpdateProjectsRequest(int idProjectsRequest);
+        bool UpdateProjectsRequestStatus(int idProjectsRequest);
+        int ExistsProjectsRequestFromPractitioner(string practitionerMatricula);
     }
 }
