@@ -24,24 +24,17 @@ namespace GUI_WPF.UserControls.ProjectsRequest
 
         private void GoToRequestSummary(object sender, RoutedEventArgs e)
         {
-            if (CanBeAssignIt())
-            {
-                BusinessDomain.ProjectsRequest projectsRequestToAssign = GetProjectsRequestSelected();
+            BusinessDomain.ProjectsRequest projectsRequestToAssign = GetProjectsRequestSelected();
 
-                if (projectsRequestToAssign != null)
+            if (projectsRequestToAssign != null)
+            {
+                RequestSummary requestSummaryWindow = new RequestSummary
                 {
-                    RequestSummary requestSummaryWindow = new RequestSummary
-                    {
-                        DataContext = projectsRequestToAssign
-                    };
+                    DataContext = projectsRequestToAssign
+                };
 
-                    requestSummaryWindow.Show();
-                    requestSummaryWindow.Focus();
-                }
-            }
-            else
-            {
-                DialogWindowManager.ShowNoEnoughProjectSpaceWindow();
+                requestSummaryWindow.Show();
+                requestSummaryWindow.Focus();
             }
         }
 
@@ -49,6 +42,7 @@ namespace GUI_WPF.UserControls.ProjectsRequest
         {
             BusinessDomain.ProjectsRequest projectsRequestSelected =
                 this.DataContext as BusinessDomain.ProjectsRequest;
+            projectSelected = GetProjectSelected();
 
             projectsRequestSelected.ProjectsRequested.Clear();
             projectsRequestSelected.ProjectsRequested.Add(projectSelected);
@@ -62,20 +56,6 @@ namespace GUI_WPF.UserControls.ProjectsRequest
                 projectsRequestedList.SelectedItem as BusinessDomain.Project;
 
             return projectSelected;
-        }
-
-        private bool CanBeAssignIt()
-        {
-            bool canBe = true;
-
-            projectSelected = GetProjectSelected();
-
-            if (projectSelected.PractitionerNumber == projectSelected.PractitionersAssigned)
-            {
-                canBe = false;
-            }
-
-            return canBe;
         }
     }
 }

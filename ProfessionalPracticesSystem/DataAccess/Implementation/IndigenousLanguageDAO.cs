@@ -79,7 +79,7 @@ namespace DataAccess.Implementation
                 mysqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mysqlConnection)
                 {
-                    CommandText = "SELECT * FROM IndigenousLanguge WHERE idIndigenousLanguage = @idIndigenousLanguage"
+                    CommandText = "SELECT * FROM IndigenousLanguage WHERE idIndigenousLanguage = @idIndigenousLanguage"
                 };
 
                 MySqlParameter idIndiLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 32)
@@ -114,6 +114,5 @@ namespace DataAccess.Implementation
 
             return indigenousLanguage;
         }
-
     }
 }

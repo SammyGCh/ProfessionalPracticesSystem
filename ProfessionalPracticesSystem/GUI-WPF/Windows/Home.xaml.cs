@@ -11,6 +11,8 @@ namespace GUI_WPF.Windows
 {
     public partial class Home : Window
     {
+        private readonly Page userHomePage;
+
         public Home()
         {
             InitializeComponent();
@@ -21,15 +23,33 @@ namespace GUI_WPF.Windows
             InitializeComponent();
             userName.Text = userNameFullName;
             homeFrame.Content = homePage;
+            userHomePage = homePage;
         }
 
-        private void LogOut(object sender, RoutedEventArgs e)
+        public Page GetUserHomePage()
+        {
+            return userHomePage;
+        }
+
+        private void GoHome(object sender, RoutedEventArgs e)
+        {
+            homeFrame.Navigate(userHomePage);
+        }
+
+        private void UpdatePassword(object sender, RoutedEventArgs e)
+        {
+            homeFrame.Navigate(new UpdatePassword());
+        }
+
+        private void Logout(object sender, RoutedEventArgs e)
         {
             if (DialogWindowManager.ShowConfirmationWindow("¿Desea cerrar sesion?"))
             {
+                Login loginWindow = new Login();
+
+                loginWindow.Show();
                 this.Close();
             }
         }
-
     }
 }

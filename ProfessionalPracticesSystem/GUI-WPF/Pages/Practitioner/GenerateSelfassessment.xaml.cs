@@ -20,6 +20,7 @@ using BusinessLogic;
 using Microsoft.Win32;
 using BusinessDomain;
 using DataAccess.Implementation;
+using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Practitioner
 {
@@ -28,19 +29,19 @@ namespace GUI_WPF.Pages.Practitioner
     /// </summary>
     public partial class GenerateSelfassessment : Page
     {
-        private BusinessDomain.Practitioner practitioner;
+        private String practitionerMatricula;
 
-        public GenerateSelfassessment(BusinessDomain.Practitioner practitioner)
+        public GenerateSelfassessment(String practitionerMatricula)
         {
-            this.practitioner = practitioner;
+            this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Seguro que deseas cancelar?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar?");
 
-            if (result == MessageBoxResult.Yes)
+            if (isConfirmed)
             {
                 NavigationService.GoBack();
             }
@@ -48,9 +49,9 @@ namespace GUI_WPF.Pages.Practitioner
 
         private void Generate(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea generar la autoevaluacion?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool isConfirmed = DialogWindowManager.ShowConfirmationWindow("¿Desea generar la autoevaluacion?");
 
-            if (result == MessageBoxResult.Yes)
+            if (isConfirmed)
             {
                 String destinyPath = PathToSave();
 
@@ -61,11 +62,11 @@ namespace GUI_WPF.Pages.Practitioner
 
                     if (documentManagement.GenerateSelfAssessment(selfassesment, destinyPath))
                     {
-                        MessageBox.Show("Autoevaluacion generada exitosamente", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        DialogWindowManager.ShowSuccessWindow("Autoevaluacion generada exitosamente");
                     }
                     else
                     {
-                        MessageBox.Show("Error al generar el PDF de la autoevaluacion", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        DialogWindowManager.ShowErrorWindow("Error al generar el PDF de la autoevaluacion");
                     }
                 }
             }
@@ -73,9 +74,10 @@ namespace GUI_WPF.Pages.Practitioner
 
         private Selfassessment GetAssessment()
         {
+
             Selfassessment newAssessment = new Selfassessment()
             {
-                AddBy = practitioner,
+                AddBy = GetCurrentPractitioner(),
                 QuestionsValues = GetQuestionsValues()
             };
 
@@ -95,6 +97,14 @@ namespace GUI_WPF.Pages.Practitioner
             }
 
             return questionsValues;
+        }
+
+        private BusinessDomain.Practitioner GetCurrentPractitioner()
+        {
+            DocumentManagement documentManager = new DocumentManagement();
+            BusinessDomain.Practitioner currentPRactitioner = documentManager.GetAllInformationPractitioner(practitionerMatricula);
+
+            return currentPRactitioner;
         }
 
         private String PathToSave()
