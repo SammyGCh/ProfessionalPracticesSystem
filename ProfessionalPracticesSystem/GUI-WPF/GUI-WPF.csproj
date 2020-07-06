@@ -427,10 +427,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\User\UpdatePassword.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Professor\ProfessorHome.xaml">
         <SubType>Designer</SubType>
         <Generator>MSBuild:Compile</Generator>
