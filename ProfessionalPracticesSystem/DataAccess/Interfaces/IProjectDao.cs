@@ -24,7 +24,6 @@ namespace DataAccess.Interfaces
         bool UpdateProject(Project projectUpdated);
         bool UpdateProjectData(Project projectDataUpdated);
         bool UpdateProjectResponsableData(Project projectResponsableData);
-        bool UpdateLinkedOrganizationOfProject(int idProject, int idLinkedOrganization);
         bool UpdateProjectActivity(ProjectActivity projectActivityUpdated, int idProject);
         bool UpdateAvailabilityProjectStatus(int idProject);
         bool DeleteProject(int idProject);

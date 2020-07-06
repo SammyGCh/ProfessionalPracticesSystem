@@ -15,6 +15,7 @@ namespace DataAccessTests
     [TestClass]
     public class AcademicTypeDAOTest
     {
+        /*
         AcademicTypeDAO academicTypeDao = new AcademicTypeDAO();
 
         [TestMethod]
@@ -57,5 +58,7 @@ namespace DataAccessTests
 
             Assert.IsTrue(isDeleted);
         }
+        */
     }
+
 }
