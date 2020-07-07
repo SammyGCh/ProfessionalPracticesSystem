@@ -11,9 +11,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataAccessTests
 {
+    /*
     [TestClass]
     public class PractitionerDAOTest
     {
         readonly PractitionerDAO practitionerDAO = new PractitionerDAO();
     }
+    */
 }

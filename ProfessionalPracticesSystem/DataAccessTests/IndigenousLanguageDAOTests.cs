@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 
 namespace DataAccessTests
 {
+    /*
     [TestClass]
     public class IndigenousLanguageDAOTests
     {
@@ -53,4 +54,5 @@ namespace DataAccessTests
         //    Assert.IsTrue(isDeleted);
         //}
     }
+    */
 }

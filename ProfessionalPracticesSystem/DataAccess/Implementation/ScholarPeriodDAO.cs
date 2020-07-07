@@ -24,12 +24,7 @@ namespace DataAccess.Implementation
 
         public ScholarPeriodDAO()
         {
-            scholarPeriods = null;
-            scholarPeriod = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public bool SaveScholarPeriod(ScholarPeriod scholarPeriod)
