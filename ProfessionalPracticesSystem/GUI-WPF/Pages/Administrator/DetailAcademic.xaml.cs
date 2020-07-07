@@ -28,14 +28,19 @@ namespace GUI_WPF.Pages.Administrator
     /// </summary>
     public partial class DetailAcademic : Page
     {
-        public DetailAcademic(Academic selectedAcademic)
+        private readonly Academic selectedAcademic;
+        public DetailAcademic(Academic academic)
         {
             InitializeComponent();
 
+            selectedAcademic = academic;
+
             this.DataContext = selectedAcademic;
+
+            academicType.Text = selectedAcademic.BelongTo.AcademicTypeName;
         }
 
-        private void Return(object sender, RoutedEventArgs e)
+        private void ReturnToHome(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }

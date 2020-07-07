@@ -28,7 +28,7 @@
 
                         <StackPanel Orientation="Horizontal" Height="25" Margin="125,15,125.4,0">
                             <TextBlock Text="Número de Personal (*): " Margin="-110,2,15,4.8" FontSize="14" TextAlignment="Right" Width="193"/>
-                            <TextBox x:Name="academicPersonalNumber" Width="380" MaxLength="9" TextCompositionManager.PreviewTextInput="IsUserName"/>
+                            <TextBox x:Name="academicPersonalNumber" Width="380" MaxLength="9" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
@@ -48,7 +48,7 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Tipo de Académico (*): " Margin="-60,3,18,-0.2" FontSize="14" TextAlignment="Right" TextWrapping="Wrap"/>
-                            <ComboBox x:Name="academicTypeList" Width="200" ItemsSource="{Binding listOfAcademicTypes}" Height="25" Margin="0,0,0,-0.2"/>
+                            <ComboBox x:Name="academicTypeList" Width="200" ItemsSource="{Binding listOfAcademicTypes}" DisplayMemberPath="AcademicTypeName" Height="25" Margin="0,0,0,-0.2"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">

@@ -31,6 +31,7 @@ namespace BusinessLogic
             newAcademic.Password = encryptedPassword;
 
             isAcademicSaved = academicDAO.SaveAcademic(newAcademic);
+
             return isAcademicSaved;
         }
 
@@ -55,5 +56,15 @@ namespace BusinessLogic
             return isAcademicDeleted;
         }
 
+        public bool isAcademicCountFull(Academic academic)
+        {
+            bool isFull = false;
+
+            AcademicDAO academicHandler = new AcademicDAO();
+
+            isFull = academicHandler.ActiveAcademicCountFull(academic.BelongTo.IdAcademicType);
+
+            return isFull;
+        }
     }
 }

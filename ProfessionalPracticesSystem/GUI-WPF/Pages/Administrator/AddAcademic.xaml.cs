@@ -32,11 +32,8 @@ namespace GUI_WPF.Pages.Administrator
         private const int ACTIVO = 1;
         private List<String> genderList;
         private List<String> shiftList;
-        private const string CONFIRM_MESSAGE = "¿Seguro que deseas cancelar el registro?";
-        private const string SUCCESS_MESSAGE = "El Académico fue registrado exitosamente.";
-        private const string NO_ACADEMIC_TYPE_MESSAGE = "No existen tipos de Academicos. No se puede crear un Académico sin tipo.";
 
-        public AddAcademic()        
+        public AddAcademic()
         {
             InitializeComponent();
 
@@ -58,21 +55,19 @@ namespace GUI_WPF.Pages.Administrator
 
             AcademicTypeDAO academicTypeHandler = new AcademicTypeDAO();
             List<AcademicType> listOfAcademicTypes = academicTypeHandler.GetAllAcademicTypes();
-
-            if(listOfAcademicTypes.Count == 0)
+            if (listOfAcademicTypes.Count == 0)
             {
-                DialogWindowManager.ShowErrorWindow(NO_ACADEMIC_TYPE_MESSAGE);
-                NavigationService.GoBack();
+                DialogWindowManager.ShowErrorWindow("No existen tipos de Academicos. No se puede crear un Académico sin tipo.");
             }
             else
             {
                 academicTypeList.ItemsSource = listOfAcademicTypes;
-            }
+            }  
         }
 
         private void CancelAddNewAcademic(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(CONFIRM_MESSAGE);
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
 
             if (cancelConfirmation)
             {
@@ -127,19 +122,27 @@ namespace GUI_WPF.Pages.Administrator
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else
+            else if (isAcademicCountFull())
+            {
+                DialogWindowManager.ShowErrorWindow("Error. Se llego al limite del tipo de academico. Debe eliminar academicos antes de crear uno nuevo.");
+            }
+            else if(!IsInValidUserName())
             {
                 bool isSaved = SaveAcademic();
 
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow(SUCCESS_MESSAGE);
+                    DialogWindowManager.ShowSuccessWindow("El Académico fue registrado exitosamente.");
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
-                NavigationService.GoBack();
+                NavigationService.Navigate(new AdministratorHome());
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Error. Uno de los campos ingresados esta inválido. Verifique los campos");
             }
         }
 
@@ -171,7 +174,7 @@ namespace GUI_WPF.Pages.Administrator
 
         private void IsANumber(object sender, TextCompositionEventArgs e)
         {
-            if (!ValidatorText.IsPersonName(e.Text))
+            if (!ValidatorText.IsANumber(e.Text))
             {
                 e.Handled = true;
             }
@@ -181,16 +184,18 @@ namespace GUI_WPF.Pages.Administrator
             }
         }
 
-        private void IsUserName(object sender, TextCompositionEventArgs e)
+        private bool IsInValidUserName()
         {
-            if (!ValidatorText.IsUserName(e.Text))
+            bool isWrong = false;
+
+            String stringToValidate = academicPersonalNumber.Text;
+
+            if (!ValidatorText.IsUserName(stringToValidate))
             {
-                e.Handled = true;
+                isWrong = true;
             }
-            else
-            {
-                e.Handled = false;
-            }
+
+            return isWrong;
         }
 
         private void CleanTextFields()
@@ -202,6 +207,19 @@ namespace GUI_WPF.Pages.Administrator
             academicTypeList.SelectedItem = null;
             academicCubicle.Clear();
             academicShift.SelectedItem = null;
+        }
+
+        private bool isAcademicCountFull()
+        {
+            bool isFull = false;
+
+            AcademicType academicType = academicTypeList.SelectedItem as AcademicType;
+
+            AcademicDAO academicHandler = new AcademicDAO();
+
+            isFull = academicHandler.ActiveAcademicCountFull(academicType.IdAcademicType);
+
+            return isFull;
         }
     }
 }

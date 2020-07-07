@@ -5,18 +5,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
@@ -31,15 +23,15 @@ namespace GUI_WPF.Pages.Administrator
     {
         private List<String> genderList;
         private List<String> shiftList;
-        private const int ACTIVO = 1;
-        private const string CONFIRM_MESSAGE = "¿Seguro que deseas cancelar la actualización?";
-        private const string SUCCESS_MESSAGE = "El Académico fue actualizado exitosamente.";
-        private const string NO_ACADEMIC_MESSAGE = "No existen Académicos. No se puede actualizar un Académico.";
+        private readonly int currentAcademicStatus;
+        private Academic currentAcademic;
+        private const int ACTIVE_STATUS = 1;
 
         public UpdateAcademic(Academic academicToUpdate)
         {
             InitializeComponent();
 
+            currentAcademic = academicToUpdate;
             genderList = new List<String>
             {
                 "Masculino",
@@ -56,21 +48,22 @@ namespace GUI_WPF.Pages.Administrator
 
             academicShift.ItemsSource = shiftList;
 
-            AcademicTypeDAO academicTypeHandler = new AcademicTypeDAO();
-            List<AcademicType> allAcademicTypes = academicTypeHandler.GetAllAcademicTypes();
-            academicTypeList.ItemsSource = allAcademicTypes;
+            this.DataContext = currentAcademic;
 
-            this.DataContext = academicToUpdate;
-
-            academicNames.Text = academicToUpdate.Names;
-            academicSurnames.Text = academicToUpdate.LastName;
-            academicPersonalNumber.Text = academicToUpdate.PersonalNumber;
-            academicCubicle.Text = academicToUpdate.Cubicle;
+            academicID.Text = currentAcademic.IdAcademic.ToString();
+            academicNames.Text = currentAcademic.Names;
+            academicSurnames.Text = currentAcademic.LastName;
+            academicPersonalNumber.Text = currentAcademic.PersonalNumber;
+            academicCubicle.Text = currentAcademic.Cubicle;
+            academicGender.Text = currentAcademic.Gender;
+            academicType.Text = currentAcademic.BelongTo.AcademicTypeName;
+            academicShift.Text = currentAcademic.Shift;
+            currentAcademicStatus = currentAcademic.Status;
         }
 
         private void CancelUpdateAcademic(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(CONFIRM_MESSAGE);
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar la actualización?");
 
             if (cancelConfirmation)
             {
@@ -80,19 +73,16 @@ namespace GUI_WPF.Pages.Administrator
 
         private Academic GetAcademicData()
         {
-            AcademicType academicType = academicTypeList.SelectedItem as AcademicType;
-
             Academic updatedAcademic = new Academic()
             {
+                IdAcademic = int.Parse(academicID.Text),
                 PersonalNumber = academicPersonalNumber.Text,
                 Names = academicNames.Text,
                 LastName = academicSurnames.Text,
-                Password = academicPersonalNumber.Text,
                 Cubicle = academicCubicle.Text,
                 Gender = academicGender.Text,
                 Shift = academicShift.Text,
-                BelongTo = academicType,
-                Status = ACTIVO
+                Status = currentAcademicStatus
             };
 
             return updatedAcademic;
@@ -109,9 +99,7 @@ namespace GUI_WPF.Pages.Administrator
                     )
                 )
                 ||
-                academicGender.SelectedItem == null || academicTypeList.SelectedItem == null
-                ||
-                academicShift.SelectedItem == null
+                academicGender.SelectedItem == null || academicShift.SelectedItem == null
             )
             {
                 areEmpty = true;
@@ -122,23 +110,32 @@ namespace GUI_WPF.Pages.Administrator
 
         private void UpdateAcademicData(object sender, RoutedEventArgs e)
         {
+            ManageAcademic academicManager = new ManageAcademic();
+            
+
             if (AreFieldsEmpty())
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else
+            else if(!IsInValidUserName())
             {
                 bool isUpdated = SaveAcademicUpdate();
 
                 if (isUpdated)
                 {
-                    DialogWindowManager.ShowSuccessWindow(SUCCESS_MESSAGE);
+                    DialogWindowManager.ShowSuccessWindow("El Académico fue actualizado exitosamente.");
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
-                NavigationService.GoBack();
+
+                CleanTextFields();
+                NavigationService.Navigate(new AdministratorHome());
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Error. Uno de los campos ingresados esta inválido. Verifique los campos");
             }
         }
 
@@ -153,7 +150,6 @@ namespace GUI_WPF.Pages.Administrator
             isUpdateSaved = managePractitioner.UpdateAcademic(academicUpdate);
 
             return isUpdateSaved;
-
         }
 
         private void IsPersonName(object sender, TextCompositionEventArgs e)
@@ -170,7 +166,7 @@ namespace GUI_WPF.Pages.Administrator
 
         private void IsANumber(object sender, TextCompositionEventArgs e)
         {
-            if (!ValidatorText.IsPersonName(e.Text))
+            if (!ValidatorText.IsANumber(e.Text))
             {
                 e.Handled = true;
             }
@@ -180,16 +176,18 @@ namespace GUI_WPF.Pages.Administrator
             }
         }
 
-        private void IsUserName(object sender, TextCompositionEventArgs e)
+        private bool IsInValidUserName()
         {
-            if (!ValidatorText.IsUserName(e.Text))
+            bool isWrong = false;
+
+            String stringToValidate = academicPersonalNumber.Text;
+
+            if (!ValidatorText.IsUserName(stringToValidate))
             {
-                e.Handled = true;
+                isWrong = true;
             }
-            else
-            {
-                e.Handled = false;
-            }
+
+            return isWrong;
         }
 
         private void CleanTextFields()
@@ -198,9 +196,9 @@ namespace GUI_WPF.Pages.Administrator
             academicNames.Clear();
             academicSurnames.Clear();
             academicGender.SelectedItem = null;
-            academicTypeList.SelectedItem = null;
             academicCubicle.Clear();
             academicShift.SelectedItem = null;
         }
+
     }
 }

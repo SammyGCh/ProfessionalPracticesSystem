@@ -6,20 +6,21 @@
       xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       x:Class="GUI_WPF.Pages.Administrator.AdministratorHome"
+      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" 
       mc:Ignorable="d"
       Title="AdministratirHome" Width="Auto" Height="Auto" WindowTitle="Inicio" d:DesignWidth="1300" d:DesignHeight="1000">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
-        <StackPanel Background="White" Height="800">
-            <TextBlock HorizontalAlignment="Left" Margin="100,10,0,0" TextWrapping="Wrap" Text="Bienvenido Administrador" 
+        <StackPanel Background="White" Height="700">
+            <TextBlock HorizontalAlignment="Left" Margin="100,10,0,0" TextWrapping="Wrap" Text="Académicos Registrados" 
             VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="514"/>
 
             <StackPanel Margin="50">
-                <DataGrid x:Name="tableOfAcademics" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1210" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+                <DataGrid x:Name="tableOfAcademics" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1275" AutoGenerateColumns="False" Background="#FFFAFAFA" 
                   CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="55" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
 
-                        <DataGridTemplateColumn Header=" Numero de Personal" Width ="250" MinWidth="150" MaxWidth="250"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn Header="  Personal Number" Width ="250" MinWidth="200" MaxWidth="255"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -36,7 +37,7 @@
                         </DataGridTemplateColumn>
 
 
-                        <DataGridTemplateColumn Header="Apellidos"  Width ="200" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn Header="Apellidos"  Width ="175" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -52,7 +53,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Nombres" Width ="150" MinWidth="150" CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                        <DataGridTemplateColumn Header="Nombres" Width ="150" MinWidth="130" CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -68,7 +69,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Tipo de Académico" Width ="250" MinWidth="150" CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                        <DataGridTemplateColumn Header="Turno" Width ="150" MinWidth="120" CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -79,7 +80,7 @@
                             </DataGridTemplateColumn.HeaderStyle>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="practitionerGrade" Text="{Binding belongTo}" TextWrapping="Wrap"/>
+                                    <TextBlock Name="academicShift" Text="{Binding Shift}" TextWrapping="Wrap"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -132,6 +133,11 @@
                         <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Status}" Value="0">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
                                     <Button Name="update" Width ="100"
                                             HorizontalAlignment="Left" Click="UpdateAcademicData" Content="Actualizar"/>
                                 </DataTemplate>
@@ -171,10 +177,11 @@
                 </DataGrid>
             </StackPanel>
 
-            <StackPanel Width="400" Height="40">
-                <Button x:Name="createButton" Width="126" Height="36" Click="AddNewAcademic">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Create" Margin="0,2,5,0"/>
+            <StackPanel Orientation="Horizontal" Margin="20" Width="750">
+                <Button x:Name="createButton" Width="115" Margin="250,0,0,0" Cursor="Hand" IsEnabled="True" 
+                            Click="AddNewAcademic">
+                    <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Create" Margin="3,3.5,1,1" Width="30"/>
                         <TextBlock Text="Registrar"/>
                     </StackPanel>
                 </Button>

@@ -14,7 +14,7 @@ namespace GUI_WPF.Pages.Administrator
     public partial class DeleteAcademic : Page
     {
         private int selectedAcademicID;
-        private ManageAcademic academicManager;
+
         private const String SUCCESS_MESSAGE = "Académico eliminado exitosamente";
         private const String ERROR_MESSAGE = "Ocurrió un error al intentar eliminar el académico. Intente más tarde.";
 
@@ -23,19 +23,20 @@ namespace GUI_WPF.Pages.Administrator
             InitializeComponent();
 
             selectedAcademicID = academicID;
-            academicManager = new ManageAcademic();
         }
 
         private void EliminateAcademic(object sender, RoutedEventArgs e)
         {
             bool isAcademicDeleted = false;
 
+            ManageAcademic academicManager = new ManageAcademic();
             isAcademicDeleted = academicManager.DeleteAcademic(selectedAcademicID);
 
             if (isAcademicDeleted)
             {
 
                 DialogWindowManager.ShowSuccessWindow(SUCCESS_MESSAGE);
+                NavigationService.Navigate(new AdministratorHome());
             }
             else
             {

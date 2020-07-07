@@ -69,7 +69,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
-            
+            NavigationService.Navigate(new NoticeBoard());
         }
 
         private void GoToStatitics(object sender, RoutedEventArgs e)

@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Administrator"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="900"
       Title="UpdateAcademic">
@@ -16,18 +15,19 @@
                 <RowDefinition Height="188*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Actualizar Académico" 
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Registrar Académico" 
                   Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
+            <TextBox x:Name="academicID" HorizontalAlignment="Left" Height="23" Visibility="Collapsed"/>
 
             <StackPanel Grid.Row="1">
 
-                <materialDesign:Card Background="AliceBlue" Margin="66,30,217.2,30" Padding="10" BorderThickness="50" Width="750" Height="445">
+                <materialDesign:Card Background="AliceBlue"  Padding="10" BorderThickness="50" Width="750" Height="445" HorizontalAlignment="Center">
                     <StackPanel x:Name="academicData" Margin="0,40,0.4,43.6">
                         <TextBlock FontSize="18" FontWeight="SemiBold" Margin="40,0,0,0"><Run Text="Ingrese información del Académico"/></TextBlock>
 
                         <StackPanel Orientation="Horizontal" Height="25" Margin="125,15,125.4,0">
                             <TextBlock Text="Número de Personal (*): " Margin="-110,2,15,4.8" FontSize="14" TextAlignment="Right" Width="193"/>
-                            <TextBox x:Name="academicPersonalNumber" Text="{Binding PersonalNumber}" Width="380" MaxLength="9" TextCompositionManager.PreviewTextInput="IsUserName"/>
+                            <TextBox x:Name="academicPersonalNumber" Text="{Binding PersonalNumber}" Width="380" MaxLength="9" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
@@ -47,7 +47,7 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Tipo de Académico (*): " Margin="-60,3,18,-0.2" FontSize="14" TextAlignment="Right" TextWrapping="Wrap"/>
-                            <ComboBox x:Name="academicTypeList" Width="200" ItemsSource="{Binding listOfAcademicTypes}" Height="25" Margin="0,0,0,-0.2"/>
+                            <TextBlock x:Name="academicType" Width="200" Height="25" Margin="0,0,0,-0.2"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
@@ -62,16 +62,16 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <StackPanel Margin="89,10,141.6,10">
-                    <TextBlock Text="* Campos obligatorios" FontSize="14" FontWeight="Light" Margin="0,0,-0.8,0" Height="22"/>
+                <StackPanel Margin="20" Width="750">
+                    <TextBlock Text="* Campos obligatorios" FontSize="14" FontWeight="Light"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="20" Width="750">
-                    <Button x:Name="createButton" Width="115" Margin="140,0,0,0" Cursor="Hand" IsEnabled="True" 
+                    <Button x:Name="createButton" Width="115" Margin="240,0,0,0" Cursor="Hand" IsEnabled="True" 
                             Click="UpdateAcademicData">
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Plus" Margin="3,3.5,1,1" Width="30"/>
-                            <TextBlock Text="Actualizar"/>
+                            <materialDesign:PackIcon Kind="Update" Margin="3,3.5,1,1" Width="30"/>
+                            <TextBlock Text="Actualizarr"/>
                         </StackPanel>
                     </Button>
 
