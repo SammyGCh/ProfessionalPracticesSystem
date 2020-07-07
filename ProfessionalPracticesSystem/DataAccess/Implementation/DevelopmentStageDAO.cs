@@ -15,19 +15,14 @@ namespace DataAccess.Implementation
     {
         private List<DevelopmentStage> developmentStages;
         private DevelopmentStage developmentStage;
-        private DataBaseConnection connection;
+        private readonly DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
 
         public DevelopmentStageDAO()
         {
-            developmentStages = null;
-            developmentStage = null;
             connection = new DataBaseConnection();
-            mysqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public List<DevelopmentStage> GetAllDevelopmentStages()

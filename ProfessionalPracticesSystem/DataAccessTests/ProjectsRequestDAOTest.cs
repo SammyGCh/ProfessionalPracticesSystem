@@ -13,6 +13,7 @@ namespace DataAccessTests
     [TestClass]
     public class ProjectsRequestDAOTest
     {
+        /*
         [TestMethod]
         public void SaveProjectsRequest_NewProjectsRequest_SuccessInserting()
         {
@@ -52,6 +53,13 @@ namespace DataAccessTests
         //{
         //    ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
 
+        
+        [TestMethod]
+        public void GetAllProjectsRequest_AvailableProjectsRequest_ListWithElements()
+        {
+            ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
+
+
         //    List<ProjectsRequest> projectsRequests = projectsRequestDao.GetAllProjectsRequest();
 
         //    Assert.IsTrue(projectsRequests.Count > 0);
@@ -67,5 +75,11 @@ namespace DataAccessTests
 
         //    Assert.IsTrue(isUpdated);
         //}
+
+            Assert.IsTrue(isUpdated);
+        }
+        */
+
     }
+
 }
