@@ -1,7 +1,4 @@
-﻿using System;
-using BusinessDomain;
-using System.Collections.Generic;
-using DataAccess.Implementation;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.Implementation;
 using BusinessDomain;
@@ -140,6 +137,124 @@ namespace DataAccessTests
             List<Document> result = documentDAO.GetAllDocumentByPractitioner(idpractitioner);
 
             Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetDocument_DocumentExist_ReturnDocument()
+        {
+            int idDocument = 14;
+
+            Document result = documentDAO.GetDocument(idDocument);
+
+            Assert.IsNotNull(result); 
+        }
+
+        [TestMethod]
+        public void GetNumberOfAllPartialReportByPractitioner_PractitionerHasPartialReports_ReturnNumberOfReports()
+        {
+            String matricula = "S19012186";
+
+            int result = documentDAO.GetNumberOfAllPartialReportByPractitioner(matricula);
+
+            Assert.IsTrue(result > 0);
+        }
+
+        [TestMethod]
+        public void GetNumberOfAllSelfassessmentByPractitioner_PractitionerHasSelfassassment_ReturnNumberOfSelfassssment()
+        {
+            String matricula = "S19012186";
+
+            int result = documentDAO.GetNumberOfAllSelfassessmentByPractitioner(matricula);
+
+            Assert.IsTrue(result > 0);
+        }
+
+        [TestMethod]
+        public void GetNumberOfAllAceptanceLetterByPractitioner_PractitionerHasAceptanceLetter_ReturnNumberOfAceptanceLetter()
+        {
+            String matricula = "S19012186";
+
+            int result = documentDAO.GetNumberOfAllAceptanceLetterByPractitioner(matricula);
+
+            Assert.IsTrue(result > 0);
+        }
+
+        [TestMethod]
+        public void GetNumberOfAllAssigmentLetterByPractitioner_PractitionerHasAssigmentLetter_ReturnNumberOfAssigmentLetter()
+        {
+            String matricula = "S19012186";
+
+            int result = documentDAO.GetNumberOfAllAssigmentLetterByPractitioner(matricula);
+
+            Assert.IsTrue(result > 0);
+        }
+
+        [TestMethod]
+        public void GetAllPartialReportByAcademic_AcademicHasPractitionersWithPartialsReports_ReturnDocumentList()
+        {
+            String personalNumber = "S99999999";
+
+            List<Document> result = documentDAO.GetAllPartialReportByAcademic(personalNumber);
+
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetAllSelfassessmentByAcademic_AcademicHasPractitionersWithSelfassessment_ReturnDocumentList()
+        {
+            String personalNumber = "S99999999";
+
+            List<Document> result = documentDAO.GetAllSelfassessmentByAcademic(personalNumber);
+
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetDocumentType_DocumentTypeExist_DocumentType()
+        {
+            int idDocumentType = 1;
+
+            DocumentType result = documentTypeDAO.GetDocumentType(idDocumentType);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetAcademic_AcademicExist_ReturnAcademic()
+        {
+            int idAcademic = 1;
+
+            Academic result = academicDAO.GetAcademic(idAcademic);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetAllAcademic_AcademicExist_ReturnAcademicList()
+        {
+            List<Academic> result = academicDAO.GetAllAcademic();
+
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetAcademicByPersonalNumber_AcademicExist_ReturnAcademicList()
+        {
+            String personalNumber = "S99999999";
+
+            Academic result = academicDAO.GetAcademicByPersonalNumber(personalNumber);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetNumberOfAllMensualReportsByPractitioner_PractitionerHasMensualReports_ReturnNumberOfReports()
+        {
+            String matricula = "S19012186";
+
+            int result = mensualReportDAO.GetNumberOfAllMensualReportsByPractitioner(matricula);
+
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
@@ -664,26 +779,5 @@ namespace DataAccessTests
 
             Assert.IsTrue(result.Count > 0);
         }
-
-        [TestMethod]
-        public void GetAcademicByPersonalNumber_AcademicExist_ReturnAcademicList()
-        {
-            String personalNumber = "S99999999";
-
-            Academic result = academicDAO.GetAcademicByPersonalNumber(personalNumber);
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void GetNumberOfAllMensualReportsByPractitioner_PractitionerHasMensualReports_ReturnNumberOfReports()
-        {
-            String matricula = "S19012186";
-
-            int result = mensualReportDAO.GetNumberOfAllMensualReportsByPractitioner(matricula);
-
-            Assert.IsTrue(result > 0);
-        }
-
     }
 }

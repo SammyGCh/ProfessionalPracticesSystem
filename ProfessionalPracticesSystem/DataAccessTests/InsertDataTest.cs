@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using BusinessLogic;
 using System.Collections.Generic;
+using BusinessDomain;
 using DataAccess.Implementation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.Implementation;
-using BusinessDomain;
 
 namespace DataAccessTests
 {
@@ -106,6 +106,7 @@ namespace DataAccessTests
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void SaveMensualReport_NewReport_SuccesInserting()
         {
             MensualReportDAO mensualReportDao = new MensualReportDAO();

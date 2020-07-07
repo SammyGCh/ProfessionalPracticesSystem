@@ -1,10 +1,10 @@
-﻿using System;
-using BusinessDomain;
+using System;
 using BusinessLogic;
 using DataAccess.Implementation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessDomain;
 using DataAccess.Implementation;
+
 
 namespace DataAccessTests
 {
@@ -335,7 +335,6 @@ namespace DataAccessTests
             bool isUpdated = projectsRequestDao.UpdateProjectsRequestStatus(idProjectsRequest);
 
             Assert.IsTrue(isUpdated);
-
         }
     }
 }
