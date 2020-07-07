@@ -55,6 +55,7 @@ namespace GUI_WPF.Pages.Practitioner
                     if (documentManagement.GenerateSelfAssessment(selfassesment, destinyPath))
                     {
                         DialogWindowManager.ShowSuccessWindow("Autoevaluacion generada exitosamente");
+                        NavigationService.GoBack();
                     }
                     else
                     {

@@ -9,10 +9,6 @@ namespace DataAccess.Interfaces
 {
     public interface IDocumentTypeDAO
     {
-        List<DocumentType> GetAllDocumentType();
         DocumentType GetDocumentType(int _idDocumentType);
-        bool SaveDocumentType(DocumentType documentType);
-        bool DeleteDocumentType(int _documentType);
-
     }
 }

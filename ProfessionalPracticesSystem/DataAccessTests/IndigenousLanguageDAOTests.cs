@@ -33,26 +33,26 @@ namespace DataAccessTests
             int obtainedResult = indigenousLanguages.Count;
             Assert.AreEqual(expectedResult, obtainedResult);
         }
-        [TestMethod]
-        public void CanRegister_IndigenousLanguage_ReturnTrue()
-        {
-            IndigenousLanguageDAO indigenousLanguageDao = new IndigenousLanguageDAO();
-            IndigenousLanguage language = new IndigenousLanguage
-            {
-                IndigenousLanguageName = "Maya"
-            };
-            bool isSaved = indigenousLanguageDao.InsertIndigenousLanguage(language);
+        //[TestMethod]
+        //public void CanRegister_IndigenousLanguage_ReturnTrue()
+        //{
+        //    IndigenousLanguageDAO indigenousLanguageDao = new IndigenousLanguageDAO();
+        //    IndigenousLanguage language = new IndigenousLanguage
+        //    {
+        //        IndigenousLanguageName = "Maya"
+        //    };
+        //    bool isSaved = indigenousLanguageDao.InsertIndigenousLanguage(language);
 
-            Assert.IsTrue(isSaved);
-        }
-        [TestMethod]
-        public void CanDelete_IndigenousLanguage_ReturnTrue()
-        {
-            IndigenousLanguageDAO indigenousLanguageDao = new IndigenousLanguageDAO();
-            int idLanguage = 3;
-            bool isDeleted = indigenousLanguageDao.DeleteIndigenousLanguageById(idLanguage);
-            Assert.IsTrue(isDeleted);
-        }
+        //    Assert.IsTrue(isSaved);
+        //}
+        //[TestMethod]
+        //public void CanDelete_IndigenousLanguage_ReturnTrue()
+        //{
+        //    IndigenousLanguageDAO indigenousLanguageDao = new IndigenousLanguageDAO();
+        //    int idLanguage = 3;
+        //    bool isDeleted = indigenousLanguageDao.DeleteIndigenousLanguageById(idLanguage);
+        //    Assert.IsTrue(isDeleted);
+        //}
     }
     */
 }

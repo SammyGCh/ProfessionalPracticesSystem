@@ -3,6 +3,7 @@
     Author(s) : Angel de Jesus Juarez Garcia
  */
 using BusinessDomain;
+using DataAccess.Implementation;
 using GUI_WPF.Windows;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,21 @@ namespace GUI_WPF.Pages.Practitioner
     public partial class Documentation : Page
     {
         private String practitionerMatricula;
+
+        private const int MAXIMUM_MENSUAL_REPORT = 4;
+        private const int MAXIMUM_PARTIAL_REPORT = 2;
+        private const int MAXIMUM_SELFASSESSMENT = 1;
+        private const int MAXIMUM_ASSIGMENT_LETTER = 1;
+        private const int MAXIMUM_ACEPTANCE_LETTER = 1;
+
         private const int MINIMUN_MENSUAL_REPORT = 2;
         private const int MINIMUN_PARTIAL_REPORT = 2;
+
         private const int ID_PARTIAL_REPORT = 1;
         private const int ID_SELFASSESSMENT = 3;
         private const int ID_ACEPTANCE_LETTER = 4;
         private const int ID_ASSIGMENT_LETTER = 5;
+        private const int MAX_DAYS_TO_GENERATE_MENSUAL_REPORT = 12;
 
         public Documentation(String practitionerMatricula)
         {
@@ -32,30 +42,79 @@ namespace GUI_WPF.Pages.Practitioner
             InitializeComponent();
         }
 
+        public int ConsulNumberOfMensualReportsByPractitioner()
+        {
+            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+            int numberOfReports = mensualReportDAO.GetNumberOfAllMensualReportsByPractitioner(practitionerMatricula);
+
+            return numberOfReports;
+        }
+
+        public int ConsulNumberOfPartialReportsByPractitioner()
+        {
+            DocumentDAO documentDAO = new DocumentDAO();
+            int numberOfReports = documentDAO.GetNumberOfAllPartialReportByPractitioner(practitionerMatricula);
+
+            return numberOfReports;
+        }
+
+        public int ConsulNumberOfSelfassessmentByPractitioner()
+        {
+            DocumentDAO documentDAO = new DocumentDAO();
+            int numberOfassassment = documentDAO.GetNumberOfAllSelfassessmentByPractitioner(practitionerMatricula);
+
+            return numberOfassassment;
+        }
+
+        public int ConsulNumberOfAceptanceLetterByPractitioner()
+        {
+            DocumentDAO documentDAO = new DocumentDAO();
+            int numberOfAceptanceLetter = documentDAO.GetNumberOfAllAceptanceLetterByPractitioner(practitionerMatricula);
+
+            return numberOfAceptanceLetter;
+        }
+
+        public int ConsulNumberOfAssigmentLetterByPractitioner()
+        {
+            DocumentDAO documentDAO = new DocumentDAO();
+            int numberOfAssigment = documentDAO.GetNumberOfAllAssigmentLetterByPractitioner(practitionerMatricula);
+
+            return numberOfAssigment;
+        }
+
         public bool IsGenerateMensualReportActivated()
         {
-            return (int.Parse(DateTime.Now.Day.ToString()) <= 5);
+            return (int.Parse(DateTime.Now.Day.ToString()) < MAX_DAYS_TO_GENERATE_MENSUAL_REPORT) && (ConsulNumberOfMensualReportsByPractitioner() < MAXIMUM_MENSUAL_REPORT);
         }
 
         public bool IsGenerateSelfassessmentActivated()
         {
-            DataAccess.Implementation.DocumentDAO documentDAO = new DataAccess.Implementation.DocumentDAO();
-            int practitionerReports = documentDAO.GetAllPartialReportByPractitioner(practitionerMatricula);
-
-            return (practitionerReports == MINIMUN_PARTIAL_REPORT);
+            return (ConsulNumberOfPartialReportsByPractitioner() == MINIMUN_PARTIAL_REPORT);
         }
 
         public bool IsGeneratePartialReportActivated()
         {
-            DataAccess.Implementation.MensualReportDAO mensualReportDAO = new DataAccess.Implementation.MensualReportDAO();
-            List<MensualReport> practitionerReports = mensualReportDAO.GetAllReportsByPractitioner(practitionerMatricula);
-
-            return (practitionerReports.Count == MINIMUN_MENSUAL_REPORT);
+            return (ConsulNumberOfMensualReportsByPractitioner() == MINIMUN_MENSUAL_REPORT);
         }
 
-        private void Back(object sender, RoutedEventArgs e)
+        public bool IsAddPartialReportActivated()
         {
-            NavigationService.GoBack();
+            return (ConsulNumberOfPartialReportsByPractitioner() < MAXIMUM_PARTIAL_REPORT);
+        }
+
+        public bool IsAddSelfAssessmentActivated()
+        {
+            return (ConsulNumberOfSelfassessmentByPractitioner() < MAXIMUM_SELFASSESSMENT);
+        }
+
+        public bool IsAddAceptanceLetterActivated()
+        {
+            return (ConsulNumberOfAceptanceLetterByPractitioner() < MAXIMUM_ACEPTANCE_LETTER);
+        }
+
+        public bool IsAddAssigmentLetterActivated()
+        {
+            return (ConsulNumberOfAssigmentLetterByPractitioner() < MAXIMUM_ASSIGMENT_LETTER);
         }
 
         private void GenerateMensualReport(object sender, RoutedEventArgs e)
@@ -71,7 +130,7 @@ namespace GUI_WPF.Pages.Practitioner
         }
 
         private void GenerateSelfassessment(object sender, RoutedEventArgs e)
-        { 
+        {
             if (IsGenerateSelfassessmentActivated())
             {
                 NavigationService.Navigate(new GenerateSelfassessment(practitionerMatricula));
@@ -90,28 +149,61 @@ namespace GUI_WPF.Pages.Practitioner
             }
             else
             {
-                DialogWindowManager.ShowErrorWindow("La opcion 'Generar reporte parcial' no esta activa, necesitas tener dos reportes mensuales");
+                DialogWindowManager.ShowErrorWindow("La opcion 'Generar reporte parcial' no esta activa, necesitas tener unicamente dos reportes mensuales");
             }
         }
 
         private void AddPartialReport(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(ID_PARTIAL_REPORT, practitionerMatricula));
+            if (IsAddPartialReportActivated())
+            {
+                NavigationService.Navigate(new AddDocument(ID_PARTIAL_REPORT, practitionerMatricula));
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Ya cuentas con el maximo de reportes parciales permitidos");
+            }
         }
 
         private void AddSelfAssessment(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(ID_SELFASSESSMENT, practitionerMatricula));
+            if (IsAddSelfAssessmentActivated())
+            {
+                NavigationService.Navigate(new AddDocument(ID_SELFASSESSMENT, practitionerMatricula));
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Ya cuentas con una autoevaluación en el sistema");
+            }
         }
 
         private void AddAceptanceLetter(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(ID_ACEPTANCE_LETTER, practitionerMatricula));
+            if (IsAddAceptanceLetterActivated())
+            {
+                NavigationService.Navigate(new AddDocument(ID_ACEPTANCE_LETTER, practitionerMatricula));
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Ya cuentas con una oficio de aceptación");
+            }
         }
 
         private void AddAssigmentLetter(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDocument(ID_ASSIGMENT_LETTER, practitionerMatricula));
+            if (IsAddAssigmentLetterActivated())
+            {
+                NavigationService.Navigate(new AddDocument(ID_ASSIGMENT_LETTER, practitionerMatricula));
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Ya cuentas con una oficio de asignación");
+            }
+        }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

@@ -26,20 +26,12 @@ namespace DataAccess.Implementation
         private const int STATUS_NO_ACTIVE = 0;
         private const int STATUS_ACTIVE = 1;
         private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificación no asignada";
+        private const String GRADE_NOT_AVAILABLE_MESSAGE = "Calificación no disponible";
 
 
         public PractitionerDAO()
         {
-            practitionerList = null;
-            practitioner = null;
             connection = new DataBaseConnection();
-            speaks = null;
-            academic = null;
-            assigned = null;
-            belogsTo = null;
-            mySqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public bool DeletePractitioner(int idPractitioner)
@@ -121,7 +113,14 @@ namespace DataAccess.Implementation
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     if (!reader.IsDBNull(8))
@@ -187,7 +186,14 @@ namespace DataAccess.Implementation
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     if (!reader.IsDBNull(8))
@@ -258,7 +264,14 @@ namespace DataAccess.Implementation
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     if (!reader.IsDBNull(8))
@@ -384,7 +397,14 @@ namespace DataAccess.Implementation
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     if (!reader.IsDBNull(8))
@@ -610,7 +630,14 @@ namespace DataAccess.Implementation
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     if (!reader.IsDBNull(8))
@@ -669,13 +696,21 @@ namespace DataAccess.Implementation
                         Instructed = academic.GetAcademic(reader.GetInt32(10)),
                         ScholarPeriod = belogsTo.GetScholarPeriodById(reader.GetInt32(11))
                     };
+
                     if (reader.IsDBNull(3))
                     {
                         practitioner.Grade = GRADE_NOT_ASSIGNED_MESSAGE;
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     if (!reader.IsDBNull(8))
@@ -746,7 +781,14 @@ namespace DataAccess.Implementation
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     practitionerList.Add(practitioner);
@@ -854,7 +896,14 @@ namespace DataAccess.Implementation
                     }
                     else
                     {
-                        practitioner.Grade = reader.GetString(3);
+                        if (reader.GetString(3).Equals("0"))
+                        {
+                            practitioner.Grade = GRADE_NOT_AVAILABLE_MESSAGE;
+                        }
+                        else
+                        {
+                            practitioner.Grade = reader.GetString(3);
+                        }
                     }
 
                     practitionerList.Add(practitioner);
@@ -885,15 +934,15 @@ namespace DataAccess.Implementation
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "UPDATE Practitioner SET  " +
-                    "matricula = @matricula," +
-                    "gender = @gender," +
-                    "names = @names," +
-                    "lastName = @lastName," +
-                    "idIndigenousLanguage = @idIndigenousLanguage," +
-                    "status = @status," +
-                    "idAcademic = @idAcademic," +
-                    "idScholarPeriod = @idScholarPeriod" +
+                    CommandText = "UPDATE Practitioner SET " +
+                    "matricula = @matricula, " +
+                    "gender = @gender, " +
+                    "names = @names, " +
+                    "lastName = @lastName, " +
+                    "idIndigenousLanguage = @idIndigenousLanguage, " +
+                    "status = @status, " +
+                    "idAcademic = @idAcademic, " +
+                    "idScholarPeriod = @idScholarPeriod " +
                     "WHERE idPractitioner = @idPractitioner"
                 };
 
@@ -1007,6 +1056,61 @@ namespace DataAccess.Implementation
             }
 
             return isUpdated;
+        }
+
+        public bool PractitionerHasProject(String matricula)
+        {
+            bool hasProject = false;
+            const int PROJECT_ASSIGNED = 1;
+
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT COUNT(Practitioner.idProject) FROM Practitioner WHERE Practitioner.matricula = @matricula AND Practitioner.status = @status;"
+                };
+
+
+                MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
+                {
+                    Value = matricula
+                };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
+                query.Parameters.Add(matriculaPractitioner);
+                query.Parameters.Add(status);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int result = reader.GetInt32(0);
+
+                    if (result == PROJECT_ASSIGNED)
+                    {
+                        hasProject = true;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/PractitionerDAO/PractitionerHasProject:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return hasProject;
         }
     }
 }
