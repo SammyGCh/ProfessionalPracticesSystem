@@ -40,6 +40,7 @@ namespace GUI_WPF
                     if (isAdded)
                     {
                         DialogWindowManager.ShowSuccessWindow("Documento añadido exitosamente");
+                        NavigationService.GoBack();
                     }
                     else
                     {
@@ -58,6 +59,7 @@ namespace GUI_WPF
             documentManager = new DocumentManagement();
             Document newDocument = GetDocument();
             bool result = documentManager.AddDocument(newDocument, sourcePath);
+            sourcePath = "";
 
             return result;
         }

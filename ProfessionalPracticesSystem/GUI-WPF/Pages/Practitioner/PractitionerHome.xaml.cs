@@ -47,7 +47,14 @@ namespace GUI_WPF.Pages.Practitioner
 
         private void ConsultDocumentation(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Documentation(practitionerMatricula));
+            if (CurrentPractitionerHasProject())
+            {
+                NavigationService.Navigate(new Documentation(practitionerMatricula));
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Necesitas tener un proyecto asignado para acceder a esta sección");
+            }
         }
 
         private void GoToRequestProject(object sender, RoutedEventArgs e)
