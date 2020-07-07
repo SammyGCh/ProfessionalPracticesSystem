@@ -140,20 +140,29 @@ namespace BusinessLogic
 
         public bool AssingGradeToMensualReport(MensualReport mensualReport)
         {
-            bool isUpdated;
-            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+            bool isUpdated = false;
 
-            isUpdated = mensualReportDAO.UpdateMensualReport(mensualReport);
+            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+
+            if (mensualReportDAO.UpdateMensualReport(mensualReport))
+            {
+                isUpdated = practitionerDAO.UpdatePractitionerGrade(mensualReport.GeneratedBy.IdPractitioner);
+            }
 
             return isUpdated;
         }
 
         public bool AssingGradeToPartialReport(Document partialReport)
         {
-            bool isUpdated;
-
+            bool isUpdated = false;
             DocumentDAO documentDAO = new DocumentDAO();
-            isUpdated = documentDAO.UpdateDocumentGrade(partialReport.IdDocument, partialReport.Grade);
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+
+            if (documentDAO.UpdateDocumentGrade(partialReport.IdDocument, partialReport.Grade))
+            {
+                isUpdated = practitionerDAO.UpdatePractitionerGrade(partialReport.AddBy.IdPractitioner);
+            }
 
             return isUpdated;
         }

@@ -17,7 +17,6 @@ namespace DataAccess.Interfaces
         List<Document> GetAllSelfassessmentByAcademic(String personalNumber);
         Document GetDocument(int idDocument);
         bool SaveDocument(Document document);
-        bool DeleteDocument(int idDocument);
         bool UpdateDocumentGrade(int idDocument, String grade);
 
     }

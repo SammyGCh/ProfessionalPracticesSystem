@@ -15,7 +15,6 @@ namespace DataAccess.Interfaces
         Academic GetAcademicByPersonalNumber(string personalNumber);
         bool SaveAcademic(Academic academic);
         bool DeleteAcademic(int idAcademic);
-        List<Academic> GetAllActiveAcademic();
         bool UpdateAcademic(Academic updatedAcademic);
         bool UpdateAcademicPassword(int idAcademic, String password);
     }

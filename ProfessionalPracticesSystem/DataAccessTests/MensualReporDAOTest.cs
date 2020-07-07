@@ -85,26 +85,26 @@ namespace DataAccessTests
             Assert.IsTrue(isUpdated);
         }
 
-        [TestMethod]
-        public void ByPractitioner_GetMensualReport_Success()
-        {
-            int idPractitioner = 1;
-            List<MensualReport> mensualReports = mensualReportDao.GetAllReportsByPractitioner(idPractitioner);
+        //[TestMethod]
+        //public void ByPractitioner_GetMensualReport_Success()
+        //{
+        //    int idPractitioner = 1;
+        //    List<MensualReport> mensualReports = mensualReportDao.GetAllReportsByPractitioner(idPractitioner);
 
-            int expectedResult = 5;
-            int obtainedResult = mensualReports.Count;
-            Assert.AreEqual(expectedResult, obtainedResult);
-        }
+        //    int expectedResult = 5;
+        //    int obtainedResult = mensualReports.Count;
+        //    Assert.AreEqual(expectedResult, obtainedResult);
+        //}
 
-        [TestMethod]
-        public void ByProject_GetMensualReport_Success()
-        {
-            int idProject = 1;
-            List<MensualReport> mensualReports = mensualReportDao.GetAllReportsByPractitioner(idProject);
+        //[TestMethod]
+        //public void ByProject_GetMensualReport_Success()
+        //{
+        //    int idProject = 1;
+        //    List<MensualReport> mensualReports = mensualReportDao.GetAllReportsByPractitioner(idProject);
 
-            int expectedResult = 5;
-            int obtainedResult = mensualReports.Count;
-            Assert.AreEqual(expectedResult, obtainedResult);
-        }
+        //    int expectedResult = 5;
+        //    int obtainedResult = mensualReports.Count;
+        //    Assert.AreEqual(expectedResult, obtainedResult);
+        //}
     }
 }

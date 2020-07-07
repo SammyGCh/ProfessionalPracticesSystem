@@ -25,12 +25,7 @@ namespace DataAccess.Implementation
 
         public AcademicDAO()
         {
-            academicList = null;
-            academic = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
         }
         public bool DeleteAcademic(int idAcademic)
         {
@@ -225,64 +220,6 @@ namespace DataAccess.Implementation
             return academicList;
         }
 
-        public List<Academic> GetAllActiveAcademic()
-        {
-            belongsto = new AcademicTypeDAO();
-            try
-            {
-                academicList = new List<Academic>();
-                mySqlConnection = connection.OpenConnection();
-
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "SELECT * FROM Academic WHERE Academic.status = @status"
-                };
-
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
-                {
-                    Value = STATUS_ACTIVE
-                };
-
-                query.Parameters.Add(status);
-
-                reader = query.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    academic = new Academic
-                    {
-                        IdAcademic = reader.GetInt32(0),
-                        PersonalNumber = reader.GetString(1),
-                        Names = reader.GetString(2),
-                        Cubicle = reader.GetString(3),
-                        LastName = reader.GetString(4),
-                        Gender = reader.GetString(5),
-                        Password = reader.GetString(6),
-                        BelongTo = belongsto.GetAcademicTypeById(reader.GetInt32(7)),
-                        Shift = reader.GetString(8),
-                        Status = reader.GetInt32(9)
-                    };
-
-                    academicList.Add(academic);
-                }
-
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/GetAllAcademic:", ex);
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Close();
-                }
-                connection.CloseConnection();
-            }
-
-            return academicList;
-        }
-
         public bool SaveAcademic(Academic academic)
         {
             bool isSaved = false;
@@ -424,6 +361,11 @@ namespace DataAccess.Implementation
                     Value = updatedAcademic.Status
                 };
 
+                MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
+                {
+                    Value = updatedAcademic.IdAcademic
+                };
+
                 query.Parameters.Add(personalNumber);
                 query.Parameters.Add(names);
                 query.Parameters.Add(cubicle);
@@ -433,6 +375,7 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idAcademic);
                 query.Parameters.Add(shift);
                 query.Parameters.Add(status);
+                query.Parameters.Add(idacademic);
 
                 query.ExecuteNonQuery();
                 isUpdated = true;

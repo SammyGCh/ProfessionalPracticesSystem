@@ -29,44 +29,7 @@ namespace DataAccess.Implementation
 
         public DocumentDAO()
         {
-            documentList = null;
-            document = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
-        }
-        public bool DeleteDocument(int idDocument)
-        {
-            bool isSaved = false;
-            try
-            {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "DELETE FROM Document WHERE Document.idDocument = @idDocument"
-                };
-                MySqlParameter _idDocument = new MySqlParameter("@idDocument", MySqlDbType.Int32, 2)
-                {
-                    Value = idDocument
-                };
-
-                query.Parameters.Add(_idDocument);
-
-                query.ExecuteNonQuery();
-                isSaved = true;
-
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/DeleteDocument:", ex);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-
-            return isSaved;
         }
 
         public List<Document> GetAllDocument()
@@ -393,17 +356,17 @@ namespace DataAccess.Implementation
                     "AND Practitioner.status = @status;"
                 };
 
-                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 1)
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
                 {
                     Value = ID_SELFASSESSMENT
                 };
 
-                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.Int32, 1)
+                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.VarChar, 9)
                 {
                     Value = personalNumber
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 1)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
                     Value = STATUS_ACTIVE
                 };

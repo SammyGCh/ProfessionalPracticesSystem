@@ -73,8 +73,15 @@ namespace GUI_WPF
             {
                 if (explorer.ShowDialog() == DialogResult.OK)
                 {
-                    sourcePath = explorer.FileName;
-                    pdfViewer.Navigate(sourcePath);
+                    if (explorer.FileName.Length < 60)
+                    {
+                        sourcePath = explorer.FileName;
+                        pdfViewer.Navigate(sourcePath);
+                    }
+                    else
+                    {
+                        DialogWindowManager.ShowErrorWindow("El nombre del archivo es demasiado grande");
+                    }
                 }
             }
             catch (ArgumentException ex)
@@ -98,7 +105,7 @@ namespace GUI_WPF
         {
             Practitioner currentPractitioner = GetCurrentPractitioner();
             String documentName = sourcePath.Substring(sourcePath.LastIndexOf(@"\"));
-            String documentsDirectory = "ftp://192.168.100.100/" + currentPractitioner.IdPractitioner + "/" + idDocumentType.ToString();
+            String documentsDirectory = "ftp://192.168.100.100/DocumentsOfPractitioner" + currentPractitioner.IdPractitioner;
             DocumentType auxiliarDocumentType = new DocumentType { IdDocumentType = idDocumentType };
 
 

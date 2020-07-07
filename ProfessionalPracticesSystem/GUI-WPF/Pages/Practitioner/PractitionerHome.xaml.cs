@@ -7,8 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessDomain;
 using BusinessLogic;
+using DataAccess.Implementation;
+using GUI_WPF.Pages.Coordinator;
 using GUI_WPF.Windows;
+using iText.Svg.Renderers.Impl;
 
 namespace GUI_WPF.Pages.Practitioner
 {
@@ -23,6 +27,22 @@ namespace GUI_WPF.Pages.Practitioner
         {
             this.practitionerMatricula = practitionerMatricula;
             InitializeComponent();
+        }
+
+        public bool CurrentPractitionerHasProject()
+        {
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+
+            return practitionerDAO.PractitionerHasProject(practitionerMatricula);
+        }
+
+        public Project CurrentPractitionerProject()
+        {
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+            BusinessDomain.Practitioner practitioner = new BusinessDomain.Practitioner();
+            practitioner = practitionerDAO.GetPractitionerByMatricula(practitionerMatricula);
+
+            return practitioner.Assigned;
         }
 
         private void ConsultDocumentation(object sender, RoutedEventArgs e)
@@ -42,6 +62,19 @@ namespace GUI_WPF.Pages.Practitioner
             {
                 string message = "Ya has solicitado tus tres proyectos.";
                 DialogWindowManager.ShowErrorWindow(message);
+            }
+        }
+
+        private void ConsultProject(object sender, RoutedEventArgs e)
+        {
+            if (CurrentPractitionerHasProject())
+            {
+                Project currentProject = CurrentPractitionerProject();
+                NavigationService.Navigate(new ProjectDetails(currentProject));
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Aún no cuentas con un proyecto asignado");
             }
         }
     }
