@@ -3,7 +3,6 @@ using BusinessLogic;
 using DataAccess.Implementation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessDomain;
-using DataAccess.Implementation;
 
 
 namespace DataAccessTests

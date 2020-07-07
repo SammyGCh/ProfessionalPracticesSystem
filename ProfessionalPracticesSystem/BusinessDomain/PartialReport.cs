@@ -3,9 +3,6 @@
     Author(s) : Angel de Jesus Juarez Garcia
  */
 using System;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessDomain
 {
@@ -14,6 +11,8 @@ namespace BusinessDomain
         private Practitioner generatedBy;
         private String practitionerResultsAnswer;
         private String practitionerObservationsAnswer;
+
+        public PartialReport(){}
 
         public Practitioner GeneratedBy
         {

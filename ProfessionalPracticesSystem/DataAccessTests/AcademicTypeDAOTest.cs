@@ -50,6 +50,42 @@ namespace DataAccessTests
         //}
 
         //[TestMethod]
+        //public void Register_AcademicType_True()
+        //{
+        //    AcademicTypeDAO academicTypeDao = new AcademicTypeDAO();
+        //    AcademicType type = new AcademicType
+        //    {
+        //        AcademicTypeName = "coordinador"
+        //    };
+
+        //    bool isSaved = academicTypeDao.InsertAcademicType(type);
+        //    Assert.IsTrue(isSaved);
+        //}
+
+        //[TestMethod]
+        //public void Delete_AcademicType_True()
+        //{
+        //    AcademicTypeDAO academicTypeDao = new AcademicTypeDAO();
+        //    int idType = 3;
+        //    bool isDeleted = academicTypeDao.DeleteAcademicTypeById(idType);
+
+        //    Assert.IsTrue(isDeleted);
+        //}
+
+        [TestMethod]
+        public void Register_AcademicType_True()
+        {
+            AcademicTypeDAO academicTypeDao = new AcademicTypeDAO();
+            AcademicType type = new AcademicType
+            {
+                AcademicTypeName = "coordinador"
+            };
+
+            bool isSaved = academicTypeDao.InsertAcademicType(type);
+            Assert.IsTrue(isSaved);
+        }
+
+        //[TestMethod]
         //public void Delete_AcademicType_True()
         //{
         //    AcademicTypeDAO academicTypeDao = new AcademicTypeDAO();

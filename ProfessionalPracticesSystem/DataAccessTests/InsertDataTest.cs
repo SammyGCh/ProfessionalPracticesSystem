@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using BusinessDomain;
 using DataAccess.Implementation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataAccess.Implementation;
 
 namespace DataAccessTests
 {
