@@ -80,7 +80,7 @@ namespace BusinessLogic
             /*
              
             Se espera que en el caso de existir el directorio para el archivo suceda una excepcion de tipo "WebException"
-            De esta manera si no exite se crea y en caso contrario solo se loggea 
+            De esta manera si no exite se crea y en caso contrario solo se registra la excepcion
 
              */
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(newDocument.Path);
