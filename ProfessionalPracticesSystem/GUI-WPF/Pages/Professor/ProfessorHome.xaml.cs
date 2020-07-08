@@ -14,9 +14,10 @@ namespace GUI_WPF.Pages.Professor
     /// <summary>
     /// Lógica de interacción para ProfessorHome.xaml
     /// </summary>
+    
     public partial class ProfessorHome : Page
     {
-        private String personalNumber;
+        private readonly String personalNumber;
 
         public ProfessorHome(String personalNumber)
         {

@@ -21,12 +21,7 @@ namespace DataAccess.Implementation
 
         public DocumentTypeDAO()
         {
-            documentTypeList = null;
-            documentType = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public List<DocumentType> GetAllDocumentType()
@@ -113,6 +108,5 @@ namespace DataAccess.Implementation
 
             return documentType;
         }
-
     }
 }

@@ -54,6 +54,7 @@ namespace GUI_WPF.Pages.Practitioner
                         if (documentManager.GeneratePartialReport(destinyPath, partialReport))
                         {
                             DialogWindowManager.ShowSuccessWindow("Reporte parcial generado exitosamente");
+                            NavigationService.GoBack();
                         }
                         else
                         {

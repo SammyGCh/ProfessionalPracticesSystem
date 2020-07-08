@@ -16,21 +16,16 @@ namespace DataAccess.Implementation
     {
         private List<LinkedOrganization> linkedOrganizations;
         private LinkedOrganization linkedOrganization;
-        private OrganizationSectorDAO organizationSectorHandle;
-        private DataBaseConnection connection;
+        private readonly OrganizationSectorDAO organizationSectorHandle;
+        private readonly DataBaseConnection connection;
         private MySqlConnection mysqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
 
         public LinkedOrganizationDAO()
         {
-            linkedOrganizations = null;
-            linkedOrganization = null;
             organizationSectorHandle = new OrganizationSectorDAO();
             connection = new DataBaseConnection();
-            mysqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public bool SaveLinkedOrganization(LinkedOrganization linkedOrganization)

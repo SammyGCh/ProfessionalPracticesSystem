@@ -13,11 +13,16 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
+    /// <summary>
+    /// Interaction logic for AddOrganization.xaml
+    /// </summary>
+    
     public partial class AddOrganization : Page
     {
         public AddOrganization()
         {
             InitializeComponent();
+
             sectorsList.ItemsSource = StatisticsListsManage.GetOrganizationSectors();
         }
 

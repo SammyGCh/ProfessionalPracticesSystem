@@ -24,49 +24,14 @@ namespace DataAccess.Implementation
         private const int STATUS_ACTIVE = 1;
         private const int ID_PARTIAL_REPORT = 1;
         private const int ID_SELFASSESSMENT = 3;
+        private const int ID_ACEPTANCE_LETTER = 4;
+        private const int ID_ASSIGMENT_LETTER = 5;
         private const String GRADE_NOT_ASSIGNED_MESSAGE = "Calificacion no asignada";
         private const String OBSERVATIONS_NOT_ASSIGNED_MESSAGE = "Sin observaciones";
 
         public DocumentDAO()
         {
-            documentList = null;
-            document = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
-        }
-        public bool DeleteDocument(int idDocument)
-        {
-            bool isSaved = false;
-            try
-            {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "DELETE FROM Document WHERE Document.idDocument = @idDocument"
-                };
-                MySqlParameter _idDocument = new MySqlParameter("@idDocument", MySqlDbType.Int32, 2)
-                {
-                    Value = idDocument
-                };
-
-                query.Parameters.Add(_idDocument);
-
-                query.ExecuteNonQuery();
-                isSaved = true;
-
-            }
-            catch (MySqlException ex)
-            {
-                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/DeleteDocument:", ex);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-
-            return isSaved;
         }
 
         public List<Document> GetAllDocument()
@@ -393,17 +358,17 @@ namespace DataAccess.Implementation
                     "AND Practitioner.status = @status;"
                 };
 
-                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 1)
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
                 {
                     Value = ID_SELFASSESSMENT
                 };
 
-                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.Int32, 1)
+                MySqlParameter academic = new MySqlParameter("@personalNumber", MySqlDbType.VarChar, 9)
                 {
                     Value = personalNumber
                 };
 
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 1)
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
                     Value = STATUS_ACTIVE
                 };
@@ -534,7 +499,7 @@ namespace DataAccess.Implementation
             return isUpdated;
         }
 
-        public int GetAllPartialReportByPractitioner(String matricula)
+        public int GetNumberOfAllPartialReportByPractitioner(String matricula)
         {
             int totalReports = 0;
             try
@@ -552,6 +517,162 @@ namespace DataAccess.Implementation
                 MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
                 {
                     Value = ID_PARTIAL_REPORT
+                };
+
+                MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
+                {
+                    Value = matricula
+                };
+
+                query.Parameters.Add(idType);
+                query.Parameters.Add(matriculaPractitioner);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    totalReports = reader.GetInt32(0);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllPartialReportByPractitioner:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return totalReports;
+        }
+
+        public int GetNumberOfAllSelfassessmentByPractitioner(String matricula)
+        {
+            int totalReports = 0;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT COUNT(idDocument) " +
+                    "FROM Document,Practitioner " +
+                    "WHERE Document.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Document.idDocumentType = @idDocumentType " +
+                    "AND Practitioner.matricula = @matricula"
+                };
+
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
+                {
+                    Value = ID_SELFASSESSMENT
+                };
+
+                MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
+                {
+                    Value = matricula
+                };
+
+                query.Parameters.Add(idType);
+                query.Parameters.Add(matriculaPractitioner);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    totalReports = reader.GetInt32(0);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllPartialReportByPractitioner:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return totalReports;
+        }
+
+        public int GetNumberOfAllAceptanceLetterByPractitioner(String matricula)
+        {
+            int totalReports = 0;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT COUNT(idDocument) " +
+                    "FROM Document,Practitioner " +
+                    "WHERE Document.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Document.idDocumentType = @idDocumentType " +
+                    "AND Practitioner.matricula = @matricula"
+                };
+
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
+                {
+                    Value = ID_ACEPTANCE_LETTER
+                };
+
+                MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
+                {
+                    Value = matricula
+                };
+
+                query.Parameters.Add(idType);
+                query.Parameters.Add(matriculaPractitioner);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    totalReports = reader.GetInt32(0);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetAllPartialReportByPractitioner:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return totalReports;
+        }
+
+        public int GetNumberOfAllAssigmentLetterByPractitioner(String matricula)
+        {
+            int totalReports = 0;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT COUNT(idDocument) " +
+                    "FROM Document,Practitioner " +
+                    "WHERE Document.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Document.idDocumentType = @idDocumentType " +
+                    "AND Practitioner.matricula = @matricula"
+                };
+
+                MySqlParameter idType = new MySqlParameter("@idDocumentType", MySqlDbType.Int32, 11)
+                {
+                    Value = ID_ASSIGMENT_LETTER
                 };
 
                 MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)

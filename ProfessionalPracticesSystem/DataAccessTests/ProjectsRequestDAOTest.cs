@@ -13,6 +13,7 @@ namespace DataAccessTests
     [TestClass]
     public class ProjectsRequestDAOTest
     {
+        /*
         [TestMethod]
         public void SaveProjectsRequest_NewProjectsRequest_SuccessInserting()
         {
@@ -47,25 +48,39 @@ namespace DataAccessTests
             Assert.IsTrue(isSaved);
         }
 
+
+        //[TestMethod]
+        //public void GetAllProjectsRequest_AvailableProjectsRequest_ListWithElements()
+        //{
+        //    ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
+
+        
         [TestMethod]
         public void GetAllProjectsRequest_AvailableProjectsRequest_ListWithElements()
         {
             ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
 
-            List<ProjectsRequest> projectsRequests = projectsRequestDao.GetAllProjectsRequest();
 
-            Assert.IsTrue(projectsRequests.Count > 0);
-        }
+        //    List<ProjectsRequest> projectsRequests = projectsRequestDao.GetAllProjectsRequest();
+
+        //    Assert.IsTrue(projectsRequests.Count > 0);
+        //}
         
-        [TestMethod]
-        public void UpdateProjectsRequest_ProjectsRequestUpdated_SuccesUpdating()
-        {
-            ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
-            int idProjectsRequest = 2;
+        //[TestMethod]
+        //public void UpdateProjectsRequest_ProjectsRequestUpdated_SuccesUpdating()
+        //{
+        //    ProjectsRequestDAO projectsRequestDao = new ProjectsRequestDAO();
+        //    int idProjectsRequest = 2;
 
-            bool isUpdated = projectsRequestDao.UpdateProjectsRequest(idProjectsRequest);
+        //    bool isUpdated = projectsRequestDao.UpdateProjectsRequest(idProjectsRequest);
+
+        //    Assert.IsTrue(isUpdated);
+        //}
 
             Assert.IsTrue(isUpdated);
         }
+        */
+
     }
+
 }

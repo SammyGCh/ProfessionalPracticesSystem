@@ -463,5 +463,50 @@ namespace DataAccess.Implementation
 
             return mensualReports;
         }
+
+        public int GetNumberOfAllMensualReportsByPractitioner(String matricula)
+        {
+            int totalReports = 0;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT COUNT(idMensualReport) " +
+                    "FROM MensualReport,Practitioner " +
+                    "WHERE MensualReport.idPractitioner = Practitioner.idPractitioner " +
+                    "AND Practitioner.matricula = @matricula;"
+                };
+
+                MySqlParameter matriculaPractitioner = new MySqlParameter("@matricula", MySqlDbType.VarChar, 9)
+                {
+                    Value = matricula
+                };
+
+                query.Parameters.Add(matriculaPractitioner);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    totalReports = reader.GetInt32(0);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentDAO/GetNumberOfAllMensualReportsByPractitioner:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return totalReports;
+        }
     }
 }

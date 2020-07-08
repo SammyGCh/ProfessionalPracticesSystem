@@ -29,12 +29,7 @@ namespace DataAccess.Implementation
 
         public AcademicDAO()
         {
-            academicList = null;
-            academic = null;
             connection = new DataBaseConnection();
-            mySqlConnection = null;
-            query = null;
-            reader = null;
         }
 
         public bool DeleteAcademic(int idAcademic)
@@ -536,6 +531,10 @@ namespace DataAccess.Implementation
                     Value = academic.Status
                 };
 
+                MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
+                {
+                    Value = updatedAcademic.IdAcademic
+                };
 
                 query.Parameters.Add(personalNumber);
                 query.Parameters.Add(names);
@@ -546,6 +545,7 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(idAcademic);
                 query.Parameters.Add(shift);
                 query.Parameters.Add(status);
+                query.Parameters.Add(idacademic);
 
                 query.ExecuteNonQuery();
                 isSaved = true;

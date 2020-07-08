@@ -80,7 +80,7 @@ namespace BusinessLogic
             /*
              
             Se espera que en el caso de existir el directorio para el archivo suceda una excepcion de tipo "WebException"
-            De esta manera si no exite se crea y en caso contrario solo se loggea 
+            De esta manera si no exite se crea y en caso contrario solo se registra la excepcion
 
              */
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(newDocument.Path);
@@ -140,20 +140,29 @@ namespace BusinessLogic
 
         public bool AssingGradeToMensualReport(MensualReport mensualReport)
         {
-            bool isUpdated;
-            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+            bool isUpdated = false;
 
-            isUpdated = mensualReportDAO.UpdateMensualReport(mensualReport);
+            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+
+            if (mensualReportDAO.UpdateMensualReport(mensualReport))
+            {
+                isUpdated = practitionerDAO.UpdatePractitionerGrade(mensualReport.GeneratedBy.IdPractitioner);
+            }
 
             return isUpdated;
         }
 
         public bool AssingGradeToPartialReport(Document partialReport)
         {
-            bool isUpdated;
-
+            bool isUpdated = false;
             DocumentDAO documentDAO = new DocumentDAO();
-            isUpdated = documentDAO.UpdateDocumentGrade(partialReport.IdDocument, partialReport.Grade);
+            PractitionerDAO practitionerDAO = new PractitionerDAO();
+
+            if (documentDAO.UpdateDocumentGrade(partialReport.IdDocument, partialReport.Grade))
+            {
+                isUpdated = practitionerDAO.UpdatePractitionerGrade(partialReport.AddBy.IdPractitioner);
+            }
 
             return isUpdated;
         }

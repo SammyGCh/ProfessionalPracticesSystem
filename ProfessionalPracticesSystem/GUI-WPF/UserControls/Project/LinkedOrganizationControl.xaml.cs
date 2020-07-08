@@ -27,37 +27,6 @@ namespace GUI_WPF.UserControls.Project
             linkedOrganizations.ItemsSource = allLinkedOrganizations;
         }
 
-        public void UpdateProjectLinkedOrganization()
-        {
-            bool isUpdated = UpdatedLinkedOrganizationSelected();
-            string messageWindow;
-
-            if (isUpdated)
-            {
-                messageWindow = "El proyecto fue actualizado existosamente";
-
-                DialogWindowManager.ShowSuccessWindow(messageWindow);
-            }
-            else
-            {
-                messageWindow = "No se pudo actualizar la información del proyecto. Intente de nuevo.";
-
-                DialogWindowManager.ShowErrorWindow(messageWindow);
-            }
-        }
-
-        private bool UpdatedLinkedOrganizationSelected()
-        {
-            bool isUpdated;
-            ManageProject manageProject = new ManageProject();
-            int idProject = (DataContext as BusinessDomain.Project).IdProject;
-            int idLinkedOrganization = (linkedOrganizations.SelectedItem as LinkedOrganization).IdLinkedOrganization;
-
-            isUpdated = manageProject.UpdateLinkedOrganizationOfProject(idProject, idLinkedOrganization);
-
-            return isUpdated;
-        }
-
         public bool IsNotSelected()
         {
             bool isNotSelected = true;

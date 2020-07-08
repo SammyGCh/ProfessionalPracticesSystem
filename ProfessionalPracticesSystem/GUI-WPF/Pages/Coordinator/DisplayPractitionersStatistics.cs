@@ -15,7 +15,10 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
-    
+    /// <summary>
+    /// Interaction logic for DisplayPractitionerStatistics.xaml
+    /// </summary>
+
     public partial class DisplayPractitionersStatistics : Page
     {
         readonly ICollectionView practitionerView;

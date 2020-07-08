@@ -3,8 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Coordinator.DisplayLinkedOrganization"
+      x:Class="GUI_WPF.Pages.Coordinator.DisplayLinkedOrganization"
       mc:Ignorable="d" 
       d:DesignHeight="2000" d:DesignWidth="1700"
       Title="DisplayLinkedOrganization">
@@ -37,7 +36,7 @@
                 <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" Text="{Binding TelephoneNumber}" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="151,192,0,0" IsReadOnly="True"/>
                 <TextBox HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" FontSize="30" Foreground="Black" BorderBrush="{x:Null}" Margin="109,240,0,0" IsReadOnly="True" Name="orgSector"/>
             </Grid>
-            <TextBox HorizontalAlignment="Left" Height="100" Margin="166,71,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="570" BorderBrush="{x:Null}" FontSize="80" Grid.Row="1" Grid.Column="1" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox HorizontalAlignment="Left" Height="100" Margin="166,71,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="570" BorderBrush="{x:Null}" FontSize="80" Grid.Row="1" Grid.Column="1" FontWeight="Bold" IsReadOnly="True" />
             <TextBlock HorizontalAlignment="Left" Margin="200,467,0,0" TextWrapping="Wrap" 
             Grid.Row="2" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="461" Grid.ColumnSpan="2" Text="Proyectos relacionados"/>
             <TextBlock HorizontalAlignment="Left" Margin="602,467,0,0" TextWrapping="Wrap" 
