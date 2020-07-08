@@ -319,7 +319,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAcademicTyoe_AcademicType_ByIdAcademicType()
+        public void GetAcademicType_OneAcademicTypeById_AcademicType()
         {
             int academicTypeId = 1;
             AcademicTypeDAO academicTypeDao = new AcademicTypeDAO();

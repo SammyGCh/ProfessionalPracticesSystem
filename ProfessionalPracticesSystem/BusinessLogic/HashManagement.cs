@@ -14,7 +14,6 @@ namespace BusinessLogic
         byte[] transformSource;
         byte[] transformHash;
         
-
         public HashManagement()
         {
             transformSource = null;
@@ -24,6 +23,7 @@ namespace BusinessLogic
         public String TextToHash(string sourceData)
         {
             MD5 md5Code = MD5.Create();
+
             transformSource = Encoding.ASCII.GetBytes(sourceData);
             transformHash = md5Code.ComputeHash(transformSource);
 

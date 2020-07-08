@@ -17,6 +17,10 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
+    /// <summary>
+    /// Interaction logic for ProjectsConsult.xaml
+    /// </summary>
+    
     public partial class ProjectsConsult : Page
     {
         private readonly ObservableCollection<Project> projects;

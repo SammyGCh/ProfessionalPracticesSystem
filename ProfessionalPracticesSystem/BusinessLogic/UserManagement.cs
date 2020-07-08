@@ -117,13 +117,17 @@ namespace BusinessLogic
             switch (userNumber)
             {
                 case PRACTITIONER_USER:
+
                     Practitioner practitioner = practitionerDao.GetPractitionerByMatricula(userName);
                     userCompleteName = practitioner.Names + " " + practitioner.LastName;
+
                     break;
 
                 default:
+
                     Academic academic = academicDao.GetAcademicByPersonalNumber(userName);
                     userCompleteName = academic.Names + " " + academic.LastName;
+
                     break;
             }
             return userCompleteName;

@@ -3,8 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
-      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="GUI_WPF.Pages.Coordinator.ProjectsConsult"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      x:Class="GUI_WPF.Pages.Coordinator.ProjectsConsult"
       mc:Ignorable="d" 
       Width="Auto" Height="Auto"
       Title="ProjectsConsult">
