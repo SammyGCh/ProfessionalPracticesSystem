@@ -15,7 +15,10 @@ using GUI_WPF.Pages.Professor;
 
 namespace GUI_WPF
 {
-
+    /// <summary>
+    /// Interaction logic for Login.xaml
+    /// </summary>
+    
     public partial class Login : Window
     {
         public Login()
@@ -29,19 +32,26 @@ namespace GUI_WPF
             String usernameEntered = userTextBox.Text;
 
             int userID = LoginManager.UserLog(usernameEntered,passwordEntered);
+
             switch (userID)
             {
                 case 0:
+
                     DialogWindowManager.ShowErrorWindow("No se ha ingresado un usario valido");
+
                     break;
+
                 case 1:
+
                     PractitionerHome practitionerHome = new PractitionerHome(usernameEntered);
                     string practitionerFullName = UserManagement.GetUserName(userID, usernameEntered);
                     Home homeWindowPractitioner = new Home(practitionerHome, practitionerFullName);
-                    homeWindowPractitioner.Show();
 
+                    homeWindowPractitioner.Show();
                     this.Close();
+
                     break;
+
                 case 2:
 
                     CoordinatorHome coordinatorHome = new CoordinatorHome();
@@ -49,10 +59,10 @@ namespace GUI_WPF
                     Home coordinatorHomeWindow = new Home(coordinatorHome, coordinatorFullName);
 
                     coordinatorHomeWindow.Show();
-                    
                     this.Close();
 
                     break;
+
                 case 3:
 
                     ProfessorHome professorHome = new ProfessorHome(usernameEntered);
@@ -63,7 +73,9 @@ namespace GUI_WPF
                     this.Close();
 
                     break;
+
                 case 4:
+
                     AdministratorHome administratorHome = new AdministratorHome();
                     Home adminHomeWindow = new Home(administratorHome, "Administrador");
 
@@ -71,10 +83,12 @@ namespace GUI_WPF
                     this.Close();
 
                     break;
-                case 5:
-                    DialogWindowManager.ShowErrorWindow("La contraseña o usuario es incorrecta");
-                    break;
 
+                case 5:
+
+                    DialogWindowManager.ShowErrorWindow("La contraseña o usuario es incorrecta");
+
+                    break;
             }
 
         }

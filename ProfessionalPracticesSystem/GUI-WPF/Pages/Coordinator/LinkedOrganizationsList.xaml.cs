@@ -15,10 +15,13 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
-
+    /// <summary>
+    /// Interaction logic for LinkedOrganizationsList.xaml
+    /// </summary>
+    
     public partial class LinkedOrganizationsList : Page
     {
-        ICollectionView organizationsView;
+        readonly ICollectionView organizationsView;
         
         public LinkedOrganizationsList()
         {
@@ -38,7 +41,7 @@ namespace GUI_WPF.Pages.Coordinator
                 
             }
         }
-        public bool FilterRecords(object o)
+        public bool FilterOrganizationName(object o)
         {
             LinkedOrganization organization = (o as LinkedOrganization);
 
@@ -53,7 +56,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void SearchName(object sender, RoutedEventArgs e)
         {
-            organizationsView.Filter = FilterRecords;
+            organizationsView.Filter = FilterOrganizationName;
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
@@ -69,17 +72,16 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void ClickDetailsOv(object sender, RoutedEventArgs e)
         {
-
-            DataGrid dataGrid = tableLinkedOrganizations;
-            LinkedOrganization selectedOrganization = (LinkedOrganization)dataGrid.SelectedItem;
+            DataGrid organizationsDataGrid = tableLinkedOrganizations;
+            LinkedOrganization selectedOrganization = (LinkedOrganization)organizationsDataGrid.SelectedItem;
             NavigationService.Navigate(new DisplayLinkedOrganization(selectedOrganization));
 
         }
 
         private void ClickUpdateOv(object sender, RoutedEventArgs e)
         {
-            DataGrid dataGrid = tableLinkedOrganizations;
-            LinkedOrganization selectedOrganization = (LinkedOrganization)dataGrid.SelectedItem;
+            DataGrid organizationsDataGrid = tableLinkedOrganizations;
+            LinkedOrganization selectedOrganization = (LinkedOrganization)organizationsDataGrid.SelectedItem;
             NavigationService.Navigate(new UpdateOrganization(selectedOrganization));
         }
     }

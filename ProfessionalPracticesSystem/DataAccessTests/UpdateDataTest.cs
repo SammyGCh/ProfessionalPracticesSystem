@@ -10,7 +10,7 @@ namespace DataAccessTests
     {
 
         [TestMethod]
-        public void Update_MensualReport_Success()
+        public void UpdateMensualReport_EditMensualReportNoConnection_Success()
         {
             MensualReportDAO mensualReportDao = new MensualReportDAO();
             PractitionerDAO practitionerDao = new PractitionerDAO();
@@ -37,7 +37,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void Update_MensualReport_Unsuccess()
+        public void UpdateMensualReport_EditMensualReportNoConnection_Unsuccess()
         {
             MensualReportDAO mensualReportDao = new MensualReportDAO();
             PractitionerDAO practitionerDao = new PractitionerDAO();

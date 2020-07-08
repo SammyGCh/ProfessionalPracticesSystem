@@ -15,6 +15,10 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
+    /// <summary>
+    /// Interaction logic for UpdateOrganization.xaml
+    /// </summary>
+
     public partial class UpdateOrganization : Page
     {
         public UpdateOrganization(LinkedOrganization updatedOrganization)
@@ -31,8 +35,6 @@ namespace GUI_WPF.Pages.Coordinator
             organizationEmail.Text = updatedOrganization.Email;
             organizationCity.Text = updatedOrganization.City;
             organizationAddress.Text = updatedOrganization.Address;
-            
-
         }
 
         private void CancelUpdate(object sender, RoutedEventArgs e)
@@ -44,10 +46,8 @@ namespace GUI_WPF.Pages.Coordinator
         }
         private void UpdateOrganizationClick(object sender, RoutedEventArgs e)
         {
-            
             if (DialogWindowManager.ShowConfirmationWindow("¿Está seguro de actualizar la organizacion?") == true)
             {
-
                 
                 LinkedOrganization newUpdatedOrganization = new LinkedOrganization
                 {
@@ -74,7 +74,6 @@ namespace GUI_WPF.Pages.Coordinator
                 {
                     DialogWindowManager.ShowErrorWindow("Ha ocurrido un error");
                 }
-
             }
         }
 

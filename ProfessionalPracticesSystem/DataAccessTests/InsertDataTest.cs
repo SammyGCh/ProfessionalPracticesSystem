@@ -9,7 +9,7 @@ namespace DataAccessTests
     public class InsertDataTest
     {
         [TestMethod]
-        public void SaveMensualReport_NewReport_SuccesInserting()
+        public void SaveMensualReport_NewReportCreate_SuccesInserting()
         {
             MensualReportDAO mensualReportDao = new MensualReportDAO();
             PractitionerDAO practitionerDao = new PractitionerDAO();
@@ -35,7 +35,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void SaveMensualReport_NewReport_UnsuccesInserting()
+        public void SaveMensualReport_NewReportCreated_UnsuccesInserting()
         {
             MensualReportDAO mensualReportDao = new MensualReportDAO();
             PractitionerDAO practitionerDao = new PractitionerDAO();
