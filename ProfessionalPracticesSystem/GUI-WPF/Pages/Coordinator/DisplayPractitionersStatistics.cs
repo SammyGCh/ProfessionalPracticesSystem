@@ -81,7 +81,7 @@ namespace GUI_WPF.Pages.Coordinator
         {
             BusinessDomain.Practitioner practitioner = (o as BusinessDomain.Practitioner);
 
-            if (practitioner.Assigned != null)
+            if (practitioner.Assigned != null && practitioner.Assigned.ProposedBy.BelongsTo != null)
             {
                 if (practitioner.Assigned.ProposedBy.BelongsTo.Name.Contains(filterValue)) 
                 { 

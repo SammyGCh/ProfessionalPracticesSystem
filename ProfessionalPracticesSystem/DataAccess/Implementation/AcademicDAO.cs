@@ -22,8 +22,8 @@ namespace DataAccess.Implementation
         private MySqlDataReader reader;
         private int STATUS_NO_ACTIVE = 0;
         private int STATUS_ACTIVE = 1;
-        private const int COORDINATOR_ID = 1;
-        private const int PROFESSOR_ID = 2;
+        private const int COORDINATOR_TYPE_ID = 1;
+        private const int PROFESSOR_TYPE__ID = 2;
         private const int ACTIVE_COORDINATOR_LIMIT = 1;
         private const int ACTIVE_PROFESSOR_LIMIT = 2;
 
@@ -36,6 +36,7 @@ namespace DataAccess.Implementation
             query = null;
             reader = null;
         }
+
         public bool DeleteAcademic(int idAcademic)
         {
             bool isSaved = false;
@@ -287,6 +288,130 @@ namespace DataAccess.Implementation
             return academicList;
         }
 
+        public List<Academic> GetAllActiveProfessors()
+        {
+            belongsto = new AcademicTypeDAO();
+
+            try
+            {
+                academicList = new List<Academic>();
+                mySqlConnection = connection.OpenConnection();
+
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM Academic WHERE Academic.idAcademicType = @idAcademicType AND Academic.status = @status "
+                };
+
+                MySqlParameter academicType = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                {
+                    Value = PROFESSOR_TYPE__ID
+                };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
+                query.Parameters.Add(academicType);
+                query.Parameters.Add(status);
+                
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    academic = new Academic
+                    {
+                        IdAcademic = reader.GetInt32(0),
+                        PersonalNumber = reader.GetString(1),
+                        Names = reader.GetString(2),
+                        Cubicle = reader.GetString(3),
+                        LastName = reader.GetString(4),
+                        Gender = reader.GetString(5),
+                        Password = reader.GetString(6),
+                        BelongTo = belongsto.GetAcademicTypeById(reader.GetInt32(7)),
+                        Shift = reader.GetString(8),
+                        Status = reader.GetInt32(9)
+                    };
+
+                    academicList.Add(academic);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/GetAllAcademic:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return academicList;
+        }
+
+        public Academic GetCoordinator()
+        {
+            belongsto = new AcademicTypeDAO();
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM Academic WHERE Academic.idAcademicType = @idAcademicType AND Academic.status = @status"
+                };
+
+                MySqlParameter idAcademicType = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 11)
+                {
+                    Value = COORDINATOR_TYPE_ID
+                };
+
+                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
+                {
+                    Value = STATUS_ACTIVE
+                };
+
+
+                query.Parameters.Add(idAcademicType);
+                query.Parameters.Add(status);
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    academic = new Academic
+                    {
+                        IdAcademic = reader.GetInt32(0),
+                        PersonalNumber = reader.GetString(1),
+                        Names = reader.GetString(2),
+                        Cubicle = reader.GetString(3),
+                        LastName = reader.GetString(4),
+                        Gender = reader.GetString(5),
+                        Password = reader.GetString(6),
+                        BelongTo = belongsto.GetAcademicTypeById(reader.GetInt32(7)),
+                        Shift = reader.GetString(8),
+                        Status = reader.GetInt32(9)
+                    };
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/AcademicDAO/GetAcademic:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return academic;
+        }
+
         public bool ActiveAcademicCountFull(int academicTypeID)
         {
             bool isFull = false;
@@ -322,13 +447,13 @@ namespace DataAccess.Implementation
 
                     switch (academicTypeID)
                     {
-                        case COORDINATOR_ID:
+                        case COORDINATOR_TYPE_ID:
                             if (result >= ACTIVE_COORDINATOR_LIMIT)
                             {
                                 isFull = true;
                             }
                             break;
-                        case PROFESSOR_ID:
+                        case PROFESSOR_TYPE__ID:
                             if (result >= ACTIVE_PROFESSOR_LIMIT)
                             {
                                 isFull = true;

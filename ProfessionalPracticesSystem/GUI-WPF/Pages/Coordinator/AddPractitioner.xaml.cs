@@ -5,18 +5,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
@@ -29,8 +21,6 @@ namespace GUI_WPF.Pages.Coordinator
     public partial class AddPractitioner : Page
     {
         private List<string> genderList;
-        private const String SUCCESS_MESSAGE = "El practicante fue registrado exitosamente.";
-        private const String CONFIRM_MESSAGE = "¿Seguro que deseas cancelar el registro?";
 
         public AddPractitioner()
         {
@@ -43,22 +33,23 @@ namespace GUI_WPF.Pages.Coordinator
             };
             practitionerGender.ItemsSource = genderList;
 
-            IndigenousLanguageDAO practitionerLanguageDao = new IndigenousLanguageDAO();
-            List<IndigenousLanguage> indigenousLanguageList = practitionerLanguageDao.GetAllIndigenousLanguages();
+            IndigenousLanguageDAO practitionerLanguageHandler = new IndigenousLanguageDAO();
+            List<IndigenousLanguage> indigenousLanguageList = practitionerLanguageHandler.GetAllIndigenousLanguages();
             practitionerLanguageList.ItemsSource = indigenousLanguageList;
 
-            AcademicDAO academicDao = new AcademicDAO();
-            List<Academic> academicList = academicDao.GetAllAcademic();
+            AcademicDAO academicHandler = new AcademicDAO();
+            List<Academic> academicList = academicHandler.GetAllActiveAcademic();
             practitionerAcademicList.ItemsSource = academicList;
 
-            ScholarPeriodDAO schoolPeriodDao = new ScholarPeriodDAO();
-            List<ScholarPeriod> schoolPeriodList = schoolPeriodDao.GetAllScholarPeriods();
+            ScholarPeriodDAO schoolPeriodHandler = new ScholarPeriodDAO();
+            List<ScholarPeriod> schoolPeriodList = schoolPeriodHandler.GetAllScholarPeriods();
             practitionerSchoolPeriodList.ItemsSource = schoolPeriodList;
         }
 
         private void CancelAddNewPractitioner(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(CONFIRM_MESSAGE);
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(
+                                      "¿Seguro que deseas cancelar el registro?");
             
             if (cancelConfirmation)
             {
@@ -113,21 +104,29 @@ namespace GUI_WPF.Pages.Coordinator
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else
+            else if (!IsInValidUserName())
             {
                 bool isSaved = SavePractitioner();
 
+                CleanTextFields();
+
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow(SUCCESS_MESSAGE);  
+                    DialogWindowManager.ShowSuccessWindow(
+                    "El practicante fue registrado exitosamente.");
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
-                NavigationService.GoBack();
+
+                NavigationService.Navigate(new CoordinatorHome());
             }
-        }
+            else
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
+            }
+        }   
 
         private bool SavePractitioner()
         {
@@ -143,6 +142,20 @@ namespace GUI_WPF.Pages.Coordinator
             
         }
 
+        private bool IsInValidUserName()
+        {
+            bool isWrong = false;
+
+            String stringToValidate = practitionerEnrollment.Text;
+
+            if (!ValidatorText.IsUserName(stringToValidate))
+            {
+                isWrong = true;
+            }
+
+            return isWrong;
+        }
+
         private void IsPersonName(object sender, TextCompositionEventArgs e)
         {
             if (!ValidatorText.IsPersonName(e.Text))
@@ -153,7 +166,6 @@ namespace GUI_WPF.Pages.Coordinator
             {
                 e.Handled = false;
             }
-
         }   
 
         private void CleanTextFields()

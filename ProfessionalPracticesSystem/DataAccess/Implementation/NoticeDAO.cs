@@ -75,13 +75,14 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "UPDATE Notice SET title = @title, body = @body, " +
-                    "date = @date, idAcademic = @idAcademic"
+                    "date = @date, idAcademic = @idAcademic WHERE Notice.idNotice = @idNotice"
                 };
 
                 query.Parameters.Add("@title", MySqlDbType.VarChar, 45).Value = updatedNotice.Title;
                 query.Parameters.Add("@body", MySqlDbType.VarChar, 255).Value = updatedNotice.Body;
                 query.Parameters.Add("@date", MySqlDbType.DateTime, 20).Value = DateTime.Parse(updatedNotice.CreationDate);
                 query.Parameters.Add("@idAcademic", MySqlDbType.Int32, 2).Value = updatedNotice.CreatedBy.IdAcademic;
+                query.Parameters.Add("@idNotice", MySqlDbType.Int32, 2).Value = updatedNotice.IdNotice;
 
                 query.ExecuteNonQuery();
                 isUpdated = true;

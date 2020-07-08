@@ -459,7 +459,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
                 {
-                    Value = practitioner.Status
+                    Value = STATUS_ACTIVE
                 };
 
                 MySqlParameter idAcademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
@@ -886,14 +886,13 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "UPDATE Practitioner SET  " +
-                    "matricula = @matricula," +
-                    "gender = @gender," +
-                    "names = @names," +
-                    "lastName = @lastName," +
-                    "idIndigenousLanguage = @idIndigenousLanguage," +
-                    "status = @status," +
-                    "idAcademic = @idAcademic," +
-                    "idScholarPeriod = @idScholarPeriod" +
+                    "matricula = @matricula, " +
+                    "gender = @gender, " +
+                    "names = @names, " +
+                    "lastName = @lastName, " +
+                    "idIndigenousLanguage = @idIndigenousLanguage, " +
+                    "idAcademic = @idAcademic, " +
+                    "idScholarPeriod = @idScholarPeriod " +
                     "WHERE idPractitioner = @idPractitioner"
                 };
 
@@ -917,14 +916,9 @@ namespace DataAccess.Implementation
                     Value = updatePractitioner.LastName
                 };
 
-                MySqlParameter indigenousLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32, 11)
+                MySqlParameter indigenousLanguage = new MySqlParameter("@idIndigenousLanguage", MySqlDbType.Int32,11)
                 {
                     Value = updatePractitioner.Speaks.IdIndigenousLanguage
-                };
-
-                MySqlParameter status = new MySqlParameter("@status", MySqlDbType.Int32, 11)
-                {
-                    Value = updatePractitioner.Status
                 };
 
                 MySqlParameter academic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
@@ -937,7 +931,6 @@ namespace DataAccess.Implementation
                     Value = updatePractitioner.ScholarPeriod.IdScholarPeriod
                 };
 
-
                 MySqlParameter idPractitioner = new MySqlParameter("@idPractitioner", MySqlDbType.Int32, 11)
                 {
                     Value = updatePractitioner.IdPractitioner
@@ -948,7 +941,6 @@ namespace DataAccess.Implementation
                 query.Parameters.Add(names);
                 query.Parameters.Add(lastName);
                 query.Parameters.Add(indigenousLanguage);
-                query.Parameters.Add(status);
                 query.Parameters.Add(academic);
                 query.Parameters.Add(scholarPeriod);
                 query.Parameters.Add(idPractitioner);

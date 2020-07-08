@@ -15,6 +15,8 @@ namespace BusinessLogic
     {
         AcademicDAO academicDAO;
         private const int INVALID_ID = 0;
+        private const int COORDINATOR_TYPE = 1;
+        private const int PROFESSOR_TYPE = 2;
 
         public ManageAcademic()
         {
@@ -56,7 +58,7 @@ namespace BusinessLogic
             return isAcademicDeleted;
         }
 
-        public bool isAcademicCountFull(Academic academic)
+        public bool IsAcademicCountFull(Academic academic)
         {
             bool isFull = false;
 

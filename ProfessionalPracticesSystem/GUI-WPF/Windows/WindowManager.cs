@@ -63,5 +63,12 @@ namespace GUI_WPF.Windows
 
             return currenUserName;
         }
+
+        public static Page GetCurrentUserHomePage()
+        {
+            GetHomeWindow();
+
+            return homeWindow.GetUserHomePage();
+        }
     }
 }

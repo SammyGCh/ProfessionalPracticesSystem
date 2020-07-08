@@ -3,20 +3,11 @@
         Author:Ricardo Moguel Sanchez
  */
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
@@ -42,7 +33,8 @@ namespace GUI_WPF.Pages.Notice
 
         private void CancelAddNotice(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(
+                                      "¿Seguro que deseas cancelar el registro?");
 
             if (cancelConfirmation)
             {
@@ -89,20 +81,27 @@ namespace GUI_WPF.Pages.Notice
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else
+            else if (AreFieldsValid())
             {
                 bool isSaved = SaveNotice();
 
+                CleanTextFields();
+
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El Aviso fue registrado exitosamente.");
-
-                    NavigationService.GoBack();
+                    DialogWindowManager.ShowSuccessWindow(
+                    "El Aviso fue registrado exitosamente.");
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
+
+                NavigationService.Navigate(new NoticeBoard(creatorAcademic.PersonalNumber));
+            }
+            else
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
             }
         }
 
@@ -120,17 +119,30 @@ namespace GUI_WPF.Pages.Notice
 
         }
 
-        private void IsText(object sender, TextCompositionEventArgs e)
+        private bool AreFieldsValid()
         {
-            if (!ValidatorText.IsTextRight(e.Text))
+            bool isValid = false;
+
+            if (IsValidNoticeText(noticeTitle.Text)
+                && IsValidNoticeText(noticeBody.Text))
             {
-                e.Handled = true;
-            }
-            else
-            {
-                e.Handled = false;
+                isValid = true;
             }
 
+            return isValid;
+        }
+
+        private bool IsValidNoticeText(String testString)
+        {
+            bool isWrong = false;
+
+            String stringToValidate = testString;
+            if (ValidatorText.IsTextRight(stringToValidate))
+            {
+                isWrong = true;
+            }
+
+            return isWrong;
         }
 
         private void CleanTextFields()

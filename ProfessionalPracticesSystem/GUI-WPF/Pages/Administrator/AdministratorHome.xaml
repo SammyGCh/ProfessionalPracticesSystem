@@ -3,10 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       x:Class="GUI_WPF.Pages.Administrator.AdministratorHome"
-      xmlns:BusinessDomain="clr-namespace:BusinessDomain;assembly=BusinessDomain" 
       mc:Ignorable="d"
       Title="AdministratirHome" Width="Auto" Height="Auto" WindowTitle="Inicio" d:DesignWidth="1300" d:DesignHeight="1000">
 
@@ -16,11 +14,13 @@
             VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="514"/>
 
             <StackPanel Margin="50">
-                <DataGrid x:Name="tableOfAcademics" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1275" AutoGenerateColumns="False" Background="#FFFAFAFA" 
-                  CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="55" AlternatingRowBackground="AliceBlue">
+                <DataGrid x:Name="tableOfAcademics" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="1275"
+                          AutoGenerateColumns="False" Background="#FFFAFAFA" CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                          RowHeight="55" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
 
-                        <DataGridTemplateColumn Header="  Personal Number" Width ="250" MinWidth="200" MaxWidth="255"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn Header="  Número de Personal" Width ="250" MinWidth="200" MaxWidth="255" 
+                                                CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -37,7 +37,8 @@
                         </DataGridTemplateColumn>
 
 
-                        <DataGridTemplateColumn Header="Apellidos"  Width ="175" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn Header="Apellidos"  Width ="175" CanUserResize="False" 
+                                                CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -53,7 +54,8 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Nombres" Width ="150" MinWidth="130" CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                        <DataGridTemplateColumn Header="Nombres" Width ="150" MinWidth="130" 
+                                                CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -69,7 +71,8 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Turno" Width ="150" MinWidth="120" CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                        <DataGridTemplateColumn Header="Turno" Width ="150" MinWidth="120" 
+                                                CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -85,7 +88,8 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Status" Width ="120"  CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                        <DataGridTemplateColumn Header="Status" Width ="120"  CanUserResize="False" 
+                                                CanUserReorder="False" IsReadOnly="True" >
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -114,10 +118,12 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
+                        <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" 
+                                                 IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Detalles" Name="details" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="DisplayAcademicData"/>
+                                    <Button Content="Detalles" Name="details" Width ="100" MinWidth="100"
+                                            HorizontalAlignment="Left" Click="DisplayAcademicData"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
 
@@ -130,7 +136,8 @@
                             </DataGridTemplateColumn.HeaderStyle>
                         </DataGridTemplateColumn  >
 
-                        <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" 
+                                                 CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <DataTemplate.Triggers>
@@ -152,7 +159,8 @@
                             </DataGridTemplateColumn.HeaderStyle>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" 
+                                                 CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <DataTemplate.Triggers>

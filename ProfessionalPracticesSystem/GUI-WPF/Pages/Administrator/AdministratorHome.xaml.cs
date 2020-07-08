@@ -2,24 +2,12 @@
     Date: 05/05/2020
     Author(s): Ricardo Moguel Sabchez
  */
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Navigation;
 using BusinessDomain;
-using BusinessLogic;
 using GUI_WPF.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using DataAccess.Implementation;
 using System.Collections.ObjectModel;
 namespace GUI_WPF.Pages.Administrator
@@ -41,7 +29,8 @@ namespace GUI_WPF.Pages.Administrator
 
             if (listOfAcademics.Count == 0)
             {
-                DialogWindowManager.ShowErrorWindow("No existen Academicos. Debe crear un Academico");
+                DialogWindowManager.ShowErrorWindow("No existen Academicos. Debe crear un Académico");
+
                 NavigationService.Navigate(new AddAcademic());
             }
             else
@@ -59,12 +48,14 @@ namespace GUI_WPF.Pages.Administrator
         private void DisplayAcademicData(object sender, RoutedEventArgs e)
         {
             selectedAcademic = (Academic)tableOfAcademics.SelectedItem;
+
             NavigationService.Navigate(new DetailAcademic(selectedAcademic));
         }
 
         private void UpdateAcademicData(object sender, RoutedEventArgs e)
         {
             selectedAcademic = (Academic)tableOfAcademics.SelectedItem;
+
             NavigationService.Navigate(new UpdateAcademic(selectedAcademic));
         }
 

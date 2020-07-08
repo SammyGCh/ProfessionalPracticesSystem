@@ -5,18 +5,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
 using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
@@ -57,7 +49,8 @@ namespace GUI_WPF.Pages.Administrator
             List<AcademicType> listOfAcademicTypes = academicTypeHandler.GetAllAcademicTypes();
             if (listOfAcademicTypes.Count == 0)
             {
-                DialogWindowManager.ShowErrorWindow("No existen tipos de Academicos. No se puede crear un Académico sin tipo.");
+                DialogWindowManager.ShowErrorWindow(
+                "No existen tipos de Academicos. No se puede crear un Académico sin tipo.");
             }
             else
             {
@@ -67,7 +60,8 @@ namespace GUI_WPF.Pages.Administrator
 
         private void CancelAddNewAcademic(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar el registro?");
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(
+                                      "¿Seguro que deseas cancelar el registro?");
 
             if (cancelConfirmation)
             {
@@ -122,27 +116,32 @@ namespace GUI_WPF.Pages.Administrator
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else if (isAcademicCountFull())
+            else if (IsAcademicCountFull())
             {
-                DialogWindowManager.ShowErrorWindow("Error. Se llego al limite del tipo de academico. Debe eliminar academicos antes de crear uno nuevo.");
+                DialogWindowManager.ShowErrorWindow(
+                "Error. Se llego al limite del tipo de academico. Debe eliminar academicos antes de crear uno nuevo.");
             }
             else if(!IsInValidUserName())
             {
                 bool isSaved = SaveAcademic();
 
+                CleanTextFields();
+
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El Académico fue registrado exitosamente.");
+                    DialogWindowManager.ShowSuccessWindow(
+                    "El Académico fue registrado exitosamente."); 
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
+
                 NavigationService.Navigate(new AdministratorHome());
             }
             else
             {
-                DialogWindowManager.ShowErrorWindow("Error. Uno de los campos ingresados esta inválido. Verifique los campos");
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
             }
         }
 
@@ -209,7 +208,7 @@ namespace GUI_WPF.Pages.Administrator
             academicShift.SelectedItem = null;
         }
 
-        private bool isAcademicCountFull()
+        private bool IsAcademicCountFull()
         {
             bool isFull = false;
 

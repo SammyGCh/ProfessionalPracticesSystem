@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Notice"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1200"
       Title="UpdateNotice">
@@ -15,8 +14,9 @@
                 <RowDefinition Height="188*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Actualizar Aviso" 
-                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Actualizar Aviso" Grid.Row="0" 
+                       VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
+            <TextBox x:Name="noticeID" HorizontalAlignment="Left" Height="23" Visibility="Collapsed"/>
 
             <StackPanel Grid.Row="1">
 
@@ -37,18 +37,21 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Creador: " Margin="25,2,16,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBlock Name="creator" Margin="0,2,15,5 " FontSize="14" TextWrapping="Wrap" Text="{Binding CreatedBy}"/>
+                            <TextBlock Name="noticeCreator" Margin="0,2,15,5 " FontSize="14" 
+                                       TextWrapping="Wrap" Text="{Binding CreatedBy}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
-                            <TextBlock Text="Fecha de Publicación: " Margin="-55,2,16,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBlock Name="noticeCreationDate" Margin="0,2,15,5 " FontSize="14" TextWrapping="Wrap" Text="{Binding CreationDate}"/>
+                            <TextBlock Text="Fecha de Publicación Original: " Margin="-105,2,16,0" FontSize="14" TextAlignment="Right"/>
+                            <TextBlock Name="noticeCreationDate" Margin="0,2,15,5 " FontSize="14" 
+                                       TextWrapping="Wrap" Text="{Binding CreationDate}"/>
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
 
                 <StackPanel Margin="20" Width="750">
-                    <TextBlock Text="* Campos obligatorios" FontSize="14" FontWeight="Light" Height="30" Margin="0,0,0.4,0"/>
+                    <TextBlock Text="* Campos obligatorios" FontSize="14" FontWeight="Light" 
+                               Height="30" Margin="0,0,0.4,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="20" Width="750">
@@ -60,7 +63,8 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="cancelButton" Width="120" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red"
+                    <Button x:Name="cancelButton" Width="120" Margin="100,0,0,0" Cursor="Hand" 
+                            Background="Red" BorderBrush="Red"
                             Click="CancelUpdateNotice">
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>

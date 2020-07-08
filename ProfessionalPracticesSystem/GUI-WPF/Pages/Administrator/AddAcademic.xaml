@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
       x:Class="GUI_WPF.Pages.Administrator.AddAcademic"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1200"
@@ -17,8 +16,8 @@
                 <RowDefinition Height="188*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Registrar Académico" 
-                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Registrar Académico" Grid.Row="0" 
+                       VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
 
             <StackPanel Grid.Row="1">
 
@@ -33,12 +32,14 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Nombres (*): " Margin="1,2,16,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="academicNames" Width="378" MaxLength="60" TextCompositionManager.PreviewTextInput="IsPersonName" Margin="0,0,0,-0.2" />
+                            <TextBox x:Name="academicNames" Width="378" MaxLength="60" Margin="0,0,0,-0.2"
+                                     TextCompositionManager.PreviewTextInput="IsPersonName"  />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Apellidos (*): " Margin="2,2,18,-0.2" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="academicSurnames" Width="403" MaxLength="60" TextCompositionManager.PreviewTextInput="IsPersonName" Margin="0,0,0,-0.2" />
+                            <TextBox x:Name="academicSurnames" Width="403" MaxLength="60" Margin="0,0,0,-0.2"
+                                     TextCompositionManager.PreviewTextInput="IsPersonName"  />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
@@ -48,17 +49,20 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Tipo de Académico (*): " Margin="-60,3,18,-0.2" FontSize="14" TextAlignment="Right" TextWrapping="Wrap"/>
-                            <ComboBox x:Name="academicTypeList" Width="200" ItemsSource="{Binding listOfAcademicTypes}" DisplayMemberPath="AcademicTypeName" Height="25" Margin="0,0,0,-0.2"/>
+                            <ComboBox x:Name="academicTypeList" Width="200" Height="25" ItemsSource="{Binding listOfAcademicTypes}" 
+                                      DisplayMemberPath="AcademicTypeName"  Margin="0,0,0,-0.2"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Cúbiculo (*): " Margin="5,3,18,1" FontSize="14" />
-                            <TextBox x:Name="academicCubicle" Width="200" MaxLength="2" TextCompositionManager.PreviewTextInput="IsANumber" Margin="0,0,0,-0.2" />
+                            <TextBox x:Name="academicCubicle" Width="200" MaxLength="2" Margin="0,0,0,-0.2"
+                                     TextCompositionManager.PreviewTextInput="IsANumber"  />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Turno (*): " Margin="25,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="academicShift" Width="200" ItemsSource="{Binding shiftList}" Height="25" Margin="0,0,0,-0.2"/>
+                            <ComboBox x:Name="academicShift" Width="200" Height="25" Margin="0,0,0,-0.2"
+                                      ItemsSource="{Binding shiftList}" />
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
@@ -76,7 +80,8 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="cancelButton" Width="120" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red" Click="CancelAddNewAcademic">
+                    <Button x:Name="cancelButton" Width="120" Margin="100,0,0,0" Cursor="Hand" Background="Red" 
+                            BorderBrush="Red" Click="CancelAddNewAcademic">
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
                             <TextBlock Text="Cancelar"/>

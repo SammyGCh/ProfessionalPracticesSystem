@@ -3,14 +3,12 @@
         Author:Cesar Sergio Martinez Palacios
  */
 
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using BusinessDomain;
 using BusinessLogic;
-using DataAccess.Implementation;
 using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator

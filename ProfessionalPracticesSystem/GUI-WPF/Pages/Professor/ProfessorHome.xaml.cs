@@ -2,6 +2,7 @@
     Date: 02/07/2020                              
     Author:Cesar Sergio Martinez Palacios
  */
+using GUI_WPF.Pages.Notice;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +31,7 @@ namespace GUI_WPF.Pages.Professor
 
         private void CheckNotices(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new NoticeBoard( personalNumber));
         }
         private void CheckMensualReports(object sender, RoutedEventArgs e)
         {

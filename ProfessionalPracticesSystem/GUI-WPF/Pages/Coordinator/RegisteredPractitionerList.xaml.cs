@@ -2,22 +2,11 @@
         Date: 06/20/2020                              
         Author:Ricardo Moguel Sanchez
  */
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataAccess.Implementation;
-using BusinessDomain;
 using BusinessLogic;
 using System.Collections.ObjectModel;
 using GUI_WPF.Windows;
@@ -35,8 +24,9 @@ namespace GUI_WPF.Pages.Coordinator
         public RegisteredPractitionerList()
         {
             InitializeComponent();
-            PractitionerDAO practitionerDAO = new PractitionerDAO();
-            List<BusinessDomain.Practitioner> allPractitioners = practitionerDAO.GetAllPractitionerByMatricula();
+
+            PractitionerDAO practitionerHandler = new PractitionerDAO();
+            List<BusinessDomain.Practitioner> allPractitioners = practitionerHandler.GetAllPractitionerByMatricula();
             
             if (allPractitioners.Count == 0)
             {
@@ -58,19 +48,22 @@ namespace GUI_WPF.Pages.Coordinator
         private void DisplayPractitionerData(object sender, RoutedEventArgs e)
         {
             selectedPractitioner = (BusinessDomain.Practitioner)tableOfPractitioners.SelectedItem;
+
             NavigationService.Navigate(new DisplayPractitioner(selectedPractitioner));
         }
 
         private void UpdatePractitionerData(object sender, RoutedEventArgs e)
         {
             selectedPractitioner = (BusinessDomain.Practitioner)tableOfPractitioners.SelectedItem;
+
             NavigationService.Navigate(new UpdatePractitioner(selectedPractitioner));
         }
 
         private void DeletePractitioner(object sender, RoutedEventArgs e)
         {
             bool confirmDelete = false;
-            confirmDelete = DialogWindowManager.ShowConfirmationWindow("¿Seguro desea eliminar el Practicante seleccionado?");
+            confirmDelete = DialogWindowManager.ShowConfirmationWindow(
+                            "¿Seguro desea eliminar el Practicante seleccionado?");
 
             if (confirmDelete)
             {
@@ -78,11 +71,13 @@ namespace GUI_WPF.Pages.Coordinator
 
                 if (isEliminated)
                 {
-                    DialogWindowManager.ShowSuccessWindow("Practicante eliminado exitosamente");
+                    DialogWindowManager.ShowSuccessWindow(
+                    "Practicante eliminado exitosamente");
                 }
                 else
                 {
-                    DialogWindowManager.ShowErrorWindow("Ocurrió un error al intentar eliminar el Practicante. Intente más tarde.");
+                    DialogWindowManager.ShowErrorWindow(
+                    "Ocurrió un error al intentar eliminar el Practicante. Intente más tarde.");
                 }
                 NavigationService.GoBack();
             }
@@ -91,22 +86,17 @@ namespace GUI_WPF.Pages.Coordinator
         private bool ChangePractitionerStatus()
         {
             bool isStatusChanged = false;
-            ManagePractitioner practitionerManager = new ManagePractitioner();
             int selectedPractitionerID = 0;
 
+            ManagePractitioner practitionerManager = new ManagePractitioner();
+
             selectedPractitioner = (BusinessDomain.Practitioner)tableOfPractitioners.SelectedItem;
+
             selectedPractitionerID = selectedPractitioner.IdPractitioner;
 
             isStatusChanged = practitionerManager.DeletePractitioner(selectedPractitionerID);
 
             return isStatusChanged;
-        }
-
-        private void DeleteFromList()
-        {
-            int deletedPractitionerIndex = tableOfPractitioners.SelectedIndex;
-
-            practitioners.RemoveAt(deletedPractitionerIndex);
         }
     }
 }

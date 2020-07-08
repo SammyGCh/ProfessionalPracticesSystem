@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using DataAccess.Implementation;
 using BusinessDomain;
 using BusinessLogic;
 using GUI_WPF.Windows;
@@ -63,7 +62,8 @@ namespace GUI_WPF.Pages.Administrator
 
         private void CancelUpdateAcademic(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar la actualización?");
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(
+                                      "¿Seguro que deseas cancelar la actualización?");
 
             if (cancelConfirmation)
             {
@@ -121,21 +121,23 @@ namespace GUI_WPF.Pages.Administrator
             {
                 bool isUpdated = SaveAcademicUpdate();
 
+                CleanTextFields();
+
                 if (isUpdated)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El Académico fue actualizado exitosamente.");
+                    DialogWindowManager.ShowSuccessWindow(
+                    "El Académico fue actualizado exitosamente.");
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
 
-                CleanTextFields();
                 NavigationService.Navigate(new AdministratorHome());
             }
             else
             {
-                DialogWindowManager.ShowErrorWindow("Error. Uno de los campos ingresados esta inválido. Verifique los campos");
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
             }
         }
 
@@ -199,6 +201,5 @@ namespace GUI_WPF.Pages.Administrator
             academicCubicle.Clear();
             academicShift.SelectedItem = null;
         }
-
     }
 }
