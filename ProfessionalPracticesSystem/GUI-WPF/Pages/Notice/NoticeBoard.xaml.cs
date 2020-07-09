@@ -42,25 +42,14 @@ namespace GUI_WPF.Pages.Notice
             NoticeDAO noticeDAO = new NoticeDAO();
             List<BusinessDomain.Notice> allNotices = noticeDAO.GetAllNotices();
 
+            
             if (allNotices.Count == 0)
             {
-               bool wantToCreateNotice = false;
-                wantToCreateNotice = DialogWindowManager.ShowConfirmationWindow("No se encuentran avisos. ¿Desea crear un aviso?");
+                DialogWindowManager.ShowErrorWindow("No se han registrados avisos.");
+            }
 
-                if (wantToCreateNotice)
-                {
-                    NavigationService.Navigate(new AddNewNotice(currentUserID));
-                }
-                else
-                {
-                    NavigationService.GoBack();
-                }
-            }
-            else
-            {
-                notices = new ObservableCollection<BusinessDomain.Notice>(allNotices);
-                tableOfNotices.ItemsSource = notices;
-            }
+            notices = new ObservableCollection<BusinessDomain.Notice>(allNotices);
+            tableOfNotices.ItemsSource = notices;
         }
 
         private void CancelViewNotices(object sender, RoutedEventArgs e)

@@ -89,7 +89,11 @@ namespace DataAccess.Implementation
             }
             finally
             {
-                reader.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                
                 connection.CloseConnection();
             }
 

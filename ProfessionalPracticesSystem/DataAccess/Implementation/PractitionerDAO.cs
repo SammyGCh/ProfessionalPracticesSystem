@@ -449,7 +449,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter password = new MySqlParameter("@password", MySqlDbType.VarChar, 255)
                 {
-                    Value = practitioner.Matricula
+                    Value = practitioner.Password
                 };
 
                 MySqlParameter grade = new MySqlParameter("@grade", MySqlDbType.VarChar, 5)

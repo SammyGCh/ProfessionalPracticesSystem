@@ -27,7 +27,6 @@ namespace GUI_WPF.Pages.Professor
             if (partialReportsList.Count == 0)
             {
                 DialogWindowManager.ShowEmptyListErrorWindow();
-                NavigationService.GoBack();
             }
             else
             {

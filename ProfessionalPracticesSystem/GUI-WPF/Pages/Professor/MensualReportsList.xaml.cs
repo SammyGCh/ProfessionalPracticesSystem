@@ -28,11 +28,10 @@ namespace GUI_WPF.Pages.Professor
             if (mensualReportsList.Count == 0)
             {
                 DialogWindowManager.ShowEmptyListErrorWindow();
-                NavigationService.GoBack();
             }
             else
             {
-                mensualReportsTable.ItemsSource = mensualReportsList;
+                mensualReportsTable.ItemsSource = mensualReportsList;           
             }
         }
 

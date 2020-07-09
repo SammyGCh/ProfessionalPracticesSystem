@@ -37,7 +37,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(WindowManager.GetCurrentUserHomePage());
         }
 
         private void GoProjectDetails(object sender, RoutedEventArgs e)

@@ -34,7 +34,7 @@ namespace GUI_WPF.Pages.Practitioner
         private const int ID_SELFASSESSMENT = 3;
         private const int ID_ACEPTANCE_LETTER = 4;
         private const int ID_ASSIGMENT_LETTER = 5;
-        private const int MAX_DAYS_TO_GENERATE_MENSUAL_REPORT = 12;
+        private const int MAX_DAYS_TO_GENERATE_MENSUAL_REPORT = 15;
 
         public Documentation(String practitionerMatricula)
         {
