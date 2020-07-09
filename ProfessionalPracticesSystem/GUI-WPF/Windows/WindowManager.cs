@@ -26,17 +26,18 @@ namespace GUI_WPF.Windows
             WindowManager.homeWindow = homeWindow;
         }
 
-        private static void GetHomeFrame()
+        public static Frame GetHomeFrame()
         {
             GetHomeWindow();
-            homeFrame = homeWindow.homeFrame;
+            Frame homeFrame = homeWindow.homeFrame;
+            return homeFrame;
         }
 
         public static RequestProject GetRequestProjectPage()
         {
             RequestProject requestProjectPage;
 
-            GetHomeFrame();
+            homeFrame = GetHomeFrame();
 
             requestProjectPage = homeFrame.Content as RequestProject;
 
@@ -47,7 +48,7 @@ namespace GUI_WPF.Windows
         {
             Requests requestsPage;
 
-            GetHomeFrame();
+            homeFrame = GetHomeFrame();
 
             requestsPage = homeFrame.Content as Requests;
 

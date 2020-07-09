@@ -940,7 +940,6 @@ namespace DataAccess.Implementation
                     "names = @names, " +
                     "lastName = @lastName, " +
                     "idIndigenousLanguage = @idIndigenousLanguage, " +
-                    "status = @status, " +
                     "idAcademic = @idAcademic, " +
                     "idScholarPeriod = @idScholarPeriod " +
                     "WHERE idPractitioner = @idPractitioner"

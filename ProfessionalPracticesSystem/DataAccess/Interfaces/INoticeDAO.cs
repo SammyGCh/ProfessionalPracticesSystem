@@ -11,7 +11,6 @@ namespace DataAccess.Interfaces
     public interface INoticeDAO
     {
         List<Notice> GetAllNotices();
-        Notice GetNoticeById(int idNotice);
         bool SaveNotice(Notice notice);
         bool UpdateNotice(Notice notice);
     }

@@ -48,5 +48,11 @@ namespace GUI_WPF.Pages.Coordinator
             NavigationService.Navigate(new ProjectDetails(projectSelected));
         }
 
+        private void GoToPractitioner(object sender, RoutedEventArgs e)
+        {
+            BusinessDomain.Practitioner practitionerSelected = (practitionerList.SelectedItem as BusinessDomain.Practitioner);
+
+            NavigationService.Navigate(new DisplayPractitioner(practitionerSelected));
+        }
     }
 }

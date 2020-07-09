@@ -68,6 +68,7 @@ namespace GUI_WPF.Pages.Coordinator
         {
             NavigationService.Navigate(new DisplayPractitionersStatistics());
         }
+
         private void GoToRequests(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Requests());

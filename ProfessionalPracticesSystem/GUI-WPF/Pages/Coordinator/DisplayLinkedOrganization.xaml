@@ -62,6 +62,11 @@
                       CanUserAddRows="false" Grid.Column="1" HeadersVisibility="None" HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridHyperlinkColumn  Width ="1000" MinWidth="1000" MaxWidth="1000" Binding="{Binding Names}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridHyperlinkColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <EventSetter Event="Hyperlink.Click" Handler="GoToPractitioner"/>
+                            </Style>
+                        </DataGridHyperlinkColumn.ElementStyle>
                     </DataGridHyperlinkColumn>
                 </DataGrid.Columns>
             </DataGrid>

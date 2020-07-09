@@ -31,8 +31,6 @@ namespace GUI_WPF.Pages.Notice
 
             currentAcademic = academicHandler.GetAcademic(currentUserID);
 
-            
-
             noticeID.Text = selectedNotice.IdNotice.ToString();
             noticeTitle.Text = selectedNotice.Title;
             noticeBody.Text = selectedNotice.Body;
@@ -40,7 +38,6 @@ namespace GUI_WPF.Pages.Notice
             noticeCreationDate.Text = selectedNotice.CreationDate;
             
         }
-        
 
         private void CancelUpdateNotice(object sender, RoutedEventArgs e)
         {
@@ -95,8 +92,6 @@ namespace GUI_WPF.Pages.Notice
             else if(AreFieldsValid())
             {
                 bool isSaved = SaveNoticeUpdate();
-
-                CleanTextFields();
 
                 if (isSaved)
                 {
@@ -155,12 +150,6 @@ namespace GUI_WPF.Pages.Notice
             }
 
             return isWrong;
-        }
-
-        private void CleanTextFields()
-        {
-            noticeTitle.Clear();
-            noticeBody.Clear();
         }
     }
 }

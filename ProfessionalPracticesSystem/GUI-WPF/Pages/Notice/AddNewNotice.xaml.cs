@@ -85,8 +85,6 @@ namespace GUI_WPF.Pages.Notice
             {
                 bool isSaved = SaveNotice();
 
-                CleanTextFields();
-
                 if (isSaved)
                 {
                     DialogWindowManager.ShowSuccessWindow(
@@ -143,12 +141,6 @@ namespace GUI_WPF.Pages.Notice
             }
 
             return isWrong;
-        }
-
-        private void CleanTextFields()
-        {
-            noticeTitle.Clear();
-            noticeBody.Clear();
         }
     }
 }

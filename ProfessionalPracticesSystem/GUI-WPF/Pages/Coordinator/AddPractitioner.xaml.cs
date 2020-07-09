@@ -38,7 +38,7 @@ namespace GUI_WPF.Pages.Coordinator
             practitionerLanguageList.ItemsSource = indigenousLanguageList;
 
             AcademicDAO academicHandler = new AcademicDAO();
-            List<Academic> academicList = academicHandler.GetAllActiveAcademic();
+            List<Academic> academicList = academicHandler.GetAllActiveProfessors();
             practitionerAcademicList.ItemsSource = academicList;
 
             ScholarPeriodDAO schoolPeriodHandler = new ScholarPeriodDAO();
@@ -108,8 +108,6 @@ namespace GUI_WPF.Pages.Coordinator
             {
                 bool isSaved = SavePractitioner();
 
-                CleanTextFields();
-
                 if (isSaved)
                 {
                     DialogWindowManager.ShowSuccessWindow(
@@ -167,16 +165,5 @@ namespace GUI_WPF.Pages.Coordinator
                 e.Handled = false;
             }
         }   
-
-        private void CleanTextFields()
-        {
-            practitionerEnrollment.Clear();
-            practitionerNames.Clear();
-            practitionerSurnames.Clear();
-            practitionerGender.SelectedItem = null;
-            practitionerLanguageList.SelectedItem = null;
-            practitionerAcademicList.SelectedItem = null;
-            practitionerSchoolPeriodList.SelectedItem = null;
-        }
     }
 }

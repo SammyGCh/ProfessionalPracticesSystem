@@ -42,7 +42,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void CancelViewList(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(WindowManager.GetCurrentUserHomePage());
         }
 
         private void DisplayPractitionerData(object sender, RoutedEventArgs e)

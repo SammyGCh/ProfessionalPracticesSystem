@@ -121,8 +121,6 @@ namespace GUI_WPF.Pages.Administrator
             {
                 bool isUpdated = SaveAcademicUpdate();
 
-                CleanTextFields();
-
                 if (isUpdated)
                 {
                     DialogWindowManager.ShowSuccessWindow(
@@ -190,16 +188,6 @@ namespace GUI_WPF.Pages.Administrator
             }
 
             return isWrong;
-        }
-
-        private void CleanTextFields()
-        {
-            academicPersonalNumber.Clear();
-            academicNames.Clear();
-            academicSurnames.Clear();
-            academicGender.SelectedItem = null;
-            academicCubicle.Clear();
-            academicShift.SelectedItem = null;
         }
     }
 }

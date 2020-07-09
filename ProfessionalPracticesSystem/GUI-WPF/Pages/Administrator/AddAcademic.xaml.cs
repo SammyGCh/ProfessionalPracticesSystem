@@ -125,8 +125,6 @@ namespace GUI_WPF.Pages.Administrator
             {
                 bool isSaved = SaveAcademic();
 
-                CleanTextFields();
-
                 if (isSaved)
                 {
                     DialogWindowManager.ShowSuccessWindow(
@@ -195,17 +193,6 @@ namespace GUI_WPF.Pages.Administrator
             }
 
             return isWrong;
-        }
-
-        private void CleanTextFields()
-        {
-            academicPersonalNumber.Clear();
-            academicNames.Clear();
-            academicSurnames.Clear();
-            academicGender.SelectedItem = null;
-            academicTypeList.SelectedItem = null;
-            academicCubicle.Clear();
-            academicShift.SelectedItem = null;
         }
 
         private bool IsAcademicCountFull()

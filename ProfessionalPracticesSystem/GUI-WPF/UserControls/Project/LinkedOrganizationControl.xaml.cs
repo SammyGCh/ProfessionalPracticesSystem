@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using BusinessDomain;
 using DataAccess.Implementation;
+using GUI_WPF.Pages.Coordinator;
 using GUI_WPF.Windows;
-using BusinessLogic;
 
 namespace GUI_WPF.UserControls.Project
 {
@@ -49,6 +49,12 @@ namespace GUI_WPF.UserControls.Project
             LinkedOrganization linkedOrganizationSelected = linkedOrganizations.SelectedItem as LinkedOrganization;
 
             return linkedOrganizationSelected;
+        }
+
+        private void RegisterOrganization(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Frame homeFrame = WindowManager.GetHomeFrame();
+            homeFrame.Navigate(new AddOrganization());
         }
     }
 }

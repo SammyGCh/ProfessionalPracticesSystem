@@ -297,7 +297,7 @@ namespace DataAccess.Implementation
                     CommandText = "SELECT * FROM Academic WHERE Academic.idAcademicType = @idAcademicType AND Academic.status = @status "
                 };
 
-                MySqlParameter academicType = new MySqlParameter("@status", MySqlDbType.Int32, 2)
+                MySqlParameter academicType = new MySqlParameter("@idAcademicType", MySqlDbType.Int32, 2)
                 {
                     Value = PROFESSOR_TYPE__ID
                 };
@@ -533,7 +533,7 @@ namespace DataAccess.Implementation
 
                 MySqlParameter idacademic = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 11)
                 {
-                    Value = updatedAcademic.IdAcademic
+                    Value = academic.IdAcademic
                 };
 
                 query.Parameters.Add(personalNumber);
