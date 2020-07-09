@@ -54,7 +54,7 @@ namespace BusinessLogic
         {
             bool isProfessor = false;
             Academic professor = academicDao.GetAcademicByPersonalNumber(personalNumber);
-            if(professor.BelongTo != null)
+            if(professor != null && professor.BelongTo != null)
             {
                 if(professor.BelongTo.IdAcademicType == 2)
                 {
@@ -68,7 +68,7 @@ namespace BusinessLogic
         {
             bool isCoordinator = false;
             Academic coordinator = academicDao.GetAcademicByPersonalNumber(personalNumber);
-            if (coordinator.BelongTo != null)
+            if (coordinator != null && coordinator.BelongTo != null)
             {
                 if (coordinator.BelongTo.IdAcademicType == 1)
                 {
@@ -117,13 +117,17 @@ namespace BusinessLogic
             switch (userNumber)
             {
                 case PRACTITIONER_USER:
+
                     Practitioner practitioner = practitionerDao.GetPractitionerByMatricula(userName);
                     userCompleteName = practitioner.Names + " " + practitioner.LastName;
+
                     break;
 
                 default:
+
                     Academic academic = academicDao.GetAcademicByPersonalNumber(userName);
                     userCompleteName = academic.Names + " " + academic.LastName;
+
                     break;
             }
             return userCompleteName;

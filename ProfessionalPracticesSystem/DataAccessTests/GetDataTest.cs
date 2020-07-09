@@ -319,7 +319,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void GetAcademicTyoe_AcademicType_ByIdAcademicType()
+        public void GetAcademicType_OneAcademicTypeById_AcademicType()
         {
             int academicTypeId = 1;
             AcademicTypeDAO academicTypeDao = new AcademicTypeDAO();
@@ -680,6 +680,76 @@ namespace DataAccessTests
             ScholarPeriod scholarPeriod = scholarPeriodDao.GetScholarPeriodById(idScholarPeriod);
 
             Assert.IsNull(scholarPeriod);
+        }
+
+        [TestMethod]
+        public void GetAllNotices_ExistingNotices_ReturnNoticeListNotEmpty()
+        {
+            NoticeDAO noticeHandler = new NoticeDAO();
+
+            List<Notice> testResult = noticeHandler.GetAllNotices();
+
+            Assert.IsTrue(testResult.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetAllActiveAcademic_AcademicsAreActive_ReturnAcademicList()
+        {
+            List<Academic> testResult = academicDAO.GetAllActiveAcademic();
+
+            Assert.IsTrue(testResult.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetAllActiveProfessors_ProfessorsAreActive_ReturnAcademicList()
+        {
+            List<Academic> testResult = academicDAO.GetAllActiveProfessors();
+
+            Assert.IsTrue(testResult.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetActiveCoordinator_CoordinatorIsActive_ReturnAcademicNotNull()
+        {
+            Academic testResult = academicDAO.GetCoordinator();
+
+            Assert.IsTrue(testResult != null);
+        }
+
+        [TestMethod]
+        public void GetAcademicCountFull_MaxCoordinatorCountReached_ReturnTrue()
+        {
+            int coordinatorType = 1;
+            bool testResult = academicDAO.ActiveAcademicCountFull(coordinatorType);
+
+            Assert.IsTrue(testResult);
+        }
+
+        [TestMethod]
+        public void GetAcademicCountFull_MaxProfessorCountReached_ReturnTrue()
+        {
+            int professorType = 2;
+            bool testResult = academicDAO.ActiveAcademicCountFull(professorType);
+
+            Assert.IsTrue(testResult);
+        }
+
+        [TestMethod]
+        public void GetProfessorCountNotFull_MaxProfessorCountNotReached_ReturnTrue()
+        {
+            int professorType = 2;
+            bool testResult = academicDAO.ActiveAcademicCountFull(professorType);
+
+            Assert.IsFalse(testResult);
+        }
+
+        [TestMethod]
+        public void GetCoordinatorCountNotFull_MaxCoordinatorCountNotReached_ReturnTrue()
+        {
+            int coordinatorType = 1;
+            bool testResult = academicDAO.ActiveAcademicCountFull(coordinatorType);
+
+            Assert.IsFalse(testResult);
         }
     }
 }

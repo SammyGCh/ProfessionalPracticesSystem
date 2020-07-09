@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Administrator"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       x:Class="GUI_WPF.Pages.Administrator.DetailAcademic"
       mc:Ignorable="d" 
@@ -17,16 +16,17 @@
                 <RowDefinition Height="200*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Detalles del Académico" 
-                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="52" Width="500"/>
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Detalles del Académico" Grid.Row="0" 
+                       VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="52" Width="500"/>
 
             <StackPanel Grid.Row="1">
 
-                <materialDesign:Card Background="AliceBlue" Margin="15,30,66.2,30" Padding="10" BorderThickness="50" Width="750" HorizontalAlignment="Right">
+                <materialDesign:Card Background="AliceBlue" Margin="0,30,66.2,30" Padding="10" 
+                                     BorderThickness="50" Width="750" HorizontalAlignment="Center">
                     <StackPanel>
-                        <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="0,15,20,0">
+                        <StackPanel Orientation="Horizontal" Height="30" Width="480" Margin="0,15,20,0">
                             <TextBlock Text="Tipo: " Margin="2,2,3,4" FontSize="14" TextAlignment="Right"/>
-                            <TextBlock x:Name="AcademicTypeName" Width="380"/>
+                            <TextBlock x:Name="academicType" Width="380"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="10,0,85,0">
@@ -42,11 +42,6 @@
                         <StackPanel Orientation="Horizontal" Width="480" Margin="15,0,168.2,0" Height="25">
                             <TextBlock Text="No. Personal: " Margin="16,2,3,0" FontSize="14" TextAlignment="Right"/>
                             <TextBlock Text="{Binding PersonalNumber}" Width="300" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10,0,110,0">
-                            <TextBlock Text="Contraseña: " Margin="0,3,4,-0.2" FontSize="14" TextAlignment="Left" Width="88"/>
-                            <TextBlock Text="{Binding Password}" Width="300" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10,0,85,0">
@@ -66,22 +61,33 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10,0,60,0">
                             <TextBlock Text="Status: " Margin="0,3,4,-0.2" FontSize="14" TextAlignment="Left" Width="70"/>
-                            <TextBlock Text="{Binding Status}" Width="300" />
+                            <TextBlock FontSize="14" TextWrapping="Wrap">
+                                <TextBlock.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status}" Value="1">
+                                                <Setter Property="TextBlock.Text" Value="Activo"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="0">
+                                                <Setter Property="TextBlock.Text" Value="No Activo"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </StackPanel>
                     </StackPanel>
 
                 </materialDesign:Card>
 
-                <StackPanel Orientation="Horizontal" Margin="15,20,66.2,20" Height="38">
-
-
-                    <Button x:Name="returnButton" Width="115" Margin="300,0,0,0" Cursor="Hand"  BorderBrush="Red" Click="Return">
+                <StackPanel Orientation="Horizontal" Margin="20" Width="750">
+                    <Button x:Name="returnButton" Width="115" Margin="240,0,0,0" Cursor="Hand" IsEnabled="True" 
+                            Click="ReturnToHome">
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
+                            <materialDesign:PackIcon Kind="ArrowBack" Margin="3,3.5,1,1" Width="30"/>
                             <TextBlock Text="Regresar"/>
                         </StackPanel>
                     </Button>
-
                 </StackPanel>
             </StackPanel>
         </Grid>

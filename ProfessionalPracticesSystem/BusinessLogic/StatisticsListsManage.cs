@@ -16,6 +16,7 @@ namespace BusinessLogic
         {
             ScholarPeriodDAO scholarPeriodDAO = new ScholarPeriodDAO();
             List<ScholarPeriod> allPeriods = scholarPeriodDAO.GetAllScholarPeriods();
+
             return allPeriods;
         }
 
@@ -23,6 +24,7 @@ namespace BusinessLogic
         {
             DevelopmentStageDAO developmentStageDAO = new DevelopmentStageDAO();
             List<DevelopmentStage> allStages = developmentStageDAO.GetAllDevelopmentStages();
+
             return allStages;
         }
 
@@ -30,6 +32,7 @@ namespace BusinessLogic
         {
             LinkedOrganizationDAO linkedOrganizationDAO = new LinkedOrganizationDAO();
             List<LinkedOrganization> allOrganizations = linkedOrganizationDAO.GetAllLinkedOrganizations();
+
             return allOrganizations;
         }
 
@@ -37,6 +40,7 @@ namespace BusinessLogic
         {
             OrganizationSectorDAO sectorDAO = new OrganizationSectorDAO();
             List<OrganizationSector> allSectors = sectorDAO.GetAllOrganizationSectors();
+
             return allSectors;
         }
 
@@ -44,12 +48,14 @@ namespace BusinessLogic
         {
             PractitionerDAO practitionerDAO = new PractitionerDAO();
             List<Practitioner> allPractitioners = practitionerDAO.GetAllPractitioner();
+
             return allPractitioners;
         }
         public static List<Project> GetProjects()
         {
             ProjectDAO projectDAO = new ProjectDAO();
             List<Project> allProjects = projectDAO.GetAllProjects();
+
             return allProjects;
         }
     }

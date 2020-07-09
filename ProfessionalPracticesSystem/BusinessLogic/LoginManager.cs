@@ -30,6 +30,7 @@ namespace BusinessLogic
             switch (roleNumber)
             {
                 case PRACTITIONER_USER:
+
                     PractitionerDAO practitionerdao = new PractitionerDAO();
                     Practitioner practitioner = practitionerdao.GetPractitionerByMatricula(username);
 
@@ -44,6 +45,7 @@ namespace BusinessLogic
                     break;
 
                 case COORDINADOR_USER:
+
                     AcademicDAO coordinatorDao = new AcademicDAO();
                     Academic coordinator = coordinatorDao.GetAcademicByPersonalNumber(username);
 
@@ -60,6 +62,7 @@ namespace BusinessLogic
                     break;
 
                 case PROFESOR_USER:
+
                     AcademicDAO profesorDao = new AcademicDAO();
                     Academic profesor = profesorDao.GetAcademicByPersonalNumber(username);
 
@@ -74,6 +77,7 @@ namespace BusinessLogic
                     break;
 
                 case ADMINISTRATOR_USER:
+
                     AdministratorDAO administratorDAO = new AdministratorDAO();
                     Administrator administrator = administratorDAO.GetAdministratorByUser(username);
 
@@ -88,7 +92,6 @@ namespace BusinessLogic
                     }
                         break;
             }
-
             return userNumber;
         }
 

@@ -67,7 +67,10 @@ namespace BusinessLogic
         {
             bool isDeleted = false;
 
-            isDeleted = practitionerDao.DeletePractitioner(deletedPractitionerID);
+            if (deletedPractitionerID != INVALID_ID)
+            {
+                isDeleted = practitionerDao.DeletePractitioner(deletedPractitionerID);
+            } 
 
             return isDeleted;
         }

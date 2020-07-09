@@ -4,6 +4,7 @@
  */
 using DataAccess.Implementation;
 using GUI_WPF.Windows;
+using GUI_WPF.Pages.Notice;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -16,9 +17,10 @@ namespace GUI_WPF.Pages.Professor
     /// <summary>
     /// Lógica de interacción para ProfessorHome.xaml
     /// </summary>
+    
     public partial class ProfessorHome : Page
     {
-        private String personalNumber;
+        private readonly String personalNumber;
 
         private bool IsCheckPartialReportsAvailable()
         {
@@ -63,7 +65,7 @@ namespace GUI_WPF.Pages.Professor
 
         private void CheckNotices(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new NoticeBoard( personalNumber));
         }
 
         private void CheckMensualReports(object sender, RoutedEventArgs e)

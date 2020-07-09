@@ -12,6 +12,10 @@ using DataAccess.Implementation;
 
 namespace GUI_WPF.Pages.Coordinator
 {
+    /// <summary>
+    /// Interaction logic for DisplayLinkedOrganization.xaml
+    /// </summary>
+     
     public partial class DisplayLinkedOrganization : Page
     {
         public DisplayLinkedOrganization(LinkedOrganization linkedOrganization)
@@ -23,12 +27,12 @@ namespace GUI_WPF.Pages.Coordinator
 
             this.DataContext = linkedOrganization;
 
-            List<Project> projects = projectDAO.GetProjectsByOrganization(linkedOrganization.IdLinkedOrganization);
-            List<BusinessDomain.Practitioner> practitioners = practitionerDAO.GetAllPractitionerByLinkedOrganization(linkedOrganization.IdLinkedOrganization);
+            List<Project> allOrganizationProjects = projectDAO.GetProjectsByOrganization(linkedOrganization.IdLinkedOrganization);
+            List<BusinessDomain.Practitioner> allOrganizationPractitioners = practitionerDAO.GetAllPractitionerByLinkedOrganization(linkedOrganization.IdLinkedOrganization);
             
             orgSector.Text = linkedOrganization.BelongsTo.Name;
-            projectsList.ItemsSource = projects;
-            practitionerList.ItemsSource = practitioners;
+            projectsList.ItemsSource = allOrganizationProjects;
+            practitionerList.ItemsSource = allOrganizationPractitioners;
 
         }
 
@@ -44,5 +48,11 @@ namespace GUI_WPF.Pages.Coordinator
             NavigationService.Navigate(new ProjectDetails(projectSelected));
         }
 
+        private void GoToPractitioner(object sender, RoutedEventArgs e)
+        {
+            BusinessDomain.Practitioner practitionerSelected = (practitionerList.SelectedItem as BusinessDomain.Practitioner);
+
+            NavigationService.Navigate(new DisplayPractitioner(practitionerSelected));
+        }
     }
 }

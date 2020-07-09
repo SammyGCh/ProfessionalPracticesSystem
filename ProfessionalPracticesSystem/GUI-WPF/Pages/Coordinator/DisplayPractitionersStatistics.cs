@@ -15,7 +15,10 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
-    
+    /// <summary>
+    /// Interaction logic for DisplayPractitionerStatistics.xaml
+    /// </summary>
+
     public partial class DisplayPractitionersStatistics : Page
     {
         readonly ICollectionView practitionerView;
@@ -81,7 +84,7 @@ namespace GUI_WPF.Pages.Coordinator
         {
             BusinessDomain.Practitioner practitioner = (o as BusinessDomain.Practitioner);
 
-            if (practitioner.Assigned != null)
+            if (practitioner.Assigned != null && practitioner.Assigned.ProposedBy.BelongsTo != null)
             {
                 if (practitioner.Assigned.ProposedBy.BelongsTo.Name.Contains(filterValue)) 
                 { 

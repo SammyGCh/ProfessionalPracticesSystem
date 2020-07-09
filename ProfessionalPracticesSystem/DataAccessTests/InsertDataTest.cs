@@ -13,6 +13,7 @@ namespace DataAccessTests
         readonly PractitionerDAO practitionerDAO = new PractitionerDAO();
         readonly DocumentDAO documentDAO = new DocumentDAO();
         readonly AcademicDAO academicDAO = new AcademicDAO();
+        readonly NoticeDAO noticeHandler = new NoticeDAO();
 
         [TestMethod]
         public void SavePractitioner_PractitionerIsComplete_ReturnTrue()
@@ -106,7 +107,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void SaveMensualReport_NewReport_SuccesInserting()
+        public void SaveMensualReport_NewReportCreate_SuccesInserting()
         {
             MensualReportDAO mensualReportDao = new MensualReportDAO();
             PractitionerDAO practitionerDao = new PractitionerDAO();
@@ -132,7 +133,7 @@ namespace DataAccessTests
         }
 
         [TestMethod]
-        public void SaveMensualReport_NewReport_UnsuccesInserting()
+        public void SaveMensualReport_NewReportCreated_UnsuccesInserting()
         {
             MensualReportDAO mensualReportDao = new MensualReportDAO();
             PractitionerDAO practitionerDao = new PractitionerDAO();
@@ -254,7 +255,7 @@ namespace DataAccessTests
             ProjectActivity projectActivity = new ProjectActivity
             {
                 Name = "Realizar entrevista a los directores encargados del modulo de adultos mayores",
-                Month = "AGOSTO"
+                Month = "Octubre"
             };
 
             bool isSaved = projectDao.SaveProjectActivity(projectActivity, projectName);
@@ -348,6 +349,26 @@ namespace DataAccessTests
             };
 
             bool isSaved = scholarPeriodDao.SaveScholarPeriod(scholarPeriod);
+
+            Assert.IsTrue(isSaved);
+        }
+
+        [TestMethod]
+        public void SaveNotice_NewNotice_SuccessWhenInserting()
+        {
+            AcademicDAO academicHandler = new AcademicDAO();
+            int idAcademic = 1;
+
+            Notice notice = new Notice()
+            {
+                IdNotice = 1,
+                Title = "Aviso de Bienvenida",
+                Body= "Saludos a los nuevos profesores y practicantes del semestre",
+                CreationDate = "2019-01-01 21:59:00",
+                CreatedBy = academicHandler.GetAcademic(idAcademic)
+            };
+
+            bool isSaved = noticeHandler.SaveNotice(notice);
 
             Assert.IsTrue(isSaved);
         }

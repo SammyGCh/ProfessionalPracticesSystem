@@ -14,12 +14,13 @@ namespace BusinessLogic
     public class ManageAcademic
     {
         AcademicDAO academicDAO;
-        AcademicTypeDAO academicTypeDAO;
+        private const int INVALID_ID = 0;
+        private const int COORDINATOR_TYPE = 1;
+        private const int PROFESSOR_TYPE = 2;
 
         public ManageAcademic()
         {
             academicDAO = new AcademicDAO();
-            academicTypeDAO = new AcademicTypeDAO();
         }
 
         public bool AddAcademic(Academic newAcademic)
@@ -32,30 +33,40 @@ namespace BusinessLogic
             newAcademic.Password = encryptedPassword;
 
             isAcademicSaved = academicDAO.SaveAcademic(newAcademic);
+
             return isAcademicSaved;
-        }
-
-        public bool EliminateAcademic(int idOldAcademic)
-        {
-            bool isAcademicDeleted = false;
-            isAcademicDeleted = academicDAO.DeleteAcademic(idOldAcademic);
-            return isAcademicDeleted;
-
         }
 
         public bool UpdateAcademic(Academic changedAcademic)
         {
             bool isAcademicUpdated = false;
 
-            HashManagement hashManager = new HashManagement();
-
-            String encryptedPassword = hashManager.TextToHash(changedAcademic.Password);
-            changedAcademic.Password = encryptedPassword;
-
             isAcademicUpdated = academicDAO.UpdateAcademic(changedAcademic);
+
             return isAcademicUpdated;
         }
 
+        public bool DeleteAcademic(int deletedAcademicID)
+        {
+            bool isAcademicDeleted = false;
 
+            if(deletedAcademicID != INVALID_ID)
+            {
+                isAcademicDeleted = academicDAO.DeleteAcademic(deletedAcademicID);
+            }
+
+            return isAcademicDeleted;
+        }
+
+        public bool IsAcademicCountFull(Academic academic)
+        {
+            bool isFull = false;
+
+            AcademicDAO academicHandler = new AcademicDAO();
+
+            isFull = academicHandler.ActiveAcademicCountFull(academic.BelongTo.IdAcademicType);
+
+            return isFull;
+        }
     }
 }

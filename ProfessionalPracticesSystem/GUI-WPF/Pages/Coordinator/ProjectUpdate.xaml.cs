@@ -9,7 +9,7 @@ using System.Windows.Navigation;
 using GUI_WPF.UserControls.Project;
 using GUI_WPF.Windows;
 using BusinessDomain;
-using System;
+using DataAccess.Implementation;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -37,7 +37,7 @@ namespace GUI_WPF.Pages.Coordinator
 
             if (wantToCancel)
             {
-                NavigationService.GoBack();               
+                NavigationService.Navigate(new ProjectSections(GetProjectRefreshed()));              
             }
         }
 
@@ -57,12 +57,18 @@ namespace GUI_WPF.Pages.Coordinator
             }
         }
 
-        protected virtual void OnNavigatedFrom(NavigationEventArgs e)
+        private Project GetProjectRefreshed()
         {
-            if (sectionSelected.Content != null)
+            Project projectRefreshed = null;           
+            Project projectSelected = sectionSelected.DataContext as Project;
+
+            if (projectSelected != null)
             {
-                
+                ProjectDAO projectDao = new ProjectDAO();
+                projectRefreshed = projectDao.GetProjectById(projectSelected.IdProject);
             }
+            
+            return projectRefreshed;
         }
     }
 }

@@ -19,18 +19,15 @@ namespace BusinessLogic
 
         public bool OrganizationSave(LinkedOrganization newOrganization)
         {
-            bool isSaved = false;
-            isSaved = linkedOrganization.SaveLinkedOrganization(newOrganization);
+            bool isSaved = linkedOrganization.SaveLinkedOrganization(newOrganization);
 
             return isSaved;
         }
 
         public bool OrganizationUpdate(LinkedOrganization updatedOrganization)
         {
-            bool isUpdated = false;
+            bool isUpdated = linkedOrganization.UpdateLinkedOrganization(updatedOrganization);
 
-            isUpdated = linkedOrganization.UpdateLinkedOrganization(updatedOrganization);
-            
             return isUpdated;
         }
 

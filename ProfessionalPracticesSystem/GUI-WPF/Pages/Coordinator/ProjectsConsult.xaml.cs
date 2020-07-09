@@ -17,11 +17,14 @@ using GUI_WPF.Windows;
 
 namespace GUI_WPF.Pages.Coordinator
 {
+    /// <summary>
+    /// Interaction logic for ProjectsConsult.xaml
+    /// </summary>
+    
     public partial class ProjectsConsult : Page
     {
         private readonly ObservableCollection<Project> projects;
         private Project projectSelected;
-        ICollectionView projectsView;
 
         public ProjectsConsult()
         {
@@ -29,9 +32,9 @@ namespace GUI_WPF.Pages.Coordinator
             ProjectDAO projectDao = new ProjectDAO();
             List<Project> allProjects = projectDao.GetActiveProjects();
             projects = new ObservableCollection<Project>(allProjects);
-            projectsView = CollectionViewSource.GetDefaultView(allProjects);
-            tableProjects.ItemsSource = projectsView;
+            tableProjects.ItemsSource = projects;
         }
+
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
