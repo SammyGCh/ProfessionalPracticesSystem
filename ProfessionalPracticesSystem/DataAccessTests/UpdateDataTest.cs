@@ -335,5 +335,27 @@ namespace DataAccessTests
 
             Assert.IsTrue(isUpdated);
         }
+
+        [TestMethod]
+        public void UpdateNotice_NoticeUpdated_SucessUpdating()
+        {
+            NoticeDAO noticeHandler = new NoticeDAO();
+            AcademicDAO academicHandler = new AcademicDAO();
+            int testAcademicID = 1;
+            Academic testAcademic = academicHandler.GetAcademic(testAcademicID);
+
+            Notice noticeUpdate = new Notice()
+            {
+                IdNotice = 2,
+                Title = " Información nueva de Proyectos",
+                Body = "Existen nuevos proyectos disponibles a solicitar",
+                CreationDate = "2012 - 07 - 07 12:00:00",
+                CreatedBy = testAcademic
+            };
+
+            bool testResult = noticeHandler.UpdateNotice(noticeUpdate);
+
+            Assert.IsTrue(testResult);
+        }
     }
 }

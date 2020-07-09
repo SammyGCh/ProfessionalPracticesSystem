@@ -1,60 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+        Date: 15/06/2020                              
+        Author:Ricardo Moguel Sanchez
+ */
+using BusinessLogic;
+using GUI_WPF.Windows;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
-using DataAccess.Implementation;
-using BusinessDomain;
-using BusinessLogic;
 
 namespace GUI_WPF.Pages.Administrator
 {
-    /// <summary>
-    /// Interaction logic for deleteAcademic.xaml
-    /// </summary>
     public partial class DeleteAcademic : Page
     {
-        int idSelectedAcademic;
-        Academic selectedAcademic;
-        ManageAcademic academicManager;
-        bool isActionPerformed;
+        private int selectedAcademicID;
 
-        public DeleteAcademic(Academic academic)
-            
+        public DeleteAcademic(int academicID)
         {
-            academicManager = new ManageAcademic();
-            selectedAcademic = academic;
             InitializeComponent();
+
+            selectedAcademicID = academicID;
         }
 
-        private void RemoveAcademic(object sender, RoutedEventArgs e)
+        private void EliminateAcademic(object sender, RoutedEventArgs e)
         {
-            isActionPerformed = academicManager.EliminateAcademic(selectedAcademic.IdAcademic);
-            if (!isActionPerformed)
+            bool isAcademicDeleted = false;
+
+            ManageAcademic academicManager = new ManageAcademic();
+            isAcademicDeleted = academicManager.DeleteAcademic(selectedAcademicID);
+
+            if (isAcademicDeleted)
             {
-                MessageBoxResult userResponse = System.Windows.MessageBox.Show("No se pudo eliminar el academico.", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                if (userResponse == MessageBoxResult.OK)
-                {
-                    NavigationService.GoBack();
-                }
+                DialogWindowManager.ShowSuccessWindow("Académico eliminado exitosamente");
+                NavigationService.Navigate(new AdministratorHome());
             }
             else
             {
-                System.Windows.MessageBox.Show("Se elimino el Academico exitosamente.", "", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                DialogWindowManager.ShowErrorWindow(
+                "Ocurrió un error al intentar eliminar el académico. Intente más tarde.");
             }
         }
 
-        private void CancelAction(object sender, RoutedEventArgs e)
+        private void CancelDelete(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }

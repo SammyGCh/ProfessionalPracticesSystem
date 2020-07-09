@@ -23,6 +23,8 @@ namespace BusinessLogic
         {
             bool isNoticeSaved = false;
 
+            newNotice.CreationDate = GetPublicationTime(newNotice);
+
             isNoticeSaved = noticeHandler.SaveNotice(newNotice);
 
             return isNoticeSaved;
@@ -32,9 +34,18 @@ namespace BusinessLogic
         {
             bool isUpdated = false;
 
+            noticeUpdate.CreationDate = GetPublicationTime(noticeUpdate);
+
             isUpdated = noticeHandler.UpdateNotice(noticeUpdate);
 
             return isUpdated;
+        }
+
+        public String GetPublicationTime(Notice notice)
+        {
+            String creationTime = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
+
+            return creationTime;
         }
     }
 }

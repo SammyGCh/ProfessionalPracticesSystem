@@ -5,17 +5,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
 using BusinessLogic;
 using DataAccess.Implementation;
@@ -33,7 +26,7 @@ namespace GUI_WPF.Pages.Coordinator
         public UpdatePractitioner(BusinessDomain.Practitioner selectedPractitioner)
         {
             InitializeComponent();
-
+            
             this.DataContext = selectedPractitioner;
 
             genderList = new List<string>
@@ -44,20 +37,26 @@ namespace GUI_WPF.Pages.Coordinator
             };
             practitionerGender.ItemsSource = genderList;
 
-            PractitionerDAO practitionerDAO = new PractitionerDAO();
-            BusinessDomain.Practitioner updatedPractitioner = new BusinessDomain.Practitioner();
-
-            IndigenousLanguageDAO practitionerLanguageDao = new IndigenousLanguageDAO();
-            List<IndigenousLanguage> indigenousLanguageList = practitionerLanguageDao.GetAllIndigenousLanguages();
+            IndigenousLanguageDAO practitionerLanguageHandler = new IndigenousLanguageDAO();
+            List<IndigenousLanguage> indigenousLanguageList = practitionerLanguageHandler.GetAllIndigenousLanguages();
             practitionerLanguageList.ItemsSource = indigenousLanguageList;
 
-            AcademicDAO academicDao = new AcademicDAO();
-            List<Academic> academicList = academicDao.GetAllAcademic();
-            practitionerAcademicList.ItemsSource = academicList;
+            AcademicDAO professorHandler = new AcademicDAO();
+            List<Academic> professorList = professorHandler.GetAllActiveProfessors();
+            practitionerAcademicList.ItemsSource = professorList;
 
-            ScholarPeriodDAO schoolPeriodDao = new ScholarPeriodDAO();
-            List<ScholarPeriod> schoolPeriodList = schoolPeriodDao.GetAllScholarPeriods();
+            ScholarPeriodDAO schoolPeriodHandler = new ScholarPeriodDAO();
+            List<ScholarPeriod> schoolPeriodList = schoolPeriodHandler.GetAllScholarPeriods();
             practitionerSchoolPeriodList.ItemsSource = schoolPeriodList;
+
+            practitionerID.Text = selectedPractitioner.IdPractitioner.ToString();
+            practitionerNames.Text = selectedPractitioner.Names;
+            practitionerSurname.Text = selectedPractitioner.LastName;
+            practitionerMatricula.Text = selectedPractitioner.Matricula;
+            practitionerGender.Text = selectedPractitioner.Gender;
+            practitionerLanguageList.Text = selectedPractitioner.Speaks.IndigenousLanguageName;
+            practitionerAcademicList.Text = selectedPractitioner.Instructed.ToString();
+            practitionerSchoolPeriodList.Text = selectedPractitioner.ScholarPeriod.Name;
         }
 
         private void CancelUpdatePractitioner(object sender, RoutedEventArgs e)
@@ -78,6 +77,8 @@ namespace GUI_WPF.Pages.Coordinator
 
             BusinessDomain.Practitioner updatedNewPractitioner = new BusinessDomain.Practitioner
             {
+                IdPractitioner = int.Parse(practitionerID.Text),
+                Matricula = practitionerMatricula.Text,
                 Names = practitionerNames.Text,
                 LastName = practitionerSurname.Text,
                 Gender = practitionerGender.Text,
@@ -85,6 +86,7 @@ namespace GUI_WPF.Pages.Coordinator
                 Instructed = linkedAcademic,
                 ScholarPeriod = practitionerPeriod
             };
+
             return updatedNewPractitioner;
         }
 
@@ -115,20 +117,25 @@ namespace GUI_WPF.Pages.Coordinator
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else
+            else if(!IsInValidUserName())
             {
                 bool isSaved = SaveUpdatedPractitioner();
 
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El practicante fue actualizado exitosamente.");
-
-                    NavigationService.GoBack();
+                    DialogWindowManager.ShowSuccessWindow(
+                    "El practicante fue actualizado exitosamente.");  
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
+
+                NavigationService.Navigate(new RegisteredPractitionerList());
+            }
+            else
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
             }
         }
 
@@ -146,18 +153,18 @@ namespace GUI_WPF.Pages.Coordinator
 
         }
 
-        private void IsUserName(object sender, TextCompositionEventArgs e)
+        private bool IsInValidUserName()
         {
-            if (!ValidatorText.IsUserName(e.Text))
+            bool isWrong = false;
+
+            String stringToValidate = practitionerMatricula.Text;
+
+            if (!ValidatorText.IsUserName(stringToValidate))
             {
-                e.Handled = true;
-                ((TextBox)sender).BorderBrush = Brushes.Green;
+                isWrong = true;
             }
-            else
-            {
-                e.Handled = false;
-                ((TextBox)sender).BorderBrush = Brushes.Red;
-            }
+
+            return isWrong;
         }
 
         private void IsPersonName(object sender, TextCompositionEventArgs e)
@@ -165,25 +172,11 @@ namespace GUI_WPF.Pages.Coordinator
             if (!ValidatorText.IsPersonName(e.Text))
             {
                 e.Handled = true;
-                ((TextBox)sender).BorderBrush = Brushes.Green;
             }
             else
             {
                 e.Handled = false;
-                ((TextBox)sender).BorderBrush = Brushes.Red;
             }
-
-        }
-
-        private void CleanTextFields()
-        {
-            practitionerMatricula.Clear();
-            practitionerNames.Clear();
-            practitionerSurname.Clear();
-            practitionerGender.SelectedItem = null;
-            practitionerLanguageList.SelectedItem = null;
-            practitionerAcademicList.SelectedItem = null;
-            practitionerSchoolPeriodList.SelectedItem = null;
         }
     }
 }

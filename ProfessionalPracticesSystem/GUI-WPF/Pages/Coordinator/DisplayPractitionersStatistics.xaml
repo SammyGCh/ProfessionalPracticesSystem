@@ -45,7 +45,7 @@
                 <Button Content="Limpiar filtro" Height="35" Margin="50,30,907,0" Click="FilterClean"/>
 
             </StackPanel>
-            <DataGrid x:Name="tableOfPractitioners" HorizontalAlignment="Left" Height="505" Margin="480,133,0,0" VerticalAlignment="Top" Width="800" AutoGenerateColumns="False" Background="#FFFAFAFA" 
+            <DataGrid x:Name="tableOfPractitioners" HorizontalAlignment="Left" Height="505" Margin="670,133,0,0" VerticalAlignment="Top" Width="800" AutoGenerateColumns="False" Background="#FFFAFAFA" 
                   CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AlternatingRowBackground="AliceBlue">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="  Matricula" Width ="150" MinWidth="150" MaxWidth="150" Binding="{Binding Matricula}" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">

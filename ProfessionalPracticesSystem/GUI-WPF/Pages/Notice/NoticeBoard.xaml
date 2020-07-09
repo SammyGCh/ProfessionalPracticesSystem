@@ -15,11 +15,13 @@
             VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="514"/>
 
             <StackPanel Margin="50">
-                <DataGrid x:Name="tableOfNotices" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="940" AutoGenerateColumns="False" Background="#FFFAFAFA" 
-                  CanUserAddRows="false" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="55" AlternatingRowBackground="AliceBlue">
+                <DataGrid x:Name="tableOfNotices" HorizontalAlignment="Center" Height="445"  VerticalAlignment="Top" Width="940" 
+                          AutoGenerateColumns="False" Background="#FFFAFAFA" CanUserAddRows="false" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeight="55" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
 
-                        <DataGridTemplateColumn Header="  Titulo" Width ="150" MinWidth="150" MaxWidth="200"  CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn Header="  Titulo" Width ="150" MinWidth="150" MaxWidth="200"  
+                                                CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -36,7 +38,8 @@
                         </DataGridTemplateColumn>
 
 
-                        <DataGridTemplateColumn Header="Fecha de Publicación"  Width ="250" CanUserResize="False" CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn Header="Fecha de Publicación"  Width ="250" CanUserResize="False" 
+                                                CanUserSort="False" IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -52,7 +55,8 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header=" Creador" Width ="250" MinWidth="250" CanUserResize="False" CanUserReorder="False" IsReadOnly="True" >
+                        <DataGridTemplateColumn Header=" Creador" Width ="250" MinWidth="250" CanUserResize="False" 
+                                                CanUserReorder="False" IsReadOnly="True" >
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF5BA1DA"/>
@@ -63,15 +67,17 @@
                             </DataGridTemplateColumn.HeaderStyle>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding CreatedBy.ToString}" TextWrapping="WrapWithOverflow"/>
+                                    <TextBlock Text="{Binding CreatedBy}" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" IsReadOnly="True" CanUserReorder="False" MaxWidth="150">
+                        <DataGridTemplateColumn  Header="Opciones" Width="150" CanUserResize="False" IsReadOnly="True" 
+                                                 CanUserReorder="False" MaxWidth="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Detalles" Name="details" Width ="100" MinWidth="100" HorizontalAlignment="Left" Click="DisplayNoticeData"/>
+                                    <Button Content="Detalles" Name="details" Width ="100" MinWidth="100" 
+                                            HorizontalAlignment="Left" Click="DisplayNoticeData"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
 
@@ -84,16 +90,13 @@
                             </DataGridTemplateColumn.HeaderStyle>
                         </DataGridTemplateColumn  >
 
-                        <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" IsReadOnly="True" CanUserReorder="False">
+                        <DataGridTemplateColumn  Header="" Width ="142" MinWidth="100" CanUserResize="False" 
+                                                 IsReadOnly="True" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Status}" Value="0">
-                                            <Setter Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                    <Button Content="Actualizar" Name="delete" Width ="100" MinWidth="100" HorizontalAlignment="Left"
-                                            Click="UpdateNoticeData"/>
+
+                                    <Button Content="Actualizar" Name="update" Width ="100" MinWidth="100"
+                                            HorizontalAlignment="Left" Click="UpdateNoticeData" Visibility="Visible" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
 
@@ -118,8 +121,8 @@
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="cancelButton" Width="150" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red"
-                            Click="CancelViewNotices">
+                <Button x:Name="cancelButton" Width="150" Margin="100,0,0,0" Cursor="Hand" 
+                        Background="Red" BorderBrush="Red" Click="CancelViewNotices">
                     <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                         <materialDesign:PackIcon Kind="ArrowBack" Margin="5,3.5,1,1" Width="30"/>
                         <TextBlock Text="Regresar"/>

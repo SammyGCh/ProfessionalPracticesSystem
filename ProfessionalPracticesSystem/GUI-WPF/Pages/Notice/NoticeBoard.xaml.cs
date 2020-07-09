@@ -4,23 +4,15 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataAccess.Implementation;
-using BusinessDomain;
-using BusinessLogic;
 using System.Collections.ObjectModel;
+using GUI_WPF.Pages.Coordinator;
+using GUI_WPF.Pages.Professor;
 using GUI_WPF.Windows;
+using BusinessDomain;
 
 namespace GUI_WPF.Pages.Notice
 {
@@ -29,59 +21,72 @@ namespace GUI_WPF.Pages.Notice
     /// </summary>
     public partial class NoticeBoard : Page
     {
-        private readonly ObservableCollection<BusinessDomain.Notice> notices;
-        //private readonly String currentUserName = " ";
-        private readonly int currentUserID = 2;
         private BusinessDomain.Notice selectedNotice;
+        private readonly ObservableCollection<BusinessDomain.Notice> notices;
+        private readonly String currentPersonalNumber;
+        private readonly int currentUserID;
+        private const int COORDINATOR_TYPE_ID = 1;
+        private const int PROFESSOR_TYPE_ID = 2;
+        
 
-        public NoticeBoard()
+        public NoticeBoard(string userPersonalNumber)
         {
             InitializeComponent();
 
-            //AcademicDAO academicHandler = new AcademicDAO();
-            //currentUserName = WindowManager.GetCurrentUserName();
-            //Academic currentAcademic = academicHandler.GetAcademicByPersonalNumber(currentUserName);
-            //currentUserID = currentAcademic.IdAcademic;
-            currentUserID = 2;
+            currentPersonalNumber = userPersonalNumber;
+
+            AcademicDAO academicHandler = new AcademicDAO();
+            Academic currentAcademic = academicHandler.GetAcademicByPersonalNumber(currentPersonalNumber);
+            currentUserID = currentAcademic.IdAcademic;
+
             NoticeDAO noticeDAO = new NoticeDAO();
             List<BusinessDomain.Notice> allNotices = noticeDAO.GetAllNotices();
 
-            //if (allNotices.Count == 0)
-            //{
-            //    bool wantToCreateNotice = false;
-            //    wantToCreateNotice = DialogWindowManager.ShowConfirmationWindow("No se encuentran avisos. ¿Desea crear un aviso?");
+            if (allNotices.Count == 0)
+            {
+               bool wantToCreateNotice = false;
+                wantToCreateNotice = DialogWindowManager.ShowConfirmationWindow("No se encuentran avisos. ¿Desea crear un aviso?");
 
-            //    if (wantToCreateNotice)
-            //    {
-            //        NavigationService.Navigate(new AddNewNotice(currentUserID));
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
-            //else
-            //{
+                if (wantToCreateNotice)
+                {
+                    NavigationService.Navigate(new AddNewNotice(currentUserID));
+                }
+                else
+                {
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
                 notices = new ObservableCollection<BusinessDomain.Notice>(allNotices);
                 tableOfNotices.ItemsSource = notices;
-           // }
+            }
         }
 
         private void CancelViewNotices(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(WindowManager.GetCurrentUserHomePage());
         }
 
         private void DisplayNoticeData(object sender, RoutedEventArgs e)
         {
             selectedNotice = (BusinessDomain.Notice)tableOfNotices.SelectedItem;
+
             NavigationService.Navigate(new DisplayNotice(selectedNotice));
         }
 
         private void UpdateNoticeData(object sender, RoutedEventArgs e)
         {
             selectedNotice = (BusinessDomain.Notice)tableOfNotices.SelectedItem;
-            NavigationService.Navigate(new UpdateNotice(selectedNotice,currentUserID));
+
+            if(currentUserID == selectedNotice.CreatedBy.IdAcademic)
+            {
+                NavigationService.Navigate(new UpdateNotice(selectedNotice, currentUserID));
+            }
+            else
+            {
+                DialogWindowManager.ShowErrorWindow("Error. No eres el creador del aviso no lo puedes modificar.");
+            }
         }
 
         private void AddNewNotice(object sender, RoutedEventArgs e)

@@ -7,9 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using BusinessDomain;
-using GUI_WPF.Pages.Practitioner;
-using BusinessLogic;
-
+using DataAccess.Implementation;
+using GUI_WPF.Pages.Notice;
 
 namespace GUI_WPF.Pages.Coordinator
 {
@@ -18,6 +17,8 @@ namespace GUI_WPF.Pages.Coordinator
     /// </summary>
     public partial class CoordinatorHome : Page
     {
+        private const int COORDINATOR_TYPE = 1;
+
         public CoordinatorHome()
         {
             InitializeComponent();
@@ -56,21 +57,21 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void GoToNotices(object sender, RoutedEventArgs e)
         {
+            AcademicDAO academicHandler = new AcademicDAO();
 
+            Academic academic = academicHandler.GetCoordinator(); 
+
+            NavigationService.Navigate(new NoticeBoard(academic.PersonalNumber));
         }
 
         private void GoToStatitics(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new DisplayPractitionersStatistics());
         }
+
         private void GoToRequests(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Requests());
-        }
-
-        private void CheckPractitionerButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

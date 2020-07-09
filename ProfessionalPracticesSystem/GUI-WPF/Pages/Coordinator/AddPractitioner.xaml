@@ -4,8 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:uc="clr-namespace:GUI_WPF.UserControls.Practitioner"
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Coordinator"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="900"
       Title="AddPractitioner">
@@ -18,13 +16,16 @@
             </Grid.RowDefinitions>
 
             <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Registrar Practicante" 
-                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
+                       Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" 
+                       RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
 
             <StackPanel Grid.Row="1">
 
-                <materialDesign:Card Background="AliceBlue" Margin="66,30,67,30" Padding="10" BorderThickness="50" Width="750" Height="446">
+                <materialDesign:Card Background="AliceBlue" Margin="66,30,67,30" Padding="10" 
+                                     BorderThickness="50" Width="750" Height="446">
                     <StackPanel x:Name="practitionerData" Margin="0,40,0,8">
-                        <TextBlock FontSize="18" FontWeight="SemiBold" Margin="40,0,0,0"><Run Text="Ingrese informacion del Practicante"/></TextBlock>
+                        <TextBlock FontSize="18" FontWeight="SemiBold" 
+                                   Margin="40,0,0,0"><Run Text="Ingrese informacion del Practicante"/></TextBlock>
 
                         <StackPanel Orientation="Horizontal" Height="25" Width="480" Margin="0,15,0,0">
                             <TextBlock Text="Matricula (*): " Margin="0,2,15,5" FontSize="14" TextAlignment="Right"/>
@@ -33,32 +34,37 @@
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Nombres (*): " Margin="1,2,16,0" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="practitionerNames" Width="378" MaxLength="59" TextCompositionManager.PreviewTextInput="IsPersonName" Margin="0,0,0,-0.2" />
+                            <TextBox x:Name="practitionerNames" Width="378" MaxLength="60" Margin="0,0,0,-0.2"
+                                     TextCompositionManager.PreviewTextInput="IsPersonName" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Apellidos (*): " Margin="2,2,18,-0.2" FontSize="14" TextAlignment="Right"/>
-                            <TextBox x:Name="practitionerSurnames" Width="403" MaxLength="59" TextCompositionManager.PreviewTextInput="IsPersonName" Margin="0,0,0,-0.2" />
+                            <TextBox x:Name="practitionerSurnames" Width="403" MaxLength="60" Margin="0,0,0,-0.2"
+                                     TextCompositionManager.PreviewTextInput="IsPersonName" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Margin="10" Height="25">
                             <TextBlock Text="Genero (*): " Margin="13,3,18,0" FontSize="14" TextAlignment="Right" TextWrapping="Wrap"/>
-                            <ComboBox x:Name="practitionerGender" Width="200" ItemsSource="{Binding genderList}" Height="25" Margin="0,0,0,-0.2"/>
+                            <ComboBox x:Name="practitionerGender" Width="200" Height="25"
+                                      ItemsSource="{Binding genderList}"  Margin="0,0,0,-0.2"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Lengua Indigena (*): " Margin="-47,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerLanguageList" Width="200" ItemsSource="{Binding indigenousLanguageList}" DisplayMemberPath="IndigenousLanguageName"/>
+                            <ComboBox x:Name="practitionerLanguageList" Width="200" ItemsSource="{Binding indigenousLanguageList}" 
+                                      DisplayMemberPath="IndigenousLanguageName"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Académico Asignado (*): " Margin="-73,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerAcademicList" Width="200" ItemsSource="{Binding academicList}" DisplayMemberPath="LastName"/>
+                            <ComboBox x:Name="practitionerAcademicList" Width="200" ItemsSource="{Binding academicList}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Width="480" Height="25" Margin="10">
                             <TextBlock Text="Periodo Escolar (*): " Margin="-37,3,18,1" FontSize="14" />
-                            <ComboBox x:Name="practitionerSchoolPeriodList" Width="200" ItemsSource="{Binding scholarPeriodList}" DisplayMemberPath="Name" Margin="0,0,0,-0.2"/>
+                            <ComboBox x:Name="practitionerSchoolPeriodList" Width="200" ItemsSource="{Binding scholarPeriodList}" 
+                                      DisplayMemberPath="Name" Margin="0,0,0,-0.2"/>
                         </StackPanel>
 
                     </StackPanel>
@@ -77,8 +83,8 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="cancelButton" Width="120" Margin="100,0,0,0" Cursor="Hand" Background="Red" BorderBrush="Red"
-                            Click="CancelAddNewPractitioner">
+                    <Button x:Name="cancelButton" Width="120" Margin="100,0,0,0" Cursor="Hand" 
+                            Background="Red" BorderBrush="Red" Click="CancelAddNewPractitioner">
                         <StackPanel Orientation="Horizontal" Width="110" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Cancel" Margin="5,3.5,1,1" Width="30"/>
                             <TextBlock Text="Cancelar"/>

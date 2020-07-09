@@ -3,19 +3,10 @@
         Author:Ricardo Moguel Sanchez
  */
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BusinessDomain;
 using BusinessLogic;
 using DataAccess.Implementation;
@@ -28,7 +19,7 @@ namespace GUI_WPF.Pages.Notice
     /// </summary>
     public partial class UpdateNotice : Page
     {
-        private readonly Academic creatorAcademic = null;
+        private readonly Academic currentAcademic;
 
         public UpdateNotice(BusinessDomain.Notice selectedNotice, int currentUserID)
         {
@@ -37,14 +28,21 @@ namespace GUI_WPF.Pages.Notice
             this.DataContext = selectedNotice;
 
             AcademicDAO academicHandler = new AcademicDAO();
-            creatorAcademic = academicHandler.GetAcademic(currentUserID);
+
+            currentAcademic = academicHandler.GetAcademic(currentUserID);
+
+            noticeID.Text = selectedNotice.IdNotice.ToString();
+            noticeTitle.Text = selectedNotice.Title;
+            noticeBody.Text = selectedNotice.Body;
+            noticeCreator.Text = selectedNotice.CreatedBy.ToString();
+            noticeCreationDate.Text = selectedNotice.CreationDate;
             
         }
-        
 
         private void CancelUpdateNotice(object sender, RoutedEventArgs e)
         {
-            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow("¿Seguro que deseas cancelar la actualización?");
+            bool cancelConfirmation = DialogWindowManager.ShowConfirmationWindow(
+                                      "¿Seguro que deseas cancelar la actualización?");
 
             if (cancelConfirmation)
             {
@@ -57,10 +55,10 @@ namespace GUI_WPF.Pages.Notice
 
             BusinessDomain.Notice noticeUpdate = new BusinessDomain.Notice
             {
+                IdNotice = int.Parse(noticeID.Text),
                 Title = noticeTitle.Text,
                 Body = noticeBody.Text,
-                CreationDate = DateTime.Now.ToString("MM/dd/yyyy"),
-                CreatedBy = creatorAcademic
+                CreatedBy = currentAcademic
             };
             return noticeUpdate;
         }
@@ -76,7 +74,7 @@ namespace GUI_WPF.Pages.Notice
                     )
                 )
                 ||
-                creatorAcademic == null
+                currentAcademic == null
             )
             {
                 areEmpty = true;
@@ -91,20 +89,26 @@ namespace GUI_WPF.Pages.Notice
             {
                 DialogWindowManager.ShowEmptyFieldsErrorWindow();
             }
-            else
+            else if(AreFieldsValid())
             {
                 bool isSaved = SaveNoticeUpdate();
 
                 if (isSaved)
                 {
-                    DialogWindowManager.ShowSuccessWindow("El Aviso fue actualizado exitosamente.");
-
-                    NavigationService.GoBack();
+                    DialogWindowManager.ShowSuccessWindow(
+                        "El Aviso fue actualizado exitosamente."); 
                 }
                 else
                 {
                     DialogWindowManager.ShowConnectionErrorWindow();
                 }
+
+                
+                NavigationService.Navigate(new NoticeBoard(currentAcademic.PersonalNumber));
+            }
+            else
+            {
+                DialogWindowManager.ShowWrongFieldsErrorWindow();
             }
         }
 
@@ -122,23 +126,30 @@ namespace GUI_WPF.Pages.Notice
 
         }
 
-        private void IsText(object sender, TextCompositionEventArgs e)
+        private bool AreFieldsValid()
         {
-            if (!ValidatorText.IsTextRight(e.Text))
+            bool isValid = false;
+
+            if (IsValidNoticeText(noticeTitle.Text) 
+                && IsValidNoticeText(noticeBody.Text))
             {
-                e.Handled = true;
-            }
-            else
-            {
-                e.Handled = false;
+                isValid = true;
             }
 
+            return isValid;
         }
 
-        private void CleanTextFields()
+        private bool IsValidNoticeText(String testString)
         {
-            noticeTitle.Clear();
-            noticeBody.Clear();
+            bool isWrong = false;
+
+            String stringToValidate = testString;
+            if (ValidatorText.IsTextRight(stringToValidate))
+            {
+                isWrong = true;
+            }
+
+            return isWrong;
         }
     }
 }

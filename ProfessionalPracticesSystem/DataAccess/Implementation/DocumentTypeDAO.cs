@@ -24,6 +24,46 @@ namespace DataAccess.Implementation
             connection = new DataBaseConnection();
         }
 
+        public List<DocumentType> GetAllDocumentType()
+        {
+            try
+            {
+                documentTypeList = new List<DocumentType>();
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "SELECT * FROM DocumentType"
+                };
+
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    documentType = new DocumentType
+                    {
+                        IdDocumentType = reader.GetInt32(0),
+                        Name = reader.GetString(1)
+                    };
+
+                    documentTypeList.Add(documentType);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                LogManager.WriteLog("Something went wrong in  DataAccess/Implementation/DocumentTypeDAO/GetAllDocumentType:", ex);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                connection.CloseConnection();
+            }
+
+            return documentTypeList;
+        }
+
         public DocumentType GetDocumentType(int idDocumentType)
         {
             try

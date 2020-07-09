@@ -75,13 +75,14 @@ namespace DataAccess.Implementation
                 query = new MySqlCommand("", mySqlConnection)
                 {
                     CommandText = "UPDATE Notice SET title = @title, body = @body, " +
-                    "date = @date, idAcademic = @idAcademic"
+                    "date = @date, idAcademic = @idAcademic WHERE Notice.idNotice = @idNotice"
                 };
 
                 query.Parameters.Add("@title", MySqlDbType.VarChar, 45).Value = updatedNotice.Title;
                 query.Parameters.Add("@body", MySqlDbType.VarChar, 255).Value = updatedNotice.Body;
                 query.Parameters.Add("@date", MySqlDbType.DateTime, 20).Value = DateTime.Parse(updatedNotice.CreationDate);
                 query.Parameters.Add("@idAcademic", MySqlDbType.Int32, 2).Value = updatedNotice.CreatedBy.IdAcademic;
+                query.Parameters.Add("@idNotice", MySqlDbType.Int32, 2).Value = updatedNotice.IdNotice;
 
                 query.ExecuteNonQuery();
                 isUpdated = true;
@@ -132,106 +133,6 @@ namespace DataAccess.Implementation
             catch (MySqlException mySQLException)
             {
                 LogManager.WriteLog("Something went wrong in DataAccess/Implementation/NoticeDAO", mySQLException);
-            }
-            finally
-            {
-                if (noticeReader != null)
-                {
-                    noticeReader.Close();
-                }
-
-                connection.CloseConnection();
-            }
-
-            return notices;
-        }
-
-        public Notice GetNoticeById(int idNotice)
-        {
-            try
-            {
-                mySqlConnection = connection.OpenConnection();
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "SELECT * FROM Notice WHERE Notice.idNotice = @idNotice"
-                };
-                MySqlParameter id = new MySqlParameter("@idNotice", MySqlDbType.Int32, 2)
-                {
-                    Value = idNotice
-                };
-
-                query.Parameters.Add(id);
-
-                noticeReader = query.ExecuteReader();
-
-                while (noticeReader.Read())
-                {
-                    notice = new Notice
-                    {
-                        IdNotice = noticeReader.GetInt32(0),
-                        Title = noticeReader.GetString(1),
-                        Body = noticeReader.GetString(2),
-                        CreationDate = noticeReader.GetString(3),
-                        CreatedBy = academicHandler.GetAcademic(noticeReader.GetInt32(4)),
-                    };
-                }
-            }
-            catch (MySqlException mySQLException)
-            {
-                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/NoticeDAO ", mySQLException);
-            }
-            finally
-            {
-                if (noticeReader != null)
-                {
-                    noticeReader.Close();
-                }
-
-                connection.CloseConnection();
-            }
-
-            return notice;
-        }
-
-        public List<Notice> GetAllNoticesByAcademic(int idAcademic)
-        {
-            notices = new List<Notice>();
-            academicHandler = new AcademicDAO();
-            try
-            {
-                mySqlConnection = connection.OpenConnection();
-
-                query = new MySqlCommand("", mySqlConnection)
-                {
-                    CommandText = "SELECT * FROM Notice WHERE idAcademic = @idAcademic"
-                };
-
-                MySqlParameter id = new MySqlParameter("@idAcademic", MySqlDbType.Int32, 2)
-                {
-                    Value = idAcademic
-                };
-
-                query.Parameters.Add(id);
-                noticeReader = query.ExecuteReader();
-
-                while (noticeReader.Read())
-                {
-                    notice = new Notice
-                    {
-                        IdNotice = noticeReader.GetInt32(0),
-                        Title = noticeReader.GetString(1),
-                        Body = noticeReader.GetString(2),
-                        CreationDate = noticeReader.GetString(3),
-                        CreatedBy = academicHandler.GetAcademic(noticeReader.GetInt32(4)),
-                    };
-
-                    notices.Add(notice);
-                }
-
-            }
-            catch (MySqlException mySQLException)
-            {
-                LogManager.WriteLog("Someting whent wrong in DataAccess/Implementation/NoticeDAO ", mySQLException);
             }
             finally
             {

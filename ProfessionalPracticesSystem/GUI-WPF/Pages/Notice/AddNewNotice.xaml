@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:GUI_WPF.Pages.Notice"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="900"
       Title="AddNewNotice">
@@ -16,8 +15,8 @@
                 <RowDefinition Height="188*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Crear Nuevo Aviso" 
-                  Grid.Row="0" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
+            <TextBlock HorizontalAlignment="Left" Margin="52,10,0,0" TextWrapping="Wrap" Text="Crear Nuevo Aviso" Grid.Row="0" 
+                       VerticalAlignment="Top" FontSize="40" FontWeight="Bold" RenderTransformOrigin="0.508,0.142" Height="54" Width="459"/>
 
             <StackPanel Grid.Row="1">
 
