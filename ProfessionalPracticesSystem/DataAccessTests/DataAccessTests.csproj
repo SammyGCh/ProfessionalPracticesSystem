@@ -59,22 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AcademicDAOTest.cs" />
-    <Compile Include="AcademicTypeDAOTest.cs" />
-    <Compile Include="ActivityPerformedDAOTest.cs" />
     <Compile Include="DataBaseConnectionTest.cs" />
-    <Compile Include="DevelopmentStageDAOTest.cs" />
-    <Compile Include="DocumentDAOTest.cs" />
-    <Compile Include="DocumentTypeDAOTest.cs" />
-    <Compile Include="IndigenousLanguageDAOTests.cs" />
-    <Compile Include="LinkedOrganizationDAOTest.cs" />
-    <Compile Include="MensualReporDAOTest.cs" />
-    <Compile Include="OrganizationSectorDAOTest.cs" />
-    <Compile Include="PractitionerDAOTest.cs" />
-    <Compile Include="ProfessorActivityDAOTest.cs" />
-    <Compile Include="ProjectDAOTest.cs" />
-    <Compile Include="ProjectsRequestDAOTest.cs" />
-    <Compile Include="ScholarPeriodDAOTest.cs" />
     <Compile Include="InsertDataTest.cs" />
     <Compile Include="GetDataTest.cs" />
     <Compile Include="UpdateDataTest.cs" />
