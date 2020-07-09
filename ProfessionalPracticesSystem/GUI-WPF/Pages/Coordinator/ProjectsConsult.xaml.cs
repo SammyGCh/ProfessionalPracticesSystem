@@ -21,7 +21,6 @@ namespace GUI_WPF.Pages.Coordinator
     {
         private readonly ObservableCollection<Project> projects;
         private Project projectSelected;
-        ICollectionView projectsView;
 
         public ProjectsConsult()
         {
@@ -29,9 +28,9 @@ namespace GUI_WPF.Pages.Coordinator
             ProjectDAO projectDao = new ProjectDAO();
             List<Project> allProjects = projectDao.GetActiveProjects();
             projects = new ObservableCollection<Project>(allProjects);
-            projectsView = CollectionViewSource.GetDefaultView(allProjects);
-            tableProjects.ItemsSource = projectsView;
+            tableProjects.ItemsSource = projects;
         }
+
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();

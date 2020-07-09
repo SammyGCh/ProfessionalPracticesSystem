@@ -26,7 +26,7 @@ namespace GUI_WPF.Pages.Coordinator
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new ProjectsConsult());
         }
 
         private void GoToProjectData(object sender, RoutedEventArgs e)
@@ -46,10 +46,8 @@ namespace GUI_WPF.Pages.Coordinator
                 DataContext = projectSelected
             };
 
-            /*
             NavigationService.Navigate(new ProjectUpdate(projectResponsableControl));
-            */
-            PageMannagerNavigation.NavigateTo(this, new ProjectUpdate(projectResponsableControl));
+
         }
 
         private void GoToProjectActivities(object sender, RoutedEventArgs e)

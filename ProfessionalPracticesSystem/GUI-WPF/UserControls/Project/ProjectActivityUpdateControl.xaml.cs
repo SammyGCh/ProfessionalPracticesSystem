@@ -24,9 +24,16 @@ namespace GUI_WPF.UserControls.Project
         public ProjectActivityUpdateControl(BusinessDomain.Project projectSelected)
         {
             InitializeComponent();
-            project = projectSelected;
-            projectActivities = new ObservableCollection<ProjectActivity>(projectSelected.ProjectActivities);
+            
 
+            if (projectSelected != null)
+            {
+                project = projectSelected;
+                this.DataContext = projectSelected;
+
+                projectActivities = new ObservableCollection<ProjectActivity>(project.ProjectActivities);
+            }
+            
             projectActivityList.ItemsSource = projectActivities;
         }
 

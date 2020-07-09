@@ -112,7 +112,7 @@ namespace DataAccessTests
             ProjectActivity projectActivity = new ProjectActivity
             {
                 Name = "Realizar entrevista a los directores encargados del modulo de adultos mayores",
-                Month = "AGOSTO"
+                Month = "Octubre"
             };
 
             bool isSaved = projectDao.SaveProjectActivity(projectActivity, projectName);
