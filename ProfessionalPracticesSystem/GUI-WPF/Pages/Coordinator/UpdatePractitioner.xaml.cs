@@ -135,7 +135,8 @@ namespace GUI_WPF.Pages.Coordinator
             }
             else
             {
-                DialogWindowManager.ShowWrongFieldsErrorWindow();
+                DialogWindowManager.ShowErrorWindow(
+                "Error. La matricula ingresada es inválida. Debe iniciar con S capital y contener 8 digitos");
             }
         }
 
