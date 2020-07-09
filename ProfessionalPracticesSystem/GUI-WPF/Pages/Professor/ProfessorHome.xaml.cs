@@ -2,7 +2,10 @@
     Date: 02/07/2020                              
     Author:Cesar Sergio Martinez Palacios
  */
+using DataAccess.Implementation;
+using GUI_WPF.Windows;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -16,6 +19,36 @@ namespace GUI_WPF.Pages.Professor
     public partial class ProfessorHome : Page
     {
         private String personalNumber;
+
+        private bool IsCheckPartialReportsAvailable()
+        {
+            bool isActive = false;
+
+            DocumentDAO documentDAO = new DocumentDAO();
+            List<BusinessDomain.Document> partialReportsList = documentDAO.GetAllPartialReportByAcademic(personalNumber);
+
+            if (partialReportsList.Count > 0)
+            {
+                isActive = true;
+            }
+
+            return isActive;
+        }
+
+        private bool IsCheckMensualReportsAvailable()
+        {
+            bool isActive = false;
+
+            MensualReportDAO mensualReportDAO = new MensualReportDAO();
+            List<BusinessDomain.MensualReport> mensualReportsList = mensualReportDAO.GetAllReportsByAcademic(personalNumber);
+
+            if (mensualReportsList.Count > 0)
+            {
+                isActive = true;
+            }
+
+            return isActive;
+        }
 
         public ProfessorHome(String personalNumber)
         {
@@ -32,14 +65,29 @@ namespace GUI_WPF.Pages.Professor
         {
 
         }
+
         private void CheckMensualReports(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MensualReportsList(personalNumber));
+            if (IsCheckMensualReportsAvailable())
+            {
+                NavigationService.Navigate(new MensualReportsList(personalNumber));
+            }
+            else
+            {
+                DialogWindowManager.ShowEmptyListErrorWindow();
+            }
         }
 
         private void CheckPartialReports(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PartialReportsList(personalNumber));
+            if (IsCheckPartialReportsAvailable())
+            {
+                NavigationService.Navigate(new PartialReportsList(personalNumber));
+            }
+            else
+            {
+                DialogWindowManager.ShowEmptyListErrorWindow();
+            }
         }
     }
 }

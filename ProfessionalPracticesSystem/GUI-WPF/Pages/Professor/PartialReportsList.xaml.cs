@@ -21,18 +21,11 @@ namespace GUI_WPF.Pages.Professor
         public PartialReportsList(String personalNumber)
         {
             InitializeComponent();
+
             DocumentDAO documentDAO = new DocumentDAO();
             List<BusinessDomain.Document> partialReportsList = documentDAO.GetAllPartialReportByAcademic(personalNumber);
 
-            if (partialReportsList.Count == 0)
-            {
-                DialogWindowManager.ShowEmptyListErrorWindow();
-                NavigationService.GoBack();
-            }
-            else
-            {
-                partialReportsTable.ItemsSource = partialReportsList;
-            }
+            partialReportsTable.ItemsSource = partialReportsList;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

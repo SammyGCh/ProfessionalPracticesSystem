@@ -24,16 +24,7 @@ namespace GUI_WPF.Pages.Professor
             MensualReportDAO mensualReportDAO = new MensualReportDAO();
             List<BusinessDomain.MensualReport> mensualReportsList = mensualReportDAO.GetAllReportsByAcademic(personalNumber);
 
-
-            if (mensualReportsList.Count == 0)
-            {
-                DialogWindowManager.ShowEmptyListErrorWindow();
-                NavigationService.GoBack();
-            }
-            else
-            {
-                mensualReportsTable.ItemsSource = mensualReportsList;
-            }
+            mensualReportsTable.ItemsSource = mensualReportsList;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
