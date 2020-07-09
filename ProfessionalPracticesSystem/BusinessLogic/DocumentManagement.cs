@@ -29,10 +29,10 @@ namespace BusinessLogic
         {
             bool isAdded = false;
 
-            if (SaveDocumentInDataBase(newDocument))
+            CreateDirectoryInFTPServer(newDocument);
+            if (AddDocumentInFTPServer(newDocument, sourcePath))
             {
-                CreateDirectoryInFTPServer(newDocument);
-                isAdded = AddDocumentInFTPServer(newDocument, sourcePath);
+                isAdded = SaveDocumentInDataBase(newDocument);
             }
 
             return isAdded;
