@@ -3,9 +3,6 @@
     Author(s): Sammy Guadarrama Chávez
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace BusinessLogic
@@ -15,7 +12,7 @@ namespace BusinessLogic
         private const int MINIMUM_LENGHT = 10;
         private const int MINIMUM_LENGHT_MENSUAL_REPORT = 200;
         private const int MINIMUM_LENGHT_PARTIAL_REPORT = 200;
-        private const int MINIMUM_LENGHT_OBSERVATIONS_REPORT = 100;
+        private const int MINIMUM_LENGHT_OBSERVATIONS_REPORT = 7;
 
         public static bool IsUserName(string userName)
         {
